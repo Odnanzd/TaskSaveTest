@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/BackgroundTheme"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    tools:context=".activity_login">
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_person_24"
+        android:layout_gravity="center"
+        android:layout_marginTop="150dp"
+
+        />
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/text_view_login"
+    android:layout_gravity="center"
+    android:layout_marginTop="10dp"
+    android:textSize="20sp"
+    android:id="@+id/text_view_user"
+    />
+    <EditText
+        android:id="@+id/inputNome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:autofillHints=""
+        android:textSize="20sp"
+        android:hint="@string/edit_nome"
+        android:minHeight="48dp"
+        tools:ignore="TextFields"
+        android:fontFamily="@font/baloo"
+        android:inputType="text"
+        />
+
+
+    <Button
+        android:id="@+id/button_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_gravity="center"
+        android:text="@string/edit_text"
+        style="@style/BackGroundTintThemeButton"
+        />
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,0 +1,29 @@
+<resources>
+
+    <!---Nome do app-->
+
+    <string name="app_name">TaskSave</string>
+
+
+    <!---Strings activity_fingerprint-->
+
+    <string name="text_view_fingerprint">Autenticar FingerPrint</string>
+    <string name="button_fing">Tentar usando outro método</string>
+    <string name="button_fing2">Entrar com Impressão Digital</string>
+
+    <!---Strings activity_login-->
+
+    <string name="edit_nome">Insira seu usuário de acesso:</string>
+    <string name="edit_text">Entrar</string>
+    <string name="text_view_login">Bem-vindo Usuário</string>
+
+    <!---Strings activity_main-->
+
+    <string name="text_view">Olá, Usuário</string>
+    <string name="text_view_agenda">Agenda</string>
+    <string name="text_view_calendar">Datas</string>
+    <string name="text_view_senha">Senhas</string>
+    <string name="text_view_documento">Documentos</string>
+    <string name="text_view_config">Config.</string>
+    <string name="text_view_sair">Sair</string>
+</resources>

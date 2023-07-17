@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/BackgroundTheme"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".activity_fingerprint">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:src="@drawable/baseline_fingerprint"
+        style="@style/BackgroundFingerPrint"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/txt_fing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/text_view_fingerprint"
+        />
+
+    <Button
+        android:id="@+id/button_fing1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/button_fing2"
+        style="@style/BackGroundTintThemeButton"
+        />
+
+    <Button
+        android:id="@+id/button_fing2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_fing"
+        style="@style/BackGroundTintThemeButton2"
+        android:textColor="@color/white"
+        />
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

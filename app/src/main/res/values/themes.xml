@@ -1,0 +1,32 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.TaskSave" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="Theme.TaskSave" parent="Base.Theme.TaskSave" />
+    
+    <style name="BackgroundTheme">
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="BackGroundTintThemeButton">
+        <item name="android:backgroundTint">@color/black1</item>
+    </style>
+
+    <style name="TextColorTheme">
+        <item name="android:textColor">@color/blue1</item>
+    </style>
+
+    <style name="BackGroundTintThemeButton2">
+        <item name="android:backgroundTint">@color/red1</item>
+    </style>
+    <style name="TextColorTheme2">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="BackgroundFingerPrint">
+        <item name="android:tint">@color/green1</item>
+    </style>
+</resources>
