@@ -25,13 +25,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/text_view"
-        android:textColor="@color/white"
+        style="@style/TextColorTheme3"
         android:textSize="30sp"
         android:textStyle="bold"
         android:layout_marginTop="22dp"
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/back"
@@ -46,11 +46,14 @@
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="0dp">
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="40dp"
                 android:gravity="center">
 
                 <LinearLayout
@@ -67,7 +70,7 @@
                             android:id="@+id/image_view_circle_agenda"
                             android:layout_width="102dp"
                             android:layout_height="115dp"
-                            app:srcCompat="@drawable/green_circle"
+                            app:srcCompat="@drawable/teste_quadrado"
                             tools:ignore="MissingConstraints" />
 
                         <ImageView
@@ -85,7 +88,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/text_view_agenda"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="18sp"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -110,7 +113,7 @@
                             android:id="@+id/image_view_circle_calendar"
                             android:layout_width="102dp"
                             android:layout_height="115dp"
-                            app:srcCompat="@drawable/green_circle"
+                            app:srcCompat="@drawable/teste_quadrado"
                             tools:ignore="MissingConstraints" />
 
                         <ImageView
@@ -128,7 +131,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/text_view_calendar"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="18sp"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -153,7 +156,7 @@
                             android:id="@+id/image_view_circle_senhas"
                             android:layout_width="102dp"
                             android:layout_height="115dp"
-                            app:srcCompat="@drawable/green_circle"
+                            app:srcCompat="@drawable/teste_quadrado"
                             tools:ignore="MissingConstraints"
                             tools:layout_editor_absoluteX="0dp"
                             tools:layout_editor_absoluteY="3dp" />
@@ -173,7 +176,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/text_view_senha"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="18sp"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -194,8 +197,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:orientation="vertical"
-                    >
+                    android:orientation="vertical">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -205,7 +207,7 @@
                             android:id="@+id/image_view_circle_documento"
                             android:layout_width="102dp"
                             android:layout_height="115dp"
-                            app:srcCompat="@drawable/green_circle"
+                            app:srcCompat="@drawable/teste_quadrado"
                             tools:ignore="MissingConstraints" />
 
                         <ImageView
@@ -223,7 +225,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/text_view_documento"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="18sp"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -248,7 +250,7 @@
                             android:id="@+id/image_view_circle_config"
                             android:layout_width="102dp"
                             android:layout_height="115dp"
-                            app:srcCompat="@drawable/green_circle"
+                            app:srcCompat="@drawable/teste_quadrado"
                             tools:ignore="MissingConstraints" />
 
                         <ImageView
@@ -266,7 +268,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/text_view_config"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="18sp"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -291,7 +293,7 @@
                             android:id="@+id/image_view_circle_logout"
                             android:layout_width="102dp"
                             android:layout_height="115dp"
-                            app:srcCompat="@drawable/green_circle"
+                            app:srcCompat="@drawable/teste_quadrado"
                             tools:ignore="MissingConstraints" />
 
                         <ImageView
@@ -309,7 +311,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/text_view_sair"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="18sp"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"

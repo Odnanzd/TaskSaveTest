@@ -13,9 +13,9 @@
 
     <!---Strings activity_login-->
 
-    <string name="edit_nome">Insira seu usuário de acesso:</string>
+    <string name="edit_nome">Insira um usuário:</string>
     <string name="edit_text">Entrar</string>
-    <string name="text_view_login">Bem-vindo Usuário</string>
+    <string name="text_view_login">Bem-vindo</string>
 
     <!---Strings activity_main-->
 

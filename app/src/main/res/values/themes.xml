@@ -29,4 +29,12 @@
     <style name="BackgroundFingerPrint">
         <item name="android:tint">@color/green1</item>
     </style>
+
+    <style name="TextColorTheme3">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="BackgroundThemeItens">
+        <item name="android:color">@color/blue5</item>
+    </style>
 </resources>
