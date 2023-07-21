@@ -2,19 +2,23 @@ package com.example.tasksave;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 public class activity_main extends activity_login {
 
 public ImageView imageView;
+
 
     @SuppressLint({"MissingInflatedId", "SetTextI18n"})
     @Override
     public void onBackPressed() {
     }
 
+    @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -31,4 +35,5 @@ public ImageView imageView;
             }
         });
     }
+
 }
