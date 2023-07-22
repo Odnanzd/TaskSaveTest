@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,15 +20,15 @@ import java.util.concurrent.Executor;
 public class activity_fingerprint extends activity_login {
 
 
-    Button button_fing1, button_fing2;
+    Button button_fing2;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fingerprint);
-        button_fing1 = findViewById(R.id.button_fing1);
         button_fing2 = findViewById(R.id.button_fing2);
-
+        imageView = findViewById(R.id.image_view_button_fing);
 
         ChecarBiometria();
         Executor executor = ContextCompat.getMainExecutor(this);
@@ -64,7 +65,7 @@ public class activity_fingerprint extends activity_login {
                 Toast.makeText(activity_fingerprint.this, "Erro", Toast.LENGTH_SHORT).show();
             }
         });
-        button_fing1.setOnClickListener(view -> {
+        imageView.setOnClickListener(view -> {
             BiometricPrompt.PromptInfo.Builder promtInfo = CaixaDialogo();
             promtInfo.setNegativeButtonText("Cancelar");
             biometricPrompt.authenticate(promtInfo.build());
@@ -114,7 +115,7 @@ public class activity_fingerprint extends activity_login {
     }
 
     void enableButton(boolean enable) {
-        button_fing1.setEnabled(enable);
+        imageView.setEnabled(enable);
         button_fing2.setEnabled(true);
     }
 

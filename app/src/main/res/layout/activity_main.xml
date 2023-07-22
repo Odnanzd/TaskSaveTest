@@ -22,16 +22,16 @@
 
     <TextView
         android:id="@+id/textView"
+        style="@style/TextColorTheme3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/text_view"
-        style="@style/TextColorTheme3"
+        android:layout_marginTop="20dp"
+        android:text=""
         android:textSize="30sp"
         android:textStyle="bold"
-        android:layout_marginTop="22dp"
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"/>
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/back"

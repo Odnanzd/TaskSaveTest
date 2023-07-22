@@ -2,15 +2,15 @@ package com.example.tasksave;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.TextView;
 
 public class activity_main extends activity_login {
 
-public ImageView imageView;
+    public ImageView imageView;
+    public TextView text_view_main;
 
 
     @SuppressLint({"MissingInflatedId", "SetTextI18n"})
@@ -24,6 +24,8 @@ public ImageView imageView;
         setContentView(R.layout.activity_main);
 
         imageView = findViewById(R.id.image_view_circle_agenda);
+        text_view_main = findViewById(R.id.textView);
+        alterarNomeTextView();
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,6 +36,20 @@ public ImageView imageView;
                 startActivity(intent2);
             }
         });
+
+
     }
 
+    //MÉTODOS
+
+
+    public void alterarNomeTextView() {
+        Intent intent = getIntent();
+        Bundle b = intent.getExtras();
+
+        if (b != null) {
+            String usernametext = (String) b.get("arqName");
+            text_view_main.setText(usernametext);
+        }
+    }
 }
