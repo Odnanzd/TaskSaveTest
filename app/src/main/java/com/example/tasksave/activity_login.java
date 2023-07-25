@@ -47,30 +47,22 @@ public class activity_login extends AppCompatActivity {
                     editor.commit();
                     Toast.makeText(activity_login.this, "Gravado com Sucesso", Toast.LENGTH_SHORT).show();
                     Intent intentMain = new Intent(activity_login.this, activity_main.class);
-                    intentMain.putExtra("arqName", input_Nome.getText().toString());
                     startActivity(intentMain);
-                    salvarUser();
+                    InserirUser();
                 }
 
             }
 
         });
         }
-        public void salvarUser() {
-            try {
-                database = this.openOrCreateDatabase("database", MODE_PRIVATE, null);
-                database.execSQL("CREATE TABLE IF NOT EXISTS user (name TEXT);");
+        public void InserirUser() {
 
-                ContentValues values = new ContentValues();
-                values.put("username", String.valueOf("arqName"));
+                User user = new User(input_Nome.getText().toString());
 
-                // Insira os dados na tabela "agenda"
-                database.insert("user", null, values);
-                database.close();
-            } catch (Exception e) {
-                e.printStackTrace();
+
+
             }
         }
-        }
+
 
 

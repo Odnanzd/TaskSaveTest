@@ -48,7 +48,7 @@ public class activity_main extends activity_login {
         Bundle b = intent.getExtras();
 
         if (b != null) {
-            String usernametext = (String) b.get("arqName");
+            String usernametext = (String) b.get("Olá" + "arqName");
             text_view_main.setText(usernametext);
         }
     }
