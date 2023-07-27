@@ -23,9 +23,9 @@ public class activity_agenda extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agenda);
 
-        abrirOuCriarDB();
-        inserirDados();
-        listarDados();
+        //abrirOuCriarDB();
+        //inserirDados();
+        //listarDados();
     }
 
     // Método para abrir ou criar o banco de dados

@@ -45,10 +45,9 @@ public class activity_login extends AppCompatActivity {
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putBoolean("primeiroAcesso", true);
                     editor.commit();
-                    Toast.makeText(activity_login.this, "Gravado com Sucesso", Toast.LENGTH_SHORT).show();
+                    InserirUser();
                     Intent intentMain = new Intent(activity_login.this, activity_main.class);
                     startActivity(intentMain);
-                    InserirUser();
                 }
 
             }
@@ -57,11 +56,22 @@ public class activity_login extends AppCompatActivity {
         }
         public void InserirUser() {
 
+            try {
+
+
                 User user = new User(input_Nome.getText().toString());
 
+                UserDAO userDAO = new UserDAO(this);
+                long id = userDAO.inserir(user);
+
+                Toast.makeText(this, "Usuário salvo. ID: " + id, Toast.LENGTH_LONG).show();
 
 
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+
+        }
         }
 
 
