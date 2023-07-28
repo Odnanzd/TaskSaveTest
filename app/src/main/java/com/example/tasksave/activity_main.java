@@ -34,7 +34,16 @@ public class activity_main extends AppCompatActivity {
 
         imageView = findViewById(R.id.image_view_circle_agenda);
         text_view_main = findViewById(R.id.textView);
-        ExibirUsername();
+        //ExibirUsername();
+        UserDAO userDAO = new UserDAO(this);
+        List<User> userList = userDAO.ListarNome();
+
+        if (userList.size() > 0) {
+            User user = userList.get(0); // Assume that only one user is inserted.
+            text_view_main.setText(user.getUsername());
+        } else {
+            text_view_main.setText("Nenhum usuário encontrado");
+        }
 
 
 
@@ -50,20 +59,18 @@ public class activity_main extends AppCompatActivity {
 
         }
 
-        public void ExibirUsername() {
-        try {
-            SQLiteDatabase db = con.getReadableDatabase();
-            Cursor cursor = db.rawQuery("SELECT username FROM USER", null);
-
-            if (cursor != null && cursor.moveToFirst()) {
-                cursor.moveToFirst();
-                @SuppressLint("Range")
-                String txt = cursor.getString(cursor.getColumnIndex("username"));
-                text_view_main.setText("Olá" + txt);
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//        public void ExibirUsername() {
+//        try {
+//            SQLiteDatabase db = con.getReadableDatabase();
+//            Cursor cursor = db.rawQuery("SELECT username FROM user", null);
+//                cursor.moveToFirst();
+//                @SuppressLint("Range")
+//                String txt = cursor.getString(cursor.getColumnIndex("username"));
+//                text_view_main.setText("Olá" + txt);
+//            cursor.close();
+//
+//            } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
     }

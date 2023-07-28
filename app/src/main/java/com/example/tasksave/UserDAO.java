@@ -1,5 +1,6 @@
 package com.example.tasksave;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -28,17 +29,23 @@ public class UserDAO {
         return db.insert("user", null, contentValues);
 
     }
+
     public List<User> ListarNome() {
 
         List<User> listausername = new ArrayList<User>();
 
         Cursor cursor = db.rawQuery("SELECT * FROM user", null);
 
-        while (cursor.moveToFirst()) {
-
-            listausername.add(new User(cursor.getString(1)));
-
+        if (cursor.moveToFirst()) {
+            do {
+                @SuppressLint("Range")
+                String username = cursor.getString(cursor.getColumnIndex("username"));
+                listausername.add(new User(username));
+            } while (cursor.moveToNext());
         }
+
+        cursor.close(); // Important: Close the cursor when done with it.
+
         return listausername;
     }
 }
