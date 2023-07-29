@@ -47,6 +47,7 @@ public class activity_login extends AppCompatActivity {
                     editor.commit();
                     InserirUser();
                     Intent intentMain = new Intent(activity_login.this, activity_main.class);
+                    intentMain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intentMain);
                 }
 
@@ -57,7 +58,6 @@ public class activity_login extends AppCompatActivity {
         public void InserirUser() {
 
             try {
-
 
                 User user = new User(input_Nome.getText().toString());
 

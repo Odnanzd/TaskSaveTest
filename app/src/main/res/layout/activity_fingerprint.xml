@@ -30,8 +30,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_fing"
-        style="@style/BackGroundTintThemeButton2"
+        style="@style/ButtonColorTheme"
         android:textColor="@color/white"
+        android:layout_marginTop="20dp"
         />
 
 

@@ -44,7 +44,7 @@ public class UserDAO {
             } while (cursor.moveToNext());
         }
 
-        cursor.close(); // Important: Close the cursor when done with it.
+        cursor.close();
 
         return listausername;
     }

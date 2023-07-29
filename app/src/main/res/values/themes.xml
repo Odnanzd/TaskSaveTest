@@ -1,8 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.TaskSave" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:statusBarColor">@color/white</item>
     </style>
 
     <style name="Theme.TaskSave" parent="Base.Theme.TaskSave" />
@@ -36,5 +36,11 @@
 
     <style name="BackgroundThemeItens">
         <item name="android:color">@color/blue5</item>
+    </style>
+    <style name="BackGroundMainMenu">
+        <item name="android:background">@color/red1</item>
+    </style>
+    <style name="ButtonColorTheme">
+        <item name="backgroundTint">@color/blue2</item>
     </style>
 </resources>

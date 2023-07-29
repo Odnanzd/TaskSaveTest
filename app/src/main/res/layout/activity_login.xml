@@ -1,54 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/BackgroundTheme"
-    android:orientation="vertical"
     android:layout_gravity="center"
+    android:orientation="vertical"
+    style="@style/BackgroundTheme"
     tools:context=".activity_login">
 
 
     <ImageView
+        android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/baseline_person_24"
-        android:layout_gravity="center"
-        android:layout_marginTop="150dp"
 
+        android:src="@drawable/baseline_person_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="80dp"
         />
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/text_view_login"
-    android:layout_gravity="center"
-    android:layout_marginTop="10dp"
-    android:textSize="20sp"
-    android:id="@+id/text_view_user"
-    />
+
+
+    <TextView
+        android:id="@+id/text_view_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/baloo"
+        android:text="@string/text_view_login"
+        android:textSize="20sp"
+        style="@style/TextColorTheme3"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
     <EditText
         android:id="@+id/inputNome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_width="307dp"
+        android:layout_height="48dp"
         android:layout_margin="20dp"
+        android:layout_marginTop="16dp"
         android:autofillHints=""
-        android:textSize="20sp"
-        android:hint="@string/edit_nome"
-        android:minHeight="48dp"
-        tools:ignore="TextFields"
+        android:background="@drawable/input_button"
+        android:drawableLeft="@drawable/baseline_person_25"
+        android:drawablePadding="10dp"
         android:fontFamily="@font/baloo"
+        android:hint="@string/edit_nome"
         android:inputType="text"
-        />
-
+        android:minHeight="48dp"
+        android:paddingStart="20dp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_user"
+        tools:ignore="TextFields" />
 
     <Button
         android:id="@+id/button_login"
-        android:layout_width="wrap_content"
+        android:layout_width="307dp"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_gravity="center"
+        android:layout_margin="30dp"
+        style="@style/ButtonColorTheme"
         android:text="@string/edit_text"
-        style="@style/BackGroundTintThemeButton"
-        />
-</androidx.appcompat.widget.LinearLayoutCompat>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_password" />
+
+    <EditText
+        android:id="@+id/edit_password"
+        android:layout_width="307dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input_button"
+        android:drawableLeft="@drawable/baseline_security_24"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:fontFamily="@font/baloo"
+        android:hint="@string/edit_senha"
+        android:inputType="textPassword"
+        android:paddingStart="20dp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputNome" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

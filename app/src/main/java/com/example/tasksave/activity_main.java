@@ -2,13 +2,11 @@ package com.example.tasksave;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,31 +17,17 @@ public class activity_main extends AppCompatActivity {
 
     public ImageView imageView;
     public TextView text_view_main;
-    private Conexao con;
-    List<User> ListUser;
+    private long pressedTime;
 
     @SuppressLint({"MissingInflatedId", "SetTextI18n"})
     @Override
-    public void onBackPressed() {
-    }
-
-    @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         imageView = findViewById(R.id.image_view_circle_agenda);
         text_view_main = findViewById(R.id.textView);
-        //ExibirUsername();
-        UserDAO userDAO = new UserDAO(this);
-        List<User> userList = userDAO.ListarNome();
-
-        if (userList.size() > 0) {
-            User user = userList.get(0); // Assume that only one user is inserted.
-            text_view_main.setText(user.getUsername());
-        } else {
-            text_view_main.setText("Nenhum usuário encontrado");
-        }
+        ExibirUsername();
 
 
 
@@ -59,18 +43,29 @@ public class activity_main extends AppCompatActivity {
 
         }
 
-//        public void ExibirUsername() {
-//        try {
-//            SQLiteDatabase db = con.getReadableDatabase();
-//            Cursor cursor = db.rawQuery("SELECT username FROM user", null);
-//                cursor.moveToFirst();
-//                @SuppressLint("Range")
-//                String txt = cursor.getString(cursor.getColumnIndex("username"));
-//                text_view_main.setText("Olá" + txt);
-//            cursor.close();
-//
-//            } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+        public void ExibirUsername() {
+
+        UserDAO userDAO = new UserDAO(this);
+        List<User> userList = userDAO.ListarNome();
+
+        if (userList.size() > 0) {
+            User user = userList.get(0);
+            text_view_main.setText("Olá, " + user.getUsername());
+        } else {
+            text_view_main.setText("Usuário");
+        }
+
+        }
+    @Override
+    public void onBackPressed() {
+
+        if (pressedTime + 2000 > System.currentTimeMillis()) {
+            super.onBackPressed();
+            finish();
+        } else {
+            Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
+        }
+        pressedTime = System.currentTimeMillis();
     }
+
+}
