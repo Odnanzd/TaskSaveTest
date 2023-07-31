@@ -25,6 +25,7 @@ public class UserDAO {
         ContentValues contentValues = new ContentValues();
 
         contentValues.put("username", user.getUsername());
+        contentValues.put("password", user.getPassword());
 
         return db.insert("user", null, contentValues);
 
@@ -34,13 +35,15 @@ public class UserDAO {
 
         List<User> listausername = new ArrayList<User>();
 
-        Cursor cursor = db.rawQuery("SELECT * FROM user", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM user;", null);
 
         if (cursor.moveToFirst()) {
             do {
                 @SuppressLint("Range")
                 String username = cursor.getString(cursor.getColumnIndex("username"));
-                listausername.add(new User(username));
+                @SuppressLint("Range")
+                String password = cursor.getString(cursor.getColumnIndex("password"));
+                listausername.add(new User(username, password));
             } while (cursor.moveToNext());
         }
 

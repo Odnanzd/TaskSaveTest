@@ -48,8 +48,7 @@ public class activity_fingerprint extends activity_login {
                 SharedPreferences sharedPrefs = getApplicationContext().getSharedPreferences("arquivoSalvar", Context.MODE_PRIVATE);
                 if (!sharedPrefs.getBoolean("primeiroAcesso", false)) {
                     Intent intent = new Intent(activity_fingerprint.this, activity_login.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
                 } else {
