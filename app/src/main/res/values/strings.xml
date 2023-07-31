@@ -27,4 +27,8 @@
     <string name="text_view_documento">Documentos</string>
     <string name="text_view_config">Config.</string>
     <string name="text_view_sair">Sair</string>
+
+    <!---Strings activity_add_agenda-->
+    <string name="text_view_add_agenda">Criar nova tarefa:</string>
+    <string name="edit_text_descricao_add_agenda">Descrição</string>
 </resources>

@@ -16,6 +16,12 @@
         android:theme="@style/Theme.TaskSave"
         tools:targetApi="31">
         <activity
+            android:name=".activity_add_agenda_data"
+            android:exported="false" />
+        <activity
+            android:name=".activity_add_agenda"
+            android:exported="false" />
+        <activity
             android:name=".activity_agenda"
             android:exported="false" />
         <activity

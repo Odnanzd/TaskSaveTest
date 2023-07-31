@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/BackgroundTheme"
     tools:context=".activity_agenda">
 
     <ListView
@@ -19,4 +20,20 @@
         app:layout_constraintTop_toTopOf="parent">
 
     </ListView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/button_mais_agenda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="320dp"
+        android:layout_marginBottom="48dp"
+        android:backgroundTint="@color/blue2"
+        android:clickable="true"
+        app:fabCustomSize="56dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:maxImageSize="40dp"
+        app:srcCompat="@drawable/icon_mais"
+        android:focusable="true" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
