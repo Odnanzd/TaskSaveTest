@@ -43,4 +43,6 @@
     <style name="ButtonColorTheme">
         <item name="backgroundTint">@color/blue2</item>
     </style>
+
+    <style name="AppTheme">AgendaTheme</style>
 </resources>
