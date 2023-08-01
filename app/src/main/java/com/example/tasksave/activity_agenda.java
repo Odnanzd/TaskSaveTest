@@ -19,7 +19,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -50,9 +52,10 @@ public class activity_agenda extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showCustomDialog();
-
             }
         });
+
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -62,8 +65,11 @@ public class activity_agenda extends AppCompatActivity {
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.activity_add_agenda);
 
-        final TextView textView = dialog.findViewById(R.id.textView5);
+        final EditText editNome = dialog.findViewById(R.id.editTextText);
+        final EditText editDescricao = dialog.findViewById(R.id.editTextText2);
+        final Button buttonSalvar = dialog.findViewById(R.id.button_login);
 
+        final TextView textView = dialog.findViewById(R.id.textView5);
         final TextView textView1 = dialog.findViewById(R.id.textView4);
 
         final FloatingActionButton floatingActionButton1 = dialog.findViewById(R.id.floatingActionButton2);
@@ -95,6 +101,7 @@ public class activity_agenda extends AppCompatActivity {
         String horaFormatada = horaAtual.format(formatter1);
         textView1.setText(horaFormatada);
 
+
         floatingActionButton1.setOnClickListener(new View.OnClickListener() {
             @Override
              public void onClick(View v) {
@@ -110,7 +117,31 @@ public class activity_agenda extends AppCompatActivity {
             }
         });
 
+        AgendaDAO agendaDAO = new AgendaDAO(this);
+
+        buttonSalvar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(editNome.getText().toString().equals("") || editDescricao.getText().toString().equals("")) {
+
+                    Toast.makeText(activity_agenda.this, "Os campos não podem ser vazios.", Toast.LENGTH_LONG).show();
+
+                } else {
+                    Agenda agenda = new Agenda(editNome.getText().toString(), editDescricao.getText().toString());
+                    long id = agendaDAO.inserir(agenda);
+                    Toast.makeText(activity_agenda.this, "Tarefa Salva.", Toast.LENGTH_LONG).show();
+                    dialog.dismiss();
+                }
+            }
+        });
+
+
+
+
+
+
         dialog.show();
+
 
 
     }

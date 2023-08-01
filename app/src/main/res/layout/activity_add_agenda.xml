@@ -6,7 +6,7 @@
     android:layout_width="350dp"
     android:layout_height="350dp"
     android:layout_gravity="center"
-    android:background="@drawable/background_white_contraist"
+    android:background="@drawable/background_add_agenda"
     tools:context=".activity_add_agenda">
 
     <EditText
@@ -16,7 +16,7 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/input_button_2"
         android:ems="10"
-        android:hint="Nome"
+        android:hint="@string/edit_text_nome_add_agenda"
         android:inputType="text"
         android:paddingStart="20dp"
         android:textColor="@color/black"
@@ -47,7 +47,7 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:text="@string/edit_text"
+        android:text="@string/button_salvar_agenda"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.51"
@@ -76,6 +76,7 @@
         android:drawableLeft="@drawable/baseline_schedule_24"
         android:fontFamily="@font/baloo"
         android:text="Horário"
+        android:textSize="20sp"
         android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/button_login"
         app:layout_constraintEnd_toEndOf="parent"
@@ -91,6 +92,7 @@
         android:drawableLeft="@drawable/baseline_calendar_month_24"
         android:fontFamily="@font/baloo"
         android:text="Data"
+        android:textSize="20sp"
         android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/button_login"
         app:layout_constraintEnd_toEndOf="parent"
@@ -102,14 +104,16 @@
         android:id="@+id/switch1"
         android:layout_width="174dp"
         android:layout_height="33dp"
+        android:layout_marginTop="10dp"
         android:text="Definir lembrete"
         android:textColor="@color/black"
+        android:fontFamily="@font/baloo"
+        android:textSize="15sp"
         android:textStyle="bold"
-        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextText2"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton2"

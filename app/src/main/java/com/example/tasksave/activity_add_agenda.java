@@ -4,12 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.widget.Switch;
-import android.widget.TextView;
 
 
 public class activity_add_agenda extends AppCompatActivity {
-
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -17,5 +14,4 @@ public class activity_add_agenda extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_agenda);
         }
-
     }
