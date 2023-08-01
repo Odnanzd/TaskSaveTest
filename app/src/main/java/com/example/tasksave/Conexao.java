@@ -10,14 +10,14 @@ public class Conexao extends SQLiteOpenHelper {
     private static final int versao = 1;
 
     public Conexao(Context context) {
-        super(context, nome, null, versao)
-        ;
+        super(context, nome, null, versao);
     }
         @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
         sqLiteDatabase.execSQL("CREATE TABLE user (id integer primary key autoincrement, username varchar(50), password varchar(50))");
-        sqLiteDatabase.execSQL("CREATE TABLE agenda (id integer primary key autoincrement, nomeTarefa varchar(50), descricaoTarefa varchar(50), data DATE, hora TIME)");
+        sqLiteDatabase.execSQL("CREATE TABLE agenda (id integer primary key autoincrement, nomeTarefa varchar(50), descricaoTarefa varchar(50)," +
+                " dataAgenda TEXT, horaAgenda integer, minutoAgenda integer )");
         }
 
         @Override

@@ -1,6 +1,5 @@
 package com.example.tasksave;
 
-import static android.content.Context.MODE_PRIVATE;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,32 +7,27 @@ import androidx.appcompat.widget.SwitchCompat;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 public class activity_agenda extends AppCompatActivity {
 
@@ -60,6 +54,8 @@ public class activity_agenda extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     void showCustomDialog() {
+
+
         final Dialog dialog = new Dialog(activity_agenda.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
@@ -68,6 +64,9 @@ public class activity_agenda extends AppCompatActivity {
         final EditText editNome = dialog.findViewById(R.id.editTextText);
         final EditText editDescricao = dialog.findViewById(R.id.editTextText2);
         final Button buttonSalvar = dialog.findViewById(R.id.button_login);
+
+        final CalendarView calendarView = dialog.findViewById(R.id.calendarView);
+        final TimePicker timePicker = dialog.findViewById(R.id.timePicker);
 
         final TextView textView = dialog.findViewById(R.id.textView5);
         final TextView textView1 = dialog.findViewById(R.id.textView4);
@@ -104,7 +103,7 @@ public class activity_agenda extends AppCompatActivity {
 
         floatingActionButton1.setOnClickListener(new View.OnClickListener() {
             @Override
-             public void onClick(View v) {
+            public void onClick(View v) {
                 dialog.dismiss();
             }
         });
@@ -116,52 +115,72 @@ public class activity_agenda extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        textView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity_agenda.this, activity_add_agenda_hora.class);
+                startActivity(intent);
+            }
+        });
 
         AgendaDAO agendaDAO = new AgendaDAO(this);
 
         buttonSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(editNome.getText().toString().equals("") || editDescricao.getText().toString().equals("")) {
+                if (editNome.getText().toString().equals("") || editDescricao.getText().toString().equals("")) {
 
                     Toast.makeText(activity_agenda.this, "Os campos não podem ser vazios.", Toast.LENGTH_LONG).show();
 
                 } else {
-                    Agenda agenda = new Agenda(editNome.getText().toString(), editDescricao.getText().toString());
-                    long id = agendaDAO.inserir(agenda);
-                    Toast.makeText(activity_agenda.this, "Tarefa Salva.", Toast.LENGTH_LONG).show();
-                    dialog.dismiss();
-                }
-            }
-        });
+                    if (switchCompat.isChecked()){
+
+                        long selectedDateMillis = calendarView.getDate();
+                        LocalDate selectedDate = Instant.ofEpochMilli(selectedDateMillis).atZone(ZoneId.systemDefault()).toLocalDate();
+                        int selectedHour = timePicker.getHour();
+                        int selectedMinute = timePicker.getMinute();
 
 
+                        Agenda agenda = new Agenda(editNome.getText().toString(), editDescricao.getText().toString(),
+                        selectedDate, selectedHour, selectedMinute);
+                        long id = agendaDAO.inserir(agenda);
+                        Toast.makeText(activity_agenda.this, "Tarefa Salva.", Toast.LENGTH_LONG).show();
+                        dialog.dismiss();
 
+                    } else {
 
-
+                        Agenda agenda = new Agenda(editNome.getText().toString(), editDescricao.getText().toString(),
+                                null, -1, -1);
+                        long id = agendaDAO.inserir(agenda);
+                        Toast.makeText(activity_agenda.this, "Tarefa Salva.", Toast.LENGTH_LONG).show();
+                        dialog.dismiss();
+                    }
+                    }
+                            }
+                    });
 
         dialog.show();
 
 
-
     }
+}
 
 
     // Método para abrir ou criar o banco de dados
-    private void abrirOuCriarDB() {
-        // Abra ou crie o banco de dados com o nome "database"
-        try {
-            database = this.openOrCreateDatabase("database", MODE_PRIVATE, null);
-
-            // Crie a tabela "agenda" com a coluna "titulo"
-            database.execSQL("CREATE TABLE IF NOT EXISTS agenda (titulo TEXT);");
-            database.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-}
+//    private void abrirOuCriarDB() {
+//        // Abra ou crie o banco de dados com o nome "database"
+//        try {
+//            database = this.openOrCreateDatabase("database", MODE_PRIVATE, null);
+//
+//            // Crie a tabela "agenda" com a coluna "titulo"
+//            database.execSQL("CREATE TABLE IF NOT EXISTS agenda (titulo TEXT);");
+//            database.close();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
+//}
 
         // Método para inserir dados na tabela "agenda"
 //        private void inserirDados () {

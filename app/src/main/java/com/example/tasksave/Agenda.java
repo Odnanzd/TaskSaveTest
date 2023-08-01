@@ -1,22 +1,29 @@
 package com.example.tasksave;
 
+import android.annotation.SuppressLint;
+
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Agenda {
 
     private String nomeAgenda;
     private String descriçãoAgenda;
-    private Date dataAgenda;
-    private Date horaAgenda;
+    private LocalDate dataAgenda;
+    private int horaAgenda;
+
+    private int minutoAgenda;
 
 
 
-    public Agenda(String nomeAgenda, String descriçãoAgenda) {
+    public Agenda(String nomeAgenda, String descriçãoAgenda, LocalDate dataAgenda, int horaAgenda, int minutoAgenda) {
+
         this.nomeAgenda = nomeAgenda;
         this.descriçãoAgenda = descriçãoAgenda;
         this.dataAgenda = dataAgenda;
         this.horaAgenda = horaAgenda;
+        this.minutoAgenda = minutoAgenda;
 
     }
 
@@ -28,11 +35,15 @@ public class Agenda {
         return descriçãoAgenda;
     }
 
-    public Date getDataAgenda() {
-        return dataAgenda;
+    public String getDataAgendaString() {
+        if (dataAgenda != null) {
+            return dataAgenda.toString();
+        } else {
+            return null;
+        }
     }
 
-    public Date getHoraAgenda() {
+    public int getHoraAgenda() {
         return horaAgenda;
     }
 
@@ -44,11 +55,24 @@ public class Agenda {
         this.descriçãoAgenda = descriçãoAgenda;
     }
 
-    public void setDataAgenda(Date dataAgenda) {
-        this.dataAgenda = dataAgenda;
+    @SuppressLint("NewApi")
+    public void setDataAgendaString(String dataAgendaString) {
+        if (dataAgendaString != null) {
+            this.dataAgenda = LocalDate.parse(dataAgendaString);
+        } else {
+            this.dataAgenda = null;
+        }
     }
 
-    public void setHoraAgenda(Date horaAgenda) {
+    public void setHoraAgenda(int horaAgenda) {
         this.horaAgenda = horaAgenda;
+    }
+
+    public int getMinutoAgenda() {
+        return minutoAgenda;
+    }
+
+    public void setMinutoAgenda(int minutoAgenda) {
+        this.minutoAgenda = minutoAgenda;
     }
 }

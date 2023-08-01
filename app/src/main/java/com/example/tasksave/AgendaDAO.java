@@ -22,6 +22,9 @@ public class AgendaDAO {
 
         contentValues.put("nomeTarefa", agenda.getNomeAgenda());
         contentValues.put("descricaoTarefa", agenda.getDescriçãoAgenda());
+        contentValues.put("dataAgenda", agenda.getDataAgendaString());
+        contentValues.put("horaAgenda", agenda.getHoraAgenda());
+        contentValues.put("minutoAgenda", agenda.getMinutoAgenda());
 
         return db.insert("agenda", null, contentValues);
 
