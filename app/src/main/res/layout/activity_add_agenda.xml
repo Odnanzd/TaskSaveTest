@@ -13,11 +13,11 @@
         android:id="@+id/editTextText"
         android:layout_width="250dp"
         android:layout_height="48dp"
-        android:layout_marginTop="10dp"
         android:background="@drawable/input_button_2"
         android:ems="10"
         android:hint="@string/edit_text_nome_add_agenda"
         android:inputType="text"
+        android:layout_marginTop="20dp"
         android:paddingStart="20dp"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +58,7 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:text="@string/text_view_add_agenda"
         android:textColor="@color/black"
         android:textStyle="bold"
@@ -98,20 +98,6 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switch1"
-        android:layout_width="174dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="10dp"
-        android:text="Definir lembrete"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText2"
-        tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton2"
         android:layout_width="wrap_content"
@@ -126,5 +112,19 @@
         app:srcCompat="@drawable/baseline_close_24"
         tools:layout_editor_absoluteY="9dp"
         tools:ignore="MissingConstraints" />
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="174dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="10dp"
+        android:text="Definir lembrete"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText2"
+        tools:ignore="MissingConstraints,TouchTargetSizeCheck"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

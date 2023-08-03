@@ -8,6 +8,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -28,6 +30,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class activity_agenda extends AppCompatActivity {
 
@@ -40,6 +44,8 @@ public class activity_agenda extends AppCompatActivity {
         setContentView(R.layout.activity_agenda);
 
         floatingActionButton = findViewById(R.id.button_mais_agenda);
+        VerificaTarefa();
+
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("NewApi")
@@ -49,6 +55,13 @@ public class activity_agenda extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    public void VerificaTarefa() {
+
+        AgendaDAO agendaDAO = new AgendaDAO(this);
+        String resultado1 = AgendaDAO.Verifi
 
     }
 
@@ -73,7 +86,7 @@ public class activity_agenda extends AppCompatActivity {
 
         final FloatingActionButton floatingActionButton1 = dialog.findViewById(R.id.floatingActionButton2);
 
-        SwitchCompat switchCompat = dialog.findViewById(R.id.switch1);
+        Switch switchCompat = dialog.findViewById(R.id.switch1);
         switchCompat.setChecked(false);
         textView.setVisibility(View.GONE);
         textView1.setVisibility(View.GONE);
@@ -163,6 +176,8 @@ public class activity_agenda extends AppCompatActivity {
 
 
     }
+
+
 }
 
 

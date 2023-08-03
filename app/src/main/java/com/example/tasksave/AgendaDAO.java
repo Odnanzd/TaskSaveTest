@@ -2,7 +2,11 @@ package com.example.tasksave;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AgendaDAO {
 
@@ -29,6 +33,23 @@ public class AgendaDAO {
         return db.insert("agenda", null, contentValues);
 
     }
+    public String VerificarLista(Agenda agenda) {
+
+        Cursor cursor = db.rawQuery("SELECT * FROM agenda;", null);
+
+        String resultado;
+
+        if (cursor.getCount() == 0) {
+            resultado = "Nenhum dado encontrado";
+        } else {
+            resultado = "";
+        }
+        cursor.close();
+
+        return resultado;
+
+    }
+
 
 
 }
