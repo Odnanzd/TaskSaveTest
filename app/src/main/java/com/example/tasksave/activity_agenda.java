@@ -1,10 +1,6 @@
 package com.example.tasksave;
 
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SwitchCompat;
-
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
@@ -23,6 +19,9 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.time.Instant;
@@ -30,21 +29,24 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 public class activity_agenda extends AppCompatActivity {
 
-    private SQLiteDatabase database;
+    private Conexao con;
+    private SQLiteDatabase db;
     FloatingActionButton floatingActionButton;
+    TextView textView;
 
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agenda);
 
         floatingActionButton = findViewById(R.id.button_mais_agenda);
-        VerificaTarefa();
+        textView = findViewById(R.id.text_view_agenda_validador);
+        VerificaLista();
 
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -58,12 +60,7 @@ public class activity_agenda extends AppCompatActivity {
 
     }
 
-    public void VerificaTarefa() {
 
-        AgendaDAO agendaDAO = new AgendaDAO(this);
-        String resultado1 = AgendaDAO.Verifi
-
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     void showCustomDialog() {
@@ -174,6 +171,22 @@ public class activity_agenda extends AppCompatActivity {
 
         dialog.show();
 
+
+    }
+
+    public void VerificaLista() {
+
+
+        con = new Conexao(this);
+        db = con.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM agenda;", null);
+
+        if (cursor.getCount() == 0) {
+            textView.setText("Você ainda não possui nenhuma tarefa");
+        } else {
+            textView.setVisibility(View.GONE);
+        }
 
     }
 

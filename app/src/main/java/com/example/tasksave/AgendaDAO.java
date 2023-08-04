@@ -5,8 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class AgendaDAO {
 
@@ -33,7 +31,7 @@ public class AgendaDAO {
         return db.insert("agenda", null, contentValues);
 
     }
-    public String VerificarLista(Agenda agenda) {
+    public String VerificarLista() {
 
         Cursor cursor = db.rawQuery("SELECT * FROM agenda;", null);
 
@@ -44,10 +42,7 @@ public class AgendaDAO {
         } else {
             resultado = "";
         }
-        cursor.close();
-
         return resultado;
-
     }
 
 
