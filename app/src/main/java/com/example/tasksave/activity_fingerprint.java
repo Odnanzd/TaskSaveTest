@@ -53,6 +53,7 @@ public class activity_fingerprint extends activity_login {
                     finish();
                 } else {
                     Intent intent = new Intent(activity_fingerprint.this, activity_main.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }
 

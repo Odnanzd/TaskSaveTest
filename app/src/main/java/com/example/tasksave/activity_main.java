@@ -19,6 +19,8 @@ public class activity_main extends AppCompatActivity {
     public TextView text_view_main;
     private long pressedTime;
 
+    public ImageView imageView1;
+
     @SuppressLint({"MissingInflatedId", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +29,15 @@ public class activity_main extends AppCompatActivity {
 
         imageView = findViewById(R.id.image_view_circle_agenda);
         text_view_main = findViewById(R.id.textView);
+        imageView1 = findViewById(R.id.image_view_circle_logout);
         ExibirUsername();
+
+        imageView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
 
 

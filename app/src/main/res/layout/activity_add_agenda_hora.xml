@@ -20,4 +20,19 @@
         tools:layout_editor_absoluteX="47dp"
         tools:layout_editor_absoluteY="69dp" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/blue7"
+        android:clickable="true"
+        app:fabCustomSize="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.894"
+        app:layout_constraintStart_toStartOf="parent"
+        app:maxImageSize="30dp"
+        app:srcCompat="@drawable/button_add_agenda_next" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

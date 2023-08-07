@@ -31,20 +31,4 @@ public class AgendaDAO {
         return db.insert("agenda", null, contentValues);
 
     }
-    public String VerificarLista() {
-
-        Cursor cursor = db.rawQuery("SELECT * FROM agenda;", null);
-
-        String resultado;
-
-        if (cursor.getCount() == 0) {
-            resultado = "Nenhum dado encontrado";
-        } else {
-            resultado = "";
-        }
-        return resultado;
-    }
-
-
-
 }
