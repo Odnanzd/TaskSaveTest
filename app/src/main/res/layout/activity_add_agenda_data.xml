@@ -9,7 +9,7 @@
     tools:context=".activity_add_agenda_data">
 
     <CalendarView
-        android:id="@+id/calendarView"
+        android:id="@+id/calendar_view_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
@@ -18,7 +18,7 @@
         tools:ignore="MissingConstraints" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/floating_button_add_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"

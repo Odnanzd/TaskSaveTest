@@ -4,7 +4,9 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -39,9 +41,6 @@ public class activity_add_agenda extends AppCompatActivity {
         EditText editNome = findViewById(R.id.editTextText);
         EditText editDescricao = findViewById(R.id.editTextText2);
         Button buttonSalvar = findViewById(R.id.button_login);
-
-        CalendarView calendarView = findViewById(R.id.calendarView);
-        TimePicker timePicker = findViewById(R.id.timePicker);
 
         TextView textView = findViewById(R.id.textView5);
         TextView textView1 = findViewById(R.id.textView4);
@@ -79,6 +78,10 @@ public class activity_add_agenda extends AppCompatActivity {
         floatingActionButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences save = getApplicationContext().getSharedPreferences("arquivoSalvar2", Context.MODE_PRIVATE);
+                SharedPreferences.Editor saveEdit = save.edit();
+                saveEdit.clear();
+                saveEdit.commit();
                 finish();
             }
         });
@@ -108,18 +111,24 @@ public class activity_add_agenda extends AppCompatActivity {
                     Toast.makeText(activity_add_agenda.this, "Os campos não podem ser vazios.", Toast.LENGTH_LONG).show();
 
                 } else {
-                    if (switchCompat.isChecked()){
+                    if (switchCompat.isChecked()) {
 
-                        long selectedDateMillis = calendarView.getDate();
-                        LocalDate selectedDate = Instant.ofEpochMilli(selectedDateMillis).atZone(ZoneId.systemDefault()).toLocalDate();
-                        int selectedHour = timePicker.getHour();
-                        int selectedMinute = timePicker.getMinute();
+
+                        SharedPreferences sharedPrefs = getApplicationContext().getSharedPreferences("arquivoSalvar2", Context.MODE_PRIVATE);
+                        String dataEscolhida = sharedPrefs.getString("arquivo_Data2", "");
+                        LocalDate localdataEscolhida = LocalDate.parse(dataEscolhida, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
 
 
                         Agenda agenda = new Agenda(editNome.getText().toString(), editDescricao.getText().toString(),
-                        selectedDate, selectedHour, selectedMinute);
+                        localdataEscolhida, -1, -1);
                         long id = agendaDAO.inserir(agenda);
                         Toast.makeText(activity_add_agenda.this, "Tarefa Salva.", Toast.LENGTH_LONG).show();
+
+                        SharedPreferences save = getApplicationContext().getSharedPreferences("arquivoSalvar2", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor saveEdit = save.edit();
+                        saveEdit.clear();
+                        saveEdit.commit();
                         finish();
 
                     } else {
@@ -128,23 +137,53 @@ public class activity_add_agenda extends AppCompatActivity {
                                 null, -1, -1);
                         long id = agendaDAO.inserir(agenda);
                         Toast.makeText(activity_add_agenda.this, "Tarefa Salva.", Toast.LENGTH_LONG).show();
+                        SharedPreferences save = getApplicationContext().getSharedPreferences("arquivoSalvar2", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor saveEdit = save.edit();
+                        saveEdit.clear();
+                        saveEdit.commit();
                         finish();
                     }
-                    }
-                        Intent resultIntent = new Intent();
-                        setResult(RESULT_OK, resultIntent);
-                        finish();
+                }
+//                        Intent resultIntent = new Intent();
+//                        setResult(RESULT_OK, resultIntent);
+//                        finish();
+//
+//
 
-
-
-                            }
-                    });
-
-
-
-
-
-
+            }
+        });
 
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AtualizarData();
+        AtualizarHora();
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void AtualizarData() {
+
+        SharedPreferences sharedPrefs = getApplicationContext().getSharedPreferences("arquivoSalvar2", Context.MODE_PRIVATE);
+        String dataEscolhida = sharedPrefs.getString("arquivo_Data", "");
+
+        if (!dataEscolhida.isEmpty()) {
+            TextView textView = findViewById(R.id.textView5);
+            textView.setText(dataEscolhida);
+        }
+    }
+    public void AtualizarHora() {
+        SharedPreferences sharedPrefs = getApplicationContext().getSharedPreferences("arquivoSalvar3", Context.MODE_PRIVATE);
+        String horaEscolhido = sharedPrefs.getString("arquivo_Hora", "");
+        String minutoEscolhido = sharedPrefs.getString("arquivo_Minuto", "");
+
+        if (!horaEscolhido.isEmpty() | !minutoEscolhido.isEmpty()) {
+            TextView textView2 = findViewById(R.id.textView4);
+            textView2.setText(horaEscolhido + ":" +minutoEscolhido);
+        }
+    }
+
+    }
+

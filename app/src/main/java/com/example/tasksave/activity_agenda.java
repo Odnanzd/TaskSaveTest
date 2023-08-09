@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class activity_agenda extends AppCompatActivity {
@@ -44,23 +43,135 @@ public class activity_agenda extends AppCompatActivity {
 
     }
 
-
-
     @RequiresApi(api = Build.VERSION_CODES.O)
     void showCustomDialog() {
 
-        Intent intent = new Intent(activity_agenda.this, activity_add_agenda.class);
-        startActivityForResult(intent, 1);
 
+//        final Dialog dialog = new Dialog(activity_agenda.this);
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        dialog.setCancelable(false);
+//        dialog.setContentView(R.layout.activity_add_agenda);
+
+        Intent intent = new Intent(activity_agenda.this, activity_add_agenda.class);
+        startActivity(intent);
+
+//        Intent intent = new Intent(activity_agenda.this, activity_add_agenda.class);
+//        startActivityForResult(intent, 1);
+
+//        final EditText editNome = dialog.findViewById(R.id.editTextText);
+//        final EditText editDescricao = dialog.findViewById(R.id.editTextText2);
+//        final Button buttonSalvar = dialog.findViewById(R.id.button_login);
+//
+//        final CalendarView calendarView = dialog.findViewById(R.id.calendarView);
+//        final TimePicker timePicker = dialog.findViewById(R.id.timePicker);
+//
+//        final TextView textView = dialog.findViewById(R.id.textView5);
+//        final TextView textView1 = dialog.findViewById(R.id.textView4);
+//
+//        final FloatingActionButton floatingActionButton1 = dialog.findViewById(R.id.floatingActionButton2);
+//
+//        Switch switchCompat = dialog.findViewById(R.id.switch1);
+//        switchCompat.setChecked(false);
+//        textView.setVisibility(View.GONE);
+//        textView1.setVisibility(View.GONE);
+//        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked) {
+//                    textView.setVisibility(View.VISIBLE);
+//                    textView1.setVisibility(View.VISIBLE);
+//                } else {
+//                    textView.setVisibility(View.GONE);
+//                    textView1.setVisibility(View.GONE);
+//                }
+//            }
+//        });
+//
+//        LocalDate dataAtual = LocalDate.now();
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM");
+//        String dataFormatada = dataAtual.format(formatter);
+//        textView.setText(dataFormatada);
+//
+//        LocalTime horaAtual = LocalTime.now();
+//        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("HH:mm");
+//        String horaFormatada = horaAtual.format(formatter1);
+//        textView1.setText(horaFormatada);
+//
+//
+//        floatingActionButton1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.dismiss();
+//            }
+//        });
+//
+//        textView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(activity_agenda.this, activity_add_agenda_data.class);
+//                startActivity(intent);
+//            }
+//        });
+//        textView1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(activity_agenda.this, activity_add_agenda_hora.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        AgendaDAO agendaDAO = new AgendaDAO(this);
+//
+//        buttonSalvar.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (editNome.getText().toString().equals("") || editDescricao.getText().toString().equals("")) {
+//
+//                    Toast.makeText(activity_agenda.this, "Os campos não podem ser vazios.", Toast.LENGTH_LONG).show();
+//
+//                } else {
+//                    if (switchCompat.isChecked()){
+//
+//                        long selectedDateMillis = calendarView.getDate();
+//                        LocalDate selectedDate = Instant.ofEpochMilli(selectedDateMillis).atZone(ZoneId.systemDefault()).toLocalDate();
+//                        int selectedHour = timePicker.getHour();
+//                        int selectedMinute = timePicker.getMinute();
+//
+//
+//                        Agenda agenda = new Agenda(editNome.getText().toString(), editDescricao.getText().toString(),
+//                        selectedDate, selectedHour, selectedMinute);
+//                        long id = agendaDAO.inserir(agenda);
+//                        Toast.makeText(activity_agenda.this, "Tarefa Salva.", Toast.LENGTH_LONG).show();
+//                        dialog.dismiss();
+//
+//                    } else {
+//
+//                        Agenda agenda = new Agenda(editNome.getText().toString(), editDescricao.getText().toString(),
+//                                null, -1, -1);
+//                        long id = agendaDAO.inserir(agenda);
+//                        Toast.makeText(activity_agenda.this, "Tarefa Salva.", Toast.LENGTH_LONG).show();
+//                        dialog.dismiss();
+//                    }
+//                    }
+//                            }
+//                    });
+//
+//
+//        dialog.show();
+//
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
         // Atualize a lista de tarefas aqui, por exemplo, chamando o método VerificaLista()
         VerificaLista();
     }
+
+
+
 
     public void VerificaLista() {
 
