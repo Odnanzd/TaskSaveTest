@@ -16,6 +16,9 @@
         android:theme="@style/Theme.TaskSave"
         tools:targetApi="31">
         <activity
+            android:name=".layout_activity"
+            android:exported="false" />
+        <activity
             android:name=".activity_add_agenda_hora"
             android:exported="false" />
         <activity

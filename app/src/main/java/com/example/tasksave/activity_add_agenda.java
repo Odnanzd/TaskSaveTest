@@ -113,15 +113,16 @@ public class activity_add_agenda extends AppCompatActivity {
                 } else {
                     if (switchCompat.isChecked()) {
 
+                      SharedPreferences sharedPrefs = getApplicationContext().getSharedPreferences("arquivoSalvar2", Context.MODE_PRIVATE);
+                      String dataEscolhida = sharedPrefs.getString("arquivo_Data2", "");
+                      LocalDate localdataEscolhida = LocalDate.parse(dataEscolhida, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-                        SharedPreferences sharedPrefs = getApplicationContext().getSharedPreferences("arquivoSalvar2", Context.MODE_PRIVATE);
-                        String dataEscolhida = sharedPrefs.getString("arquivo_Data2", "");
-                        LocalDate localdataEscolhida = LocalDate.parse(dataEscolhida, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
-
+                      SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("arquivoSalvar3", Context.MODE_PRIVATE);
+                      int horaEscolhida = sharedPrefs2.getInt("arquivo_Hora2",-1);
+                      int minutoEscolhido = sharedPrefs2.getInt("arquivo_Minuto2",-1);
 
                         Agenda agenda = new Agenda(editNome.getText().toString(), editDescricao.getText().toString(),
-                        localdataEscolhida, -1, -1);
+                        localdataEscolhida, horaEscolhida, minutoEscolhido);
                         long id = agendaDAO.inserir(agenda);
                         Toast.makeText(activity_add_agenda.this, "Tarefa Salva.", Toast.LENGTH_LONG).show();
 
@@ -144,12 +145,6 @@ public class activity_add_agenda extends AppCompatActivity {
                         finish();
                     }
                 }
-//                        Intent resultIntent = new Intent();
-//                        setResult(RESULT_OK, resultIntent);
-//                        finish();
-//
-//
-
             }
         });
 
