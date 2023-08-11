@@ -8,10 +8,16 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class activity_agenda extends AppCompatActivity {
 
@@ -20,7 +26,9 @@ public class activity_agenda extends AppCompatActivity {
     FloatingActionButton floatingActionButton;
     TextView textView;
 
+    ListView listView;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +37,9 @@ public class activity_agenda extends AppCompatActivity {
 
         floatingActionButton = findViewById(R.id.button_mais_agenda);
         textView = findViewById(R.id.text_view_agenda_validador);
-
+        listView = (ListView) findViewById(R.id.list_view_agenda);
         VerificaLista();
+        ListarAgenda();
 
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -51,14 +60,13 @@ public class activity_agenda extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onResume() {
         super.onResume();
-
-        // Atualize a lista de tarefas aqui, por exemplo, chamando o método VerificaLista()
         VerificaLista();
+        ListarAgenda();
     }
-
 
 
 
@@ -77,9 +85,55 @@ public class activity_agenda extends AppCompatActivity {
         }
 
     }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void ListarAgenda() {
+
+        List<Agenda> listaagenda = new ArrayList<Agenda>();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM agenda;", null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                @SuppressLint("Range")
+                String titulo = cursor.getString(cursor.getColumnIndex("nomeTarefa"));
+                @SuppressLint("Range")
+                String descricao = cursor.getString(cursor.getColumnIndex("descricaoTarefa"));
+                @SuppressLint("Range")
+                String dataagenda = cursor.getString(cursor.getColumnIndex("dataAgenda"));
+                @SuppressLint("Range")
+                int horaagenda = cursor.getInt(cursor.getColumnIndex("horaAgenda"));
+                @SuppressLint("Range")
+                int minutoagenda = cursor.getInt(cursor.getColumnIndex("minutoAgenda"));
+
+                LocalDate localdataagenda = LocalDate.parse(dataagenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+                listaagenda.add(new Agenda(titulo, descricao, localdataagenda, horaagenda, minutoagenda));
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        // Convertendo a lista de objetos Agenda em arrays separados para o CustomAdapter
+        String[] titulos = new String[listaagenda.size()];
+        String[] descricoes = new String[listaagenda.size()];
+        String[] datas = new String[listaagenda.size()];
+        String[] horas = new String[listaagenda.size()];
+
+        for (int i = 0; i < listaagenda.size(); i++) {
+            titulos[i] = listaagenda.get(i).getNomeAgenda();
+            descricoes[i] = listaagenda.get(i).getDescriçãoAgenda();
+            datas[i] = listaagenda.get(i).getDataAgendaString();
+            horas[i] = listaagenda.get(i).getHoraAgenda() + ":" + listaagenda.get(i).getMinutoAgenda();
+        }
+
+        // Configurando o CustomAdapter para a ListView
+        CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(), titulos, descricoes, datas, horas);
+        ListView listView = findViewById(R.id.list_view_agenda); // Substitua "sua_listview_id" pelo ID correto da sua ListView
+        listView.setAdapter(customAdapter);
+    }
 
 
-}
+    }
 
 
     // Método para abrir ou criar o banco de dados

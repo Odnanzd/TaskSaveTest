@@ -12,7 +12,7 @@
         android:layout_width="400dp"
         android:layout_height="600dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.444"
@@ -25,16 +25,17 @@
         android:id="@+id/button_mais_agenda"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="320dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="@color/blue2"
         android:clickable="true"
+        android:focusable="true"
         app:fabCustomSize="56dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.898"
         app:layout_constraintStart_toStartOf="parent"
         app:maxImageSize="40dp"
-        app:srcCompat="@drawable/icon_mais"
-        android:focusable="true" />
+        app:srcCompat="@drawable/icon_mais" />
 
     <TextView
         android:id="@+id/text_view_agenda_validador"

@@ -8,7 +8,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        >
 
         <TextView
             android:layout_width="wrap_content"
@@ -21,15 +23,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
 
             <TextView
                 android:id="@+id/text_view_descricao_agenda"
-                android:layout_width="wrap_content"
+                android:layout_width="170dp"
                 android:layout_height="match_parent"
                 android:text="Teste"
                 android:textSize="20sp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
 
                 />
 
@@ -40,18 +43,16 @@
 
                 <TextView
                     android:id="@+id/text_view_data_agenda"
-                    android:layout_width="wrap_content"
+                    android:layout_width="140dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="200dp"
                     android:text="teste"
                     android:textSize="20sp"
                     />
 
                 <TextView
                     android:id="@+id/text_view_hora_agenda"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
                     android:text="teste"
                     android:textSize="20sp"
                     />
