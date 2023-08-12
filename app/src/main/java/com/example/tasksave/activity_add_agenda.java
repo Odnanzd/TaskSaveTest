@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -122,7 +123,7 @@ public class activity_add_agenda extends AppCompatActivity {
                       int minutoEscolhido = sharedPrefs2.getInt("arquivo_Minuto2",-1);
 
                         Agenda agenda = new Agenda(editNome.getText().toString(), editDescricao.getText().toString(),
-                        localdataEscolhida, horaEscolhida, minutoEscolhido);
+                        localdataEscolhida, horaEscolhida, minutoEscolhido, true);
                         long id = agendaDAO.inserir(agenda);
                         Toast.makeText(activity_add_agenda.this, "Tarefa Salva.", Toast.LENGTH_LONG).show();
 
@@ -135,7 +136,7 @@ public class activity_add_agenda extends AppCompatActivity {
                     } else {
 
                         Agenda agenda = new Agenda(editNome.getText().toString(), editDescricao.getText().toString(),
-                                null, -1, -1);
+                                dataAtual, -1, -1, false);
                         long id = agendaDAO.inserir(agenda);
                         Toast.makeText(activity_add_agenda.this, "Tarefa Salva.", Toast.LENGTH_LONG).show();
                         SharedPreferences save = getApplicationContext().getSharedPreferences("arquivoSalvar2", Context.MODE_PRIVATE);

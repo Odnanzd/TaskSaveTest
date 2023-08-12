@@ -12,16 +12,18 @@ public class Agenda {
     private int horaAgenda;
 
     private int minutoAgenda;
+    private boolean lembrete;
 
 
 
-    public Agenda(String nomeAgenda, String descriçãoAgenda, LocalDate dataAgenda, int horaAgenda, int minutoAgenda) {
+    public Agenda(String nomeAgenda, String descriçãoAgenda, LocalDate dataAgenda, int horaAgenda, int minutoAgenda, boolean lembrete) {
 
         this.nomeAgenda = nomeAgenda;
         this.descriçãoAgenda = descriçãoAgenda;
         this.dataAgenda = dataAgenda;
         this.horaAgenda = horaAgenda;
         this.minutoAgenda = minutoAgenda;
+        this.lembrete = lembrete;
 
     }
 
@@ -72,5 +74,9 @@ public class Agenda {
 
     public void setMinutoAgenda(int minutoAgenda) {
         this.minutoAgenda = minutoAgenda;
+    }
+
+    public boolean getLembrete() {
+        return lembrete;
     }
 }

@@ -15,15 +15,17 @@ public class CustomAdapter extends BaseAdapter {
     String AgendaDescricao[];
     String AgendaData[];
     String AgendaHora[];
+    boolean[] isReminderSet;
     LayoutInflater inflater;
 
 
-    public CustomAdapter(Context context, String[] TituloAgenda, String[] DescricaoAgenda, String[] DataAgenda, String[] HoraAgenda) {
+    public CustomAdapter(Context context, String[] TituloAgenda, String[] DescricaoAgenda, String[] DataAgenda, String[] HoraAgenda, boolean[] isReminderSet) {
         this.context = context;
         this.AgendaTitulo = TituloAgenda;
         this.AgendaDescricao = DescricaoAgenda;
         this.AgendaData = DataAgenda;
         this.AgendaHora = HoraAgenda;
+        this.isReminderSet = isReminderSet;
         inflater = LayoutInflater.from(context);
     }
 
@@ -44,16 +46,23 @@ public class CustomAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         convertView = inflater.inflate(R.layout.layout_activity, null);
-        TextView text_view_tit_agenda = (TextView) convertView.findViewById(R.id.text_view_titulo_agenda);
-        TextView text_view_desc_agenda = (TextView) convertView.findViewById(R.id.text_view_descricao_agenda);
-        TextView text_view_dat_agenda = (TextView) convertView.findViewById(R.id.text_view_data_agenda);
-        TextView text_view_hr_agenda = (TextView) convertView.findViewById(R.id.text_view_hora_agenda);
+        TextView text_view_tit_agenda = convertView.findViewById(R.id.text_view_titulo_agenda);
+        TextView text_view_desc_agenda = convertView.findViewById(R.id.text_view_descricao_agenda);
+        TextView text_view_dat_agenda = convertView.findViewById(R.id.text_view_data_agenda);
+        TextView text_view_hr_agenda = convertView.findViewById(R.id.text_view_hora_agenda);
 
         text_view_tit_agenda.setText(AgendaTitulo[position]);
         text_view_desc_agenda.setText(AgendaDescricao[position]);
-        text_view_dat_agenda.setText(AgendaData[position]);
-        text_view_hr_agenda.setText(AgendaHora[position]);
+
+        if (isReminderSet[position]) {
+            text_view_dat_agenda.setText(AgendaData[position]);
+            text_view_hr_agenda.setText(AgendaHora[position]);
+        } else {
+            text_view_dat_agenda.setVisibility(View.GONE);
+            text_view_hr_agenda.setVisibility(View.GONE);
+        }
 
         return convertView;
 
