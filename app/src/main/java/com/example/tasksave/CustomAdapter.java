@@ -7,6 +7,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 public class CustomAdapter extends BaseAdapter {
 
 
@@ -57,7 +63,25 @@ public class CustomAdapter extends BaseAdapter {
         text_view_desc_agenda.setText(AgendaDescricao[position]);
 
         if (isReminderSet[position]) {
-            text_view_dat_agenda.setText(AgendaData[position]);
+            try {
+                SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                SimpleDateFormat targetFormat = new SimpleDateFormat("dd/MM/yy", Locale.getDefault());
+                Date date = originalFormat.parse(AgendaData[position]);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+
+                // Verifique se a data da agenda é amanhã em relação à data atual
+                Calendar currentCalendar = Calendar.getInstance();
+                if (calendar.get(Calendar.YEAR) == currentCalendar.get(Calendar.YEAR) &&
+                        calendar.get(Calendar.DAY_OF_YEAR) == currentCalendar.get(Calendar.DAY_OF_YEAR) + 1) {
+                    text_view_dat_agenda.setText("Amanhã");
+                } else {
+                    String formattedDate = targetFormat.format(date);
+                    text_view_dat_agenda.setText(formattedDate);
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             text_view_hr_agenda.setText(AgendaHora[position]);
         } else {
             text_view_dat_agenda.setVisibility(View.GONE);
@@ -65,7 +89,6 @@ public class CustomAdapter extends BaseAdapter {
         }
 
         return convertView;
-
     }
 }
 

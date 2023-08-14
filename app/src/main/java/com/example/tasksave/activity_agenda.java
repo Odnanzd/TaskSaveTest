@@ -18,6 +18,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class activity_agenda extends AppCompatActivity {
 
@@ -128,7 +129,10 @@ public class activity_agenda extends AppCompatActivity {
             titulos[i] = listaagenda.get(i).getNomeAgenda();
             descricoes[i] = listaagenda.get(i).getDescriçãoAgenda();
             datas[i] = listaagenda.get(i).getDataAgendaString();
-            horas[i] = listaagenda.get(i).getHoraAgenda() + ":" + listaagenda.get(i).getMinutoAgenda();
+            int hora = listaagenda.get(i).getHoraAgenda();
+            int minuto = listaagenda.get(i).getMinutoAgenda();
+            String horaFormatada = String.format(Locale.getDefault(), "%02d:%02d", hora, minuto);
+            horas[i] = horaFormatada;
             lembretes[i] = listaagenda.get(i).getLembrete();
         }
 

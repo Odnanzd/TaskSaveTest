@@ -119,8 +119,8 @@ public class activity_add_agenda extends AppCompatActivity {
                       LocalDate localdataEscolhida = LocalDate.parse(dataEscolhida, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
                       SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("arquivoSalvar3", Context.MODE_PRIVATE);
-                      int horaEscolhida = sharedPrefs2.getInt("arquivo_Hora2",-1);
-                      int minutoEscolhido = sharedPrefs2.getInt("arquivo_Minuto2",-1);
+                      int horaEscolhida = sharedPrefs2.getInt("arquivo_Hora2",00);
+                      int minutoEscolhido = sharedPrefs2.getInt("arquivo_Minuto2",00);
 
                         Agenda agenda = new Agenda(editNome.getText().toString(), editDescricao.getText().toString(),
                         localdataEscolhida, horaEscolhida, minutoEscolhido, true);

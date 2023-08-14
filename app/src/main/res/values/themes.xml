@@ -44,5 +44,14 @@
         <item name="backgroundTint">@color/blue2</item>
     </style>
 
-    <style name="AppTheme">AgendaTheme</style>
+    <color name="textColorLight">@android:color/black</color>
+
+    <style name="ListViewText.Light" parent="android:TextAppearance">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+
+        <item name="android:textColor">@color/black</item>
+    </style>
 </resources>
