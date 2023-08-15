@@ -9,23 +9,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 
@@ -42,11 +37,13 @@ public class activity_add_agenda extends AppCompatActivity {
         EditText editNome = findViewById(R.id.editTextText);
         EditText editDescricao = findViewById(R.id.editTextText2);
         Button buttonSalvar = findViewById(R.id.button_login);
-
         TextView textView = findViewById(R.id.textView5);
         TextView textView1 = findViewById(R.id.textView4);
+        TextView charCountTextView = findViewById(R.id.text_view_contador);
+        TextView charCountTextView2 = findViewById(R.id.textView8);
 
         FloatingActionButton floatingActionButton1 = findViewById(R.id.floatingActionButton2);
+
 
         Switch switchCompat = findViewById(R.id.switch1);
         switchCompat.setChecked(false);
@@ -146,6 +143,42 @@ public class activity_add_agenda extends AppCompatActivity {
                         finish();
                     }
                 }
+            }
+        });
+        editNome.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Nada a fazer antes da mudança do texto
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Atualizar o contador de caracteres
+                int currentLength = charSequence.length();
+                charCountTextView.setText(currentLength + "/10");
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // Nada a fazer depois da mudança do texto
+            }
+        });
+        editDescricao.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Nada a fazer antes da mudança do texto
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Atualizar o contador de caracteres
+                int currentLength = charSequence.length();
+                charCountTextView2.setText(currentLength + "/20");
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // Nada a fazer depois da mudança do texto
             }
         });
 

@@ -54,4 +54,8 @@
 
         <item name="android:textColor">@color/black</item>
     </style>
+    <style name="AppTheme2" parent="Theme.AppCompat">
+        <!-- Defina outras propriedades do tema para o modo noturno aqui -->
+        <item name="android:textColor">@color/black</item>
+    </style>
 </resources>
