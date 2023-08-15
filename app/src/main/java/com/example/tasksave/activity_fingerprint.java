@@ -65,6 +65,10 @@ public class activity_fingerprint extends activity_login {
                 Toast.makeText(activity_fingerprint.this, "Erro", Toast.LENGTH_SHORT).show();
             }
         });
+        BiometricPrompt.PromptInfo.Builder promptInfo = CaixaDialogo();
+        promptInfo.setNegativeButtonText("Cancelar");
+        biometricPrompt.authenticate(promptInfo.build());
+
         imageView.setOnClickListener(view -> {
             BiometricPrompt.PromptInfo.Builder promtInfo = CaixaDialogo();
             promtInfo.setNegativeButtonText("Cancelar");

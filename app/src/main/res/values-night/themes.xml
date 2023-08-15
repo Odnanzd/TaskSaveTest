@@ -6,7 +6,10 @@
     </style>
 
     <style name="BackgroundTheme">
-        <item name="android:background">@color/blue3</item>
+        <item name="android:background">@drawable/background_main_theme_gradient</item>
+    </style>
+    <style name="BackgroundThemeMenu">
+        <item name="android:background">@drawable/background_white_contraist</item>
     </style>
 
     <style name="BackGroundTintThemeButton">

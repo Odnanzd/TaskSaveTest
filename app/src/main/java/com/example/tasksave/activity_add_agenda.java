@@ -7,11 +7,13 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -19,6 +21,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -100,13 +104,25 @@ public class activity_add_agenda extends AppCompatActivity {
         });
 
         AgendaDAO agendaDAO = new AgendaDAO(this);
+        String msg_error;
+        msg_error = "Os campos não podem ser vazios.";
 
         buttonSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (editNome.getText().toString().equals("") || editDescricao.getText().toString().equals("")) {
 
-                    Toast.makeText(activity_add_agenda.this, "Os campos não podem ser vazios.", Toast.LENGTH_LONG).show();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                    if (imm != null) {
+                        View currentFocus = getCurrentFocus();
+                        if (currentFocus != null) {
+                            imm.hideSoftInputFromWindow(currentFocus.getWindowToken(), 0);
+                        }
+                    }
+                    Snackbar snackbar = Snackbar.make(view,msg_error,Snackbar.LENGTH_SHORT );
+                    snackbar.setBackgroundTint(Color.WHITE);
+                    snackbar.setTextColor(Color.BLACK);
+                    snackbar.show();
 
                 } else {
                     if (switchCompat.isChecked()) {

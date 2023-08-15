@@ -8,7 +8,10 @@
     <style name="Theme.TaskSave" parent="Base.Theme.TaskSave" />
     
     <style name="BackgroundTheme">
-        <item name="android:background">@color/white</item>
+        <item name="android:background">@color/rosa</item>
+    </style>
+    <style name="BackgroundThemeMenu">
+        <item name="android:background">@drawable/background_main_menu_itens</item>
     </style>
 
     <style name="BackGroundTintThemeButton">
