@@ -32,7 +32,7 @@ public class activity_login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         input_Nome = findViewById(R.id.inputNome);
-        text_view_user = findViewById(R.id.text_view_user);
+//        text_view_user = findViewById(R.id.text_view_user);
         button_login = findViewById(R.id.button_login);
         input_Password = findViewById(R.id.input_Password);
         input_Nome.requestFocus();

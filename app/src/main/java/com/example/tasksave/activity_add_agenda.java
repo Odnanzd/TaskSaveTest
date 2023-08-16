@@ -171,7 +171,7 @@ public class activity_add_agenda extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 // Atualizar o contador de caracteres
                 int currentLength = charSequence.length();
-                charCountTextView.setText(currentLength + "/10");
+                charCountTextView.setText(currentLength + "/14");
             }
 
             @Override

@@ -34,7 +34,7 @@
         <item name="android:textColor">@color/white</item>
     </style>
     <style name="BackGroundMainMenu">
-        <item name="android:background">@color/blue5</item>
+        <item name="android:background">@drawable/background_add_agenda_night</item>
     </style>
     <style name="ButtonColorTheme">
         <item name="backgroundTint">@color/blue2</item>
@@ -49,5 +49,29 @@
     <style name="AppTheme2" parent="Theme.AppCompat">
         <!-- Defina outras propriedades do tema para o modo noturno aqui -->
         <item name="android:textColor">@color/grey2</item>
+    </style>
+    <style name="AppTheme3" parent="Theme.AppCompat">
+        <!-- ... outras definições de estilo ... -->
+        <item name="colorAccent">@color/blue2</item>
+    </style>
+
+    <style name="AppTheme.FabStyle" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="backgroundTint">@color/blue2</item>
+    </style>
+
+    <style name="AppTheme4" parent="Theme.AppCompat">
+        <!-- ... outras definições de estilo ... -->
+        <item name="colorAccent">@color/red1</item>
+    </style>
+
+    <style name="AppTheme.FabStyle2" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="backgroundTint">@color/red1</item>
+    </style>
+
+    <style name="InputButton">
+        <item name="android:background">@drawable/input_button_night</item>
+    </style>
+    <style name="IconLogin">
+        <item name="android:src">@drawable/baseline_person_24</item>
     </style>
 </resources>
