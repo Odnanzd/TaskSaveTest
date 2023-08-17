@@ -34,7 +34,7 @@
     </style>
 
     <style name="TextColorTheme3">
-        <item name="android:textColor">@color/rosa</item>
+        <item name="android:textColor">@color/rosa2</item>
     </style>
 
     <style name="BackgroundThemeItens">
@@ -84,5 +84,32 @@
 
     <style name="IconLogin">
         <item name="android:src">@drawable/baseline_person_24_night</item>
+    </style>
+    <style name="LogoTipo">
+        <item name="android:src">@drawable/logotiporosa3</item>
+    </style>
+    <style name="Menu_Main_Item">
+        <item name="android:src">@drawable/teste_quadrado_claro</item>
+    </style>
+    <style name="Logo_Menu_Main_Item_She">
+        <item name="android:src">@drawable/she_button_claro</item>
+    </style>
+    <style name="Logo_Menu_Main_Item_Calendar">
+        <item name="android:src">@drawable/calendar_button_claro</item>
+    </style>
+    <style name="Logo_Menu_Main_Item_Password">
+        <item name="android:src">@drawable/passwords_button_claro</item>
+    </style>
+    <style name="Logo_Menu_Main_Item_Document">
+        <item name="android:src">@drawable/document_button_claro</item>
+    </style>
+    <style name="Logo_Menu_Main_Item_confg">
+        <item name="android:src">@drawable/confg_button_claro</item>
+    </style>
+    <style name="Logo_Menu_Main_Item_Logout">
+        <item name="android:src">@drawable/logout_button_claro</item>
+    </style>
+    <style name="ImageProfileMain">
+        <item name="android:src">@drawable/profile2</item>
     </style>
 </resources>

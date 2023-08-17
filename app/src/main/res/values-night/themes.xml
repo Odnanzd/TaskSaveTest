@@ -71,7 +71,34 @@
     <style name="InputButton">
         <item name="android:background">@drawable/input_button_night</item>
     </style>
+    <style name="LogoTipo">
+        <item name="android:src">@drawable/logotipo</item>
+    </style>
     <style name="IconLogin">
         <item name="android:src">@drawable/baseline_person_24</item>
+    </style>
+    <style name="Menu_Main_Item">
+        <item name="android:src">@drawable/teste_quadrado</item>
+    </style>
+    <style name="Logo_Menu_Main_Item_She">
+        <item name="android:src">@drawable/she_button</item>
+    </style>
+    <style name="Logo_Menu_Main_Item_Calendar">
+        <item name="android:src">@drawable/calendar_button</item>
+    </style>
+    <style name="Logo_Menu_Main_Item_Password">
+        <item name="android:src">@drawable/passwords_button</item>
+    </style>
+    <style name="Logo_Menu_Main_Item_Document">
+        <item name="android:src">@drawable/document_button</item>
+    </style>
+    <style name="Logo_Menu_Main_Item_confg">
+        <item name="android:src">@drawable/confg_button</item>
+    </style>
+    <style name="Logo_Menu_Main_Item_Logout">
+        <item name="android:src">@drawable/logout_button</item>
+    </style>
+    <style name="ImageProfileMain">
+        <item name="android:src">@drawable/profile3</item>
     </style>
 </resources>

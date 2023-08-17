@@ -8,13 +8,26 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/ic_launcher_background"
+        android:icon="@mipmap/logotipo_icon"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/logotipo_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.TaskSave"
         tools:targetApi="31">
+
+        <!-- Definir a SplashActivity como a atividade principal -->
+        <activity
+            android:name=".activity_splash_screen"
+            android:theme="@style/Theme.TaskSave"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Restante das atividades -->
         <activity
             android:name=".layout_activity"
             android:exported="false" />
@@ -32,13 +45,7 @@
             android:exported="false" />
         <activity
             android:name=".activity_fingerprint"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".activity_login"
             android:exported="false" />

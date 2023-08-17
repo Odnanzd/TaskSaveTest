@@ -16,8 +16,9 @@
         android:layout_width="406dp"
         android:layout_height="360dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="2dp"
         tools:ignore="MissingConstraints">
 
         <ImageView
@@ -27,8 +28,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="6dp"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="6dp" />
 
         <EditText
             android:id="@+id/inputNome"

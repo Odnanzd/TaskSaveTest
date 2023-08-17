@@ -8,12 +8,12 @@
     android:orientation="vertical"
     tools:context=".activity_main">
 
-    <ImageView
+    <com.example.tasksave.CircularImageView
         android:id="@+id/imageView2"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        style="@style/ImageProfileMain"
         android:layout_marginTop="120dp"
-        android:src="@drawable/profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,7 +69,7 @@
                             android:id="@+id/image_view_circle_agenda"
                             android:layout_width="102dp"
                             android:layout_height="115dp"
-                            app:srcCompat="@drawable/teste_quadrado"
+                            style="@style/Menu_Main_Item"
                             tools:ignore="MissingConstraints" />
 
                         <ImageView
@@ -80,7 +80,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/she_button" />
+                            style="@style/Logo_Menu_Main_Item_She" />
 
                         <TextView
                             android:id="@+id/text_view_agenda"
@@ -112,7 +112,7 @@
                             android:id="@+id/image_view_circle_calendar"
                             android:layout_width="102dp"
                             android:layout_height="115dp"
-                            app:srcCompat="@drawable/teste_quadrado"
+                            style="@style/Menu_Main_Item"
                             tools:ignore="MissingConstraints" />
 
                         <ImageView
@@ -123,7 +123,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/calendar_button" />
+                            style="@style/Logo_Menu_Main_Item_Calendar" />
 
                         <TextView
                             android:id="@+id/text_view_calendar"
@@ -155,7 +155,7 @@
                             android:id="@+id/image_view_circle_senhas"
                             android:layout_width="102dp"
                             android:layout_height="115dp"
-                            app:srcCompat="@drawable/teste_quadrado"
+                            style="@style/Menu_Main_Item"
                             tools:ignore="MissingConstraints"
                             tools:layout_editor_absoluteX="0dp"
                             tools:layout_editor_absoluteY="3dp" />
@@ -168,7 +168,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/passwords_button" />
+                            style="@style/Logo_Menu_Main_Item_Password" />
 
                         <TextView
                             android:id="@+id/text_view_senha"
@@ -206,7 +206,7 @@
                             android:id="@+id/image_view_circle_documento"
                             android:layout_width="102dp"
                             android:layout_height="115dp"
-                            app:srcCompat="@drawable/teste_quadrado"
+                            style="@style/Menu_Main_Item"
                             tools:ignore="MissingConstraints" />
 
                         <ImageView
@@ -217,7 +217,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/document_button" />
+                            style="@style/Logo_Menu_Main_Item_Document" />
 
                         <TextView
                             android:id="@+id/text_view_documento"
@@ -249,7 +249,7 @@
                             android:id="@+id/image_view_circle_config"
                             android:layout_width="102dp"
                             android:layout_height="115dp"
-                            app:srcCompat="@drawable/teste_quadrado"
+                            style="@style/Menu_Main_Item"
                             tools:ignore="MissingConstraints" />
 
                         <ImageView
@@ -260,7 +260,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/confg_button" />
+                            style="@style/Logo_Menu_Main_Item_confg" />
 
                         <TextView
                             android:id="@+id/text_view_config"
@@ -292,7 +292,7 @@
                             android:id="@+id/image_view_circle_logout"
                             android:layout_width="102dp"
                             android:layout_height="115dp"
-                            app:srcCompat="@drawable/teste_quadrado"
+                            style="@style/Menu_Main_Item"
                             tools:ignore="MissingConstraints" />
 
                         <ImageView
@@ -303,7 +303,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/logout_button" />
+                            style="@style/Logo_Menu_Main_Item_Logout" />
 
                         <TextView
                             android:id="@+id/text_view_logout"
