@@ -5,13 +5,14 @@
     android:layout_width="350dp"
     android:layout_height="350dp"
     android:layout_gravity="center"
-    android:background="@drawable/background_add_agenda_data"
+    style="@style/Background_add_agenda_data"
     tools:context=".activity_add_agenda_data">
 
     <CalendarView
         android:id="@+id/calendar_view_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/CalendarTheme"
         android:layout_marginTop="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:backgroundTint="@color/blue7"
+        style="@style/ButtonColorTheme"
         app:fabCustomSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

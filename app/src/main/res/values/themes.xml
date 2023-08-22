@@ -75,7 +75,7 @@
     </style>
 
     <style name="AppTheme.FabStyle2" parent="Widget.MaterialComponents.FloatingActionButton">
-        <item name="backgroundTint">@color/rosa2</item>
+        <item name="backgroundTint">@color/rosa</item>
     </style>
 
     <style name="InputButton">
@@ -112,4 +112,30 @@
     <style name="ImageProfileMain">
         <item name="android:src">@drawable/profile2</item>
     </style>
+    <style name="Background_add_agenda_data">
+        <item name="android:background">@drawable/background_add_agenda_data</item>
+    </style>
+    <style name="CalendarTheme">
+
+        <!-- Cor dos dias no mês no CalendarView -->
+        <item name="android:dateTextAppearance">@style/CalendarDateText</item>
+    </style>
+    <style name="CalendarDateText">
+        <!-- Cor dos dias no mês -->
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="BackgroundThemeHora">
+        <item name="android:background">@drawable/backgroud_add_agenda_hora</item>
+    </style>
+
+    <style name="TimePickerTheme">
+        <!-- Outros atributos de estilo que você deseja definir -->
+
+        <!-- Cor de fundo do TimePicker -->
+        <item name="android:background">@color/rosa2</item>
+
+        <!-- Cor dos números e marcadores no TimePicker -->
+        <item name="android:numbersTextColor">@color/white</item>
+    </style>
+
 </resources>

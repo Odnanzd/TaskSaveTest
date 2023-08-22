@@ -5,7 +5,7 @@
     android:layout_width="350dp"
     android:layout_height="350dp"
     android:layout_gravity="center"
-    android:background="@drawable/backgroud_add_agenda_hora"
+    style="@style/BackgroundThemeHora"
     tools:context=".activity_add_agenda_hora">
 
 
@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/backgroud_add_agenda_hora"
+        style="@style/TimePickerTheme"
         android:timePickerMode="spinner"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/blue7"
+        style="@style/ButtonColorTheme"
         android:clickable="true"
         app:fabCustomSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -37,14 +37,5 @@
         app:maxImageSize="30dp"
         app:srcCompat="@drawable/button_add_agenda_next" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="315dp"
-        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
