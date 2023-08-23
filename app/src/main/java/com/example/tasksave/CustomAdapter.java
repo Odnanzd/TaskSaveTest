@@ -42,12 +42,21 @@ public class CustomAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return AgendaTitulo[position];
     }
 
     @Override
     public long getItemId(int position) {
         return 0;
+    }
+    public Object getItemDescricao(int position) {
+        return AgendaDescricao[position];
+    }
+    public Object getItemData(int position) {
+        return AgendaData[position];
+    }
+    public Object getItemHora(int position) {
+        return AgendaHora[position];
     }
 
     @Override

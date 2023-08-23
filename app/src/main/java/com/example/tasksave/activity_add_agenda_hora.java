@@ -27,7 +27,6 @@ public class activity_add_agenda_hora extends AppCompatActivity {
         setContentView(R.layout.activity_add_agenda_hora);
         timePicker = findViewById(R.id.timePicker);
         floatingActionButton = findViewById(R.id.floatingActionButton);
-        textView = findViewById(R.id.textView3);
 
 
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {

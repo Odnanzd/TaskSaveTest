@@ -8,8 +8,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -139,5 +142,19 @@ public class activity_agenda extends AppCompatActivity {
         // Configurando o CustomAdapter para a ListView
         CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(), titulos, descricoes, datas, horas, lembretes);
         listView.setAdapter(customAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+                Intent intent = new Intent(activity_agenda.this, activity_item_selected_agenda.class);
+
+                intent.putExtra("titulo", customAdapter.getItem(position).toString());
+                intent.putExtra("descricao", customAdapter.getItemDescricao(position).toString());
+
+                // Inicia a nova Activity
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -11,6 +11,9 @@
     <style name="BackgroundThemeMenu">
         <item name="android:background">@drawable/background_white_contraist</item>
     </style>
+    <style name="BackgroundThemeAddAgenda">
+        <item name="android:background">@drawable/background_add_agenda_contrast</item>
+    </style>
 
     <style name="BackGroundTintThemeButton">
         <item name="android:backgroundTint">@color/blue4</item>
@@ -18,6 +21,9 @@
 
     <style name="TextColorTheme">
         <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="TextColorAddAgenda">
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="BackGroundTintThemeButton2">

@@ -13,6 +13,9 @@
     <style name="BackgroundThemeMenu">
         <item name="android:background">@drawable/background_main_menu_itens</item>
     </style>
+    <style name="BackgroundThemeAddAgenda">
+        <item name="android:background">@drawable/background_main_menu_itens</item>
+    </style>
 
     <style name="BackGroundTintThemeButton">
         <item name="android:backgroundTint">@color/black1</item>
@@ -20,6 +23,9 @@
 
     <style name="TextColorTheme">
         <item name="android:textColor">@color/blue1</item>
+    </style>
+    <style name="TextColorAddAgenda">
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="BackGroundTintThemeButton2">

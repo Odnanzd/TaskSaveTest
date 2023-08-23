@@ -15,19 +15,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TaskSave"
         tools:targetApi="31">
-
+        <activity
+            android:name=".activity_item_selected_agenda"
+            android:exported="false" />
         <!-- Definir a SplashActivity como a atividade principal -->
         <activity
             android:name=".activity_splash_screen"
-            android:theme="@style/Theme.TaskSave"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.TaskSave">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Restante das atividades -->
+        </activity> <!-- Restante das atividades -->
         <activity
             android:name=".layout_activity"
             android:exported="false" />
