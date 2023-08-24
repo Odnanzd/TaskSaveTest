@@ -58,6 +58,9 @@ public class CustomAdapter extends BaseAdapter {
     public Object getItemHora(int position) {
         return AgendaHora[position];
     }
+    public Boolean getItemLembrete(int position) {
+        return isReminderSet[position];
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

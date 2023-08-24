@@ -149,9 +149,11 @@ public class activity_agenda extends AppCompatActivity {
 
                 Intent intent = new Intent(activity_agenda.this, activity_item_selected_agenda.class);
 
-                intent.putExtra("titulo", customAdapter.getItem(position).toString());
-                intent.putExtra("descricao", customAdapter.getItemDescricao(position).toString());
-
+                intent.putExtra("tituloItem", customAdapter.getItem(position).toString());
+                intent.putExtra("descricaoItem", customAdapter.getItemDescricao(position).toString());
+                intent.putExtra("dataItem", customAdapter.getItemData(position).toString());
+                intent.putExtra("horaItem", customAdapter.getItemHora(position).toString());
+                intent.putExtra("lembreteItem", customAdapter.getItemLembrete(position));
                 // Inicia a nova Activity
                 startActivity(intent);
             }

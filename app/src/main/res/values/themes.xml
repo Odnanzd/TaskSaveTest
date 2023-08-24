@@ -143,5 +143,8 @@
         <!-- Cor dos números e marcadores no TimePicker -->
         <item name="android:numbersTextColor">@color/white</item>
     </style>
+    <style name="UpdateDetailsItem">
+        <item name="android:background">@drawable/update_details_item</item>
+    </style>
 
 </resources>
