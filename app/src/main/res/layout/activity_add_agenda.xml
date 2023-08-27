@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/BackgroundThemeAddAgenda"
-    android:layout_width="350dp"
-    android:layout_height="350dp"
+    android:layout_width="400dp"
+    android:layout_height="400dp"
     android:layout_gravity="center"
     tools:context=".activity_add_agenda">
 
     <EditText
         android:id="@+id/editTextText"
-        android:layout_width="289dp"
+        android:layout_width="330dp"
         android:layout_height="48dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/input_button_2"
         android:ems="10"
         android:hint="@string/edit_text_nome_add_agenda"
@@ -27,7 +27,7 @@
 
     <EditText
         android:id="@+id/editTextText2"
-        android:layout_width="289dp"
+        android:layout_width="330dp"
         android:layout_height="48dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/input_button_2"
@@ -55,47 +55,48 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
+
     <TextView
         android:id="@+id/textView2"
+        style="@style/TextColorAddAgenda"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:text="@string/text_view_add_agenda"
-        style="@style/TextColorAddAgenda"
-        android:textStyle="bold"
         android:textSize="25sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <TextView
         android:id="@+id/textView4"
+        style="@style/TextColorAddAgenda"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="20dp"
         android:drawableLeft="@drawable/baseline_schedule_24"
         android:text="Horário"
-        style="@style/TextColorAddAgenda"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/button_login"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.823"
+        app:layout_constraintHorizontal_bias="0.818"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView5"
+        style="@style/TextColorAddAgenda"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="20dp"
         android:drawableLeft="@drawable/baseline_calendar_month_24"
         android:text="Data"
         android:textSize="20sp"
-        style="@style/TextColorAddAgenda"
         app:layout_constraintBottom_toTopOf="@+id/button_login"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.216"
+        app:layout_constraintHorizontal_bias="0.227"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
@@ -118,7 +119,7 @@
         android:id="@+id/switch1"
         android:layout_width="174dp"
         android:layout_height="33dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:text="Definir lembrete"
         style="@style/TextColorAddAgenda"
         android:textSize="15sp"
