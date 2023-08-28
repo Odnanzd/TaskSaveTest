@@ -95,8 +95,7 @@
         android:text="Data"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/button_login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.227"
+        app:layout_constraintEnd_toStartOf="@+id/textView4"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
