@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -21,12 +22,12 @@ public class CustomAdapter extends BaseAdapter {
     String AgendaDescricao[];
     String AgendaData[];
     String AgendaHora[];
-    static long[] AgendaID;
+    private ArrayList<Long> AgendaID;
     boolean[] isReminderSet;
     LayoutInflater inflater;
 
 
-    public CustomAdapter(Context context,long[] IDAgenda, String[] TituloAgenda, String[] DescricaoAgenda, String[] DataAgenda, String[] HoraAgenda, boolean[] isReminderSet) {
+    public CustomAdapter(Context context,ArrayList<Long> IDAgenda, String[] TituloAgenda, String[] DescricaoAgenda, String[] DataAgenda, String[] HoraAgenda, boolean[] isReminderSet) {
         this.context = context;
         AgendaID = IDAgenda;
         this.AgendaTitulo = TituloAgenda;
@@ -39,30 +40,36 @@ public class CustomAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return AgendaID.length;
+        return AgendaTitulo.length;
+    }
+
+
+    @Override
+    public long getItemId(int position) {
+        return AgendaID.get(position);
     }
 
     @Override
     public Object getItem(int position) {
-        return AgendaID[position];
+        return position;
     }
 
-    @Override
-    public long getItemId(int position) {
-        return 0;
-    }
     public Object getItemTitulo(int position) {
         return AgendaTitulo[position];
     }
+
     public Object getItemDescricao(int position) {
         return AgendaDescricao[position];
     }
+
     public Object getItemData(int position) {
         return AgendaData[position];
     }
+
     public Object getItemHora(int position) {
         return AgendaHora[position];
     }
+
     public Boolean getItemLembrete(int position) {
         return isReminderSet[position];
     }

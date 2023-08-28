@@ -50,6 +50,7 @@ public class activity_item_selected_agenda extends AppCompatActivity {
         String data = getIntent().getStringExtra("dataItem");
         String hora = getIntent().getStringExtra("horaItem");
         Boolean lembrete = getIntent().getBooleanExtra("lembreteItem", false);
+        long idTarefa = getIntent().getLongExtra("idTarefa", -1);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM");
         LocalDate localdataEscolhida = LocalDate.parse(data);
@@ -111,37 +112,30 @@ public class activity_item_selected_agenda extends AppCompatActivity {
             }
         });
 
-        SharedPreferences sharedPrefs3 = getApplicationContext().getSharedPreferences("arquivoSalvar5", Context.MODE_PRIVATE);
-        Boolean lembreteSelecionado = sharedPrefs3.getBoolean("arquivo_lembrete",false);
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-                    SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("arquivoSalvar4", Context.MODE_PRIVATE);
-                    int idSelecionado = sharedPrefs2.getInt("arquivo_Hora4", 00);
+                String novoTitulo = editText.getText().toString();
+                String novaDescricao = editText2.getText().toString();
 
-                    String novoTitulo = editText.getText().toString();
-                    String novaDescricao = editText2.getText().toString();
-                    LocalDate dataAtual = LocalDate.now();
+                // Aqui você deve pegar o ID da tarefa (que você passou como um extra na Intent)
 
-                    Agenda agendaAtualizada = new Agenda(idSelecionado, novoTitulo, novaDescricao, dataAtual, -1, -1, false);
+                        // Atualize os valores no banco de dados
+                AgendaDAO agendaDAO = new AgendaDAO(activity_item_selected_agenda.this);
+                boolean atualizado = agendaDAO.Atualizar(idTarefa, novoTitulo, novaDescricao);
 
-                    agendaAtualizada.setNomeAgenda(novoTitulo);
-                    agendaAtualizada.setDescriçãoAgenda(novaDescricao);
+                if (atualizado) {
+                    // Atualização bem-sucedida
+                    Toast.makeText(activity_item_selected_agenda.this, "Tarefa atualizada com sucesso", Toast.LENGTH_SHORT).show();
 
-
-                    AgendaDAO agendaDAO = new AgendaDAO(activity_item_selected_agenda.this);
-
-                    int rowsAffected = agendaDAO.Atualizar(agendaAtualizada);
-
-                    if (rowsAffected > 0) {
-                        Toast.makeText(activity_item_selected_agenda.this, "Tarefa Atualiza", Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(activity_item_selected_agenda.this, "Erro", Toast.LENGTH_LONG).show();
-                    }
+                    finish();
+                } else {
+                    // Algo deu errado na atualização
+                    Toast.makeText(activity_item_selected_agenda.this, "Erro ao atualizar a tarefa", Toast.LENGTH_SHORT).show();
                 }
+            }
         });
 
     }

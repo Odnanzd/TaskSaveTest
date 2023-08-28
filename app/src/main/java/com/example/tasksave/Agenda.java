@@ -82,7 +82,6 @@ public class Agenda {
     }
 
     public static long getId() {
-        id++;
         return id;
     }
 

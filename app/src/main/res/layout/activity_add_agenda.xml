@@ -81,7 +81,7 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/button_login"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.818"
+        app:layout_constraintHorizontal_bias="0.761"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
@@ -96,6 +96,7 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/button_login"
         app:layout_constraintEnd_toStartOf="@+id/textView4"
+        app:layout_constraintHorizontal_bias="0.447"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 

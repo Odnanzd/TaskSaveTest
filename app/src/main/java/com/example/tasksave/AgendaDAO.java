@@ -17,15 +17,15 @@ import java.util.List;
 
 public class AgendaDAO {
 
-        private Conexao con;
-        private SQLiteDatabase db;
+    private Conexao con;
+    private SQLiteDatabase db;
 
-        public AgendaDAO(Context context) {
+    public AgendaDAO(Context context) {
 
-            con = new Conexao(context);
-            db = con.getWritableDatabase();
+        con = new Conexao(context);
+        db = con.getWritableDatabase();
 
-        }
+    }
 
     public long inserir(Agenda agenda) {
 
@@ -41,17 +41,17 @@ public class AgendaDAO {
         return db.insert("agenda", null, contentValues);
 
     }
-    public int Atualizar(Agenda agenda) {
 
+    public boolean Atualizar(long id, String novoTitulo, String novaDescricao) {
         ContentValues contentValues = new ContentValues();
-
-        contentValues.put("nomeTarefa", agenda.getNomeAgenda());
-        contentValues.put("descricaoTarefa", agenda.getDescriçãoAgenda());
+        contentValues.put("nomeTarefa", novoTitulo);
+        contentValues.put("descricaoTarefa", novaDescricao);
 
         String whereClause = "id = ?";
-        String[] whereArgs = { String.valueOf(agenda.getId()) };
+        String[] whereArgs = {String.valueOf(id)};
 
-        return db.update("agenda", contentValues, whereClause, whereArgs);
+        int rowsUpdated = db.update("agenda", contentValues, whereClause, whereArgs);
+
+        return rowsUpdated > 0;
     }
-
 }

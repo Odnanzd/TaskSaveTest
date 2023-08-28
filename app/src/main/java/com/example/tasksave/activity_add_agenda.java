@@ -135,11 +135,18 @@ public class activity_add_agenda extends AppCompatActivity {
                       int horaEscolhida = sharedPrefs2.getInt("arquivo_Hora2",00);
                       int minutoEscolhido = sharedPrefs2.getInt("arquivo_Minuto2",00);
 
-                        long idSequencial = Agenda.getId();
-                        Agenda agenda = new Agenda(idSequencial, editNome.getText().toString(), editDescricao.getText().toString(),
+                        Agenda agenda = new Agenda(-1, editNome.getText().toString(), editDescricao.getText().toString(),
                         localdataEscolhida, horaEscolhida, minutoEscolhido, true);
-                        idSequencial = agendaDAO.inserir(agenda);
-                        Toast.makeText(activity_add_agenda.this, "Tarefa Salva. Nº " + idSequencial, Toast.LENGTH_LONG).show();
+                        long idSequencial = agendaDAO.inserir(agenda);
+
+                        if(idSequencial > 0) {
+                            agenda.setId(idSequencial);
+                            long idAgenda = agenda.getId();
+
+                            Toast.makeText(activity_add_agenda.this, "Tarefa Salva. Nº " + idAgenda, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(activity_add_agenda.this, "Erro", Toast.LENGTH_LONG).show();
+                        }
 
                         SharedPreferences save = getApplicationContext().getSharedPreferences("arquivoSalvar2", Context.MODE_PRIVATE);
                         SharedPreferences.Editor saveEdit = save.edit();
@@ -148,11 +155,23 @@ public class activity_add_agenda extends AppCompatActivity {
                         finish();
 
                     } else {
-                        long idSequencial = Agenda.getId();
-                        Agenda agenda = new Agenda(idSequencial, editNome.getText().toString(), editDescricao.getText().toString(),
+//
+                        Agenda agenda = new Agenda(-1, editNome.getText().toString(), editDescricao.getText().toString(),
                                 dataAtual, -1, -1, false);
-                        idSequencial = agendaDAO.inserir(agenda);
-                        Toast.makeText(activity_add_agenda.this, "Tarefa Salva. Nº " + idSequencial, Toast.LENGTH_LONG).show();
+
+                        long idSequencial = agendaDAO.inserir(agenda);
+
+                        if(idSequencial > 0) {
+
+                            agenda.setId(idSequencial);
+
+                            long idAgenda = agenda.getId();
+
+                            Toast.makeText(activity_add_agenda.this, "Tarefa Salva. Nº " + idAgenda, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(activity_add_agenda.this, "Erro", Toast.LENGTH_LONG).show();
+                        }
+
                         SharedPreferences save = getApplicationContext().getSharedPreferences("arquivoSalvar2", Context.MODE_PRIVATE);
                         SharedPreferences.Editor saveEdit = save.edit();
                         saveEdit.clear();
