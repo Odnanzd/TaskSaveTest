@@ -21,12 +21,14 @@ public class CustomAdapter extends BaseAdapter {
     String AgendaDescricao[];
     String AgendaData[];
     String AgendaHora[];
+    static long[] AgendaID;
     boolean[] isReminderSet;
     LayoutInflater inflater;
 
 
-    public CustomAdapter(Context context, String[] TituloAgenda, String[] DescricaoAgenda, String[] DataAgenda, String[] HoraAgenda, boolean[] isReminderSet) {
+    public CustomAdapter(Context context,long[] IDAgenda, String[] TituloAgenda, String[] DescricaoAgenda, String[] DataAgenda, String[] HoraAgenda, boolean[] isReminderSet) {
         this.context = context;
+        AgendaID = IDAgenda;
         this.AgendaTitulo = TituloAgenda;
         this.AgendaDescricao = DescricaoAgenda;
         this.AgendaData = DataAgenda;
@@ -37,17 +39,20 @@ public class CustomAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return AgendaTitulo.length;
+        return AgendaID.length;
     }
 
     @Override
     public Object getItem(int position) {
-        return AgendaTitulo[position];
+        return AgendaID[position];
     }
 
     @Override
     public long getItemId(int position) {
         return 0;
+    }
+    public Object getItemTitulo(int position) {
+        return AgendaTitulo[position];
     }
     public Object getItemDescricao(int position) {
         return AgendaDescricao[position];

@@ -13,8 +13,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/back"
         style="@style/BackgroundThemeMenu"
-        android:layout_width="406dp"
-        android:layout_height="360dp"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +29,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteY="6dp" />
+            tools:layout_editor_absoluteY="36dp" />
 
         <EditText
             android:id="@+id/inputNome"

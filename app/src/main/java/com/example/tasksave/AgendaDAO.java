@@ -41,37 +41,17 @@ public class AgendaDAO {
         return db.insert("agenda", null, contentValues);
 
     }
+    public int Atualizar(Agenda agenda) {
 
-//    @RequiresApi(api = Build.VERSION_CODES.O)
-//    public List<Agenda> listardadosAgenda() {
-//
-//        List<Agenda> listaagenda = new ArrayList<Agenda>();
-//
-//      Cursor cursor = db.rawQuery("SELECT * FROM agenda;", null);
-//
-//        if (cursor.moveToFirst()) {
-//            do {
-//                @SuppressLint("Range")
-//                String titulo = cursor.getString(cursor.getColumnIndex("nomeTarefa"));
-//                @SuppressLint("Range")
-//                String descricao = cursor.getString(cursor.getColumnIndex("descricaoTarefa"));
-//                @SuppressLint("Range")
-//                String dataagenda = cursor.getString(cursor.getColumnIndex("dataAgenda"));
-//                @SuppressLint("Range")
-//                int horaagenda = cursor.getInt(cursor.getColumnIndex("horaAgenda"));
-//                @SuppressLint("Range")
-//                int minutoagenda = cursor.getInt(cursor.getColumnIndex("minutoAgenda"));
-//
-//                LocalDate localdataagenda = LocalDate.parse(dataagenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-//
-//                listaagenda.add(new Agenda(titulo, descricao, localdataagenda, horaagenda, minutoagenda));
-//
-//            } while (cursor.moveToNext());
-//        }
-//
-//        cursor.close();
-//
-//        return listaagenda;
-//
-//    }
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put("nomeTarefa", agenda.getNomeAgenda());
+        contentValues.put("descricaoTarefa", agenda.getDescriçãoAgenda());
+
+        String whereClause = "id = ?";
+        String[] whereArgs = { String.valueOf(agenda.getId()) };
+
+        return db.update("agenda", contentValues, whereClause, whereArgs);
+    }
+
 }

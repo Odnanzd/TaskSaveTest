@@ -4,6 +4,8 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -107,6 +110,40 @@ public class activity_item_selected_agenda extends AppCompatActivity {
                 // Não é necessário implementar nada aqui
             }
         });
+
+        SharedPreferences sharedPrefs3 = getApplicationContext().getSharedPreferences("arquivoSalvar5", Context.MODE_PRIVATE);
+        Boolean lembreteSelecionado = sharedPrefs3.getBoolean("arquivo_lembrete",false);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                    SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("arquivoSalvar4", Context.MODE_PRIVATE);
+                    int idSelecionado = sharedPrefs2.getInt("arquivo_Hora4", 00);
+
+                    String novoTitulo = editText.getText().toString();
+                    String novaDescricao = editText2.getText().toString();
+                    LocalDate dataAtual = LocalDate.now();
+
+                    Agenda agendaAtualizada = new Agenda(idSelecionado, novoTitulo, novaDescricao, dataAtual, -1, -1, false);
+
+                    agendaAtualizada.setNomeAgenda(novoTitulo);
+                    agendaAtualizada.setDescriçãoAgenda(novaDescricao);
+
+
+                    AgendaDAO agendaDAO = new AgendaDAO(activity_item_selected_agenda.this);
+
+                    int rowsAffected = agendaDAO.Atualizar(agendaAtualizada);
+
+                    if (rowsAffected > 0) {
+                        Toast.makeText(activity_item_selected_agenda.this, "Tarefa Atualiza", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(activity_item_selected_agenda.this, "Erro", Toast.LENGTH_LONG).show();
+                    }
+                }
+        });
+
     }
 
 }

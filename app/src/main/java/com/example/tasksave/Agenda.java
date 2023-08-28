@@ -5,7 +5,7 @@ import android.annotation.SuppressLint;
 import java.time.LocalDate;
 
 public class Agenda {
-
+    static long id;
     private String nomeAgenda;
     private String descriçãoAgenda;
     private LocalDate dataAgenda;
@@ -16,8 +16,9 @@ public class Agenda {
 
 
 
-    public Agenda(String nomeAgenda, String descriçãoAgenda, LocalDate dataAgenda, int horaAgenda, int minutoAgenda, boolean lembrete) {
+    public Agenda(long id, String nomeAgenda, String descriçãoAgenda, LocalDate dataAgenda, int horaAgenda, int minutoAgenda, boolean lembrete) {
 
+        this.id = id;
         this.nomeAgenda = nomeAgenda;
         this.descriçãoAgenda = descriçãoAgenda;
         this.dataAgenda = dataAgenda;
@@ -78,5 +79,14 @@ public class Agenda {
 
     public boolean getLembrete() {
         return lembrete;
+    }
+
+    public static long getId() {
+        id++;
+        return id;
+    }
+
+    public static void setId(long id) {
+        Agenda.id = id;
     }
 }

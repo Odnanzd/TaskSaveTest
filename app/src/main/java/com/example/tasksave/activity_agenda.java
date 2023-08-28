@@ -2,7 +2,9 @@ package com.example.tasksave;
 
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.annotation.RequiresApi;
@@ -99,6 +102,8 @@ public class activity_agenda extends AppCompatActivity {
         if (cursor.moveToFirst()) {
             do {
                 @SuppressLint("Range")
+                long ID = cursor.getLong(cursor.getColumnIndex("id"));
+                @SuppressLint("Range")
                 String titulo = cursor.getString(cursor.getColumnIndex("nomeTarefa"));
                 @SuppressLint("Range")
                 String descricao = cursor.getString(cursor.getColumnIndex("descricaoTarefa"));
@@ -114,7 +119,7 @@ public class activity_agenda extends AppCompatActivity {
 
                 LocalDate localdataagenda = LocalDate.parse(dataagenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-                listaagenda.add(new Agenda(titulo, descricao, localdataagenda, horaagenda, minutoagenda, lembrete));
+                listaagenda.add(new Agenda(ID,titulo, descricao, localdataagenda, horaagenda, minutoagenda, lembrete));
 
             } while (cursor.moveToNext());
         }
@@ -122,6 +127,7 @@ public class activity_agenda extends AppCompatActivity {
         cursor.close();
 
         // Convertendo a lista de objetos Agenda em arrays separados para o CustomAdapter
+        long[] id = new long[listaagenda.size()];
         String[] titulos = new String[listaagenda.size()];
         String[] descricoes = new String[listaagenda.size()];
         String[] datas = new String[listaagenda.size()];
@@ -129,6 +135,7 @@ public class activity_agenda extends AppCompatActivity {
         boolean[] lembretes = new boolean[listaagenda.size()];
 
         for (int i = 0; i < listaagenda.size(); i++) {
+            id[i] = listaagenda.get(i).getId();
             titulos[i] = listaagenda.get(i).getNomeAgenda();
             descricoes[i] = listaagenda.get(i).getDescriçãoAgenda();
             datas[i] = listaagenda.get(i).getDataAgendaString();
@@ -140,16 +147,29 @@ public class activity_agenda extends AppCompatActivity {
         }
 
         // Configurando o CustomAdapter para a ListView
-        CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(), titulos, descricoes, datas, horas, lembretes);
+        CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(),id, titulos, descricoes, datas, horas, lembretes);
         listView.setAdapter(customAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                long selectedItemId = CustomAdapter.AgendaID[position];
+
+                SharedPreferences prefs = getSharedPreferences("arquivoSalvar4", MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putLong("arquivo_Hora4", selectedItemId);
+                editor.apply();
+                Toast.makeText(activity_agenda.this, ""+selectedItemId, Toast.LENGTH_LONG).show();
+
+                Boolean selectedItemLembrete = (Boolean) customAdapter.getItemLembrete(position);
+                SharedPreferences prefs2 = getSharedPreferences("arquivoSalvar5", MODE_PRIVATE);
+                SharedPreferences.Editor editor2 = prefs2.edit();
+                editor2.putBoolean("arquivo_lembrete", selectedItemLembrete);
+                editor2.apply();
 
                 Intent intent = new Intent(activity_agenda.this, activity_item_selected_agenda.class);
 
-                intent.putExtra("tituloItem", customAdapter.getItem(position).toString());
+                intent.putExtra("tituloItem", customAdapter.getItemTitulo(position).toString());
                 intent.putExtra("descricaoItem", customAdapter.getItemDescricao(position).toString());
                 intent.putExtra("dataItem", customAdapter.getItemData(position).toString());
                 intent.putExtra("horaItem", customAdapter.getItemHora(position).toString());
