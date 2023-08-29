@@ -3,16 +3,7 @@ package com.example.tasksave;
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class AgendaDAO {
@@ -43,6 +34,7 @@ public class AgendaDAO {
     }
 
     public boolean Atualizar(long id, String novoTitulo, String novaDescricao) {
+
         ContentValues contentValues = new ContentValues();
         contentValues.put("nomeTarefa", novoTitulo);
         contentValues.put("descricaoTarefa", novaDescricao);
@@ -54,4 +46,14 @@ public class AgendaDAO {
 
         return rowsUpdated > 0;
     }
+    public boolean Excluir(long id) {
+
+        String whereClause = "id = ?";
+        String[] whereArgs = {String.valueOf(id)};
+
+        int rowsUpdated = db.delete("agenda", whereClause, whereArgs);
+
+        return rowsUpdated > 0;
+    }
 }
+

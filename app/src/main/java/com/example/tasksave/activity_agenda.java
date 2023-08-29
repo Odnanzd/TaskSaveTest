@@ -158,7 +158,6 @@ public class activity_agenda extends AppCompatActivity {
 
                 Intent intent = new Intent(activity_agenda.this, activity_item_selected_agenda.class);
                 long idTarefa = listaIDs.get(position);
-                Toast.makeText(activity_agenda.this, ""+idTarefa, Toast.LENGTH_SHORT).show();
 
                 intent.putExtra("idTarefa", idTarefa);
                 intent.putExtra("tituloItem", customAdapter.getItemTitulo(position).toString());

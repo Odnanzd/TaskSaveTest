@@ -1,11 +1,12 @@
 package com.example.tasksave;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -28,6 +29,7 @@ public class activity_item_selected_agenda extends AppCompatActivity {
     Button button;
     EditText editText;
     EditText editText2;
+    Button button2;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint("MissingInflatedId")
@@ -41,8 +43,10 @@ public class activity_item_selected_agenda extends AppCompatActivity {
         dataTextView = findViewById(R.id.textView11);
         horaTextView = findViewById(R.id.textView12);
         button = findViewById(R.id.button2);
+        button2 = findViewById(R.id.button);
         editText = findViewById(R.id.titulo_text_view);
         editText2 = findViewById(R.id.descricao_text_view);
+
 
         // Recebe os extras da Intent
         String titulo = getIntent().getStringExtra("tituloItem");
@@ -123,12 +127,13 @@ public class activity_item_selected_agenda extends AppCompatActivity {
                 // Aqui você deve pegar o ID da tarefa (que você passou como um extra na Intent)
 
                         // Atualize os valores no banco de dados
+
                 AgendaDAO agendaDAO = new AgendaDAO(activity_item_selected_agenda.this);
                 boolean atualizado = agendaDAO.Atualizar(idTarefa, novoTitulo, novaDescricao);
 
                 if (atualizado) {
                     // Atualização bem-sucedida
-                    Toast.makeText(activity_item_selected_agenda.this, "Tarefa atualizada com sucesso", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity_item_selected_agenda.this, "Tarefa atualizada.", Toast.LENGTH_SHORT).show();
 
                     finish();
                 } else {
@@ -137,7 +142,47 @@ public class activity_item_selected_agenda extends AppCompatActivity {
                 }
             }
         });
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ConfirmaExclusao();
+            }
+        });
 
+    }
+    public void ExcluirTarefa() {
+
+        long idTarefa = getIntent().getLongExtra("idTarefa", -1);
+        AgendaDAO agendaDAO = new AgendaDAO(activity_item_selected_agenda.this);
+        boolean excluir = agendaDAO.Excluir(idTarefa);
+
+        if (excluir) {
+            Toast.makeText(activity_item_selected_agenda.this, "Tarefa Excluida.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(activity_item_selected_agenda.this, activity_agenda.class);
+            startActivity(intent);
+        } else {
+            Toast.makeText(activity_item_selected_agenda.this, "Erro ao excluir tarefa.", Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void ConfirmaExclusao() {
+
+        AlertDialog.Builder msgbox = new AlertDialog.Builder(activity_item_selected_agenda.this);
+        msgbox.setTitle("Excluir");
+        msgbox.setIcon(android.R.drawable.ic_menu_delete);
+        msgbox.setMessage("Você realmente deseja excluir a tarefa?");
+        msgbox.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ExcluirTarefa();
+            }
+        });
+        msgbox.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        msgbox.show();
     }
 
 }
