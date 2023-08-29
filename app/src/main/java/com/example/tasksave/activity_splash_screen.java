@@ -2,7 +2,10 @@ package com.example.tasksave;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -13,7 +16,12 @@ public class activity_splash_screen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("canal_id", "Nome do Canal", NotificationManager.IMPORTANCE_HIGH);
+            channel.setDescription("Descrição do Canal");
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
@@ -23,4 +31,4 @@ public class activity_splash_screen extends AppCompatActivity {
             }
         }, SPLASH_TIME_OUT);
     }
-}
+    }
