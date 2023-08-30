@@ -30,13 +30,16 @@ public class activity_item_selected_agenda extends AppCompatActivity {
     EditText editText;
     EditText editText2;
     Button button2;
+    TextView textViewContador;
+    TextView textViewContador2;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_selected_agenda);
+
 
         tituloTextView = findViewById(R.id.titulo_text_view);
         descricaoTextView = findViewById(R.id.descricao_text_view);
@@ -46,6 +49,8 @@ public class activity_item_selected_agenda extends AppCompatActivity {
         button2 = findViewById(R.id.button);
         editText = findViewById(R.id.titulo_text_view);
         editText2 = findViewById(R.id.descricao_text_view);
+        textViewContador = findViewById(R.id.text_view_contador1);
+        textViewContador2 = findViewById(R.id.text_view_contador2);
 
 
         // Recebe os extras da Intent
@@ -60,6 +65,14 @@ public class activity_item_selected_agenda extends AppCompatActivity {
         LocalDate localdataEscolhida = LocalDate.parse(data);
         String dataFormatada = localdataEscolhida.format(formatter);
 
+        String titulo2 = getIntent().getStringExtra("tituloItem");
+        int tamanhoTitulo = titulo2.length();
+        textViewContador.setText(tamanhoTitulo + "/14");
+
+        String descricao2 = getIntent().getStringExtra("descricaoItem");
+        int tamanhoDescricao = descricao2.length();
+        textViewContador2.setText(tamanhoDescricao + "/14");
+
 
         // Exibindo os dados nos TextViews
 
@@ -73,6 +86,8 @@ public class activity_item_selected_agenda extends AppCompatActivity {
             dataTextView.setText("Não definido");
             horaTextView.setVisibility(View.INVISIBLE);
         }
+
+
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -148,6 +163,41 @@ public class activity_item_selected_agenda extends AppCompatActivity {
                 ConfirmaExclusao();
             }
         });
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Atualizar o contador de caracteres
+                int currentLength = charSequence.length();
+                textViewContador.setText(currentLength + "/14");
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // Nada a fazer depois da mudança do texto
+            }
+        });
+        editText2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Nada a fazer antes da mudança do texto
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Atualizar o contador de caracteres
+                int currentLength = charSequence.length();
+                textViewContador2.setText(currentLength + "/20");
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // Nada a fazer depois da mudança do texto
+            }
+        });
 
     }
     public void ExcluirTarefa() {
@@ -184,5 +234,6 @@ public class activity_item_selected_agenda extends AppCompatActivity {
         });
         msgbox.show();
     }
+
 
 }

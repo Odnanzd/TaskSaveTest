@@ -12,7 +12,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -48,11 +50,11 @@ public class activity_add_agenda extends AppCompatActivity {
 
         FloatingActionButton floatingActionButton1 = findViewById(R.id.floatingActionButton2);
 
-
         Switch switchCompat = findViewById(R.id.switch1);
         switchCompat.setChecked(false);
         textView.setVisibility(View.GONE);
         textView1.setVisibility(View.GONE);
+
         switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -110,6 +112,7 @@ public class activity_add_agenda extends AppCompatActivity {
         buttonSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if (editNome.getText().toString().equals("") || editDescricao.getText().toString().equals("")) {
 
                     InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
@@ -119,7 +122,7 @@ public class activity_add_agenda extends AppCompatActivity {
                             imm.hideSoftInputFromWindow(currentFocus.getWindowToken(), 0);
                         }
                     }
-                    Snackbar snackbar = Snackbar.make(view,msg_error,Snackbar.LENGTH_SHORT );
+                    Snackbar snackbar = Snackbar.make(view, msg_error, Snackbar.LENGTH_SHORT);
                     snackbar.setBackgroundTint(Color.WHITE);
                     snackbar.setTextColor(Color.BLACK);
                     snackbar.show();
@@ -127,19 +130,19 @@ public class activity_add_agenda extends AppCompatActivity {
                 } else {
                     if (switchCompat.isChecked()) {
 
-                      SharedPreferences sharedPrefs = getApplicationContext().getSharedPreferences("arquivoSalvar2", Context.MODE_PRIVATE);
-                      String dataEscolhida = sharedPrefs.getString("arquivo_Data2", "");
-                      LocalDate localdataEscolhida = LocalDate.parse(dataEscolhida, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                        SharedPreferences sharedPrefs = getApplicationContext().getSharedPreferences("arquivoSalvar2", Context.MODE_PRIVATE);
+                        String dataEscolhida = sharedPrefs.getString("arquivo_Data2", "");
+                        LocalDate localdataEscolhida = LocalDate.parse(dataEscolhida, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-                      SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("arquivoSalvar3", Context.MODE_PRIVATE);
-                      int horaEscolhida = sharedPrefs2.getInt("arquivo_Hora2",00);
-                      int minutoEscolhido = sharedPrefs2.getInt("arquivo_Minuto2",00);
+                        SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("arquivoSalvar3", Context.MODE_PRIVATE);
+                        int horaEscolhida = sharedPrefs2.getInt("arquivo_Hora2", 00);
+                        int minutoEscolhido = sharedPrefs2.getInt("arquivo_Minuto2", 00);
 
                         Agenda agenda = new Agenda(-1, editNome.getText().toString(), editDescricao.getText().toString(),
-                        localdataEscolhida, horaEscolhida, minutoEscolhido, true);
+                                localdataEscolhida, horaEscolhida, minutoEscolhido, true);
                         long idSequencial = agendaDAO.inserir(agenda);
 
-                        if(idSequencial > 0) {
+                        if (idSequencial > 0) {
                             agenda.setId(idSequencial);
                             long idAgenda = agenda.getId();
 
@@ -161,7 +164,7 @@ public class activity_add_agenda extends AppCompatActivity {
 
                         long idSequencial = agendaDAO.inserir(agenda);
 
-                        if(idSequencial > 0) {
+                        if (idSequencial > 0) {
 
                             agenda.setId(idSequencial);
 
@@ -181,6 +184,18 @@ public class activity_add_agenda extends AppCompatActivity {
                 }
             }
         });
+        editDescricao.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    EnviarTarefa();
+                    handled = true;
+                }
+                return handled;
+            }
+        });
+
         editNome.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -239,6 +254,7 @@ public class activity_add_agenda extends AppCompatActivity {
             textView.setText(dataEscolhida);
         }
     }
+
     public void AtualizarHora() {
         SharedPreferences sharedPrefs = getApplicationContext().getSharedPreferences("arquivoSalvar3", Context.MODE_PRIVATE);
         String horaEscolhido = sharedPrefs.getString("arquivo_Hora", "");
@@ -246,9 +262,97 @@ public class activity_add_agenda extends AppCompatActivity {
 
         if (!horaEscolhido.isEmpty() | !minutoEscolhido.isEmpty()) {
             TextView textView2 = findViewById(R.id.textView4);
-            textView2.setText(horaEscolhido + ":" +minutoEscolhido);
+            textView2.setText(horaEscolhido + ":" + minutoEscolhido);
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void EnviarTarefa() {
+
+        AgendaDAO agendaDAO = new AgendaDAO(this);
+
+        EditText editNome = findViewById(R.id.editTextText);
+        EditText editDescricao = findViewById(R.id.editTextText2);
+        TextView textView = findViewById(R.id.textView5);
+        TextView textView1 = findViewById(R.id.textView4);
+        Switch switchCompat = findViewById(R.id.switch1);
+
+        LocalDate dataAtual = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM");
+        String dataFormatada = dataAtual.format(formatter);
+        textView.setText(dataFormatada);
+
+        LocalTime horaAtual = LocalTime.now();
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("HH:mm");
+        String horaFormatada = horaAtual.format(formatter1);
+        textView1.setText(horaFormatada);
+
+        if (editNome.getText().toString().equals("") || editDescricao.getText().toString().equals("")) {
+
+            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                View currentFocus = getCurrentFocus();
+                if (currentFocus != null) {
+                    imm.hideSoftInputFromWindow(currentFocus.getWindowToken(), 0);
+                }
+            }
+            Toast.makeText(activity_add_agenda.this, "Erro", Toast.LENGTH_SHORT).show();
+
+        } else {
+            if (switchCompat.isChecked()) {
+
+                SharedPreferences sharedPrefs = getApplicationContext().getSharedPreferences("arquivoSalvar2", Context.MODE_PRIVATE);
+                String dataEscolhida = sharedPrefs.getString("arquivo_Data2", "");
+                LocalDate localdataEscolhida = LocalDate.parse(dataEscolhida, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+                SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("arquivoSalvar3", Context.MODE_PRIVATE);
+                int horaEscolhida = sharedPrefs2.getInt("arquivo_Hora2", 00);
+                int minutoEscolhido = sharedPrefs2.getInt("arquivo_Minuto2", 00);
+
+                Agenda agenda = new Agenda(-1, editNome.getText().toString(), editDescricao.getText().toString(),
+                        localdataEscolhida, horaEscolhida, minutoEscolhido, true);
+                long idSequencial = agendaDAO.inserir(agenda);
+
+                if (idSequencial > 0) {
+                    agenda.setId(idSequencial);
+                    long idAgenda = agenda.getId();
+
+                    Toast.makeText(activity_add_agenda.this, "Tarefa Salva. Nº " + idAgenda, Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(activity_add_agenda.this, "Erro", Toast.LENGTH_LONG).show();
+                }
+
+                SharedPreferences save = getApplicationContext().getSharedPreferences("arquivoSalvar2", Context.MODE_PRIVATE);
+                SharedPreferences.Editor saveEdit = save.edit();
+                saveEdit.clear();
+                saveEdit.commit();
+                finish();
+
+            } else {
+//
+                Agenda agenda = new Agenda(-1, editNome.getText().toString(), editDescricao.getText().toString(),
+                        dataAtual, -1, -1, false);
+
+                long idSequencial = agendaDAO.inserir(agenda);
+
+                if (idSequencial > 0) {
+
+                    agenda.setId(idSequencial);
+
+                    long idAgenda = agenda.getId();
+
+                    Toast.makeText(activity_add_agenda.this, "Tarefa Salva. Nº " + idAgenda, Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(activity_add_agenda.this, "Erro", Toast.LENGTH_LONG).show();
+                }
+
+                SharedPreferences save = getApplicationContext().getSharedPreferences("arquivoSalvar2", Context.MODE_PRIVATE);
+                SharedPreferences.Editor saveEdit = save.edit();
+                saveEdit.clear();
+                saveEdit.commit();
+                finish();
+            }
+        }
     }
+}
 

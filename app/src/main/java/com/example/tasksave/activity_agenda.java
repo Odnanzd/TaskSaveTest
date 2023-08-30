@@ -2,9 +2,7 @@ package com.example.tasksave;
 
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
@@ -13,7 +11,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import androidx.annotation.RequiresApi;
@@ -75,8 +72,6 @@ public class activity_agenda extends AppCompatActivity {
         VerificaLista();
         ListarAgenda();
     }
-
-
 
     public void VerificaLista() {
 
@@ -170,4 +165,10 @@ public class activity_agenda extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(activity_agenda.this, activity_main.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+}
 }

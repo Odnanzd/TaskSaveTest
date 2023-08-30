@@ -40,6 +40,7 @@ public class activity_main extends AppCompatActivity {
         imageView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(activity_main.this, "Saindo...", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

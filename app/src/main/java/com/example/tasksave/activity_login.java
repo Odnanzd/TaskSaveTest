@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,25 +21,37 @@ import com.google.android.material.snackbar.Snackbar;
 public class activity_login extends AppCompatActivity {
     public EditText input_Nome;
     public EditText input_Password;
-    private TextView text_view_user;
     private Button button_login;
 
-    SQLiteDatabase database;
 
     @Override
     public void onBackPressed() {
+        finish();
     }
+
     @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         input_Nome = findViewById(R.id.inputNome);
-//        text_view_user = findViewById(R.id.text_view_user);
         button_login = findViewById(R.id.button_login);
         input_Password = findViewById(R.id.input_Password);
         input_Nome.requestFocus();
 
-//Método de entrada, no ActivityLogin, a mensagem de boas vindas irá alterar para o nome que o usuário colocar.
+        InputFilter noSpaceFilter = new InputFilter() {
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                for (int i = start; i < end; i++) {
+                    if (Character.isWhitespace(source.charAt(i))) {
+                        return "";
+                    }
+                }
+                return null;
+            }
+        };
+
+        input_Nome.setFilters(new InputFilter[]{noSpaceFilter});
+        input_Password.setFilters(new InputFilter[]{noSpaceFilter});
+
         button_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
