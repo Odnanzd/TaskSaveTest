@@ -46,8 +46,7 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:layout_editor_absoluteX="0dp">
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <TableRow
                 android:layout_width="match_parent"
@@ -67,20 +66,20 @@
 
                         <ImageView
                             android:id="@+id/image_view_circle_agenda"
+                            style="@style/Menu_Main_Item"
                             android:layout_width="102dp"
                             android:layout_height="115dp"
-                            style="@style/Menu_Main_Item"
                             tools:ignore="MissingConstraints" />
 
                         <ImageView
                             android:id="@+id/image_view_icon_agenda"
+                            style="@style/Logo_Menu_Main_Item_She"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            style="@style/Logo_Menu_Main_Item_She" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/text_view_agenda"
@@ -110,20 +109,20 @@
 
                         <ImageView
                             android:id="@+id/image_view_circle_calendar"
+                            style="@style/Menu_Main_Item"
                             android:layout_width="102dp"
                             android:layout_height="115dp"
-                            style="@style/Menu_Main_Item"
                             tools:ignore="MissingConstraints" />
 
                         <ImageView
                             android:id="@+id/image_view_icon_calendar"
+                            style="@style/Logo_Menu_Main_Item_Calendar"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            style="@style/Logo_Menu_Main_Item_Calendar" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/text_view_calendar"
@@ -153,22 +152,22 @@
 
                         <ImageView
                             android:id="@+id/image_view_circle_senhas"
+                            style="@style/Menu_Main_Item"
                             android:layout_width="102dp"
                             android:layout_height="115dp"
-                            style="@style/Menu_Main_Item"
                             tools:ignore="MissingConstraints"
                             tools:layout_editor_absoluteX="0dp"
                             tools:layout_editor_absoluteY="3dp" />
 
                         <ImageView
                             android:id="@+id/image_view_icon_senhas"
+                            style="@style/Logo_Menu_Main_Item_Password"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            style="@style/Logo_Menu_Main_Item_Password" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/text_view_senha"
@@ -204,20 +203,20 @@
 
                         <ImageView
                             android:id="@+id/image_view_circle_documento"
+                            style="@style/Menu_Main_Item"
                             android:layout_width="102dp"
                             android:layout_height="115dp"
-                            style="@style/Menu_Main_Item"
                             tools:ignore="MissingConstraints" />
 
                         <ImageView
                             android:id="@+id/image_view_icon_documento"
+                            style="@style/Logo_Menu_Main_Item_Document"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            style="@style/Logo_Menu_Main_Item_Document" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/text_view_documento"
@@ -247,20 +246,20 @@
 
                         <ImageView
                             android:id="@+id/image_view_circle_config"
+                            style="@style/Menu_Main_Item"
                             android:layout_width="102dp"
                             android:layout_height="115dp"
-                            style="@style/Menu_Main_Item"
                             tools:ignore="MissingConstraints" />
 
                         <ImageView
                             android:id="@+id/image_view_icon_config"
+                            style="@style/Logo_Menu_Main_Item_confg"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            style="@style/Logo_Menu_Main_Item_confg" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/text_view_config"
@@ -290,20 +289,20 @@
 
                         <ImageView
                             android:id="@+id/image_view_circle_logout"
+                            style="@style/Menu_Main_Item"
                             android:layout_width="102dp"
                             android:layout_height="115dp"
-                            style="@style/Menu_Main_Item"
                             tools:ignore="MissingConstraints" />
 
                         <ImageView
                             android:id="@+id/image_view_icon_logout"
+                            style="@style/Logo_Menu_Main_Item_Logout"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            style="@style/Logo_Menu_Main_Item_Logout" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/text_view_logout"

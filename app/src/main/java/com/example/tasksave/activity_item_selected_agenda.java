@@ -27,8 +27,8 @@ public class activity_item_selected_agenda extends AppCompatActivity {
     TextView dataTextView;
     TextView horaTextView;
     Button button;
-    EditText editText;
-    EditText editText2;
+    EditText editTextTitulo;
+    EditText editTextDescricao;
     Button button2;
     TextView textViewContador;
     TextView textViewContador2;
@@ -47,8 +47,8 @@ public class activity_item_selected_agenda extends AppCompatActivity {
         horaTextView = findViewById(R.id.textView12);
         button = findViewById(R.id.button2);
         button2 = findViewById(R.id.button);
-        editText = findViewById(R.id.titulo_text_view);
-        editText2 = findViewById(R.id.descricao_text_view);
+        editTextTitulo = findViewById(R.id.titulo_text_view);
+        editTextDescricao = findViewById(R.id.descricao_text_view);
         textViewContador = findViewById(R.id.text_view_contador1);
         textViewContador2 = findViewById(R.id.text_view_contador2);
 
@@ -88,7 +88,7 @@ public class activity_item_selected_agenda extends AppCompatActivity {
         }
 
 
-        editText.addTextChangedListener(new TextWatcher() {
+        editTextTitulo.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 // Não é necessário implementar nada aqui
@@ -97,7 +97,10 @@ public class activity_item_selected_agenda extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // Verifica se o EditText não está vazio
-                if (s.length() > 0) {
+                String novoTitulo = s.toString();
+                boolean saoIguais = novoTitulo.equals(titulo);
+
+                if (s.length() > 0 && !saoIguais) {
                     button.setEnabled(true);
                 } else {
                     button.setEnabled(false);
@@ -109,7 +112,7 @@ public class activity_item_selected_agenda extends AppCompatActivity {
                 // Não é necessário implementar nada aqui
             }
         });
-        editText2.addTextChangedListener(new TextWatcher() {
+        editTextDescricao.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 // Não é necessário implementar nada aqui
@@ -118,7 +121,10 @@ public class activity_item_selected_agenda extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // Verifica se o EditText não está vazio
-                if (s.length() > 0) {
+                String novoTitulo = s.toString();
+                boolean saoIguais = novoTitulo.equals(titulo);
+
+                if (s.length() > 0 && !saoIguais) {
                     button.setEnabled(true);
                 } else {
                     button.setEnabled(false);
@@ -136,8 +142,8 @@ public class activity_item_selected_agenda extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                String novoTitulo = editText.getText().toString();
-                String novaDescricao = editText2.getText().toString();
+                String novoTitulo = editTextTitulo.getText().toString();
+                String novaDescricao = editTextDescricao.getText().toString();
 
                 // Aqui você deve pegar o ID da tarefa (que você passou como um extra na Intent)
 
@@ -163,7 +169,7 @@ public class activity_item_selected_agenda extends AppCompatActivity {
                 ConfirmaExclusao();
             }
         });
-        editText.addTextChangedListener(new TextWatcher() {
+        editTextTitulo.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
@@ -180,7 +186,7 @@ public class activity_item_selected_agenda extends AppCompatActivity {
                 // Nada a fazer depois da mudança do texto
             }
         });
-        editText2.addTextChangedListener(new TextWatcher() {
+        editTextDescricao.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 // Nada a fazer antes da mudança do texto
