@@ -1,6 +1,8 @@
 package com.example.tasksave;
 
 import android.annotation.SuppressLint;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +13,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import java.util.List;
 
@@ -36,6 +40,8 @@ public class activity_main extends AppCompatActivity {
         imageView2 = findViewById(R.id.imageView2);
 
         ExibirUsername();
+//        mostrarNotificacao(this, "teste", "teste");
+
 
         imageView1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,5 +107,27 @@ public class activity_main extends AppCompatActivity {
         }
         pressedTime = System.currentTimeMillis();
     }
+
+//    @SuppressLint("MissingPermission")
+//
+//    private void mostrarNotificacao(Context context, String titulo, String descricao) {
+//        int notificationId = (int) System.currentTimeMillis();
+//
+//        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "CHANNEL_ID")
+//                .setSmallIcon(R.drawable.ic_launcher_background)
+//                .setContentTitle(titulo)
+//                .setContentText(descricao)
+//                .setPriority(NotificationCompat.PRIORITY_HIGH)
+//                .setAutoCancel(true);
+//
+//        // Intent para abrir a atividade ao tocar na notificação (ajuste conforme sua necessidade)
+//        Intent intent = new Intent(context, activity_agenda.class);
+//        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+//        builder.setContentIntent(pendingIntent);
+//
+//        // Construir o gerenciador de notificações e exibir a notificação
+//        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+//        notificationManager.notify(notificationId, builder.build());
+//    }
 
 }
