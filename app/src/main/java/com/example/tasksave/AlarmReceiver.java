@@ -1,31 +1,33 @@
-//package com.example.tasksave;
-//
-//import android.annotation.SuppressLint;
-//import android.app.PendingIntent;
-//import android.content.BroadcastReceiver;
-//import android.content.Context;
-//import android.content.Intent;
-//import android.os.Build;
-//import android.util.Log;
-//
-//import androidx.annotation.RequiresApi;
-//import androidx.core.app.NotificationCompat;
-//import androidx.core.app.NotificationManagerCompat;
-//
-//import java.time.LocalDate;
-//import java.time.LocalTime;
-//import java.time.format.DateTimeFormatter;
-//import java.time.temporal.ChronoUnit;
-//import java.util.List;
-//
-//public class AlarmReceiver extends BroadcastReceiver {
-//    @SuppressLint("UnsafeProtectedBroadcastReceiver")
-//    @RequiresApi(api = Build.VERSION_CODES.O)
-//    @Override
-//    public void onReceive(Context context, Intent intent) {
-//        // Coloque aqui a lógica para verificar as tarefas e mostrar notificações
-//        verificarTarefasEExibirNotificacoes(context);
-//    }
+package com.example.tasksave;
+
+import android.annotation.SuppressLint;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
+import android.util.Log;
+
+import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+
+public class AlarmReceiver extends BroadcastReceiver {
+    @SuppressLint("UnsafeProtectedBroadcastReceiver")
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        // Coloque aqui a lógica para verificar as tarefas e mostrar notificações
+        Intent serviceIntent = new Intent(context, AgendamentoService.class);
+        context.startService(serviceIntent);
+    }
+}
 //
 //    @RequiresApi(api = Build.VERSION_CODES.O)
 //    private void verificarTarefasEExibirNotificacoes(Context context) {

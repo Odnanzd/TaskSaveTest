@@ -23,7 +23,6 @@ import java.util.List;
 
 public class AgendamentoService extends Service {
 
-    private final Handler handler = new Handler();
     private PowerManager.WakeLock wakeLock;
 
     @Override
@@ -31,6 +30,7 @@ public class AgendamentoService extends Service {
         return null;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
@@ -40,27 +40,20 @@ public class AgendamentoService extends Service {
             wakeLock.acquire();
 
             // Iniciar a tarefa de verificação com o Handler
-            handler.postDelayed(verificarTarefasRunnable, 0);
+        verificarTarefasEExibirNotificacoes(this);
 
-            return START_STICKY;
+
+        return START_STICKY;
         }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-
+        // Liberar o WakeLock ao encerrar o serviço
+        if (wakeLock != null && wakeLock.isHeld()) {
+            wakeLock.release();
         }
-    private final Runnable verificarTarefasRunnable = new Runnable() {
-        @RequiresApi(api = Build.VERSION_CODES.O)
-        @Override
-        public void run() {
-            // Verificar agendamentos no SQLite e realizar ações necessárias
-            verificarTarefasEExibirNotificacoes(AgendamentoService.this);
-
-            // Agendar a próxima execução após 1 minuto
-            handler.postDelayed(this, 60000);
         }
-    };
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void verificarTarefasEExibirNotificacoes(Context context) {
