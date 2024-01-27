@@ -24,8 +24,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         // Coloque aqui a lógica para verificar as tarefas e mostrar notificações
-        Intent serviceIntent = new Intent(context, AgendamentoService.class);
-        context.startService(serviceIntent);
+        AgendamentoService.enqueueWork(context, intent);
     }
 }
 //

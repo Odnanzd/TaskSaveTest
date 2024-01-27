@@ -11,7 +11,9 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.core.app.JobIntentService;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -21,39 +23,34 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-public class AgendamentoService extends Service {
+public class AgendamentoService extends JobIntentService {
 
     private PowerManager.WakeLock wakeLock;
 
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
+    // Identificador único para o serviço
+    private static final int JOB_ID = 1001;
+
+    // Método estático para enfileirar o trabalho no serviço
+    public static void enqueueWork(Context context, Intent work) {
+        enqueueWork(context, AgendamentoService.class, JOB_ID, work);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+    @SuppressLint("NewApi")
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    protected void onHandleWork(@NonNull Intent intent) {
+        // Obter um WakeLock para manter o serviço em execução
+        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "AgendamentoService:WakeLock");
+        wakeLock.acquire();
 
-            // Obter um WakeLock para manter o serviço em execução, mesmo quando o dispositivo estiver inativo
-            PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
-            wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "AgendamentoService:WakeLock");
-            wakeLock.acquire();
-
-            // Iniciar a tarefa de verificação com o Handler
+        // Iniciar a tarefa de verificação com o Handler
         verificarTarefasEExibirNotificacoes(this);
 
-
-        return START_STICKY;
-        }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        // Liberar o WakeLock ao encerrar o serviço
+        // Liberar o WakeLock ao concluir o trabalho
         if (wakeLock != null && wakeLock.isHeld()) {
             wakeLock.release();
         }
-        }
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void verificarTarefasEExibirNotificacoes(Context context) {
@@ -69,7 +66,7 @@ public class AgendamentoService extends Service {
             Log.d("VerificacaoTarefa", "Data atual: " + dataAtual + " Hora atual: " + horaAtual);
 
             if (dataTarefa.isEqual(dataAtual) && horaTarefa.equals(horaAtual)) {
-                mostrarNotificacao(context, tarefa.getNomeAgenda(), tarefa.getDescriçãoAgenda());
+                mostrarNotificacao(context, "TaskSave - Tarefa: " + tarefa.getNomeAgenda(), tarefa.getDescriçãoAgenda());
             }
         }
     }
@@ -79,7 +76,7 @@ public class AgendamentoService extends Service {
         int notificationId = (int) System.currentTimeMillis();
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "CHANNEL_ID")
-                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setSmallIcon(R.drawable.logotipoicon)
                 .setContentTitle(titulo)
                 .setContentText(descricao)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
