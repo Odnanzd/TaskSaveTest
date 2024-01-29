@@ -2,12 +2,9 @@ package com.example.tasksave;
 
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Handler;
-import android.os.IBinder;
 import android.os.PowerManager;
 import android.util.Log;
 
@@ -66,7 +63,7 @@ public class AgendamentoService extends JobIntentService {
             Log.d("VerificacaoTarefa", "Data atual: " + dataAtual + " Hora atual: " + horaAtual);
 
             if (dataTarefa.isEqual(dataAtual) && horaTarefa.equals(horaAtual)) {
-                mostrarNotificacao(context, "TaskSave - Tarefa: " + tarefa.getNomeAgenda(), tarefa.getDescriçãoAgenda());
+                mostrarNotificacao(context, "TaskSave - " + tarefa.getNomeAgenda(), tarefa.getDescriçãoAgenda());
             }
         }
     }

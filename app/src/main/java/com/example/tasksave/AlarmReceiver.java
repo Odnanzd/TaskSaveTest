@@ -19,12 +19,18 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 public class AlarmReceiver extends BroadcastReceiver {
+
     @SuppressLint("UnsafeProtectedBroadcastReceiver")
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
+
     public void onReceive(Context context, Intent intent) {
         // Coloque aqui a lógica para verificar as tarefas e mostrar notificações
-        AgendamentoService.enqueueWork(context, intent);
+        if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
+            AgendamentoService.enqueueWork(context, intent);
+        } else {
+            AgendamentoService.enqueueWork(context, intent);
+        }
     }
 }
 //

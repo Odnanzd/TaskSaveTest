@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -45,6 +46,7 @@ public class activity_agenda extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.list_view_agenda);
         VerificaLista();
         ListarAgenda();
+        VerificaAgendaComLembretes();
 
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +88,16 @@ public class activity_agenda extends AppCompatActivity {
         } else {
             textView.setVisibility(View.GONE);
         }
+
+    }
+    public void VerificaAgendaComLembretes() {
+
+        con = new Conexao(this);
+        db = con.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT lembretedefinido FROM agenda WHERE lembretedefinido = 1;",null);
+
+        Log.d("Verificação cursor DB", "Numero de lembretes = " + cursor.getCount());
 
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
