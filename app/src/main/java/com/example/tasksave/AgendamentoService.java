@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.PowerManager;
 import android.util.Log;
@@ -23,6 +25,9 @@ import java.util.List;
 public class AgendamentoService extends JobIntentService {
 
     private PowerManager.WakeLock wakeLock;
+
+    private Conexao con;
+    private SQLiteDatabase db;
 
     // Identificador único para o serviço
     private static final int JOB_ID = 1001;
@@ -62,8 +67,19 @@ public class AgendamentoService extends JobIntentService {
             Log.d("VerificacaoTarefa", "Data da tarefa: " + dataTarefa + " Hora da tarefa: " + horaTarefa);
             Log.d("VerificacaoTarefa", "Data atual: " + dataAtual + " Hora atual: " + horaAtual);
 
+            long tarefaId = tarefa.getId();
+
             if (dataTarefa.isEqual(dataAtual) && horaTarefa.equals(horaAtual)) {
+
                 mostrarNotificacao(context, "TaskSave - " + tarefa.getNomeAgenda(), tarefa.getDescriçãoAgenda());
+
+                boolean finalizado = agendaDAO.AtualizarStatus(tarefaId, 1);
+
+                Cursor cursor = db.rawQuery("SELECT finalizado FROM agenda WHERE id = 1;",null);
+                if (cursor.moveToFirst()) {
+                    int status = cursor.getInt(0); // Assume que a coluna "finalizado" é a primeira (índice 0)
+                    Log.d("Verificação Status", "A tarefa " + tarefaId + " está com status de " + status);
+                }
             }
         }
     }

@@ -13,10 +13,11 @@ public class Agenda {
 
     private int minutoAgenda;
     private boolean lembrete;
+    private boolean finalizado;
 
 
 
-    public Agenda(long id, String nomeAgenda, String descriçãoAgenda, LocalDate dataAgenda, int horaAgenda, int minutoAgenda, boolean lembrete) {
+    public Agenda(long id, String nomeAgenda, String descriçãoAgenda, LocalDate dataAgenda, int horaAgenda, int minutoAgenda, boolean lembrete, boolean finalizado) {
 
         this.id = id;
         this.nomeAgenda = nomeAgenda;
@@ -25,6 +26,7 @@ public class Agenda {
         this.horaAgenda = horaAgenda;
         this.minutoAgenda = minutoAgenda;
         this.lembrete = lembrete;
+        this.finalizado = finalizado;
 
     }
 
@@ -87,5 +89,11 @@ public class Agenda {
 
     public static void setId(long id) {
         Agenda.id = id;
+    }
+    public boolean getFinalizado() {
+        return finalizado;
+    }
+    public void setFinalizado(boolean finalizado) {
+        this.finalizado = finalizado;
     }
 }

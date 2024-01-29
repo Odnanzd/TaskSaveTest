@@ -125,10 +125,13 @@ public class activity_agenda extends AppCompatActivity {
                 @SuppressLint("Range")
                 int lembreteDB = cursor.getInt(cursor.getColumnIndex("lembretedefinido"));
                 boolean lembrete = (lembreteDB != 0);
+                @SuppressLint("Range")
+                int finalizadoDB = cursor.getInt(cursor.getColumnIndex("finalizado"));
+                boolean finalizado = (finalizadoDB != 0);
 
                 LocalDate localdataagenda = LocalDate.parse(dataagenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-                listaagenda.add(new Agenda(ID,titulo, descricao, localdataagenda, horaagenda, minutoagenda, lembrete));
+                listaagenda.add(new Agenda(ID,titulo, descricao, localdataagenda, horaagenda, minutoagenda, lembrete, finalizado));
                 listaIDs.add(ID);
 
             } while (cursor.moveToNext());

@@ -139,7 +139,7 @@ public class activity_add_agenda extends AppCompatActivity {
                         int minutoEscolhido = sharedPrefs2.getInt("arquivo_Minuto2", 00);
 
                         Agenda agenda = new Agenda(-1, editNome.getText().toString(), editDescricao.getText().toString(),
-                                localdataEscolhida, horaEscolhida, minutoEscolhido, true);
+                                localdataEscolhida, horaEscolhida, minutoEscolhido, true, false);
                         long idSequencial = agendaDAO.inserir(agenda);
 
                         if (idSequencial > 0) {
@@ -160,7 +160,7 @@ public class activity_add_agenda extends AppCompatActivity {
                     } else {
 //
                         Agenda agenda = new Agenda(-1, editNome.getText().toString(), editDescricao.getText().toString(),
-                                dataAtual, -1, -1, false);
+                                dataAtual, -1, -1, false, false);
 
                         long idSequencial = agendaDAO.inserir(agenda);
 
@@ -310,7 +310,7 @@ public class activity_add_agenda extends AppCompatActivity {
                 int minutoEscolhido = sharedPrefs2.getInt("arquivo_Minuto2", 00);
 
                 Agenda agenda = new Agenda(-1, editNome.getText().toString(), editDescricao.getText().toString(),
-                        localdataEscolhida, horaEscolhida, minutoEscolhido, true);
+                        localdataEscolhida, horaEscolhida, minutoEscolhido, true, false);
                 long idSequencial = agendaDAO.inserir(agenda);
 
                 if (idSequencial > 0) {
@@ -331,7 +331,7 @@ public class activity_add_agenda extends AppCompatActivity {
             } else {
 //
                 Agenda agenda = new Agenda(-1, editNome.getText().toString(), editDescricao.getText().toString(),
-                        dataAtual, -1, -1, false);
+                        dataAtual, -1, -1, false, false);
 
                 long idSequencial = agendaDAO.inserir(agenda);
 

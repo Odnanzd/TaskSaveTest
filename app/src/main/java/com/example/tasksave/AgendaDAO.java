@@ -95,7 +95,7 @@ public class AgendaDAO {
 
                 LocalDate localDataAgenda = LocalDate.parse(dataAgenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-                tarefasComLembrete.add(new Agenda(id, titulo, descricao, localDataAgenda, horaAgenda, minutoAgenda, true));
+                tarefasComLembrete.add(new Agenda(id, titulo, descricao, localDataAgenda, horaAgenda, minutoAgenda, true, false));
             } while (cursor.moveToNext());
         }
 
@@ -104,5 +104,19 @@ public class AgendaDAO {
         return tarefasComLembrete;
     }
 
-}
+    public boolean AtualizarStatus(long id, int Status) {
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("finalizado", Status);
+
+        String whereClause = "id = ?";
+        String[] whereArgs = {String.valueOf(id)};
+
+        int rowsUpdated = db.update("agenda", contentValues, whereClause, whereArgs);
+
+        return rowsUpdated > 0;
+    }
+
+    }
+
 
