@@ -6,9 +6,10 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.BIND_JOB_SERVICE"
+    <uses-permission
+        android:name="android.permission.BIND_JOB_SERVICE"
         tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -22,9 +23,14 @@
         android:theme="@style/Theme.TaskSave"
         tools:targetApi="31">
         <activity
-            android:name=".activity_item_selected_agenda"
+            android:name=".layout_activity_agenda_concluido"
             android:exported="false" />
-        <!-- Definir a SplashActivity como a atividade principal -->
+        <activity
+            android:name=".activity_agenda_concluido"
+            android:exported="false" />
+        <activity
+            android:name=".activity_item_selected_agenda"
+            android:exported="false" /> <!-- Definir a SplashActivity como a atividade principal -->
         <activity
             android:name=".activity_splash_screen"
             android:exported="true"
@@ -68,21 +74,19 @@
             android:name=".AlarmReceiver"
             android:enabled="true"
             android:exported="false">
-        <intent-filter>
-            <action android:name="android.intent.action.BOOT_COMPLETED" />
-        </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
         </receiver>
 
         <service
             android:name=".AgendamentoService"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:exported="true">
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE">
             <intent-filter>
                 <action android:name="com.example.tasksave.ACTION_SCHEDULE_JOB" />
             </intent-filter>
         </service>
-
     </application>
-
 
 </manifest>

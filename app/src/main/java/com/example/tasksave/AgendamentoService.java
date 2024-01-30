@@ -75,14 +75,9 @@ public class AgendamentoService extends JobIntentService {
 
                 boolean finalizado = agendaDAO.AtualizarStatus(tarefaId, 1);
 
-                Cursor cursor = db.rawQuery("SELECT finalizado FROM agenda WHERE id = 1;",null);
-                if (cursor.moveToFirst()) {
-                    int status = cursor.getInt(0); // Assume que a coluna "finalizado" é a primeira (índice 0)
-                    Log.d("Verificação Status", "A tarefa " + tarefaId + " está com status de " + status);
                 }
             }
         }
-    }
     @SuppressLint("MissingPermission")
 
     private void mostrarNotificacao(Context context, String titulo, String descricao) {

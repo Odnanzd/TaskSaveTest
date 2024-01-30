@@ -37,6 +37,7 @@ public class AgendaDAO {
         contentValues.put("horaAgenda", agenda.getHoraAgenda());
         contentValues.put("minutoAgenda", agenda.getMinutoAgenda());
         contentValues.put("lembretedefinido", agenda.getLembrete());
+        contentValues.put("finalizado", agenda.getFinalizado());
 
         return db.insert("agenda", null, contentValues);
 

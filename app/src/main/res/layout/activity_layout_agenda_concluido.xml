@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".layout_activity_agenda_concluido">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Layout com TextViews de Título e Outra TextView -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
+
+            <!-- TextView de Título -->
+
+
+            <TextView
+                android:id="@+id/text_view_titulo_agenda2"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10sp"
+                android:text="Teste de Título"
+                android:theme="@style/AppTheme"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_view_data_agenda2"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:drawableLeft="@drawable/baseline_calendar_month_24"
+                android:drawablePadding="7sp"
+                android:text="teste"
+                android:textSize="15sp"
+                android:theme="@style/AppTheme" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:id="@+id/text_view_descricao_agenda2"
+                android:layout_width="240dp"
+                android:layout_height="match_parent"
+                android:theme="@style/AppTheme2"
+                android:paddingLeft="10sp"
+                android:text="Teste"
+                android:textSize="15sp"
+                />
+
+            <TextView
+                android:id="@+id/text_view_hora_agenda2"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:drawableLeft="@drawable/baseline_schedule_24"
+                android:drawablePadding="7sp"
+                android:text="teste"
+                android:textSize="15sp"
+                android:theme="@style/AppTheme" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

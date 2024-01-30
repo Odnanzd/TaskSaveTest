@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -32,6 +33,7 @@ public class activity_agenda extends AppCompatActivity {
     TextView textView;
 
     ListView listView;
+    ImageView imageView;
     ArrayList<Long> listaIDs = new ArrayList<>();
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -44,9 +46,18 @@ public class activity_agenda extends AppCompatActivity {
         floatingActionButton = findViewById(R.id.button_mais_agenda);
         textView = findViewById(R.id.text_view_agenda_validador);
         listView = (ListView) findViewById(R.id.list_view_agenda);
+        imageView = findViewById(R.id.icon_concluido);
         VerificaLista();
         ListarAgenda();
         VerificaAgendaComLembretes();
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2 = new Intent(activity_agenda.this, activity_agenda_concluido.class);
+                startActivity(intent2);
+            }
+        });
 
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -81,13 +92,23 @@ public class activity_agenda extends AppCompatActivity {
         con = new Conexao(this);
         db = con.getWritableDatabase();
 
-        Cursor cursor = db.rawQuery("SELECT * FROM agenda;", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM agenda WHERE finalizado = 0;", null);
+        Cursor cursor2 = db.rawQuery("SELECT * FROM agenda WHERE finalizado = 1;", null);
 
-        if (cursor.getCount() == 0) {
-            textView.setText("Você ainda não possui nenhuma tarefa");
-        } else {
-            textView.setVisibility(View.GONE);
+        if (cursor.getCount() == 0 && cursor2.getCount() ==0) {
+
+            textView.setText("Você não possui nenhuma tarefa a ser feito.");
+            textView.setTextSize(18);
+            imageView.setVisibility(View.GONE);
+
+        } else if(cursor.getCount() == 0 && cursor2.getCount() >=1) {
+            textView.setText("Você não possui nenhuma tarefa a ser feito.");
+            textView.setTextSize(18);
+            imageView.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.VISIBLE);
         }
+        cursor2.close();
+        cursor.close();
 
     }
     public void VerificaAgendaComLembretes() {
@@ -106,7 +127,7 @@ public class activity_agenda extends AppCompatActivity {
         List<Agenda> listaagenda = new ArrayList<Agenda>();
         listaIDs.clear();
 
-        Cursor cursor = db.rawQuery("SELECT * FROM agenda;", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM agenda WHERE finalizado = 0;", null);
 
         if (cursor.moveToFirst()) {
             do {
