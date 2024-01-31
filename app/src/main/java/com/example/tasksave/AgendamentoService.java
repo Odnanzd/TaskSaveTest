@@ -24,7 +24,6 @@ import java.util.Calendar;
 import java.util.List;
 
 public class AgendamentoService extends JobIntentService {
-
     private PowerManager.WakeLock wakeLock;
 
     private Conexao con;
@@ -75,18 +74,29 @@ public class AgendamentoService extends JobIntentService {
 
             long tarefaId = tarefa.getId();
 
+            Intent intentConcluir = new Intent(context, AlarmReceiver.class);
+            intentConcluir.setAction("ACTION_CONCLUIR");
+            intentConcluir.putExtra("tarefaId", tarefa.getId()); // Adicione o ID da tarefa como extra
+
+            PendingIntent pendingIntentConcluir = PendingIntent.getBroadcast(
+                    context,
+                    0,
+                    intentConcluir,
+                    PendingIntent.FLAG_UPDATE_CURRENT
+            );
+
             if (dataTarefa.isEqual(dataAtual) && horaTarefa.equals(horaAtual)) {
 
-                mostrarNotificacao(context, "TaskSave - " + tarefa.getNomeAgenda(), tarefa.getDescriçãoAgenda());
-
-                boolean finalizado = agendaDAO.AtualizarStatus(tarefaId, 1, dataAtual, horasFim, minutosFim);
+                mostrarNotificacao(context, "TaskSave - " + tarefa.getNomeAgenda(), tarefa.getDescriçãoAgenda(), pendingIntentConcluir);
+//                boolean finalizado = agendaDAO.AtualizarStatus(tarefaId, 1, dataAtual, horasFim, minutosFim);
 
                 }
             }
         }
     @SuppressLint("MissingPermission")
 
-    private void mostrarNotificacao(Context context, String titulo, String descricao) {
+
+    private void mostrarNotificacao(Context context, String titulo, String descricao, PendingIntent pendingIntentConcluir) {
         int notificationId = (int) System.currentTimeMillis();
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "CHANNEL_ID")
@@ -94,7 +104,9 @@ public class AgendamentoService extends JobIntentService {
                 .setContentTitle(titulo)
                 .setContentText(descricao)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setAutoCancel(true);
+                .setAutoCancel(true)
+                .addAction(R.drawable.ic_launcher_background, "Concluir", pendingIntentConcluir )
+                ;
 
         // Intent para abrir a atividade ao tocar na notificação (ajuste conforme sua necessidade)
         Intent intent = new Intent(context, activity_agenda.class);

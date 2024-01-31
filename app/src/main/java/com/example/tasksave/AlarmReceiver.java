@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.List;
 
 public class AlarmReceiver extends BroadcastReceiver {
@@ -26,10 +27,30 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     public void onReceive(Context context, Intent intent) {
         // Coloque aqui a lógica para verificar as tarefas e mostrar notificações
+
+
+        AgendaDAO agendaDAO = new AgendaDAO(context);
+        Calendar calendar = Calendar.getInstance();
+        int horasFim = calendar.get(Calendar.HOUR_OF_DAY);
+        int minutosFim = calendar.get(Calendar.MINUTE);
+        LocalDate dataAtual = LocalDate.now();
+
+
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
             AgendamentoService.enqueueWork(context, intent);
+
         } else {
             AgendamentoService.enqueueWork(context, intent);
+        }
+
+        if (intent.getAction() != null && intent.getAction().equals("ACTION_CONCLUIR")) {
+
+            long tarefaId = intent.getLongExtra("tarefaId", -1);
+
+            if (tarefaId != -1) {
+                // Atualizar o status da tarefa no banco de dados
+                boolean finalizado = agendaDAO.AtualizarStatus(tarefaId, 1, dataAtual, horasFim, minutosFim);
+            }
         }
     }
 }
