@@ -39,9 +39,15 @@ public class activity_agenda extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint("MissingInflatedId")
     @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(activity_agenda.this, activity_main.class);
+        startActivity(intent);
+    }
+    @SuppressLint("NewApi")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agenda);
+
 
         floatingActionButton = findViewById(R.id.button_mais_agenda);
         textView = findViewById(R.id.text_view_agenda_validador);

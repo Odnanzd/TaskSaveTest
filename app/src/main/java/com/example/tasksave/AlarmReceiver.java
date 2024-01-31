@@ -42,61 +42,22 @@ public class AlarmReceiver extends BroadcastReceiver {
         } else {
             AgendamentoService.enqueueWork(context, intent);
         }
-
-        if (intent.getAction() != null && intent.getAction().equals("ACTION_CONCLUIR")) {
-
-            long tarefaId = intent.getLongExtra("tarefaId", -1);
-
-            if (tarefaId != -1) {
-                // Atualizar o status da tarefa no banco de dados
-                boolean finalizado = agendaDAO.AtualizarStatus(tarefaId, 1, dataAtual, horasFim, minutosFim);
-            }
-        }
-    }
-}
 //
-//    @RequiresApi(api = Build.VERSION_CODES.O)
-//    private void verificarTarefasEExibirNotificacoes(Context context) {
-//        AgendaDAO agendaDAO = new AgendaDAO(context);
-//        List<Agenda> tarefasComLembrete = agendaDAO.obterTarefasComLembreteAtivado();
+//        if (intent.getAction() != null && intent.getAction().equals("ACTION_CONCLUIR")) {
 //
-//        for (Agenda tarefa : tarefasComLembrete) {
-//            LocalDate dataTarefa = LocalDate.parse(tarefa.getDataAgendaString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-//            LocalTime horaTarefa = LocalTime.of(tarefa.getHoraAgenda(), tarefa.getMinutoAgenda());
-//            LocalDate dataAtual = LocalDate.now();
-//            LocalTime horaAtual = LocalTime.now().truncatedTo(ChronoUnit.MINUTES);
-//            Log.d("VerificacaoTarefa", "Data da tarefa: " + dataTarefa + " Hora da tarefa: " + horaTarefa);
-//            Log.d("VerificacaoTarefa", "Data atual: " + dataAtual + " Hora atual: " + horaAtual);
+//            long tarefaId = intent.getLongExtra("tarefaId", -1);
+//            boolean tarefaFinalizado = intent.getBooleanExtra("tarefaFinalizado", false);
+//            Log.d("AlarmReceiver", "Tarefa com status: " + tarefaFinalizado);
 //
-//            if (dataTarefa.isEqual(dataAtual) && horaTarefa.equals(horaAtual)) {
-//                mostrarNotificacao(context, tarefa.getNomeAgenda(), tarefa.getDescriçãoAgenda());
+//            if (!tarefaFinalizado) {
+//                // Atualizar o status da tarefa no banco de dados
+//                boolean finalizado = agendaDAO.AtualizarStatus(tarefaId, 1, dataAtual, horasFim, minutosFim);
+//                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+//                notificationManager.cancel((int) tarefaId);
+//                Log.d("AlarmReceiver", "Tarefa marcada como concluída: " + finalizado);
 //            }
 //        }
 //    }
-//    @SuppressLint("MissingPermission")
-//
-//    private void mostrarNotificacao(Context context, String titulo, String descricao) {
-//        int notificationId = (int) System.currentTimeMillis();
-//
-//        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "CHANNEL_ID")
-//                .setSmallIcon(R.drawable.ic_launcher_background)
-//                .setContentTitle(titulo)
-//                .setContentText(descricao)
-//                .setPriority(NotificationCompat.PRIORITY_HIGH)
-//                .setAutoCancel(true);
-//
-//        // Intent para abrir a atividade ao tocar na notificação (ajuste conforme sua necessidade)
-//        Intent intent = new Intent(context, activity_agenda.class);
-//        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-//        builder.setContentIntent(pendingIntent);
-//
-//        // Construir o gerenciador de notificações e exibir a notificação
-//        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-//        notificationManager.notify(notificationId, builder.build());
-//    }
-//}
-//
-//
-//
-//
-//
+    }
+}
+

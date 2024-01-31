@@ -46,7 +46,7 @@ public class AgendamentoService extends JobIntentService {
         wakeLock.acquire();
 
         // Iniciar a tarefa de verificação com o Handler
-        verificarTarefasEExibirNotificacoes(this);
+        verificarTarefasEExibirNotificacoes(this, intent);
 
         // Liberar o WakeLock ao concluir o trabalho
         if (wakeLock != null && wakeLock.isHeld()) {
@@ -55,7 +55,7 @@ public class AgendamentoService extends JobIntentService {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void verificarTarefasEExibirNotificacoes(Context context) {
+    private void verificarTarefasEExibirNotificacoes(Context context, Intent intent) {
         AgendaDAO agendaDAO = new AgendaDAO(context);
         List<Agenda> tarefasComLembrete = agendaDAO.obterTarefasComLembreteAtivado();
 
@@ -73,40 +73,69 @@ public class AgendamentoService extends JobIntentService {
             Log.d("VerificacaoTarefa", "Data atual: " + dataAtual + " Hora atual: " + horaAtual);
 
             long tarefaId = tarefa.getId();
+            boolean tarefaFinalizado = tarefa.getFinalizado();
 
-            Intent intentConcluir = new Intent(context, AlarmReceiver.class);
-            intentConcluir.setAction("ACTION_CONCLUIR");
-            intentConcluir.putExtra("tarefaId", tarefa.getId()); // Adicione o ID da tarefa como extra
 
-            PendingIntent pendingIntentConcluir = PendingIntent.getBroadcast(
-                    context,
-                    0,
-                    intentConcluir,
-                    PendingIntent.FLAG_UPDATE_CURRENT
-            );
+            if (dataTarefa.isEqual(dataAtual) && horaTarefa.equals(horaAtual) && !tarefaFinalizado) {
 
-            if (dataTarefa.isEqual(dataAtual) && horaTarefa.equals(horaAtual)) {
+                Intent intentConcluir = new Intent(context, AlarmReceiver.class);
+                intentConcluir.setAction("ACTION_CONCLUIR");
+                intentConcluir.putExtra("tarefaId", tarefa.getId());// Adicione o ID da tarefa como extra
+                intentConcluir.putExtra("tarefaFinalizado", tarefa.getFinalizado());
 
-                mostrarNotificacao(context, "TaskSave - " + tarefa.getNomeAgenda(), tarefa.getDescriçãoAgenda(), pendingIntentConcluir);
+                int notificationId = (int) tarefaId;
+
+                PendingIntent pendingIntentConcluir = PendingIntent.getBroadcast(
+                        context,
+                        notificationId,
+                        intentConcluir,
+                        PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+                mostrarNotificacao(context, "TaskSave - " + tarefa.getNomeAgenda(),
+                        tarefa.getDescriçãoAgenda(), pendingIntentConcluir, notificationId);
+
 //                boolean finalizado = agendaDAO.AtualizarStatus(tarefaId, 1, dataAtual, horasFim, minutosFim);
 
                 }
+
+            if (intent.getAction() != null && intent.getAction().equals("ACTION_CONCLUIR")) {
+                processarAcaoConcluir(context, intent);
             }
         }
+
+            }
+    private void processarAcaoConcluir(Context context, Intent intent) {
+
+        AgendaDAO agendaDAO = new AgendaDAO(context);
+        Calendar calendar = Calendar.getInstance();
+        int horasFim = calendar.get(Calendar.HOUR_OF_DAY);
+        int minutosFim = calendar.get(Calendar.MINUTE);
+        @SuppressLint({"NewApi", "LocalSuppress"})
+        LocalDate dataAtual = LocalDate.now();
+
+        long tarefaId = intent.getLongExtra("tarefaId", -1);
+        boolean tarefaFinalizado = intent.getBooleanExtra("tarefaFinalizado", false);
+        Log.d("AgendamentoService", "Tarefa com status: " + tarefaFinalizado);
+
+        if (!tarefaFinalizado) {
+            // Atualizar o status da tarefa no banco de dados
+            boolean finalizado = agendaDAO.AtualizarStatus(tarefaId, 1, dataAtual, horasFim, minutosFim);
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+            notificationManager.cancel((int) tarefaId);
+            Log.d("AgendamentoService", "Tarefa marcada como concluída: " + finalizado);
+        }
+    }
     @SuppressLint("MissingPermission")
 
 
-    private void mostrarNotificacao(Context context, String titulo, String descricao, PendingIntent pendingIntentConcluir) {
-        int notificationId = (int) System.currentTimeMillis();
-
+    private void mostrarNotificacao(Context context, String titulo, String descricao, PendingIntent pendingIntentConcluir, int notificationId) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "CHANNEL_ID")
                 .setSmallIcon(R.drawable.logotipoicon)
                 .setContentTitle(titulo)
                 .setContentText(descricao)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setAutoCancel(true)
-                .addAction(R.drawable.ic_launcher_background, "Concluir", pendingIntentConcluir )
-                ;
+                .addAction(R.drawable.ic_launcher_background, "Concluir", pendingIntentConcluir);
 
         // Intent para abrir a atividade ao tocar na notificação (ajuste conforme sua necessidade)
         Intent intent = new Intent(context, activity_agenda.class);
