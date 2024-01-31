@@ -20,6 +20,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.List;
 
 public class AgendamentoService extends JobIntentService {
@@ -64,6 +65,11 @@ public class AgendamentoService extends JobIntentService {
             LocalTime horaTarefa = LocalTime.of(tarefa.getHoraAgenda(), tarefa.getMinutoAgenda());
             LocalDate dataAtual = LocalDate.now();
             LocalTime horaAtual = LocalTime.now().truncatedTo(ChronoUnit.MINUTES);
+
+            Calendar calendar = Calendar.getInstance();
+            int horasFim = calendar.get(Calendar.HOUR_OF_DAY);
+            int minutosFim = calendar.get(Calendar.MINUTE);
+
             Log.d("VerificacaoTarefa", "Data da tarefa: " + dataTarefa + " Hora da tarefa: " + horaTarefa);
             Log.d("VerificacaoTarefa", "Data atual: " + dataAtual + " Hora atual: " + horaAtual);
 
@@ -73,7 +79,7 @@ public class AgendamentoService extends JobIntentService {
 
                 mostrarNotificacao(context, "TaskSave - " + tarefa.getNomeAgenda(), tarefa.getDescriçãoAgenda());
 
-                boolean finalizado = agendaDAO.AtualizarStatus(tarefaId, 1);
+                boolean finalizado = agendaDAO.AtualizarStatus(tarefaId, 1, dataAtual, horasFim, minutosFim);
 
                 }
             }

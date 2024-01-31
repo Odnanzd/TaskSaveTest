@@ -24,7 +24,7 @@
             <TextView
                 android:id="@+id/text_view_titulo_agenda2"
                 android:layout_width="240dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:paddingLeft="10sp"
                 android:text="Teste de Título"
                 android:theme="@style/AppTheme"
@@ -62,10 +62,10 @@
 
             <TextView
                 android:id="@+id/text_view_hora_agenda2"
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
+                android:layout_width="140dp"
+                android:layout_height="match_parent"
                 android:layout_marginStart="30dp"
-                android:drawableLeft="@drawable/baseline_schedule_24"
+                android:drawableLeft="@drawable/baseline_calendar_month_24"
                 android:drawablePadding="7sp"
                 android:text="teste"
                 android:textSize="15sp"

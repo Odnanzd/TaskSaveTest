@@ -75,6 +75,7 @@ public class activity_agenda extends AppCompatActivity {
     void showCustomDialog() {
 
         Intent intent = new Intent(activity_agenda.this, activity_add_agenda.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
@@ -95,17 +96,20 @@ public class activity_agenda extends AppCompatActivity {
         Cursor cursor = db.rawQuery("SELECT * FROM agenda WHERE finalizado = 0;", null);
         Cursor cursor2 = db.rawQuery("SELECT * FROM agenda WHERE finalizado = 1;", null);
 
-        if (cursor.getCount() == 0 && cursor2.getCount() ==0) {
+        if (cursor.getCount() ==0 && cursor2.getCount() ==0) {
 
             textView.setText("Você não possui nenhuma tarefa a ser feito.");
-            textView.setTextSize(18);
-            imageView.setVisibility(View.GONE);
+            textView.setTextSize(15);
+                imageView.setVisibility(View.GONE);
 
-        } else if(cursor.getCount() == 0 && cursor2.getCount() >=1) {
+        } else if(cursor.getCount() ==0 && cursor2.getCount() >=1) {
+
             textView.setText("Você não possui nenhuma tarefa a ser feito.");
-            textView.setTextSize(18);
+            textView.setTextSize(15);
             imageView.setVisibility(View.VISIBLE);
-            textView.setVisibility(View.VISIBLE);
+        }
+        {
+
         }
         cursor2.close();
         cursor.close();
@@ -149,10 +153,19 @@ public class activity_agenda extends AppCompatActivity {
                 @SuppressLint("Range")
                 int finalizadoDB = cursor.getInt(cursor.getColumnIndex("finalizado"));
                 boolean finalizado = (finalizadoDB != 0);
+                @SuppressLint("Range")
+                String dataagendaFim = cursor.getString(cursor.getColumnIndex("dataAgendaFim"));
+                @SuppressLint("Range")
+                int horaAgendaFim = cursor.getInt(cursor.getColumnIndex("horaAgendaFim"));
+                @SuppressLint("Range")
+                int minutoAgendaFim = cursor.getInt(cursor.getColumnIndex("minutoAgendaFim"));
+
 
                 LocalDate localdataagenda = LocalDate.parse(dataagenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                LocalDate localdataagendaFim = LocalDate.parse(dataagendaFim, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-                listaagenda.add(new Agenda(ID,titulo, descricao, localdataagenda, horaagenda, minutoagenda, lembrete, finalizado));
+                listaagenda.add(new Agenda(ID,titulo, descricao, localdataagenda, horaagenda, minutoagenda,
+                        lembrete, finalizado, localdataagendaFim, horaAgendaFim, minutoAgendaFim));
                 listaIDs.add(ID);
 
             } while (cursor.moveToNext());
@@ -201,10 +214,4 @@ public class activity_agenda extends AppCompatActivity {
             }
         });
     }
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(activity_agenda.this, activity_main.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-}
 }

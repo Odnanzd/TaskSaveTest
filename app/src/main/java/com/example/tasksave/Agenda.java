@@ -14,10 +14,17 @@ public class Agenda {
     private int minutoAgenda;
     private boolean lembrete;
     private boolean finalizado;
+    private LocalDate dataAgendaFim;
+    private int horaAgendaFim;
+
+    private int minutoAgendaFim;
 
 
 
-    public Agenda(long id, String nomeAgenda, String descriçãoAgenda, LocalDate dataAgenda, int horaAgenda, int minutoAgenda, boolean lembrete, boolean finalizado) {
+
+    public Agenda(long id, String nomeAgenda, String descriçãoAgenda, LocalDate dataAgenda,
+                  int horaAgenda, int minutoAgenda, boolean lembrete, boolean finalizado,
+                  LocalDate dataAgendaFim, int horaAgendaFim, int minutoAgendaFim ) {
 
         this.id = id;
         this.nomeAgenda = nomeAgenda;
@@ -27,6 +34,9 @@ public class Agenda {
         this.minutoAgenda = minutoAgenda;
         this.lembrete = lembrete;
         this.finalizado = finalizado;
+        this.horaAgendaFim = horaAgendaFim;
+        this.minutoAgendaFim = minutoAgendaFim;
+        this.dataAgendaFim = dataAgendaFim;
 
     }
 
@@ -96,4 +106,34 @@ public class Agenda {
     public void setFinalizado(boolean finalizado) {
         this.finalizado = finalizado;
     }
+    public String getDataAgendaFimString() {
+        if (dataAgendaFim != null) {
+            return dataAgendaFim.toString();
+        } else {
+            return null;
+        }
+    }
+    @SuppressLint("NewApi")
+    public void setDataAgendaFimString(String dataAgendaString) {
+        if (dataAgendaString != null) {
+            this.dataAgendaFim = LocalDate.parse(dataAgendaString);
+        } else {
+            this.dataAgendaFim = null;
+        }
+    }
+
+    public int getHoraAgendaFim() {
+        return horaAgendaFim;
+    }
+    public void setHoraAgendaFim(int horaAgendaFim) {
+        this.horaAgendaFim = horaAgendaFim;
+    }
+    public int getMinutoAgendaFim() {
+        return minutoAgendaFim;
+    }
+
+    public void setMinutoAgendaFim(int minutoAgendaFim) {
+        this.minutoAgendaFim = minutoAgendaFim;
+    }
+
 }

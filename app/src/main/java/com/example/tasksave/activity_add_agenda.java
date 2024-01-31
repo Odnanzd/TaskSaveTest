@@ -31,6 +31,10 @@ import java.time.format.DateTimeFormatter;
 
 
 public class activity_add_agenda extends AppCompatActivity {
+    public void onBackPressed() {
+        Intent intent = new Intent(activity_add_agenda.this, activity_agenda.class);
+        startActivity(intent);
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint("MissingInflatedId")
@@ -86,7 +90,8 @@ public class activity_add_agenda extends AppCompatActivity {
                 SharedPreferences.Editor saveEdit = save.edit();
                 saveEdit.clear();
                 saveEdit.commit();
-                finish();
+                Intent intent = new Intent(activity_add_agenda.this, activity_agenda.class);
+                startActivity(intent);
             }
         });
 
@@ -139,7 +144,8 @@ public class activity_add_agenda extends AppCompatActivity {
                         int minutoEscolhido = sharedPrefs2.getInt("arquivo_Minuto2", 00);
 
                         Agenda agenda = new Agenda(-1, editNome.getText().toString(), editDescricao.getText().toString(),
-                                localdataEscolhida, horaEscolhida, minutoEscolhido, true, false);
+                                localdataEscolhida, horaEscolhida, minutoEscolhido, true, false, dataAtual, -1, -1);
+
                         long idSequencial = agendaDAO.inserir(agenda);
 
                         if (idSequencial > 0) {
@@ -155,12 +161,13 @@ public class activity_add_agenda extends AppCompatActivity {
                         SharedPreferences.Editor saveEdit = save.edit();
                         saveEdit.clear();
                         saveEdit.commit();
-                        finish();
+                        Intent intent = new Intent(activity_add_agenda.this, activity_agenda.class);
+                        startActivity(intent);
 
                     } else {
 //
                         Agenda agenda = new Agenda(-1, editNome.getText().toString(), editDescricao.getText().toString(),
-                                dataAtual, -1, -1, false, false);
+                                dataAtual, -1, -1, false, false, dataAtual, -1, -1);
 
                         long idSequencial = agendaDAO.inserir(agenda);
 
@@ -179,7 +186,8 @@ public class activity_add_agenda extends AppCompatActivity {
                         SharedPreferences.Editor saveEdit = save.edit();
                         saveEdit.clear();
                         saveEdit.commit();
-                        finish();
+                        Intent intent = new Intent(activity_add_agenda.this, activity_agenda.class);
+                        startActivity(intent);
                     }
                 }
             }
@@ -310,7 +318,7 @@ public class activity_add_agenda extends AppCompatActivity {
                 int minutoEscolhido = sharedPrefs2.getInt("arquivo_Minuto2", 00);
 
                 Agenda agenda = new Agenda(-1, editNome.getText().toString(), editDescricao.getText().toString(),
-                        localdataEscolhida, horaEscolhida, minutoEscolhido, true, false);
+                        localdataEscolhida, horaEscolhida, minutoEscolhido, true, false, dataAtual, -1, -1);
                 long idSequencial = agendaDAO.inserir(agenda);
 
                 if (idSequencial > 0) {
@@ -331,7 +339,7 @@ public class activity_add_agenda extends AppCompatActivity {
             } else {
 //
                 Agenda agenda = new Agenda(-1, editNome.getText().toString(), editDescricao.getText().toString(),
-                        dataAtual, -1, -1, false, false);
+                        dataAtual, -1, -1, false, false, dataAtual, -1, -1);
 
                 long idSequencial = agendaDAO.inserir(agenda);
 

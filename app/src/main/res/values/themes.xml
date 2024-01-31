@@ -147,5 +147,8 @@
     <style name="UpdateDetailsItem">
         <item name="android:background">@drawable/update_details_item</item>
     </style>
+    <style name="IconTaskFinalizadas">
+        <item name="android:background">@drawable/baseline_task_24_pink</item>
+    </style>
 
 </resources>

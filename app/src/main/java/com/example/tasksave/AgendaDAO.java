@@ -38,6 +38,9 @@ public class AgendaDAO {
         contentValues.put("minutoAgenda", agenda.getMinutoAgenda());
         contentValues.put("lembretedefinido", agenda.getLembrete());
         contentValues.put("finalizado", agenda.getFinalizado());
+        contentValues.put("dataAgendaFim", agenda.getDataAgendaFimString());
+        contentValues.put("horaAgendaFim", agenda.getHoraAgendaFim());
+        contentValues.put("minutoAgendaFim", agenda.getMinutoAgendaFim());
 
         return db.insert("agenda", null, contentValues);
 
@@ -68,6 +71,7 @@ public class AgendaDAO {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public List<Agenda> obterTarefasComLembreteAtivado() {
 
+        LocalDate dataAtual = LocalDate.now();
         List<Agenda> tarefasComLembrete = new ArrayList<>();
 
         String[] colunas = {
@@ -96,7 +100,8 @@ public class AgendaDAO {
 
                 LocalDate localDataAgenda = LocalDate.parse(dataAgenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-                tarefasComLembrete.add(new Agenda(id, titulo, descricao, localDataAgenda, horaAgenda, minutoAgenda, true, false));
+                tarefasComLembrete.add(new Agenda(id, titulo, descricao, localDataAgenda, horaAgenda,
+                 minutoAgenda, true, false, dataAtual, -1, -1 ));
             } while (cursor.moveToNext());
         }
 
@@ -105,10 +110,13 @@ public class AgendaDAO {
         return tarefasComLembrete;
     }
 
-    public boolean AtualizarStatus(long id, int Status) {
+    public boolean AtualizarStatus(long id, int Status, LocalDate dataAgendaFim, int horaAgendaFim, int minutoAgendaFim) {
 
         ContentValues contentValues = new ContentValues();
         contentValues.put("finalizado", Status);
+        contentValues.put("dataAgendaFim", String.valueOf(dataAgendaFim));
+        contentValues.put("horaAgendaFim", horaAgendaFim);
+        contentValues.put("minutoAgendaFim", minutoAgendaFim);
 
         String whereClause = "id = ?";
         String[] whereArgs = {String.valueOf(id)};

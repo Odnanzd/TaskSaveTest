@@ -63,10 +63,18 @@ public class activity_agenda_concluido extends AppCompatActivity {
                 @SuppressLint("Range")
                 int finalizadoDB = cursor.getInt(cursor.getColumnIndex("finalizado"));
                 boolean finalizado = (finalizadoDB != 0);
+                @SuppressLint("Range")
+                String dataagendaFim = cursor.getString(cursor.getColumnIndex("dataAgendaFim"));
+                @SuppressLint("Range")
+                int horaAgendaFim = cursor.getInt(cursor.getColumnIndex("horaAgendaFim"));
+                @SuppressLint("Range")
+                int minutoAgendaFim = cursor.getInt(cursor.getColumnIndex("minutoAgendaFim"));
 
                 LocalDate localdataagenda = LocalDate.parse(dataagenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                LocalDate localdataagendaFim = LocalDate.parse(dataagendaFim, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-                listaagenda.add(new Agenda(ID, titulo, descricao, localdataagenda, horaagenda, minutoagenda, lembrete, finalizado));
+                listaagenda.add(new Agenda(ID, titulo, descricao, localdataagenda, horaagenda, minutoagenda,
+                        lembrete, finalizado, localdataagendaFim, horaAgendaFim, minutoAgendaFim));
                 listaIDs.add(ID);
 
             } while (cursor.moveToNext());
@@ -81,6 +89,8 @@ public class activity_agenda_concluido extends AppCompatActivity {
         String[] horas = new String[listaagenda.size()];
         boolean[] lembretes = new boolean[listaagenda.size()];
         long[] ids = new long[listaagenda.size()];
+        String[] datasAgendaFim = new String[listaagenda.size()];
+        String[] horasAgendaFim = new String[listaagenda.size()];
 
         for (int i = 0; i < listaagenda.size(); i++) {
             ids[i] = listaIDs.get(i);
@@ -92,10 +102,18 @@ public class activity_agenda_concluido extends AppCompatActivity {
             String horaFormatada = String.format(Locale.getDefault(), "%02d:%02d", hora, minuto);
             horas[i] = horaFormatada;
             lembretes[i] = listaagenda.get(i).getLembrete();
+
+            datasAgendaFim[i] = listaagenda.get(i).getDataAgendaFimString();
+            int horaAgendaFim = listaagenda.get(i).getHoraAgendaFim();
+            int minutoAgendaFim = listaagenda.get(i).getMinutoAgendaFim();
+            String horaAgendaFimFormatada = String.format(Locale.getDefault(), "%02d:%02d", horaAgendaFim, minutoAgendaFim);
+            horasAgendaFim[i] = horaAgendaFimFormatada;
+
         }
 
         // Configurando o CustomAdapter para a ListView
-        CustomAdapterConcluido customAdapter = new CustomAdapterConcluido(getApplicationContext(), listaIDs, titulos, descricoes, datas, horas, lembretes);
+        CustomAdapterConcluido customAdapter = new CustomAdapterConcluido(getApplicationContext(), listaIDs,
+                titulos, descricoes, datas, horas, lembretes, datasAgendaFim, horasAgendaFim);
         listView.setAdapter(customAdapter);
     }
 }

@@ -22,11 +22,15 @@ public class CustomAdapterConcluido extends BaseAdapter {
     String AgendaDescricao[];
     String AgendaData[];
     String AgendaHora[];
+    String AgendaDatasFim[];
+    String AgendaHorasFim[];
     private ArrayList<Long> AgendaID;
     boolean[] isReminderSet;
     LayoutInflater inflater;
 
-    public CustomAdapterConcluido(Context context,ArrayList<Long> IDAgenda, String[] TituloAgenda, String[] DescricaoAgenda, String[] DataAgenda, String[] HoraAgenda, boolean[] isReminderSet) {
+    public CustomAdapterConcluido(Context context,ArrayList<Long> IDAgenda, String[] TituloAgenda,
+    String[] DescricaoAgenda, String[] DataAgenda, String[] HoraAgenda, boolean[] isReminderSet,
+    String[] DatasAgendaFim, String[] HorasAgendaFim ) {
         this.context = context;
         AgendaID = IDAgenda;
         this.AgendaTitulo = TituloAgenda;
@@ -34,6 +38,8 @@ public class CustomAdapterConcluido extends BaseAdapter {
         this.AgendaData = DataAgenda;
         this.AgendaHora = HoraAgenda;
         this.isReminderSet = isReminderSet;
+        this.AgendaDatasFim = DatasAgendaFim;
+        this.AgendaHorasFim = HorasAgendaFim;
         inflater = LayoutInflater.from(context);
     }
 
@@ -72,6 +78,13 @@ public class CustomAdapterConcluido extends BaseAdapter {
     public Boolean getItemLembrete(int position) {
         return isReminderSet[position];
     }
+    public Object getItemDataFim(int position) {
+        return AgendaDatasFim[position];
+    }
+
+    public Object getItemHoraFim(int position) {
+        return AgendaHorasFim[position];
+    }
 
 
     @SuppressLint({"ViewHolder", "InflateParams", "SetTextI18n"})
@@ -84,8 +97,8 @@ public class CustomAdapterConcluido extends BaseAdapter {
         TextView text_view_dat_agenda = convertView.findViewById(R.id.text_view_data_agenda2);
         TextView text_view_hr_agenda = convertView.findViewById(R.id.text_view_hora_agenda2);
 
-        text_view_tit_agenda.setText(AgendaTitulo[position]);
-        text_view_desc_agenda.setText(AgendaDescricao[position]);
+        text_view_tit_agenda.setText("Tarefa: "+AgendaTitulo[position]);
+        text_view_desc_agenda.setText("Descrição: "+AgendaDescricao[position]);
 
         if (isReminderSet[position]) {
             try {
@@ -107,7 +120,19 @@ public class CustomAdapterConcluido extends BaseAdapter {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            text_view_hr_agenda.setText(AgendaHora[position]);
+            try {
+                SimpleDateFormat originalFormat2 = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                SimpleDateFormat targetFormat2 = new SimpleDateFormat("dd/MM/yy", Locale.getDefault());
+                Date date2 = originalFormat2.parse(AgendaDatasFim[position]);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date2);
+                String formattedDate2 = targetFormat2.format(date2);
+                text_view_hr_agenda.setText("Concluído em: "+formattedDate2);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+//            text_view_hr_agenda.setText("Concluído em: "+AgendaDatasFim[position]);
         } else {
             text_view_dat_agenda.setVisibility(View.GONE);
             text_view_hr_agenda.setVisibility(View.GONE);
