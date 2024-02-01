@@ -18,7 +18,7 @@ public class Conexao extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("CREATE TABLE user (id integer primary key autoincrement, username varchar(50), password varchar(50))");
         sqLiteDatabase.execSQL("CREATE TABLE agenda (id integer primary key autoincrement, nomeTarefa varchar(50), descricaoTarefa varchar(50)," +
                 " dataAgenda TEXT, horaAgenda integer, minutoAgenda integer, lembretedefinido integer, finalizado integer, dataAgendaFim TEXT," +
-                "horaAgendaFim integer, minutoAgendaFim integer)");
+                "horaAgendaFim integer, minutoAgendaFim integer, dataAgendaInsert TEXT, horaAgendaInsert integer, minutoAgendaInsert integer)");
         }
 
         @Override

@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.PowerManager;
 import android.util.Log;
@@ -25,9 +23,6 @@ import java.util.List;
 
 public class AgendamentoService extends JobIntentService {
     private PowerManager.WakeLock wakeLock;
-
-    private Conexao con;
-    private SQLiteDatabase db;
 
     // Identificador único para o serviço
     private static final int JOB_ID = 1001;
@@ -56,6 +51,7 @@ public class AgendamentoService extends JobIntentService {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void verificarTarefasEExibirNotificacoes(Context context, Intent intent) {
+
         AgendaDAO agendaDAO = new AgendaDAO(context);
         List<Agenda> tarefasComLembrete = agendaDAO.obterTarefasComLembreteAtivado();
 
@@ -66,8 +62,6 @@ public class AgendamentoService extends JobIntentService {
             LocalTime horaAtual = LocalTime.now().truncatedTo(ChronoUnit.MINUTES);
 
             Calendar calendar = Calendar.getInstance();
-            int horasFim = calendar.get(Calendar.HOUR_OF_DAY);
-            int minutosFim = calendar.get(Calendar.MINUTE);
 
             Log.d("VerificacaoTarefa", "Data da tarefa: " + dataTarefa + " Hora da tarefa: " + horaTarefa);
             Log.d("VerificacaoTarefa", "Data atual: " + dataAtual + " Hora atual: " + horaAtual);
@@ -93,8 +87,6 @@ public class AgendamentoService extends JobIntentService {
 
                 mostrarNotificacao(context, "TaskSave - " + tarefa.getNomeAgenda(),
                         tarefa.getDescriçãoAgenda(), pendingIntentConcluir, notificationId);
-
-//                boolean finalizado = agendaDAO.AtualizarStatus(tarefaId, 1, dataAtual, horasFim, minutosFim);
 
                 }
 
@@ -122,6 +114,7 @@ public class AgendamentoService extends JobIntentService {
             boolean finalizado = agendaDAO.AtualizarStatus(tarefaId, 1, dataAtual, horasFim, minutosFim);
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             notificationManager.cancel((int) tarefaId);
+
             Log.d("AgendamentoService", "Tarefa marcada como concluída: " + finalizado);
         }
     }

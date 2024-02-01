@@ -18,13 +18,17 @@ public class Agenda {
     private int horaAgendaFim;
 
     private int minutoAgendaFim;
+    private LocalDate dataAgendaInsert;
+    private int horaAgendaInsert;
+    private int minutoAgendaInsert;
 
 
 
 
     public Agenda(long id, String nomeAgenda, String descriçãoAgenda, LocalDate dataAgenda,
                   int horaAgenda, int minutoAgenda, boolean lembrete, boolean finalizado,
-                  LocalDate dataAgendaFim, int horaAgendaFim, int minutoAgendaFim ) {
+                  LocalDate dataAgendaFim, int horaAgendaFim, int minutoAgendaFim,
+                  LocalDate dataAgendaInsert, int horaAgendaInsert, int minutoAgendaInsert) {
 
         this.id = id;
         this.nomeAgenda = nomeAgenda;
@@ -37,6 +41,9 @@ public class Agenda {
         this.horaAgendaFim = horaAgendaFim;
         this.minutoAgendaFim = minutoAgendaFim;
         this.dataAgendaFim = dataAgendaFim;
+        this.dataAgendaInsert = dataAgendaInsert;
+        this.horaAgendaInsert = horaAgendaInsert;
+        this.minutoAgendaInsert = minutoAgendaInsert;
 
     }
 
@@ -114,9 +121,9 @@ public class Agenda {
         }
     }
     @SuppressLint("NewApi")
-    public void setDataAgendaFimString(String dataAgendaString) {
-        if (dataAgendaString != null) {
-            this.dataAgendaFim = LocalDate.parse(dataAgendaString);
+    public void setDataAgendaFimString(String dataAgendaFimString) {
+        if (dataAgendaFimString != null) {
+            this.dataAgendaFim = LocalDate.parse(dataAgendaFimString);
         } else {
             this.dataAgendaFim = null;
         }
@@ -134,6 +141,34 @@ public class Agenda {
 
     public void setMinutoAgendaFim(int minutoAgendaFim) {
         this.minutoAgendaFim = minutoAgendaFim;
+    }
+    public String getDataAgendaInsertString() {
+        if (dataAgendaInsert != null) {
+            return dataAgendaInsert.toString();
+        } else {
+            return null;
+        }
+    }
+    @SuppressLint("NewApi")
+    public void setDataAgendaInsertString(String dataAgendaInsertString) {
+        if (dataAgendaInsertString != null) {
+            this.dataAgendaInsert = LocalDate.parse(dataAgendaInsertString);
+        } else {
+            this.dataAgendaInsert = null;
+        }
+    }
+    public int getHoraAgendaInsert() {
+        return horaAgendaInsert;
+    }
+    public void setHoraAgendaInsert(int horaAgendaInsert) {
+        this.horaAgendaInsert = horaAgendaInsert;
+    }
+    public int getMinutoAgendaInsert() {
+        return minutoAgendaInsert;
+    }
+
+    public void setMinutoAgendaInsert(int minutoAgendaInsert) {
+        this.minutoAgendaInsert = minutoAgendaInsert;
     }
 
 }

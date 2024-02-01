@@ -69,12 +69,22 @@ public class activity_agenda_concluido extends AppCompatActivity {
                 int horaAgendaFim = cursor.getInt(cursor.getColumnIndex("horaAgendaFim"));
                 @SuppressLint("Range")
                 int minutoAgendaFim = cursor.getInt(cursor.getColumnIndex("minutoAgendaFim"));
+                @SuppressLint("Range")
+                String dataagendaInsert = cursor.getString(cursor.getColumnIndex("dataAgendaInsert"));
+                @SuppressLint("Range")
+                int horaAgendaInsert = cursor.getInt(cursor.getColumnIndex("horaAgendaInsert"));
+                @SuppressLint("Range")
+                int minutoAgendaInsert = cursor.getInt(cursor.getColumnIndex("minutoAgendaInsert"));
+
+
 
                 LocalDate localdataagenda = LocalDate.parse(dataagenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                 LocalDate localdataagendaFim = LocalDate.parse(dataagendaFim, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                LocalDate localdataagendaInsert = LocalDate.parse(dataagendaInsert, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
                 listaagenda.add(new Agenda(ID, titulo, descricao, localdataagenda, horaagenda, minutoagenda,
-                        lembrete, finalizado, localdataagendaFim, horaAgendaFim, minutoAgendaFim));
+                        lembrete, finalizado, localdataagendaFim, horaAgendaFim, minutoAgendaFim, localdataagendaInsert,
+                        horaAgendaInsert, minutoAgendaInsert));
                 listaIDs.add(ID);
 
             } while (cursor.moveToNext());

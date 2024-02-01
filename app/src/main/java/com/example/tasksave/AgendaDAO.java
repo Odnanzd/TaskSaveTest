@@ -41,6 +41,9 @@ public class AgendaDAO {
         contentValues.put("dataAgendaFim", agenda.getDataAgendaFimString());
         contentValues.put("horaAgendaFim", agenda.getHoraAgendaFim());
         contentValues.put("minutoAgendaFim", agenda.getMinutoAgendaFim());
+        contentValues.put("dataAgendaInsert", agenda.getDataAgendaInsertString());
+        contentValues.put("horaAgendaInsert", agenda.getHoraAgendaInsert());
+        contentValues.put("minutoAgendaInsert", agenda.getMinutoAgendaInsert());
 
         return db.insert("agenda", null, contentValues);
 
@@ -75,8 +78,8 @@ public class AgendaDAO {
         List<Agenda> tarefasComLembrete = new ArrayList<>();
 
         String[] colunas = {
-                "id", "nomeTarefa", "descricaoTarefa", "dataAgenda", "horaAgenda", "minutoAgenda", "lembretedefinido"
-        };
+                "id", "nomeTarefa", "descricaoTarefa", "dataAgenda", "horaAgenda", "minutoAgenda",
+                "lembretedefinido"};
 
         String whereClause = "lembretedefinido = ?";
         String[] whereArgs = {"1"}; // Lembrete ativado
@@ -101,7 +104,7 @@ public class AgendaDAO {
                 LocalDate localDataAgenda = LocalDate.parse(dataAgenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
                 tarefasComLembrete.add(new Agenda(id, titulo, descricao, localDataAgenda, horaAgenda,
-                 minutoAgenda, true, false, dataAtual, -1, -1 ));
+                 minutoAgenda, true, false, dataAtual, -1, -1, dataAtual, -1, -1));
             } while (cursor.moveToNext());
         }
 

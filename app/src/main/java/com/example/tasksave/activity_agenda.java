@@ -41,6 +41,7 @@ public class activity_agenda extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(activity_agenda.this, activity_main.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
     @SuppressLint("NewApi")
@@ -51,7 +52,7 @@ public class activity_agenda extends AppCompatActivity {
 
         floatingActionButton = findViewById(R.id.button_mais_agenda);
         textView = findViewById(R.id.text_view_agenda_validador);
-        listView = (ListView) findViewById(R.id.list_view_agenda);
+        listView = findViewById(R.id.list_view_agenda);
         imageView = findViewById(R.id.icon_concluido);
         VerificaLista();
         ListarAgenda();
@@ -108,10 +109,17 @@ public class activity_agenda extends AppCompatActivity {
             textView.setTextSize(15);
                 imageView.setVisibility(View.GONE);
 
+        } else if(cursor.getCount() >=1 && cursor2.getCount() ==0) {
+
+            imageView.setVisibility(View.GONE);
+
         } else if(cursor.getCount() ==0 && cursor2.getCount() >=1) {
 
+            imageView.setVisibility(View.VISIBLE);
             textView.setText("Você não possui nenhuma tarefa a ser feito.");
             textView.setTextSize(15);
+
+        } else if(cursor.getCount() >=1 && cursor2.getCount() >=1) {
             imageView.setVisibility(View.VISIBLE);
         }
         {
@@ -165,13 +173,22 @@ public class activity_agenda extends AppCompatActivity {
                 int horaAgendaFim = cursor.getInt(cursor.getColumnIndex("horaAgendaFim"));
                 @SuppressLint("Range")
                 int minutoAgendaFim = cursor.getInt(cursor.getColumnIndex("minutoAgendaFim"));
+                @SuppressLint("Range")
+                String dataAgendaInsert = cursor.getString(cursor.getColumnIndex("dataAgendaInsert"));
+                @SuppressLint("Range")
+                int horaAgendaInsert = cursor.getInt(cursor.getColumnIndex("horaAgendaInsert"));
+                @SuppressLint("Range")
+                int minutoAgendaInsert = cursor.getInt(cursor.getColumnIndex("minutoAgendaInsert"));
+
 
 
                 LocalDate localdataagenda = LocalDate.parse(dataagenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                 LocalDate localdataagendaFim = LocalDate.parse(dataagendaFim, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                LocalDate localdataagendaInsert = LocalDate.parse(dataAgendaInsert, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
                 listaagenda.add(new Agenda(ID,titulo, descricao, localdataagenda, horaagenda, minutoagenda,
-                        lembrete, finalizado, localdataagendaFim, horaAgendaFim, minutoAgendaFim));
+                        lembrete, finalizado, localdataagendaFim, horaAgendaFim, minutoAgendaFim, localdataagendaInsert,
+                        horaAgendaInsert, minutoAgendaInsert));
                 listaIDs.add(ID);
 
             } while (cursor.moveToNext());
@@ -202,6 +219,7 @@ public class activity_agenda extends AppCompatActivity {
         // Configurando o CustomAdapter para a ListView
         CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(),listaIDs, titulos, descricoes, datas, horas, lembretes);
         listView.setAdapter(customAdapter);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

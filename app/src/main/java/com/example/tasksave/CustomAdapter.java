@@ -1,6 +1,7 @@
 package com.example.tasksave;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class CustomAdapter extends BaseAdapter {
@@ -27,7 +29,9 @@ public class CustomAdapter extends BaseAdapter {
     LayoutInflater inflater;
 
 
-    public CustomAdapter(Context context,ArrayList<Long> IDAgenda, String[] TituloAgenda, String[] DescricaoAgenda, String[] DataAgenda, String[] HoraAgenda, boolean[] isReminderSet) {
+    public CustomAdapter(Context context,ArrayList<Long> IDAgenda, String[] TituloAgenda,
+                         String[] DescricaoAgenda, String[] DataAgenda, String[] HoraAgenda,
+                         boolean[] isReminderSet) {
         this.context = context;
         AgendaID = IDAgenda;
         this.AgendaTitulo = TituloAgenda;

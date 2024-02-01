@@ -28,6 +28,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 
 
 public class activity_add_agenda extends AppCompatActivity {
@@ -135,6 +136,11 @@ public class activity_add_agenda extends AppCompatActivity {
                 } else {
                     if (switchCompat.isChecked()) {
 
+                        Calendar calendar = Calendar.getInstance();
+                        int horasInsert = calendar.get(Calendar.HOUR_OF_DAY);
+                        int minutosInsert = calendar.get(Calendar.MINUTE);
+                        LocalDate dataAtual = LocalDate.now();
+
                         SharedPreferences sharedPrefs = getApplicationContext().getSharedPreferences("arquivoSalvar2", Context.MODE_PRIVATE);
                         String dataEscolhida = sharedPrefs.getString("arquivo_Data2", "");
                         LocalDate localdataEscolhida = LocalDate.parse(dataEscolhida, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -144,7 +150,8 @@ public class activity_add_agenda extends AppCompatActivity {
                         int minutoEscolhido = sharedPrefs2.getInt("arquivo_Minuto2", 00);
 
                         Agenda agenda = new Agenda(-1, editNome.getText().toString(), editDescricao.getText().toString(),
-                                localdataEscolhida, horaEscolhida, minutoEscolhido, true, false, dataAtual, -1, -1);
+                                localdataEscolhida, horaEscolhida, minutoEscolhido, true, false, dataAtual,
+                                -1, -1, dataAtual,horasInsert ,minutosInsert);
 
                         long idSequencial = agendaDAO.inserir(agenda);
 
@@ -165,9 +172,15 @@ public class activity_add_agenda extends AppCompatActivity {
                         startActivity(intent);
 
                     } else {
+
+                        Calendar calendar = Calendar.getInstance();
+                        int horasInsert = calendar.get(Calendar.HOUR_OF_DAY);
+                        int minutosInsert = calendar.get(Calendar.MINUTE);
+                        LocalDate dataAtual = LocalDate.now();
 //
                         Agenda agenda = new Agenda(-1, editNome.getText().toString(), editDescricao.getText().toString(),
-                                dataAtual, -1, -1, false, false, dataAtual, -1, -1);
+                                dataAtual, -1, -1, false, false, dataAtual,
+                                -1, -1, dataAtual, horasInsert, minutosInsert);
 
                         long idSequencial = agendaDAO.inserir(agenda);
 
@@ -277,6 +290,10 @@ public class activity_add_agenda extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void EnviarTarefa() {
 
+        Calendar calendar = Calendar.getInstance();
+        int horasInsert = calendar.get(Calendar.HOUR_OF_DAY);
+        int minutosInsert = calendar.get(Calendar.MINUTE);
+
         AgendaDAO agendaDAO = new AgendaDAO(this);
 
         EditText editNome = findViewById(R.id.editTextText);
@@ -318,7 +335,9 @@ public class activity_add_agenda extends AppCompatActivity {
                 int minutoEscolhido = sharedPrefs2.getInt("arquivo_Minuto2", 00);
 
                 Agenda agenda = new Agenda(-1, editNome.getText().toString(), editDescricao.getText().toString(),
-                        localdataEscolhida, horaEscolhida, minutoEscolhido, true, false, dataAtual, -1, -1);
+                        localdataEscolhida, horaEscolhida, minutoEscolhido, true, false,
+                        dataAtual, -1, -1, dataAtual, horasInsert, minutosInsert);
+
                 long idSequencial = agendaDAO.inserir(agenda);
 
                 if (idSequencial > 0) {
@@ -337,9 +356,10 @@ public class activity_add_agenda extends AppCompatActivity {
                 finish();
 
             } else {
-//
+
                 Agenda agenda = new Agenda(-1, editNome.getText().toString(), editDescricao.getText().toString(),
-                        dataAtual, -1, -1, false, false, dataAtual, -1, -1);
+                        dataAtual, -1, -1, false, false, dataAtual, -1,
+                        -1, dataAtual, horasInsert, minutosInsert);
 
                 long idSequencial = agendaDAO.inserir(agenda);
 

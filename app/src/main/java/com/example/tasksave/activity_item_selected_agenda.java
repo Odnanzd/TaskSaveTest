@@ -3,6 +3,7 @@ package com.example.tasksave;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
@@ -13,12 +14,15 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 
 public class activity_item_selected_agenda extends AppCompatActivity {
     TextView descricaoTextView;
@@ -32,6 +36,7 @@ public class activity_item_selected_agenda extends AppCompatActivity {
     Button button2;
     TextView textViewContador;
     TextView textViewContador2;
+    CheckBox checkboxConcluido;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint({"MissingInflatedId", "WrongViewCast"})
@@ -51,6 +56,8 @@ public class activity_item_selected_agenda extends AppCompatActivity {
         editTextDescricao = findViewById(R.id.descricao_text_view);
         textViewContador = findViewById(R.id.text_view_contador1);
         textViewContador2 = findViewById(R.id.text_view_contador2);
+        checkboxConcluido = findViewById(R.id.checkBoxConcluido);
+
 
 
         // Recebe os extras da Intent
@@ -86,6 +93,28 @@ public class activity_item_selected_agenda extends AppCompatActivity {
             dataTextView.setText("Não definido");
             horaTextView.setVisibility(View.INVISIBLE);
         }
+
+        checkboxConcluido.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+
+                    editTextDescricao.setEnabled(false);
+                    editTextTitulo.setEnabled(false);
+                    dataTextView.setEnabled(false);
+                    horaTextView.setEnabled(false);
+                    tituloTextView.setText(titulo);
+                    descricaoTextView.setText(descricao);
+                    button.setEnabled(true);
+                } else {
+                    editTextDescricao.setEnabled(true);
+                    editTextTitulo.setEnabled(true);
+                    dataTextView.setEnabled(true);
+                    horaTextView.setEnabled(true);
+                }
+            }
+        });
+
 
 
         editTextTitulo.addTextChangedListener(new TextWatcher() {
@@ -136,32 +165,55 @@ public class activity_item_selected_agenda extends AppCompatActivity {
                 // Não é necessário implementar nada aqui
             }
         });
+        AgendaDAO agendaDAO = new AgendaDAO(this);
 
         button.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View v) {
 
+                if(checkboxConcluido.isChecked()) {
+                        Calendar calendar = Calendar.getInstance();
+                        int horasFim = calendar.get(Calendar.HOUR_OF_DAY);
+                        int minutosFim = calendar.get(Calendar.MINUTE);
+                        @SuppressLint({"NewApi", "LocalSuppress"})
+                        LocalDate dataAtual = LocalDate.now();
+                        boolean finalizado = agendaDAO.AtualizarStatus(idTarefa, 1, dataAtual, horasFim, minutosFim);
 
-                String novoTitulo = editTextTitulo.getText().toString();
-                String novaDescricao = editTextDescricao.getText().toString();
+                        if (finalizado) {
+                            // Atualização bem-sucedida
+                            Toast.makeText(activity_item_selected_agenda.this, "Tarefa concluída.", Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            // Algo deu errado na atualização
+                            Toast.makeText(activity_item_selected_agenda.this, "Erro ao atualizar a tarefa", Toast.LENGTH_SHORT).show();
+                        }
 
-                // Aqui você deve pegar o ID da tarefa (que você passou como um extra na Intent)
+
+                    } else {
+
+                        String novoTitulo = editTextTitulo.getText().toString();
+                        String novaDescricao = editTextDescricao.getText().toString();
+
+                        // Aqui você deve pegar o ID da tarefa (que você passou como um extra na Intent)
 
                         // Atualize os valores no banco de dados
 
-                AgendaDAO agendaDAO = new AgendaDAO(activity_item_selected_agenda.this);
-                boolean atualizado = agendaDAO.Atualizar(idTarefa, novoTitulo, novaDescricao);
+                        AgendaDAO agendaDAO = new AgendaDAO(activity_item_selected_agenda.this);
+                        boolean atualizado = agendaDAO.Atualizar(idTarefa, novoTitulo, novaDescricao);
 
-                if (atualizado) {
-                    // Atualização bem-sucedida
-                    Toast.makeText(activity_item_selected_agenda.this, "Tarefa atualizada.", Toast.LENGTH_SHORT).show();
+                        if (atualizado) {
+                            // Atualização bem-sucedida
+                            Toast.makeText(activity_item_selected_agenda.this, "Tarefa atualizada.", Toast.LENGTH_SHORT).show();
 
-                    finish();
-                } else {
-                    // Algo deu errado na atualização
-                    Toast.makeText(activity_item_selected_agenda.this, "Erro ao atualizar a tarefa", Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            // Algo deu errado na atualização
+                            Toast.makeText(activity_item_selected_agenda.this, "Erro ao atualizar a tarefa", Toast.LENGTH_SHORT).show();
+                        }
+                    }
                 }
-            }
         });
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -239,6 +291,26 @@ public class activity_item_selected_agenda extends AppCompatActivity {
             }
         });
         msgbox.show();
+    }
+    public void AtualizarStatusTarefa() {
+
+        Calendar calendar = Calendar.getInstance();
+        int horasFim = calendar.get(Calendar.HOUR_OF_DAY);
+        int minutosFim = calendar.get(Calendar.MINUTE);
+        @SuppressLint({"NewApi", "LocalSuppress"})
+        LocalDate dataAtual = LocalDate.now();
+
+        long idTarefa = getIntent().getLongExtra("idTarefa", -1);
+        AgendaDAO agendaDAO = new AgendaDAO(activity_item_selected_agenda.this);
+        boolean atualizarTarefa = agendaDAO.AtualizarStatus(idTarefa, 1, dataAtual, horasFim, minutosFim);
+
+        if (atualizarTarefa) {
+            Toast.makeText(activity_item_selected_agenda.this, "Tarefa concluída.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(activity_item_selected_agenda.this, activity_agenda.class);
+            startActivity(intent);
+        } else {
+            Toast.makeText(activity_item_selected_agenda.this, "Erro ao concluir tarefa.", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
