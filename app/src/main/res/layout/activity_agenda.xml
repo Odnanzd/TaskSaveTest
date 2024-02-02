@@ -13,6 +13,7 @@
         android:layout_height="672dp"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6">
@@ -50,7 +51,7 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="54dp"
+        android:layout_marginTop="56dp"
         android:text="Tarefas pendentes"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -60,13 +61,25 @@
 
     <ImageView
         android:id="@+id/icon_concluido"
+        style="@style/IconTaskFinalizadas"
         android:layout_width="59dp"
         android:layout_height="56dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button_mais_agenda"
-        app:layout_constraintHorizontal_bias="0.169"
+        app:layout_constraintHorizontal_bias="0.115"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        style="@style/Back_Button_Item2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginLeft="7dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.018"
         app:layout_constraintStart_toStartOf="parent"
-        style="@style/IconTaskFinalizadas" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

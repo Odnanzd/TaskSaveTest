@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -19,6 +20,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,13 +54,21 @@ public class activity_add_agenda extends AppCompatActivity {
         TextView textView1 = findViewById(R.id.textView4);
         TextView charCountTextView = findViewById(R.id.text_view_contador);
         TextView charCountTextView2 = findViewById(R.id.textView8);
+        ImageView imageView = findViewById(R.id.imageView4);
 
-        FloatingActionButton floatingActionButton1 = findViewById(R.id.floatingActionButton2);
 
         Switch switchCompat = findViewById(R.id.switch1);
         switchCompat.setChecked(false);
         textView.setVisibility(View.GONE);
         textView1.setVisibility(View.GONE);
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity_add_agenda.this, activity_agenda.class);
+                startActivity(intent);
+            }
+        });
 
         switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -83,18 +93,6 @@ public class activity_add_agenda extends AppCompatActivity {
         String horaFormatada = horaAtual.format(formatter1);
         textView1.setText(horaFormatada);
 
-
-        floatingActionButton1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences save = getApplicationContext().getSharedPreferences("arquivoSalvar2", Context.MODE_PRIVATE);
-                SharedPreferences.Editor saveEdit = save.edit();
-                saveEdit.clear();
-                saveEdit.commit();
-                Intent intent = new Intent(activity_add_agenda.this, activity_agenda.class);
-                startActivity(intent);
-            }
-        });
 
         textView.setOnClickListener(new View.OnClickListener() {
             @Override

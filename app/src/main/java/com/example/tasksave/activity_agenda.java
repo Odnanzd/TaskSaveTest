@@ -34,6 +34,7 @@ public class activity_agenda extends AppCompatActivity {
 
     ListView listView;
     ImageView imageView;
+    ImageView imageView2;
     ArrayList<Long> listaIDs = new ArrayList<>();
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -54,9 +55,19 @@ public class activity_agenda extends AppCompatActivity {
         textView = findViewById(R.id.text_view_agenda_validador);
         listView = findViewById(R.id.list_view_agenda);
         imageView = findViewById(R.id.icon_concluido);
+        imageView2 = findViewById(R.id.imageView4);
         VerificaLista();
         ListarAgenda();
         VerificaAgendaComLembretes();
+
+        imageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity_agenda.this, activity_main.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override

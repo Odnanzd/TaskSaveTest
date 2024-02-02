@@ -4,10 +4,14 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.time.LocalDate;
@@ -22,6 +26,7 @@ public class activity_agenda_concluido extends AppCompatActivity {
     ArrayList<Long> listaIDs = new ArrayList<>();
     private Conexao con;
     private SQLiteDatabase db;
+    ImageView imageView;
 
     @SuppressLint({"MissingInflatedId", "NewApi"})
     @Override
@@ -29,6 +34,13 @@ public class activity_agenda_concluido extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agenda_concluido);
         listView = (ListView) findViewById(R.id.listview2);
+        imageView = findViewById(R.id.imageView4);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         ListarAgenda();
     }
 
@@ -135,5 +147,24 @@ public class activity_agenda_concluido extends AppCompatActivity {
         CustomAdapterConcluido customAdapter = new CustomAdapterConcluido(getApplicationContext(), listaIDs,
                 titulos, descricoes, datas, horas, lembretes, datasAgendaFim, horasAgendaFim, datasAgendaInsert, horasAgendaInsert);
         listView.setAdapter(customAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent intent = new Intent(activity_agenda_concluido.this, activity_item_selected_agenda_concluido.class);
+                long idTarefa = listaIDs.get(position);
+
+                intent.putExtra("idTarefa", idTarefa);
+                intent.putExtra("tituloItem", customAdapter.getItemTitulo(position).toString());
+                intent.putExtra("descricaoItem", customAdapter.getItemDescricao(position).toString());
+                intent.putExtra("dataItemInsert", customAdapter.getItemDataInsert(position).toString());
+                intent.putExtra("horaItemInsert", customAdapter.getItemHoraInsert(position).toString());
+                intent.putExtra("dataItemFim", customAdapter.getItemDataFim(position).toString());
+                intent.putExtra("horaItemFim", customAdapter.getItemHoraFim(position).toString());
+                intent.putExtra("lembreteItem", customAdapter.getItemLembrete(position));
+                // Inicia a nova Activity
+                startActivity(intent);
+            }
+        });
     }
 }

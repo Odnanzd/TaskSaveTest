@@ -137,10 +137,31 @@ public class CustomAdapterConcluido extends BaseAdapter {
                 e.printStackTrace();
             }
 
-//            text_view_hr_agenda.setText("Concluído em: "+AgendaDatasFim[position]);
         } else {
-            text_view_dat_insert_agenda.setVisibility(View.GONE);
-            text_view_data_fim_agenda.setVisibility(View.GONE);
+            try {
+                SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                SimpleDateFormat targetFormat = new SimpleDateFormat("dd/MM/yy", Locale.getDefault());
+                Date date = originalFormat.parse(AgendaDatasInsert[position]);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+
+                String formattedDate = targetFormat.format(date);
+                text_view_dat_insert_agenda.setText("Criado em: "+formattedDate);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            try {
+                SimpleDateFormat originalFormat2 = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                SimpleDateFormat targetFormat2 = new SimpleDateFormat("dd/MM/yy", Locale.getDefault());
+                Date date2 = originalFormat2.parse(AgendaDatasFim[position]);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date2);
+                String formattedDate2 = targetFormat2.format(date2);
+                text_view_data_fim_agenda.setText("Concluído em: "+formattedDate2);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
 
         return convertView;

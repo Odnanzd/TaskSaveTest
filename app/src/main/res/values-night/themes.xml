@@ -139,4 +139,10 @@
     <style name="IconTaskFinalizadas">
         <item name="android:background">@drawable/baseline_task_24</item>
     </style>
+    <style name="Back_Button_Item">
+        <item name="android:src">@drawable/baseline_arrow_back_ios_new_24</item>
+    </style>
+    <style name="Back_Button_Item2">
+        <item name="android:src">@drawable/baseline_arrow_back_24</item>
+    </style>
 </resources>

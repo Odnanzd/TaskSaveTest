@@ -142,5 +142,17 @@
         app:layout_constraintTop_toBottomOf="@+id/descricao_text_view"
         app:layout_constraintVertical_bias="0.418" />
 
+    <ImageView
+        android:id="@+id/imageView4"
+        style="@style/Back_Button_Item2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toStartOf="@+id/textView3"
+        app:layout_constraintHorizontal_bias="0.054"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

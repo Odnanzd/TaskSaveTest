@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class activity_item_selected_agenda extends AppCompatActivity {
     TextView textViewContador;
     TextView textViewContador2;
     CheckBox checkboxConcluido;
+    ImageView imageView;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint({"MissingInflatedId", "WrongViewCast"})
@@ -57,6 +59,7 @@ public class activity_item_selected_agenda extends AppCompatActivity {
         textViewContador = findViewById(R.id.text_view_contador1);
         textViewContador2 = findViewById(R.id.text_view_contador2);
         checkboxConcluido = findViewById(R.id.checkBoxConcluido);
+        imageView = findViewById(R.id.imageView4);
 
 
 
@@ -93,6 +96,13 @@ public class activity_item_selected_agenda extends AppCompatActivity {
             dataTextView.setText("Não definido");
             horaTextView.setVisibility(View.INVISIBLE);
         }
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         checkboxConcluido.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
