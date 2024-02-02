@@ -102,6 +102,9 @@ public class activity_agenda_concluido extends AppCompatActivity {
         String[] datasAgendaFim = new String[listaagenda.size()];
         String[] horasAgendaFim = new String[listaagenda.size()];
 
+        String[] datasAgendaInsert = new String[listaagenda.size()];
+        String[] horasAgendaInsert = new String[listaagenda.size()];
+
         for (int i = 0; i < listaagenda.size(); i++) {
             ids[i] = listaIDs.get(i);
             titulos[i] = listaagenda.get(i).getNomeAgenda();
@@ -119,11 +122,18 @@ public class activity_agenda_concluido extends AppCompatActivity {
             String horaAgendaFimFormatada = String.format(Locale.getDefault(), "%02d:%02d", horaAgendaFim, minutoAgendaFim);
             horasAgendaFim[i] = horaAgendaFimFormatada;
 
+            datasAgendaInsert[i] = listaagenda.get(i).getDataAgendaInsertString();
+            int horaAgendaInsert = listaagenda.get(i).getHoraAgendaInsert();
+            int minutoAgendaInsert = listaagenda.get(i).getMinutoAgendaInsert();
+            String horaAgendaInsertFormatada = String.format(Locale.getDefault(), "%02d:%02d", horaAgendaInsert, minutoAgendaInsert);
+            horasAgendaInsert[i] = horaAgendaInsertFormatada;
+
+
         }
 
         // Configurando o CustomAdapter para a ListView
         CustomAdapterConcluido customAdapter = new CustomAdapterConcluido(getApplicationContext(), listaIDs,
-                titulos, descricoes, datas, horas, lembretes, datasAgendaFim, horasAgendaFim);
+                titulos, descricoes, datas, horas, lembretes, datasAgendaFim, horasAgendaFim, datasAgendaInsert, horasAgendaInsert);
         listView.setAdapter(customAdapter);
     }
 }

@@ -24,13 +24,15 @@ public class CustomAdapterConcluido extends BaseAdapter {
     String AgendaHora[];
     String AgendaDatasFim[];
     String AgendaHorasFim[];
+    String AgendaDatasInsert[];
+    String AgendaHorasInsert[];
     private ArrayList<Long> AgendaID;
     boolean[] isReminderSet;
     LayoutInflater inflater;
 
     public CustomAdapterConcluido(Context context,ArrayList<Long> IDAgenda, String[] TituloAgenda,
     String[] DescricaoAgenda, String[] DataAgenda, String[] HoraAgenda, boolean[] isReminderSet,
-    String[] DatasAgendaFim, String[] HorasAgendaFim ) {
+    String[] DatasAgendaFim, String[] HorasAgendaFim, String[] DatasAgendaInsert, String[] HorasAgendaInsert ) {
         this.context = context;
         AgendaID = IDAgenda;
         this.AgendaTitulo = TituloAgenda;
@@ -40,6 +42,8 @@ public class CustomAdapterConcluido extends BaseAdapter {
         this.isReminderSet = isReminderSet;
         this.AgendaDatasFim = DatasAgendaFim;
         this.AgendaHorasFim = HorasAgendaFim;
+        this.AgendaDatasInsert = DatasAgendaInsert;
+        this.AgendaHorasInsert = HorasAgendaInsert;
         inflater = LayoutInflater.from(context);
     }
 
@@ -85,6 +89,13 @@ public class CustomAdapterConcluido extends BaseAdapter {
     public Object getItemHoraFim(int position) {
         return AgendaHorasFim[position];
     }
+    public Object getItemDataInsert(int position) {
+        return AgendaDatasInsert[position];
+    }
+
+    public Object getItemHoraInsert(int position) {
+        return AgendaHorasInsert[position];
+    }
 
 
     @SuppressLint({"ViewHolder", "InflateParams", "SetTextI18n"})
@@ -94,8 +105,8 @@ public class CustomAdapterConcluido extends BaseAdapter {
         convertView = inflater.inflate(R.layout.activity_layout_agenda_concluido, null);
         TextView text_view_tit_agenda = convertView.findViewById(R.id.text_view_titulo_agenda2);
         TextView text_view_desc_agenda = convertView.findViewById(R.id.text_view_descricao_agenda2);
-        TextView text_view_dat_agenda = convertView.findViewById(R.id.text_view_data_agenda2);
-        TextView text_view_hr_agenda = convertView.findViewById(R.id.text_view_hora_agenda2);
+        TextView text_view_dat_insert_agenda = convertView.findViewById(R.id.text_view_data_agenda2);
+        TextView text_view_data_fim_agenda = convertView.findViewById(R.id.text_view_hora_agenda2);
 
         text_view_tit_agenda.setText("Tarefa: "+AgendaTitulo[position]);
         text_view_desc_agenda.setText("Descrição: "+AgendaDescricao[position]);
@@ -104,18 +115,13 @@ public class CustomAdapterConcluido extends BaseAdapter {
             try {
                 SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                 SimpleDateFormat targetFormat = new SimpleDateFormat("dd/MM/yy", Locale.getDefault());
-                Date date = originalFormat.parse(AgendaData[position]);
+                Date date = originalFormat.parse(AgendaDatasInsert[position]);
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(date);
 
-                Calendar currentCalendar = Calendar.getInstance();
-                if (calendar.get(Calendar.YEAR) == currentCalendar.get(Calendar.YEAR) &&
-                        calendar.get(Calendar.DAY_OF_YEAR) == currentCalendar.get(Calendar.DAY_OF_YEAR) + 1) {
-                    text_view_dat_agenda.setText("Amanhã");
-                } else {
                     String formattedDate = targetFormat.format(date);
-                    text_view_dat_agenda.setText("Criado em: "+formattedDate);
-                }
+                    text_view_dat_insert_agenda.setText("Criado em: "+formattedDate);
+
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -126,15 +132,15 @@ public class CustomAdapterConcluido extends BaseAdapter {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(date2);
                 String formattedDate2 = targetFormat2.format(date2);
-                text_view_hr_agenda.setText("Concluído em: "+formattedDate2);
+                text_view_data_fim_agenda.setText("Concluído em: "+formattedDate2);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
 
 //            text_view_hr_agenda.setText("Concluído em: "+AgendaDatasFim[position]);
         } else {
-            text_view_dat_agenda.setVisibility(View.GONE);
-            text_view_hr_agenda.setVisibility(View.GONE);
+            text_view_dat_insert_agenda.setVisibility(View.GONE);
+            text_view_data_fim_agenda.setVisibility(View.GONE);
         }
 
         return convertView;

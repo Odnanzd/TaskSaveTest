@@ -65,7 +65,7 @@
                 android:layout_width="140dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="30dp"
-                android:drawableLeft="@drawable/baseline_calendar_month_24"
+                android:drawableLeft="@drawable/baseline_calendar_month_24_green"
                 android:drawablePadding="7sp"
                 android:text="teste"
                 android:textSize="15sp"
