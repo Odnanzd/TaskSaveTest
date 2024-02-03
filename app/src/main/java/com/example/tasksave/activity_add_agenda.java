@@ -137,37 +137,63 @@ public class activity_add_agenda extends AppCompatActivity {
                         Calendar calendar = Calendar.getInstance();
                         int horasInsert = calendar.get(Calendar.HOUR_OF_DAY);
                         int minutosInsert = calendar.get(Calendar.MINUTE);
+
+                        int horaCompleta = horasInsert * 100 + minutosInsert;
+
                         LocalDate dataAtual = LocalDate.now();
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                        String dataAtualFormatada = dataAtual.format(formatter);
 
                         SharedPreferences sharedPrefs = getApplicationContext().getSharedPreferences("arquivoSalvar2", Context.MODE_PRIVATE);
-                        String dataEscolhida = sharedPrefs.getString("arquivo_Data2", "");
+                        String dataEscolhida = sharedPrefs.getString("arquivo_Data2", dataAtualFormatada);
                         LocalDate localdataEscolhida = LocalDate.parse(dataEscolhida, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
                         SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("arquivoSalvar3", Context.MODE_PRIVATE);
                         int horaEscolhida = sharedPrefs2.getInt("arquivo_Hora2", 00);
                         int minutoEscolhido = sharedPrefs2.getInt("arquivo_Minuto2", 00);
 
+                        int horaCompletaEscolhida = horaEscolhida * 100 + minutoEscolhido;
+
                         Agenda agenda = new Agenda(-1, editNome.getText().toString(), editDescricao.getText().toString(),
                                 localdataEscolhida, horaEscolhida, minutoEscolhido, true, false, dataAtual,
                                 -1, -1, dataAtual,horasInsert ,minutosInsert);
 
-                        long idSequencial = agendaDAO.inserir(agenda);
+//                        long idSequencial = agendaDAO.inserir(agenda);
 
-                        if (idSequencial > 0) {
+                        if (horaCompleta<=horaCompletaEscolhida) {
+
+                            long idSequencial = agendaDAO.inserir(agenda);
                             agenda.setId(idSequencial);
                             long idAgenda = agenda.getId();
 
+                            SharedPreferences save = getApplicationContext().getSharedPreferences("arquivoSalvar2", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor saveEdit = save.edit();
+                            saveEdit.clear();
+                            saveEdit.commit();
+                            Intent intent = new Intent(activity_add_agenda.this, activity_agenda.class);
+                            startActivity(intent);
                             Toast.makeText(activity_add_agenda.this, "Tarefa Salva. Nº " + idAgenda, Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(activity_add_agenda.this, "Erro", Toast.LENGTH_LONG).show();
+
+                            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                            if (imm != null) {
+                                View currentFocus = getCurrentFocus();
+                                if (currentFocus != null) {
+                                    imm.hideSoftInputFromWindow(currentFocus.getWindowToken(), 0);
+                                }
+                            }
+                            Snackbar snackbar = Snackbar.make(view, "O horário definido não pode ser menor que o horário atual.", Snackbar.LENGTH_SHORT);
+                            snackbar.setBackgroundTint(Color.WHITE);
+                            snackbar.setTextColor(Color.BLACK);
+                            snackbar.show();
                         }
 
-                        SharedPreferences save = getApplicationContext().getSharedPreferences("arquivoSalvar2", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor saveEdit = save.edit();
-                        saveEdit.clear();
-                        saveEdit.commit();
-                        Intent intent = new Intent(activity_add_agenda.this, activity_agenda.class);
-                        startActivity(intent);
+//                            SharedPreferences save = getApplicationContext().getSharedPreferences("arquivoSalvar2", Context.MODE_PRIVATE);
+//                            SharedPreferences.Editor saveEdit = save.edit();
+//                            saveEdit.clear();
+//                            saveEdit.commit();
+//                            Intent intent = new Intent(activity_add_agenda.this, activity_agenda.class);
+//                            startActivity(intent);
 
                     } else {
 
