@@ -8,11 +8,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -24,7 +24,6 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.time.LocalDate;
@@ -35,6 +34,14 @@ import java.util.Calendar;
 
 public class activity_add_agenda extends AppCompatActivity {
     public void onBackPressed() {
+
+        SharedPreferences.Editor prefsEditor = getSharedPreferences("arquivoSalvar2", MODE_PRIVATE).edit();
+        prefsEditor.clear();
+        prefsEditor.commit();
+        SharedPreferences.Editor prefsEditor2 = getSharedPreferences("arquivoSalvar3", MODE_PRIVATE).edit();
+        prefsEditor2.clear();
+        prefsEditor2.commit();
+
         Intent intent = new Intent(activity_add_agenda.this, activity_agenda.class);
         startActivity(intent);
     }
@@ -62,6 +69,8 @@ public class activity_add_agenda extends AppCompatActivity {
         textView.setVisibility(View.GONE);
         textView1.setVisibility(View.GONE);
 
+        editDescricao.requestFocus();
+
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,6 +85,8 @@ public class activity_add_agenda extends AppCompatActivity {
                 if (isChecked) {
                     textView.setVisibility(View.VISIBLE);
                     textView1.setVisibility(View.VISIBLE);
+                    AtualizarHora();
+                    AtualizarData();
                 } else {
                     textView.setVisibility(View.GONE);
                     textView1.setVisibility(View.GONE);
@@ -132,7 +143,7 @@ public class activity_add_agenda extends AppCompatActivity {
                     snackbar.show();
 
                 } else {
-                    if (switchCompat.isChecked()) {
+                    if (switchCompat.isChecked()){
 
                         Calendar calendar = Calendar.getInstance();
                         int horasInsert = calendar.get(Calendar.HOUR_OF_DAY);
@@ -292,22 +303,51 @@ public class activity_add_agenda extends AppCompatActivity {
     public void AtualizarData() {
 
         SharedPreferences sharedPrefs = getApplicationContext().getSharedPreferences("arquivoSalvar2", Context.MODE_PRIVATE);
-        String dataEscolhida = sharedPrefs.getString("arquivo_Data", "");
+        Boolean validadorData = sharedPrefs.getBoolean("arquivo_att_data", false);
 
-        if (!dataEscolhida.isEmpty()) {
+        SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("arquivoSalvar2", Context.MODE_PRIVATE);
+        String dataEscolhida = sharedPrefs2.getString("arquivo_Data", "");
+
+        if (validadorData) {
+
             TextView textView = findViewById(R.id.textView5);
             textView.setText(dataEscolhida);
+
+        } else if(!validadorData) {
+
+            TextView textView = findViewById(R.id.textView5);
+            LocalDate dataAtual = LocalDate.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM");
+            String dataFormatada = dataAtual.format(formatter);
+            textView.setText(dataFormatada);
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void AtualizarHora() {
-        SharedPreferences sharedPrefs = getApplicationContext().getSharedPreferences("arquivoSalvar3", Context.MODE_PRIVATE);
-        String horaEscolhido = sharedPrefs.getString("arquivo_Hora", "");
-        String minutoEscolhido = sharedPrefs.getString("arquivo_Minuto", "");
 
-        if (!horaEscolhido.isEmpty() | !minutoEscolhido.isEmpty()) {
+        SharedPreferences sharedPrefs = getApplicationContext().getSharedPreferences("arquivoSalvar3", Context.MODE_PRIVATE);
+        Boolean validador = sharedPrefs.getBoolean("arquivo_att_hora", false);
+
+        SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("arquivoSalvar3", Context.MODE_PRIVATE);
+        String horaEscolhido = sharedPrefs2.getString("arquivo_Hora", "");
+        String minutoEscolhido = sharedPrefs2.getString("arquivo_Minuto", "");
+        Log.d("verificar", "validor:"+validador);
+
+        if (validador) {
+
             TextView textView2 = findViewById(R.id.textView4);
             textView2.setText(horaEscolhido + ":" + minutoEscolhido);
+            Log.d("verificação","caso 1:true");
+
+        } else if(!validador) {
+
+            TextView textView = findViewById(R.id.textView4);
+            @SuppressLint({"NewApi", "LocalSuppress"}) LocalTime horaAtual = LocalTime.now();
+            @SuppressLint({"NewApi", "LocalSuppress"}) DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("HH:mm");
+            String horaFormatada = horaAtual.format(formatter1);
+            textView.setText(horaFormatada);
+            Log.d("verificação","caso 2: false");
         }
     }
 

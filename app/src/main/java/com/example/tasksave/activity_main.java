@@ -53,6 +53,7 @@ public class activity_main extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent2 = new Intent(activity_main.this, activity_agenda.class);
                 startActivity(intent2);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
         });
 

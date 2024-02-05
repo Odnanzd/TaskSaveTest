@@ -60,11 +60,12 @@ public class activity_add_agenda_data extends AppCompatActivity {
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onClick(View v) {
-
+                        Boolean validador = true;
                         SharedPreferences prefs = getSharedPreferences("arquivoSalvar2", MODE_PRIVATE);
                         SharedPreferences.Editor editor = prefs.edit();
                         editor.putString("arquivo_Data", selectedDate);
                         editor.putString("arquivo_Data2", selectedDate2);
+                        editor.putBoolean("arquivo_att_data", validador);
                         editor.apply();
                         finish();
                     }

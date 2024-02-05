@@ -1,86 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".layout_activity">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:ignore="MissingConstraints">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="100dp">
 
-        <!-- Layout com TextViews de Título e Outra TextView -->
-        <LinearLayout
-            android:layout_width="match_parent"
+
+        <!-- Suas TextViews aqui -->
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/button_add_agenda_next"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.958"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/text_view_titulo_agenda"
+            android:layout_width="220dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="15dp">
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="10sp"
+            android:text="Teste de Título"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:theme="@style/AppTheme"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- TextView de Título -->
-
-
-            <TextView
-                android:id="@+id/text_view_titulo_agenda"
-                android:layout_width="240dp"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10sp"
-                android:text="Teste de Título"
-                android:theme="@style/AppTheme"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/text_view_data_agenda"
-                android:layout_width="140dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:drawableLeft="@drawable/baseline_calendar_month_24"
-                android:drawablePadding="7sp"
-                android:text="teste"
-                android:textSize="18sp"
-                android:theme="@style/AppTheme" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/text_view_data_agenda"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="15dp">
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="50dp"
+            android:drawableLeft="@drawable/baseline_calendar_month_24"
+            android:drawablePadding="7sp"
+            android:text="teste"
+            android:textSize="18sp"
+            android:theme="@style/AppTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/text_view_descricao_agenda"
-                android:layout_width="240dp"
-                android:layout_height="match_parent"
-                android:theme="@style/AppTheme2"
-                android:paddingLeft="10sp"
-                android:text="Teste"
-                android:textSize="18sp"
-                />
+        <TextView
+            android:id="@+id/text_view_descricao_agenda"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="8dp"
+            android:paddingLeft="10sp"
+            android:text="Descricao"
+            android:textSize="18sp"
+            android:theme="@style/AppTheme2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_titulo_agenda" />
 
-            <TextView
-                android:id="@+id/text_view_hora_agenda"
-                android:layout_width="140dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:drawableLeft="@drawable/baseline_schedule_24"
-                android:drawablePadding="7sp"
-                android:text="teste"
-                android:textSize="18sp"
-                android:theme="@style/AppTheme" />
+        <TextView
+            android:id="@+id/text_view_hora_agenda"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="50dp"
+            android:drawableLeft="@drawable/baseline_schedule_24"
+            android:drawablePadding="7sp"
+            android:text="teste"
+            android:textSize="18sp"
+            android:theme="@style/AppTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_data_agenda" />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-
-
-
-    </LinearLayout>
-
-
-
+</LinearLayout>

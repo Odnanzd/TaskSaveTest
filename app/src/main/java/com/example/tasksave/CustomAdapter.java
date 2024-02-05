@@ -1,15 +1,24 @@
 package com.example.tasksave;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -78,6 +87,7 @@ public class CustomAdapter extends BaseAdapter {
         return isReminderSet[position];
     }
 
+    @SuppressLint("NewApi")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -94,19 +104,78 @@ public class CustomAdapter extends BaseAdapter {
             try {
                 SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                 SimpleDateFormat targetFormat = new SimpleDateFormat("dd/MM/yy", Locale.getDefault());
+
+                Calendar calendarDataAtual = Calendar.getInstance();
+                calendarDataAtual.set(Calendar.SECOND, 0);
+                calendarDataAtual.set(Calendar.HOUR_OF_DAY, 0);
+                calendarDataAtual.set(Calendar.MINUTE, 0);
+                Date calendardataAtual2 = calendarDataAtual.getTime();
+                Log.d("Verificação","Data sem horario:" + calendardataAtual2);
+
                 Date date = originalFormat.parse(AgendaData[position]);
+                Log.d("Verificação","Data da Agenda[position]:" + date);
+
+                @SuppressLint({"NewApi", "LocalSuppress"})
+                LocalDate LocaldatedataCombinada = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                @SuppressLint({"NewApi", "LocalSuppress"})
+                LocalDate LocaldatedataAtual = LocalDate.now();
+
+                Log.d("Verificação","Data da Agenda[position]:" + LocaldatedataCombinada + "Data atual local date"+LocaldatedataAtual);
+
+                Calendar calendarAtual = Calendar.getInstance();
+                calendarAtual.set(Calendar.SECOND, 0);
+                Date dataAtual = calendarAtual.getTime();
+
+                String horarioString = AgendaHora[position];
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                Date horarioDate = sdf.parse(horarioString);
+
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(date);
+                calendar.add(Calendar.HOUR_OF_DAY, horarioDate.getHours());
+                calendar.add(Calendar.MINUTE, horarioDate.getMinutes());
+                Date dataHoraCombinada = calendar.getTime();
+
+                Log.d("Verificação","Datas com horarios:" + dataHoraCombinada + dataAtual);
 
                 // Verifique se a data da agenda é amanhã em relação à data atual
                 Calendar currentCalendar = Calendar.getInstance();
                 if (calendar.get(Calendar.YEAR) == currentCalendar.get(Calendar.YEAR) &&
                         calendar.get(Calendar.DAY_OF_YEAR) == currentCalendar.get(Calendar.DAY_OF_YEAR) + 1) {
                     text_view_dat_agenda.setText("Amanhã");
-                } else {
+
+                }
+
+                if(dataHoraCombinada.before(new Date()) && LocaldatedataAtual.isBefore(LocaldatedataCombinada)) {
+
+                    String Teste = String.valueOf(AgendaID.get(position));
+                    Log.d("Hora atrasada", "LocalDate"+Teste);
+
+                    String formattedDate = targetFormat.format(date);
+                    text_view_dat_agenda.setText(formattedDate);
+                    Drawable seuDrawable1 = ContextCompat.getDrawable(context, R.drawable.baseline_schedule_24_red);
+                    text_view_hr_agenda.setCompoundDrawablesWithIntrinsicBounds(seuDrawable1, null, null, null);
+
+                }
+
+                if(LocaldatedataAtual.isAfter(LocaldatedataCombinada)) {
+
+                    String Teste = String.valueOf(AgendaID.get(position));
+                    Log.d("Dia atrasado", "LocalDate"+Teste);
+                    String formattedDate = targetFormat.format(date);
+                    text_view_dat_agenda.setText(formattedDate);
+                    Drawable seuDrawable = ContextCompat.getDrawable(context, R.drawable.baseline_calendar_month_24_red);
+                    text_view_dat_agenda.setCompoundDrawablesWithIntrinsicBounds(seuDrawable, null, null, null);
+                    Drawable seuDrawable1 = ContextCompat.getDrawable(context, R.drawable.baseline_schedule_24_red2);
+                    text_view_hr_agenda.setCompoundDrawablesWithIntrinsicBounds(seuDrawable1, null, null, null);
+
+                } if(LocaldatedataAtual.isEqual(LocaldatedataCombinada) || LocaldatedataAtual.isBefore(LocaldatedataCombinada)) {
+
+                    Log.d("Verificação IF", "se data atual for antes da agendfada");
                     String formattedDate = targetFormat.format(date);
                     text_view_dat_agenda.setText(formattedDate);
                 }
+
             } catch (ParseException e) {
                 e.printStackTrace();
             }

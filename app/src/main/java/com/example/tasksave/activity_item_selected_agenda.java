@@ -1,5 +1,6 @@
 package com.example.tasksave;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -116,11 +118,15 @@ public class activity_item_selected_agenda extends AppCompatActivity {
                     tituloTextView.setText(titulo);
                     descricaoTextView.setText(descricao);
                     button.setEnabled(true);
+                    button.setText("Concluir");
+
                 } else {
                     editTextDescricao.setEnabled(true);
                     editTextTitulo.setEnabled(true);
                     dataTextView.setEnabled(true);
                     horaTextView.setEnabled(true);
+                    button.setEnabled(false);
+                    button.setText("Atualizar");
                 }
             }
         });

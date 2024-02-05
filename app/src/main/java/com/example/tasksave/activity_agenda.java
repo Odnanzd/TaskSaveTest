@@ -3,6 +3,7 @@ package com.example.tasksave;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
@@ -50,7 +51,6 @@ public class activity_agenda extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agenda);
 
-
         floatingActionButton = findViewById(R.id.button_mais_agenda);
         textView = findViewById(R.id.text_view_agenda_validador);
         listView = findViewById(R.id.list_view_agenda);
@@ -92,9 +92,17 @@ public class activity_agenda extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     void showCustomDialog() {
 
+        SharedPreferences.Editor prefsEditor = getSharedPreferences("arquivoSalvar2", MODE_PRIVATE).edit();
+        prefsEditor.clear();
+        prefsEditor.commit();
+        SharedPreferences.Editor prefsEditor2 = getSharedPreferences("arquivoSalvar3", MODE_PRIVATE).edit();
+        prefsEditor2.clear();
+        prefsEditor2.commit();
+
         Intent intent = new Intent(activity_agenda.this, activity_add_agenda.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

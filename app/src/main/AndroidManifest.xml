@@ -24,20 +24,29 @@
         tools:targetApi="31">
         <activity
             android:name=".activity_item_selected_agenda_concluido"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".layout_activity_agenda_concluido"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".activity_agenda_concluido"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".activity_item_selected_agenda"
-            android:exported="false" /> <!-- Definir a SplashActivity como a atividade principal -->
+            android:exported="false"
+            android:screenOrientation="portrait"
+            /> <!-- Definir a SplashActivity como a atividade principal -->
         <activity
             android:name=".activity_splash_screen"
             android:exported="true"
-            android:theme="@style/Theme.TaskSave">
+            android:theme="@style/Theme.TaskSave"
+            android:screenOrientation="portrait">
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,28 +55,44 @@
         </activity> <!-- Restante das atividades -->
         <activity
             android:name=".layout_activity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".activity_add_agenda_hora"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".activity_add_agenda_data"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".activity_add_agenda"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".activity_agenda"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".activity_fingerprint"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".activity_login"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".activity_main"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            />
 
         <meta-data
             android:name="preloaded_fonts"

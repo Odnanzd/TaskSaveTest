@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -48,14 +49,17 @@ public class activity_add_agenda_hora extends AppCompatActivity {
                 floatingActionButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Boolean validador = true;
                         SharedPreferences prefs = getSharedPreferences("arquivoSalvar3", MODE_PRIVATE);
                         SharedPreferences.Editor editor = prefs.edit();
                         editor.putString("arquivo_Hora", hora_formatada);
                         editor.putString("arquivo_Minuto", minuto_Formatado);
                         editor.putInt("arquivo_Hora2", hora_formatada2);
                         editor.putInt("arquivo_Minuto2", minuto_formatado2);
+                        editor.putBoolean("arquivo_att_hora", validador);
                         editor.apply();
                         finish();
+                        Log.d("Verificação", "validador: "+validador);
                     }
                 });
             }
