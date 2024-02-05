@@ -42,9 +42,11 @@ public class activity_agenda extends AppCompatActivity {
     @SuppressLint("MissingInflatedId")
     @Override
     public void onBackPressed() {
+
         Intent intent = new Intent(activity_agenda.this, activity_main.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
     }
     @SuppressLint("NewApi")
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,7 @@ public class activity_agenda extends AppCompatActivity {
                 Intent intent = new Intent(activity_agenda.this, activity_main.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
 
@@ -74,6 +77,7 @@ public class activity_agenda extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent2 = new Intent(activity_agenda.this, activity_agenda_concluido.class);
                 startActivity(intent2);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
         });
 
@@ -102,6 +106,7 @@ public class activity_agenda extends AppCompatActivity {
         Intent intent = new Intent(activity_agenda.this, activity_add_agenda.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
     }
 
