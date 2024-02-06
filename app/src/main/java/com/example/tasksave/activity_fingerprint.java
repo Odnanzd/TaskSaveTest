@@ -5,13 +5,16 @@ import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +25,8 @@ public class activity_fingerprint extends activity_login {
 
     Button button_fing2;
     ImageView imageView;
+    private ProgressBar load;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,7 @@ public class activity_fingerprint extends activity_login {
         setContentView(R.layout.activity_fingerprint);
         button_fing2 = findViewById(R.id.button_fing2);
         imageView = findViewById(R.id.image_view_button_fing);
+        load = findViewById(R.id.progressBar);
 
         ChecarBiometria();
         Executor executor = ContextCompat.getMainExecutor(this);
@@ -37,6 +43,8 @@ public class activity_fingerprint extends activity_login {
             @Override
             public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
+                button_fing2.setVisibility(View.VISIBLE);
+                load.setVisibility(View.GONE);
                 Toast.makeText(activity_fingerprint.this, "Erro de autenticação " + errString, Toast.LENGTH_SHORT).show();
             }
 
@@ -62,6 +70,8 @@ public class activity_fingerprint extends activity_login {
             @Override
             public void onAuthenticationFailed() {
                 super.onAuthenticationFailed();
+                button_fing2.setVisibility(View.VISIBLE);
+                load.setVisibility(View.GONE);
                 Toast.makeText(activity_fingerprint.this, "Erro", Toast.LENGTH_SHORT).show();
             }
         });
@@ -71,6 +81,8 @@ public class activity_fingerprint extends activity_login {
 
         imageView.setOnClickListener(view -> {
             BiometricPrompt.PromptInfo.Builder promtInfo = CaixaDialogo();
+            exibirProgresso();
+            button_fing2.setVisibility(View.GONE);
             promtInfo.setNegativeButtonText("Cancelar");
             biometricPrompt.authenticate(promtInfo.build());
         });
@@ -88,6 +100,10 @@ public class activity_fingerprint extends activity_login {
                 .setSubtitle("Faça o login utilizando sua impressão digital");
     }
 
+    public void exibirProgresso() {
+        load.setVisibility(true ? View.VISIBLE : View.GONE);
+    }
+
     private void ChecarBiometria() {
         String info;
         BiometricManager manager = BiometricManager.from(this);
@@ -96,6 +112,8 @@ public class activity_fingerprint extends activity_login {
             case BiometricManager.BIOMETRIC_SUCCESS:
                 info = "Impressão digital detectada";
                 enableButton(true);
+                button_fing2.setVisibility(View.GONE);
+                exibirProgresso();
                 break;
             case BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE:
                 info = "Dispositivo não possui hardware de impressão digital";

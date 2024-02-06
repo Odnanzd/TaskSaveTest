@@ -44,6 +44,7 @@ public class AgendaDAO {
         contentValues.put("dataAgendaInsert", agenda.getDataAgendaInsertString());
         contentValues.put("horaAgendaInsert", agenda.getHoraAgendaInsert());
         contentValues.put("minutoAgendaInsert", agenda.getMinutoAgendaInsert());
+        contentValues.put("agendaAtraso", agenda.getAgendaAtraso());
 
         return db.insert("agenda", null, contentValues);
 
@@ -104,7 +105,8 @@ public class AgendaDAO {
                 LocalDate localDataAgenda = LocalDate.parse(dataAgenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
                 tarefasComLembrete.add(new Agenda(id, titulo, descricao, localDataAgenda, horaAgenda,
-                 minutoAgenda, true, false, dataAtual, -1, -1, dataAtual, -1, -1));
+                 minutoAgenda, true, false, dataAtual, -1, -1, dataAtual,
+                        -1, -1, false));
             } while (cursor.moveToNext());
         }
 
@@ -120,6 +122,18 @@ public class AgendaDAO {
         contentValues.put("dataAgendaFim", String.valueOf(dataAgendaFim));
         contentValues.put("horaAgendaFim", horaAgendaFim);
         contentValues.put("minutoAgendaFim", minutoAgendaFim);
+
+        String whereClause = "id = ?";
+        String[] whereArgs = {String.valueOf(id)};
+
+        int rowsUpdated = db.update("agenda", contentValues, whereClause, whereArgs);
+
+        return rowsUpdated > 0;
+    }
+    public boolean AtualizarStatusAtraso(long id, int status) {
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("agendaAtraso", status);
 
         String whereClause = "id = ?";
         String[] whereArgs = {String.valueOf(id)};

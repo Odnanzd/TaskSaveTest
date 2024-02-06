@@ -146,9 +146,11 @@ public class CustomAdapter extends BaseAdapter {
 
                 }
 
-                if(dataHoraCombinada.before(new Date()) && LocaldatedataAtual.isBefore(LocaldatedataCombinada)) {
+                else if(dataHoraCombinada.before(dataAtual) && LocaldatedataAtual.isEqual(LocaldatedataCombinada) ) {
 
+                    AgendaDAO agendaDAO = new AgendaDAO(context);
                     String Teste = String.valueOf(AgendaID.get(position));
+                    long idTarefa = AgendaID.get(position);
                     Log.d("Hora atrasada", "LocalDate"+Teste);
 
                     String formattedDate = targetFormat.format(date);
@@ -156,9 +158,11 @@ public class CustomAdapter extends BaseAdapter {
                     Drawable seuDrawable1 = ContextCompat.getDrawable(context, R.drawable.baseline_schedule_24_red);
                     text_view_hr_agenda.setCompoundDrawablesWithIntrinsicBounds(seuDrawable1, null, null, null);
 
+                    boolean statusAgenda = agendaDAO.AtualizarStatusAtraso(idTarefa, 1);
+
                 }
 
-                if(LocaldatedataAtual.isAfter(LocaldatedataCombinada)) {
+                else if(LocaldatedataAtual.isAfter(LocaldatedataCombinada)) {
 
                     String Teste = String.valueOf(AgendaID.get(position));
                     Log.d("Dia atrasado", "LocalDate"+Teste);
@@ -169,7 +173,7 @@ public class CustomAdapter extends BaseAdapter {
                     Drawable seuDrawable1 = ContextCompat.getDrawable(context, R.drawable.baseline_schedule_24_red2);
                     text_view_hr_agenda.setCompoundDrawablesWithIntrinsicBounds(seuDrawable1, null, null, null);
 
-                } if(LocaldatedataAtual.isEqual(LocaldatedataCombinada) || LocaldatedataAtual.isBefore(LocaldatedataCombinada)) {
+                } else if(LocaldatedataAtual.isEqual(LocaldatedataCombinada) || LocaldatedataAtual.isBefore(LocaldatedataCombinada)) {
 
                     Log.d("Verificação IF", "se data atual for antes da agendfada");
                     String formattedDate = targetFormat.format(date);

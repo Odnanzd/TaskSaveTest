@@ -26,6 +26,10 @@ public class activity_item_selected_agenda_concluido extends AppCompatActivity {
     TextView textViewDataFim;
     TextView textViewHoraFim;
     ImageView imageViewBack;
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+    }
 
     @SuppressLint("MissingInflatedId")
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -79,6 +83,7 @@ public class activity_item_selected_agenda_concluido extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
 

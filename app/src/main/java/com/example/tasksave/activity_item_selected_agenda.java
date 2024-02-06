@@ -41,6 +41,11 @@ public class activity_item_selected_agenda extends AppCompatActivity {
     TextView textViewContador2;
     CheckBox checkboxConcluido;
     ImageView imageView;
+    TextView textViewLembrete;
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint({"MissingInflatedId", "WrongViewCast"})
@@ -62,6 +67,7 @@ public class activity_item_selected_agenda extends AppCompatActivity {
         textViewContador2 = findViewById(R.id.text_view_contador2);
         checkboxConcluido = findViewById(R.id.checkBoxConcluido);
         imageView = findViewById(R.id.imageView4);
+        textViewLembrete = findViewById(R.id.textViewLembretenaodefinido);
 
 
 
@@ -91,18 +97,22 @@ public class activity_item_selected_agenda extends AppCompatActivity {
         tituloTextView.setText(titulo);
         descricaoTextView.setText(descricao);
 
-        if(lembrete == true) {
+        if(lembrete) {
             dataTextView.setText(dataFormatada);
             horaTextView.setText(hora);
+            textViewLembrete.setVisibility(View.GONE);
         }else {
-            dataTextView.setText("Não definido");
-            horaTextView.setVisibility(View.INVISIBLE);
+            textViewLembrete.setVisibility(View.VISIBLE);
+            textViewLembrete.setText("Lembrete não definido");
+            dataTextView.setVisibility(View.GONE);
+            horaTextView.setVisibility(View.GONE);
         }
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
 
@@ -201,6 +211,7 @@ public class activity_item_selected_agenda extends AppCompatActivity {
                             // Atualização bem-sucedida
                             Toast.makeText(activity_item_selected_agenda.this, "Tarefa concluída.", Toast.LENGTH_SHORT).show();
                             finish();
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                         } else {
                             // Algo deu errado na atualização
                             Toast.makeText(activity_item_selected_agenda.this, "Erro ao atualizar a tarefa", Toast.LENGTH_SHORT).show();
@@ -224,6 +235,7 @@ public class activity_item_selected_agenda extends AppCompatActivity {
                             Toast.makeText(activity_item_selected_agenda.this, "Tarefa atualizada.", Toast.LENGTH_SHORT).show();
 
                             finish();
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                         } else {
                             // Algo deu errado na atualização
                             Toast.makeText(activity_item_selected_agenda.this, "Erro ao atualizar a tarefa", Toast.LENGTH_SHORT).show();
@@ -284,6 +296,7 @@ public class activity_item_selected_agenda extends AppCompatActivity {
             Toast.makeText(activity_item_selected_agenda.this, "Tarefa Excluida.", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(activity_item_selected_agenda.this, activity_agenda.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
         } else {
             Toast.makeText(activity_item_selected_agenda.this, "Erro ao excluir tarefa.", Toast.LENGTH_SHORT).show();
         }

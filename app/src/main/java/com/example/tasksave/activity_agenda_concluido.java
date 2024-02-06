@@ -27,6 +27,10 @@ public class activity_agenda_concluido extends AppCompatActivity {
     private Conexao con;
     private SQLiteDatabase db;
     ImageView imageView;
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+    }
 
     @SuppressLint({"MissingInflatedId", "NewApi"})
     @Override
@@ -39,6 +43,7 @@ public class activity_agenda_concluido extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
         ListarAgenda();
@@ -87,6 +92,9 @@ public class activity_agenda_concluido extends AppCompatActivity {
                 int horaAgendaInsert = cursor.getInt(cursor.getColumnIndex("horaAgendaInsert"));
                 @SuppressLint("Range")
                 int minutoAgendaInsert = cursor.getInt(cursor.getColumnIndex("minutoAgendaInsert"));
+                @SuppressLint("Range")
+                int agendaAtrasoDB = cursor.getInt(cursor.getColumnIndex("agendaAtraso"));
+                boolean agendaAtraso = (agendaAtrasoDB != 0);
 
 
 
@@ -96,7 +104,7 @@ public class activity_agenda_concluido extends AppCompatActivity {
 
                 listaagenda.add(new Agenda(ID, titulo, descricao, localdataagenda, horaagenda, minutoagenda,
                         lembrete, finalizado, localdataagendaFim, horaAgendaFim, minutoAgendaFim, localdataagendaInsert,
-                        horaAgendaInsert, minutoAgendaInsert));
+                        horaAgendaInsert, minutoAgendaInsert, agendaAtraso));
                 listaIDs.add(ID);
 
             } while (cursor.moveToNext());
@@ -164,6 +172,7 @@ public class activity_agenda_concluido extends AppCompatActivity {
                 intent.putExtra("lembreteItem", customAdapter.getItemLembrete(position));
                 // Inicia a nova Activity
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
         });
     }

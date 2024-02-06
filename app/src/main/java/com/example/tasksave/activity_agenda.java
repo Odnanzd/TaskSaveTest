@@ -203,6 +203,9 @@ public class activity_agenda extends AppCompatActivity {
                 int horaAgendaInsert = cursor.getInt(cursor.getColumnIndex("horaAgendaInsert"));
                 @SuppressLint("Range")
                 int minutoAgendaInsert = cursor.getInt(cursor.getColumnIndex("minutoAgendaInsert"));
+                @SuppressLint("Range")
+                int agendaAtrasoDB = cursor.getInt(cursor.getColumnIndex("agendaAtraso"));
+                boolean agendaAtraso = (agendaAtrasoDB != 0);
 
 
 
@@ -212,7 +215,7 @@ public class activity_agenda extends AppCompatActivity {
 
                 listaagenda.add(new Agenda(ID,titulo, descricao, localdataagenda, horaagenda, minutoagenda,
                         lembrete, finalizado, localdataagendaFim, horaAgendaFim, minutoAgendaFim, localdataagendaInsert,
-                        horaAgendaInsert, minutoAgendaInsert));
+                        horaAgendaInsert, minutoAgendaInsert, agendaAtraso));
                 listaIDs.add(ID);
 
             } while (cursor.moveToNext());
@@ -259,6 +262,7 @@ public class activity_agenda extends AppCompatActivity {
                 intent.putExtra("lembreteItem", customAdapter.getItemLembrete(position));
                 // Inicia a nova Activity
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
         });
     }

@@ -44,6 +44,7 @@ public class activity_add_agenda extends AppCompatActivity {
 
         Intent intent = new Intent(activity_add_agenda.this, activity_agenda.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -76,6 +77,7 @@ public class activity_add_agenda extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(activity_add_agenda.this, activity_agenda.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
 
@@ -167,7 +169,7 @@ public class activity_add_agenda extends AppCompatActivity {
 
                         Agenda agenda = new Agenda(-1, editNome.getText().toString(), editDescricao.getText().toString(),
                                 localdataEscolhida, horaEscolhida, minutoEscolhido, true, false, dataAtual,
-                                -1, -1, dataAtual,horasInsert ,minutosInsert);
+                                -1, -1, dataAtual,horasInsert ,minutosInsert, false);
 
 //                        long idSequencial = agendaDAO.inserir(agenda);
 
@@ -183,6 +185,7 @@ public class activity_add_agenda extends AppCompatActivity {
                             saveEdit.commit();
                             Intent intent = new Intent(activity_add_agenda.this, activity_agenda.class);
                             startActivity(intent);
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                             Toast.makeText(activity_add_agenda.this, "Tarefa Salva. Nº " + idAgenda, Toast.LENGTH_LONG).show();
                         } else {
 
@@ -215,7 +218,7 @@ public class activity_add_agenda extends AppCompatActivity {
 //
                         Agenda agenda = new Agenda(-1, editNome.getText().toString(), editDescricao.getText().toString(),
                                 dataAtual, -1, -1, false, false, dataAtual,
-                                -1, -1, dataAtual, horasInsert, minutosInsert);
+                                -1, -1, dataAtual, horasInsert, minutosInsert, false);
 
                         long idSequencial = agendaDAO.inserir(agenda);
 
@@ -236,6 +239,7 @@ public class activity_add_agenda extends AppCompatActivity {
                         saveEdit.commit();
                         Intent intent = new Intent(activity_add_agenda.this, activity_agenda.class);
                         startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                     }
                 }
             }
@@ -400,7 +404,7 @@ public class activity_add_agenda extends AppCompatActivity {
 
                 Agenda agenda = new Agenda(-1, editNome.getText().toString(), editDescricao.getText().toString(),
                         localdataEscolhida, horaEscolhida, minutoEscolhido, true, false,
-                        dataAtual, -1, -1, dataAtual, horasInsert, minutosInsert);
+                        dataAtual, -1, -1, dataAtual, horasInsert, minutosInsert, false);
 
                 long idSequencial = agendaDAO.inserir(agenda);
 
@@ -423,7 +427,7 @@ public class activity_add_agenda extends AppCompatActivity {
 
                 Agenda agenda = new Agenda(-1, editNome.getText().toString(), editDescricao.getText().toString(),
                         dataAtual, -1, -1, false, false, dataAtual, -1,
-                        -1, dataAtual, horasInsert, minutosInsert);
+                        -1, dataAtual, horasInsert, minutosInsert, false);
 
                 long idSequencial = agendaDAO.inserir(agenda);
 

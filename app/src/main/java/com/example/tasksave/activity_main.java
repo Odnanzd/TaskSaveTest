@@ -2,6 +2,8 @@ package com.example.tasksave;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,7 +25,10 @@ public class activity_main extends AppCompatActivity {
     public ImageView imageView1;
 
     public ImageView imageView2;
+    public ImageView numeroIcon;
     private static final int GALLERY_REQUEST_CODE = 1001;
+    private Conexao con;
+    private SQLiteDatabase db;
     @SuppressLint({"MissingInflatedId", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +39,10 @@ public class activity_main extends AppCompatActivity {
         text_view_main = findViewById(R.id.textView);
         imageView1 = findViewById(R.id.image_view_circle_logout);
         imageView2 = findViewById(R.id.imageView2);
+        numeroIcon = findViewById(R.id.iconnumero);
 
         ExibirUsername();
+        VerificarAtrasos();
 
 
         imageView1.setOnClickListener(new View.OnClickListener() {
@@ -103,5 +110,57 @@ public class activity_main extends AppCompatActivity {
         }
         pressedTime = System.currentTimeMillis();
     }
+    public void VerificarAtrasos() {
 
+        con = new Conexao(this);
+        db = con.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM agenda WHERE agendaAtraso = 1 AND finalizado = 0", null);
+
+        if (cursor.getCount() == 0) {
+
+            numeroIcon.setVisibility(View.GONE);
+
+        } else if (cursor.getCount() == 1) {
+
+            numeroIcon.setVisibility(View.VISIBLE);
+
+        } else if (cursor.getCount() == 2) {
+
+            numeroIcon.setImageResource(R.drawable.numero2icon);
+            numeroIcon.setVisibility(View.VISIBLE);
+
+        } else if (cursor.getCount() == 3) {
+
+            numeroIcon.setImageResource(R.drawable.numero3icon);
+            numeroIcon.setVisibility(View.VISIBLE);
+
+        } else if (cursor.getCount() == 4) {
+
+            numeroIcon.setImageResource(R.drawable.numero4icon);
+            numeroIcon.setVisibility(View.VISIBLE);
+        } else if (cursor.getCount() == 5) {
+
+            numeroIcon.setImageResource(R.drawable.numero5icon);
+            numeroIcon.setVisibility(View.VISIBLE);
+        } else if (cursor.getCount() == 6) {
+
+            numeroIcon.setImageResource(R.drawable.numero6icon);
+            numeroIcon.setVisibility(View.VISIBLE);
+
+        } else if (cursor.getCount() == 7) {
+
+            numeroIcon.setImageResource(R.drawable.numero7icon);
+            numeroIcon.setVisibility(View.VISIBLE);
+
+        } else if (cursor.getCount() == 8) {
+
+            numeroIcon.setImageResource(R.drawable.numero8icon);
+            numeroIcon.setVisibility(View.VISIBLE);
+        } else if (cursor.getCount() >= 9) {
+
+            numeroIcon.setImageResource(R.drawable.numero9icon);
+            numeroIcon.setVisibility(View.VISIBLE);
+
+        }
+    }
 }

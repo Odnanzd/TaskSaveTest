@@ -21,6 +21,7 @@ public class Agenda {
     private LocalDate dataAgendaInsert;
     private int horaAgendaInsert;
     private int minutoAgendaInsert;
+    private boolean agendaAtraso;
 
 
 
@@ -28,7 +29,7 @@ public class Agenda {
     public Agenda(long id, String nomeAgenda, String descriçãoAgenda, LocalDate dataAgenda,
                   int horaAgenda, int minutoAgenda, boolean lembrete, boolean finalizado,
                   LocalDate dataAgendaFim, int horaAgendaFim, int minutoAgendaFim,
-                  LocalDate dataAgendaInsert, int horaAgendaInsert, int minutoAgendaInsert) {
+                  LocalDate dataAgendaInsert, int horaAgendaInsert, int minutoAgendaInsert, boolean agendaAtraso) {
 
         this.id = id;
         this.nomeAgenda = nomeAgenda;
@@ -44,6 +45,7 @@ public class Agenda {
         this.dataAgendaInsert = dataAgendaInsert;
         this.horaAgendaInsert = horaAgendaInsert;
         this.minutoAgendaInsert = minutoAgendaInsert;
+        this.agendaAtraso = agendaAtraso;
 
     }
 
@@ -169,6 +171,12 @@ public class Agenda {
 
     public void setMinutoAgendaInsert(int minutoAgendaInsert) {
         this.minutoAgendaInsert = minutoAgendaInsert;
+    }
+    public boolean getAgendaAtraso() {
+        return agendaAtraso;
+    }
+    public void setAgendaAtraso(boolean agendaAtraso) {
+        this.agendaAtraso = agendaAtraso;
     }
 
 }
