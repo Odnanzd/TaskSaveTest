@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.time.LocalDate;
@@ -26,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class activity_agenda extends AppCompatActivity {
+public class activity_agenda extends AppCompatActivity implements CustomAdapter.OnItemLongClickListener {
 
     private Conexao con;
     private SQLiteDatabase db;
@@ -37,6 +40,7 @@ public class activity_agenda extends AppCompatActivity {
     ImageView imageView;
     ImageView imageView2;
     ArrayList<Long> listaIDs = new ArrayList<>();
+    Button button;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint("MissingInflatedId")
@@ -48,7 +52,8 @@ public class activity_agenda extends AppCompatActivity {
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
     }
-    @SuppressLint("NewApi")
+
+    @SuppressLint({"NewApi", "MissingInflatedId"})
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agenda);
@@ -58,6 +63,7 @@ public class activity_agenda extends AppCompatActivity {
         listView = findViewById(R.id.list_view_agenda);
         imageView = findViewById(R.id.icon_concluido);
         imageView2 = findViewById(R.id.imageView4);
+//        button = findViewById(R.id.button3);
         VerificaLista();
         ListarAgenda();
         VerificaAgendaComLembretes();
@@ -89,8 +95,6 @@ public class activity_agenda extends AppCompatActivity {
                 showCustomDialog();
             }
         });
-
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -127,23 +131,23 @@ public class activity_agenda extends AppCompatActivity {
         Cursor cursor = db.rawQuery("SELECT * FROM agenda WHERE finalizado = 0;", null);
         Cursor cursor2 = db.rawQuery("SELECT * FROM agenda WHERE finalizado = 1;", null);
 
-        if (cursor.getCount() ==0 && cursor2.getCount() ==0) {
+        if (cursor.getCount() == 0 && cursor2.getCount() == 0) {
 
             textView.setText("Você não possui nenhuma tarefa a ser feito.");
             textView.setTextSize(15);
-                imageView.setVisibility(View.GONE);
+            imageView.setVisibility(View.GONE);
 
-        } else if(cursor.getCount() >=1 && cursor2.getCount() ==0) {
+        } else if (cursor.getCount() >= 1 && cursor2.getCount() == 0) {
 
             imageView.setVisibility(View.GONE);
 
-        } else if(cursor.getCount() ==0 && cursor2.getCount() >=1) {
+        } else if (cursor.getCount() == 0 && cursor2.getCount() >= 1) {
 
             imageView.setVisibility(View.VISIBLE);
             textView.setText("Você não possui nenhuma tarefa a ser feito.");
             textView.setTextSize(15);
 
-        } else if(cursor.getCount() >=1 && cursor2.getCount() >=1) {
+        } else if (cursor.getCount() >= 1 && cursor2.getCount() >= 1) {
             imageView.setVisibility(View.VISIBLE);
         }
         {
@@ -153,16 +157,18 @@ public class activity_agenda extends AppCompatActivity {
         cursor.close();
 
     }
+
     public void VerificaAgendaComLembretes() {
 
         con = new Conexao(this);
         db = con.getWritableDatabase();
 
-        Cursor cursor = db.rawQuery("SELECT lembretedefinido FROM agenda WHERE lembretedefinido = 1;",null);
+        Cursor cursor = db.rawQuery("SELECT lembretedefinido FROM agenda WHERE lembretedefinido = 1;", null);
 
         Log.d("Verificação cursor DB", "Numero de lembretes = " + cursor.getCount());
 
     }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void ListarAgenda() {
 
@@ -208,12 +214,11 @@ public class activity_agenda extends AppCompatActivity {
                 boolean agendaAtraso = (agendaAtrasoDB != 0);
 
 
-
                 LocalDate localdataagenda = LocalDate.parse(dataagenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                 LocalDate localdataagendaFim = LocalDate.parse(dataagendaFim, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                 LocalDate localdataagendaInsert = LocalDate.parse(dataAgendaInsert, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-                listaagenda.add(new Agenda(ID,titulo, descricao, localdataagenda, horaagenda, minutoagenda,
+                listaagenda.add(new Agenda(ID, titulo, descricao, localdataagenda, horaagenda, minutoagenda,
                         lembrete, finalizado, localdataagendaFim, horaAgendaFim, minutoAgendaFim, localdataagendaInsert,
                         horaAgendaInsert, minutoAgendaInsert, agendaAtraso));
                 listaIDs.add(ID);
@@ -244,8 +249,9 @@ public class activity_agenda extends AppCompatActivity {
         }
 
         // Configurando o CustomAdapter para a ListView
-        CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(),listaIDs, titulos, descricoes, datas, horas, lembretes);
+        CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(), listaIDs, titulos, descricoes, datas, horas, lembretes);
         listView.setAdapter(customAdapter);
+        customAdapter.setOnItemLongClickListener(this);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -266,4 +272,22 @@ public class activity_agenda extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public boolean onItemLongClick(int position) {
+
+        View view = listView.getChildAt(position - listView.getFirstVisiblePosition());
+        if (view != null) {
+            CheckBox checkBox = view.findViewById(R.id.checkbox1);
+            if (checkBox.getVisibility() == View.VISIBLE) {
+                // Se estiver visível, define a visibilidade como GONE para removê-la
+                checkBox.setVisibility(View.GONE);
+            } else {
+                // Se não estiver visível, define a visibilidade como VISIBLE para exibi-la
+                checkBox.setVisibility(View.VISIBLE);
+            }
+        }
+        // Retorna false para indicar que o evento de clique longo não foi consumido
+        return true;
+    }
 }
+

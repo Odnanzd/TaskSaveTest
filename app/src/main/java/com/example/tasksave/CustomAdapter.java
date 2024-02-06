@@ -2,13 +2,13 @@ package com.example.tasksave;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
@@ -16,13 +16,10 @@ import androidx.core.content.ContextCompat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 public class CustomAdapter extends BaseAdapter {
@@ -86,6 +83,15 @@ public class CustomAdapter extends BaseAdapter {
     public Boolean getItemLembrete(int position) {
         return isReminderSet[position];
     }
+    private OnItemLongClickListener onItemLongClickListener;
+
+    public interface OnItemLongClickListener {
+        boolean onItemLongClick(int position);
+    }
+
+    public void setOnItemLongClickListener(OnItemLongClickListener listener) {
+        this.onItemLongClickListener = listener;
+    }
 
     @SuppressLint("NewApi")
     @Override
@@ -96,9 +102,21 @@ public class CustomAdapter extends BaseAdapter {
         TextView text_view_desc_agenda = convertView.findViewById(R.id.text_view_descricao_agenda);
         TextView text_view_dat_agenda = convertView.findViewById(R.id.text_view_data_agenda);
         TextView text_view_hr_agenda = convertView.findViewById(R.id.text_view_hora_agenda);
+        CheckBox checkBox = convertView.findViewById(R.id.checkbox1);
 
         text_view_tit_agenda.setText(AgendaTitulo[position]);
         text_view_desc_agenda.setText(AgendaDescricao[position]);
+        convertView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (onItemLongClickListener != null) {
+                    onItemLongClickListener.onItemLongClick(position);
+                    return true;
+                }
+                return false;
+            }
+        });
+
 
         if (isReminderSet[position]) {
             try {
@@ -191,5 +209,6 @@ public class CustomAdapter extends BaseAdapter {
 
         return convertView;
     }
+
 }
 

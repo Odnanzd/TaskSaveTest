@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
@@ -45,6 +47,7 @@ public class activity_main extends AppCompatActivity {
         VerificarAtrasos();
 
 
+
         imageView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,6 +76,12 @@ public class activity_main extends AppCompatActivity {
         }
     });
 }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    protected void onResume() {
+        super.onResume();
+        VerificarAtrasos();
+    }
 
     // Sobrescrever o método onActivityResult para tratar a imagem selecionada
     @Override
@@ -162,5 +171,6 @@ public class activity_main extends AppCompatActivity {
             numeroIcon.setVisibility(View.VISIBLE);
 
         }
+
     }
 }

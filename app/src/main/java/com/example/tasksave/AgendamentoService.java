@@ -85,7 +85,7 @@ public class AgendamentoService extends JobIntentService {
                         intentConcluir,
                         PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-                mostrarNotificacao(context, "TaskSave - " + tarefa.getNomeAgenda(),
+                mostrarNotificacao(context, tarefa.getNomeAgenda(),
                         tarefa.getDescriçãoAgenda(), pendingIntentConcluir, notificationId);
 
                 }
