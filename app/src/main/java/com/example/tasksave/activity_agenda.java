@@ -2,6 +2,7 @@ package com.example.tasksave;
 
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -11,14 +12,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -29,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class activity_agenda extends AppCompatActivity implements CustomAdapter.OnItemLongClickListener {
+public class activity_agenda extends AppCompatActivity implements CustomAdapter.OnItemSelectionChangedListener {
 
     private Conexao con;
     private SQLiteDatabase db;
@@ -40,7 +43,6 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
     ImageView imageView;
     ImageView imageView2;
     ArrayList<Long> listaIDs = new ArrayList<>();
-    Button button;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint("MissingInflatedId")
@@ -63,7 +65,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         listView = findViewById(R.id.list_view_agenda);
         imageView = findViewById(R.id.icon_concluido);
         imageView2 = findViewById(R.id.imageView4);
-//        button = findViewById(R.id.button3);
+
         VerificaLista();
         ListarAgenda();
         VerificaAgendaComLembretes();
@@ -95,6 +97,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
                 showCustomDialog();
             }
         });
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -249,47 +252,146 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         }
 
         // Configurando o CustomAdapter para a ListView
-        CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(), listaIDs, titulos, descricoes, datas, horas, lembretes);
+        CustomAdapter customAdapter = new CustomAdapter(activity_agenda.this, listaIDs, titulos, descricoes, datas, horas, lembretes);
         listView.setAdapter(customAdapter);
-        customAdapter.setOnItemLongClickListener(this);
+        customAdapter.setOnItemSelectionChangedListener(this);
 
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//
-//                Intent intent = new Intent(activity_agenda.this, activity_item_selected_agenda.class);
-//                long idTarefa = listaIDs.get(position);
-//
-//                intent.putExtra("idTarefa", idTarefa);
-//                intent.putExtra("tituloItem", customAdapter.getItemTitulo(position).toString());
-//                intent.putExtra("descricaoItem", customAdapter.getItemDescricao(position).toString());
-//                intent.putExtra("dataItem", customAdapter.getItemData(position).toString());
-//                intent.putExtra("horaItem", customAdapter.getItemHora(position).toString());
-//                intent.putExtra("lembreteItem", customAdapter.getItemLembrete(position));
-//                // Inicia a nova Activity
-//                startActivity(intent);
-//                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-//            }
-//        });
-    }
-    @Override
-    public boolean onItemLongClick(int position) {
+        ImageView imageViewLixeira = findViewById(R.id.lixeira);
+        imageViewLixeira.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Obtém os IDs dos itens selecionados
+                ArrayList<Long> selectedIds = customAdapter.getSelectedIds();
+                if (!selectedIds.isEmpty()) {
 
-        View view = listView.getChildAt(position - listView.getFirstVisiblePosition());
-        if (view != null) {
-            CheckBox checkBox = view.findViewById(R.id.checkbox1);
-            if (checkBox.getVisibility() == View.VISIBLE) {
-                // Se estiver visível, define a visibilidade como GONE para removê-la
-                checkBox.setVisibility(View.GONE);
-            } else {
-                // Se não estiver visível, define a visibilidade como VISIBLE para exibi-la
-                checkBox.setVisibility(View.VISIBLE);
-                ImageView imageViewPalito = view.findViewById(R.id.imageViewpalito);
-                imageViewPalito.setVisibility(View.GONE);
+                    AlertDialog.Builder msgbox = new AlertDialog.Builder(activity_agenda.this);
+                    msgbox.setTitle("Excluir");
+                    msgbox.setIcon(android.R.drawable.ic_menu_delete);
+                    msgbox.setMessage("Você realmente deseja excluir a(s) tarefa(s)?");
+                    msgbox.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            excluirItensDoBanco(selectedIds);
+                            atualizarLista();
+                            customAdapter.clearSelectedIds();
+                            imageViewLixeira.setVisibility(View.GONE);
+                            CheckBox checkBox = findViewById(R.id.checkBox);
+                            checkBox.setVisibility(View.GONE);
+                        }
+                    });
+                    msgbox.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    msgbox.show();
+
+                } else {
+                    // Se nenhum item estiver selecionado, você pode mostrar uma mensagem para o usuário
+                    Toast.makeText(activity_agenda.this, "Nenhum item selecionado", Toast.LENGTH_SHORT).show();
+                }
             }
-        }
-        // Retorna false para indicar que o evento de clique longo não foi consumido
-        return true;
+        });
+
+
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                // Atualize a exibição dos checkboxes em todos os itens da lista
+                Log.d("Verificação On item", "Teste");
+
+
+
+                customAdapter.setShowCheckboxes(!customAdapter.isShowCheckboxes());
+                listView.clearChoices(); // Limpa as seleções anteriores
+                customAdapter.notifyDataSetChanged();
+
+                if(customAdapter.isShowCheckboxes()) {
+
+                    CheckBox checkBox2 = findViewById(R.id.checkBox);
+                    checkBox2.setVisibility(View.VISIBLE);
+
+                    checkBox2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            boolean isChecked = checkBox2.isChecked();
+                            customAdapter.selectAllItems(isChecked);
+                        }
+                    });
+
+
+                    checkBox2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            // Percorre todos os itens na lista e define o estado da checkbox para cada um deles
+                            if (isChecked) {
+
+                                for (int i = 0; i < listView.getAdapter().getCount(); i++) {
+                                    View itemView = listView.getChildAt(i);
+                                    CheckBox checkBoxItem = itemView.findViewById(R.id.checkbox1);
+                                    checkBoxItem.setChecked(isChecked);
+                                }
+
+                                // Notifica o adaptador sobre as mudanças
+                                ((CustomAdapter) listView.getAdapter()).setShowCheckboxes(isChecked);
+                                ((CustomAdapter) listView.getAdapter()).notifyDataSetChanged();
+
+                            } else {
+
+                                for (int i = 0; i < listView.getAdapter().getCount(); i++) {
+                                    View itemView = listView.getChildAt(i);
+                                    CheckBox checkBoxItem = itemView.findViewById(R.id.checkbox1);
+                                    checkBoxItem.setChecked(false);
+                                }
+
+                                // Notifica o adaptador sobre as mudanças
+                                ((CustomAdapter) listView.getAdapter()).setShowCheckboxes(true);
+                                ((CustomAdapter) listView.getAdapter()).notifyDataSetChanged();
+                            }
+                        }
+                    });
+
+                } else {
+                    CheckBox checkBox2 = findViewById(R.id.checkBox);
+                    checkBox2.setVisibility(View.GONE);
+                    checkBox2.setChecked(false);
+                }
+                return true; // Indica que o evento de clique longo foi tratado
+
+            }
+        });
     }
+
+    @Override
+    public void onItemSelectionChanged(boolean hasSelection) {
+
+        ImageView imageView2 = findViewById(R.id.lixeira);
+
+        imageView2.setVisibility(hasSelection ? View.VISIBLE : View.GONE);
+    }
+
+    private void excluirItensDoBanco(ArrayList<Long> ids) {
+        // Abra a conexão com o banco de dados
+        Conexao con = new Conexao(this);
+        SQLiteDatabase db = con.getWritableDatabase();
+        // Exclua os itens com os IDs fornecidos
+        for (long id : ids) {
+            db.delete("agenda", "id = ?", new String[]{String.valueOf(id)});
+        }
+        // Feche a conexão com o banco de dados
+        db.close();
+    }
+    @SuppressLint("NewApi")
+    private void atualizarLista() {
+        // Restaure a lista de itens
+        VerificaLista();
+        ListarAgenda();
+    }
+
 }
+
+
 

@@ -321,26 +321,6 @@ public class activity_item_selected_agenda extends AppCompatActivity {
         });
         msgbox.show();
     }
-    public void AtualizarStatusTarefa() {
-
-        Calendar calendar = Calendar.getInstance();
-        int horasFim = calendar.get(Calendar.HOUR_OF_DAY);
-        int minutosFim = calendar.get(Calendar.MINUTE);
-        @SuppressLint({"NewApi", "LocalSuppress"})
-        LocalDate dataAtual = LocalDate.now();
-
-        long idTarefa = getIntent().getLongExtra("idTarefa", -1);
-        AgendaDAO agendaDAO = new AgendaDAO(activity_item_selected_agenda.this);
-        boolean atualizarTarefa = agendaDAO.AtualizarStatus(idTarefa, 1, dataAtual, horasFim, minutosFim);
-
-        if (atualizarTarefa) {
-            Toast.makeText(activity_item_selected_agenda.this, "Tarefa concluída.", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(activity_item_selected_agenda.this, activity_agenda.class);
-            startActivity(intent);
-        } else {
-            Toast.makeText(activity_item_selected_agenda.this, "Erro ao concluir tarefa.", Toast.LENGTH_SHORT).show();
-        }
-    }
 
 
 }

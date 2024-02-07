@@ -20,6 +20,7 @@
 
 
         <ImageView
+            android:id="@+id/imageView5"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/button_add_agenda_next"
@@ -31,6 +32,7 @@
 
 
         </ImageView>
+
 
         <TextView
             android:id="@+id/text_view_titulo_agenda"
@@ -112,6 +114,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.423" />
+
+        <View
+            android:id="@+id/your_view"
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:background="@android:color/white"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.489"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="-16dp" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
