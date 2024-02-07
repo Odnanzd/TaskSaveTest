@@ -1,7 +1,10 @@
 package com.example.tasksave;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,6 +36,7 @@ public class CustomAdapter extends BaseAdapter {
     private ArrayList<Long> AgendaID;
     boolean[] isReminderSet;
     LayoutInflater inflater;
+
 
 
     public CustomAdapter(Context context,ArrayList<Long> IDAgenda, String[] TituloAgenda,
@@ -97,7 +101,9 @@ public class CustomAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        convertView = inflater.inflate(R.layout.layout_activity, null);
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.layout_activity, null);
+        }
         TextView text_view_tit_agenda = convertView.findViewById(R.id.text_view_titulo_agenda);
         TextView text_view_desc_agenda = convertView.findViewById(R.id.text_view_descricao_agenda);
         TextView text_view_dat_agenda = convertView.findViewById(R.id.text_view_data_agenda);
@@ -106,6 +112,31 @@ public class CustomAdapter extends BaseAdapter {
 
         text_view_tit_agenda.setText(AgendaTitulo[position]);
         text_view_desc_agenda.setText(AgendaDescricao[position]);
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckBox checkBox = v.findViewById(R.id.checkbox1);
+                if (checkBox.getVisibility() == View.VISIBLE) {
+                    // Execute a lógica do CheckBox
+                    checkBox.setChecked(!checkBox.isChecked());
+                } else {
+                    // Execute a lógica do item
+                    Intent intent = new Intent(context, activity_item_selected_agenda.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    long idTarefa = AgendaID.get(position);
+
+                    intent.putExtra("idTarefa", idTarefa);
+                    intent.putExtra("tituloItem", getItemTitulo(position).toString());
+                    intent.putExtra("descricaoItem", getItemDescricao(position).toString());
+                    intent.putExtra("dataItem", getItemData(position).toString());
+                    intent.putExtra("horaItem", getItemHora(position).toString());
+                    intent.putExtra("lembreteItem", getItemLembrete(position));
+                    // Inicia a nova Activity
+                    context.startActivity(intent);
+//                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                }
+            }
+        });
         convertView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {

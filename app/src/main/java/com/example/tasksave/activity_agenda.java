@@ -253,24 +253,24 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         listView.setAdapter(customAdapter);
         customAdapter.setOnItemLongClickListener(this);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Intent intent = new Intent(activity_agenda.this, activity_item_selected_agenda.class);
-                long idTarefa = listaIDs.get(position);
-
-                intent.putExtra("idTarefa", idTarefa);
-                intent.putExtra("tituloItem", customAdapter.getItemTitulo(position).toString());
-                intent.putExtra("descricaoItem", customAdapter.getItemDescricao(position).toString());
-                intent.putExtra("dataItem", customAdapter.getItemData(position).toString());
-                intent.putExtra("horaItem", customAdapter.getItemHora(position).toString());
-                intent.putExtra("lembreteItem", customAdapter.getItemLembrete(position));
-                // Inicia a nova Activity
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-            }
-        });
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//                Intent intent = new Intent(activity_agenda.this, activity_item_selected_agenda.class);
+//                long idTarefa = listaIDs.get(position);
+//
+//                intent.putExtra("idTarefa", idTarefa);
+//                intent.putExtra("tituloItem", customAdapter.getItemTitulo(position).toString());
+//                intent.putExtra("descricaoItem", customAdapter.getItemDescricao(position).toString());
+//                intent.putExtra("dataItem", customAdapter.getItemData(position).toString());
+//                intent.putExtra("horaItem", customAdapter.getItemHora(position).toString());
+//                intent.putExtra("lembreteItem", customAdapter.getItemLembrete(position));
+//                // Inicia a nova Activity
+//                startActivity(intent);
+//                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+//            }
+//        });
     }
     @Override
     public boolean onItemLongClick(int position) {
@@ -284,6 +284,8 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
             } else {
                 // Se não estiver visível, define a visibilidade como VISIBLE para exibi-la
                 checkBox.setVisibility(View.VISIBLE);
+                ImageView imageViewPalito = view.findViewById(R.id.imageViewpalito);
+                imageViewPalito.setVisibility(View.GONE);
             }
         }
         // Retorna false para indicar que o evento de clique longo não foi consumido

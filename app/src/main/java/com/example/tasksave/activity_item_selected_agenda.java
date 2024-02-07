@@ -89,7 +89,7 @@ public class activity_item_selected_agenda extends AppCompatActivity {
 
         String descricao2 = getIntent().getStringExtra("descricaoItem");
         int tamanhoDescricao = descricao2.length();
-        textViewContador2.setText(tamanhoDescricao + "/14");
+        textViewContador2.setText(tamanhoDescricao + "/20");
 
 
         // Exibindo os dados nos TextViews
