@@ -4,6 +4,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,6 +20,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -78,6 +80,10 @@ public class activity_add_agenda extends AppCompatActivity {
                 Intent intent = new Intent(activity_add_agenda.this, activity_agenda.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+
+//            AbrirDialog();
+
+
             }
         });
 
@@ -450,5 +456,18 @@ public class activity_add_agenda extends AppCompatActivity {
             }
         }
     }
+
+    private void AbrirDialog() {
+        @SuppressLint({"NewApi", "LocalSuppress"})
+        DatePickerDialog dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    Log.d("Verificação Data", "Data:" + year + (month+1) + dayOfMonth);
+            }
+        },2024, 2, 1 );
+        dialog.show();
+    }
+
+
 }
 

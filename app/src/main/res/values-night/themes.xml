@@ -145,4 +145,7 @@
     <style name="Back_Button_Item2">
         <item name="android:src">@drawable/baseline_arrow_back_24</item>
     </style>
+    <style name="BackGroundTintThemeItens">
+        <item name="android:backgroundTint">@color/blue1</item>
+    </style>
 </resources>

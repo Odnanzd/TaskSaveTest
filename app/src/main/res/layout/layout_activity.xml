@@ -9,7 +9,7 @@
     android:layout_marginVertical="10dp"
     android:layout_marginHorizontal="10dp"
     app:cardCornerRadius="20dp"
-    android:backgroundTint="@color/blue1"
+    style="@style/BackGroundTintThemeItens"
     app:cardElevation="8dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">

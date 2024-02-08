@@ -23,6 +23,7 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -44,6 +45,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
     ImageView imageView2;
     ArrayList<Long> listaIDs = new ArrayList<>();
 
+    private SwipeRefreshLayout swipeRefreshLayout;
     @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint("MissingInflatedId")
     @Override
@@ -65,6 +67,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         listView = findViewById(R.id.list_view_agenda);
         imageView = findViewById(R.id.icon_concluido);
         imageView2 = findViewById(R.id.imageView4);
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
 
         VerificaLista();
         ListarAgenda();
@@ -256,6 +259,18 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         listView.setAdapter(customAdapter);
         customAdapter.setOnItemSelectionChangedListener(this);
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                customAdapter.notifyDataSetChanged();
+                refreshData();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+
+        });
+
+
+
         ImageView imageViewLixeira = findViewById(R.id.lixeira);
         imageViewLixeira.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -302,8 +317,6 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 // Atualize a exibição dos checkboxes em todos os itens da lista
                 Log.d("Verificação On item", "Teste");
-
-
 
                 customAdapter.setShowCheckboxes(!customAdapter.isShowCheckboxes());
                 listView.clearChoices(); // Limpa as seleções anteriores
@@ -387,6 +400,11 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
     @SuppressLint("NewApi")
     private void atualizarLista() {
         // Restaure a lista de itens
+        VerificaLista();
+        ListarAgenda();
+    }
+    @SuppressLint("NewApi")
+    private void refreshData() {
         VerificaLista();
         ListarAgenda();
     }

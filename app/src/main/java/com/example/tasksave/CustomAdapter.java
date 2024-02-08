@@ -168,9 +168,9 @@ public class CustomAdapter extends BaseAdapter {
         TextView text_view_dat_agenda = convertView.findViewById(R.id.text_view_data_agenda);
         TextView text_view_hr_agenda = convertView.findViewById(R.id.text_view_hora_agenda);
         CheckBox checkBox = convertView.findViewById(R.id.checkbox1);
+        ImageView imageViewBarra = convertView.findViewById(R.id.imageViewpalito);
+
         final View yourView = convertView.findViewById(R.id.your_view);
-
-
 
         checkBox.setVisibility(showCheckboxes ? View.VISIBLE : View.GONE);
 
@@ -307,17 +307,14 @@ public class CustomAdapter extends BaseAdapter {
                     calendarDataAtual.set(Calendar.HOUR_OF_DAY, 0);
                     calendarDataAtual.set(Calendar.MINUTE, 0);
                     Date calendardataAtual2 = calendarDataAtual.getTime();
-                    Log.d("Verificação", "Data sem horario:" + calendardataAtual2);
 
                     Date date = originalFormat.parse(AgendaData[position]);
-                    Log.d("Verificação", "Data da Agenda[position]:" + date);
 
                     @SuppressLint({"NewApi", "LocalSuppress"})
                     LocalDate LocaldatedataCombinada = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                     @SuppressLint({"NewApi", "LocalSuppress"})
                     LocalDate LocaldatedataAtual = LocalDate.now();
 
-                    Log.d("Verificação", "Data da Agenda[position]:" + LocaldatedataCombinada + "Data atual local date" + LocaldatedataAtual);
 
                     Calendar calendarAtual = Calendar.getInstance();
                     calendarAtual.set(Calendar.SECOND, 0);
@@ -333,7 +330,6 @@ public class CustomAdapter extends BaseAdapter {
                     calendar.add(Calendar.MINUTE, horarioDate.getMinutes());
                     Date dataHoraCombinada = calendar.getTime();
 
-                    Log.d("Verificação", "Datas com horarios:" + dataHoraCombinada + dataAtual);
 
                     // Verifique se a data da agenda é amanhã em relação à data atual
                     Calendar currentCalendar = Calendar.getInstance();
@@ -344,31 +340,32 @@ public class CustomAdapter extends BaseAdapter {
                     } else if (dataHoraCombinada.before(dataAtual) && LocaldatedataAtual.isEqual(LocaldatedataCombinada)) {
 
                         AgendaDAO agendaDAO = new AgendaDAO(context);
-                        String Teste = String.valueOf(AgendaID.get(position));
                         long idTarefa = AgendaID.get(position);
-                        Log.d("Hora atrasada", "LocalDate" + Teste);
 
                         String formattedDate = targetFormat.format(date);
                         text_view_dat_agenda.setText(formattedDate);
-                        Drawable seuDrawable1 = ContextCompat.getDrawable(context, R.drawable.baseline_schedule_24_red);
-                        text_view_hr_agenda.setCompoundDrawablesWithIntrinsicBounds(seuDrawable1, null, null, null);
+                        Drawable DrawableClock = ContextCompat.getDrawable(context, R.drawable.baseline_schedule_24_red);
+                        text_view_hr_agenda.setCompoundDrawablesWithIntrinsicBounds(DrawableClock, null, null, null);
+                        imageViewBarra.setImageResource(R.drawable.removeorange);
 
                         boolean statusAgenda = agendaDAO.AtualizarStatusAtraso(idTarefa, 1);
 
+                        if(statusAgenda) {
+                            notifyDataSetChanged();
+                        }
+
                     } else if (LocaldatedataAtual.isAfter(LocaldatedataCombinada)) {
 
-                        String Teste = String.valueOf(AgendaID.get(position));
-                        Log.d("Dia atrasado", "LocalDate" + Teste);
                         String formattedDate = targetFormat.format(date);
                         text_view_dat_agenda.setText(formattedDate);
                         Drawable seuDrawable = ContextCompat.getDrawable(context, R.drawable.baseline_calendar_month_24_red);
                         text_view_dat_agenda.setCompoundDrawablesWithIntrinsicBounds(seuDrawable, null, null, null);
                         Drawable seuDrawable1 = ContextCompat.getDrawable(context, R.drawable.baseline_schedule_24_red2);
                         text_view_hr_agenda.setCompoundDrawablesWithIntrinsicBounds(seuDrawable1, null, null, null);
+                        imageViewBarra.setImageResource(R.drawable.removered);
 
                     } else if (LocaldatedataAtual.isEqual(LocaldatedataCombinada) || LocaldatedataAtual.isBefore(LocaldatedataCombinada)) {
 
-                        Log.d("Verificação IF", "se data atual for antes da agendfada");
                         String formattedDate = targetFormat.format(date);
                         text_view_dat_agenda.setText(formattedDate);
                     }
