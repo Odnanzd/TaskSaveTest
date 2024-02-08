@@ -208,13 +208,6 @@ public class activity_add_agenda extends AppCompatActivity {
                             snackbar.show();
                         }
 
-//                            SharedPreferences save = getApplicationContext().getSharedPreferences("arquivoSalvar2", Context.MODE_PRIVATE);
-//                            SharedPreferences.Editor saveEdit = save.edit();
-//                            saveEdit.clear();
-//                            saveEdit.commit();
-//                            Intent intent = new Intent(activity_add_agenda.this, activity_agenda.class);
-//                            startActivity(intent);
-
                     } else {
 
                         Calendar calendar = Calendar.getInstance();
