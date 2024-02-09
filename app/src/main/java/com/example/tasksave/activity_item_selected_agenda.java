@@ -200,48 +200,48 @@ public class activity_item_selected_agenda extends AppCompatActivity {
             public void onClick(View v) {
 
                 if(checkboxConcluido.isChecked()) {
-                        Calendar calendar = Calendar.getInstance();
-                        int horasFim = calendar.get(Calendar.HOUR_OF_DAY);
-                        int minutosFim = calendar.get(Calendar.MINUTE);
-                        @SuppressLint({"NewApi", "LocalSuppress"})
-                        LocalDate dataAtual = LocalDate.now();
-                        boolean finalizado = agendaDAO.AtualizarStatus(idTarefa, 1, dataAtual, horasFim, minutosFim);
+                    Calendar calendar = Calendar.getInstance();
+                    int horasFim = calendar.get(Calendar.HOUR_OF_DAY);
+                    int minutosFim = calendar.get(Calendar.MINUTE);
+                    @SuppressLint({"NewApi", "LocalSuppress"})
+                    LocalDate dataAtual = LocalDate.now();
+                    boolean finalizado = agendaDAO.AtualizarStatus(idTarefa, 1, dataAtual, horasFim, minutosFim);
 
-                        if (finalizado) {
-                            // Atualização bem-sucedida
-                            Toast.makeText(activity_item_selected_agenda.this, "Tarefa concluída.", Toast.LENGTH_SHORT).show();
-                            finish();
-                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
-                        } else {
-                            // Algo deu errado na atualização
-                            Toast.makeText(activity_item_selected_agenda.this, "Erro ao atualizar a tarefa", Toast.LENGTH_SHORT).show();
-                        }
-
-
+                    if (finalizado) {
+                        // Atualização bem-sucedida
+                        Toast.makeText(activity_item_selected_agenda.this, "Tarefa concluída.", Toast.LENGTH_SHORT).show();
+                        finish();
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                     } else {
+                        // Algo deu errado na atualização
+                        Toast.makeText(activity_item_selected_agenda.this, "Erro ao atualizar a tarefa", Toast.LENGTH_SHORT).show();
+                    }
 
-                        String novoTitulo = editTextTitulo.getText().toString();
-                        String novaDescricao = editTextDescricao.getText().toString();
 
-                        // Aqui você deve pegar o ID da tarefa (que você passou como um extra na Intent)
+                } else {
 
-                        // Atualize os valores no banco de dados
+                    String novoTitulo = editTextTitulo.getText().toString();
+                    String novaDescricao = editTextDescricao.getText().toString();
 
-                        AgendaDAO agendaDAO = new AgendaDAO(activity_item_selected_agenda.this);
-                        boolean atualizado = agendaDAO.Atualizar(idTarefa, novoTitulo, novaDescricao);
+                    // Aqui você deve pegar o ID da tarefa (que você passou como um extra na Intent)
 
-                        if (atualizado) {
-                            // Atualização bem-sucedida
-                            Toast.makeText(activity_item_selected_agenda.this, "Tarefa atualizada.", Toast.LENGTH_SHORT).show();
+                    // Atualize os valores no banco de dados
 
-                            finish();
-                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
-                        } else {
-                            // Algo deu errado na atualização
-                            Toast.makeText(activity_item_selected_agenda.this, "Erro ao atualizar a tarefa", Toast.LENGTH_SHORT).show();
-                        }
+                    AgendaDAO agendaDAO = new AgendaDAO(activity_item_selected_agenda.this);
+                    boolean atualizado = agendaDAO.Atualizar(idTarefa, novoTitulo, novaDescricao);
+
+                    if (atualizado) {
+                        // Atualização bem-sucedida
+                        Toast.makeText(activity_item_selected_agenda.this, "Tarefa atualizada.", Toast.LENGTH_SHORT).show();
+
+                        finish();
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+                    } else {
+                        // Algo deu errado na atualização
+                        Toast.makeText(activity_item_selected_agenda.this, "Erro ao atualizar a tarefa", Toast.LENGTH_SHORT).show();
                     }
                 }
+            }
         });
         button2.setOnClickListener(new View.OnClickListener() {
             @Override

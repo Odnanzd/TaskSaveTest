@@ -14,6 +14,9 @@
     <style name="BackgroundThemeAddAgenda">
         <item name="android:background">@drawable/background_add_agenda_contrast</item>
     </style>
+    <style name="BackgroundThemeAddAgendaDialog">
+        <item name="android:background">@drawable/background_add_agenda_dialog</item>
+    </style>
 
     <style name="BackGroundTintThemeButton">
         <item name="android:backgroundTint">@color/blue4</item>

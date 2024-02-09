@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/BackgroundThemeAddAgenda"
+    style="@style/BackgroundThemeAddAgendaDialog"
     android:layout_width="match_parent"
     android:layout_height="400dp"
-    android:layout_gravity="center"
+    android:orientation="vertical"
     tools:context=".activity_add_agenda">
 
     <EditText
@@ -51,11 +52,11 @@
         style="@style/ButtonColorTheme"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="44dp"
+        android:layout_marginBottom="28dp"
         android:text="@string/button_salvar_agenda"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
@@ -78,13 +79,13 @@
         style="@style/TextColorAddAgenda"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="12dp"
         android:drawableLeft="@drawable/baseline_schedule_24"
         android:text="Horário"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/button_login"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.344"
+        app:layout_constraintHorizontal_bias="0.339"
         app:layout_constraintStart_toEndOf="@+id/textView5"
         tools:ignore="MissingConstraints" />
 
@@ -93,13 +94,13 @@
         style="@style/TextColorAddAgenda"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="12dp"
         android:drawableLeft="@drawable/baseline_calendar_month_24"
         android:text="Data"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/button_login"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.305"
+        app:layout_constraintHorizontal_bias="0.293"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 

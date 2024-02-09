@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -20,6 +21,8 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -118,25 +121,26 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
             @SuppressLint("NewApi")
             @Override
             public void onClick(View v) {
-                showCustomDialog();
+                DialogAddAgenda();
             }
         });
 
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    void showCustomDialog() {
+    void DialogAddAgenda() {
 
         SharedPreferences.Editor prefsEditor = getSharedPreferences("arquivoSalvar2", MODE_PRIVATE).edit();
         prefsEditor.clear();
         prefsEditor.commit();
-        SharedPreferences.Editor prefsEditor2 = getSharedPreferences("arquivoSalvar3", MODE_PRIVATE).edit();
+        SharedPreferences.Editor prefsEditor2 = getSharedPreferences("arquivoSalvarData", MODE_PRIVATE).edit();
         prefsEditor2.clear();
         prefsEditor2.commit();
 
-        Dialog dialog = new Dialog(this);
+        Dialog dialog = new Dialog(this, R.style.DialogAboveKeyboard);
         dialog.setContentView(R.layout.activity_add_agenda); // Defina o layout do diálogo
         dialog.setCancelable(true); // Permita que o usuário toque fora do diálogo para fechá-lo
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
 
 
 
@@ -155,7 +159,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         textView.setVisibility(View.GONE);
         textView1.setVisibility(View.GONE);
 
-        editDescricao.requestFocus();
+        editNome.requestFocus();
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,6 +195,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Calendar calendar = Calendar.getInstance();
                 int year = calendar.get(Calendar.YEAR);
                 int month = calendar.get(Calendar.MONTH);
@@ -212,17 +217,19 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
                         Calendar selectedCalendar2 = Calendar.getInstance();
                         selectedCalendar2.set(year, month, dayOfMonth);
                         SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
-                        selectedDate2 = sdf2.format(selectedCalendar.getTime());
+                        selectedDate2 = sdf2.format(selectedCalendar2.getTime());
+
                         SharedPreferences prefs = getSharedPreferences("arquivoSalvarData", MODE_PRIVATE);
                         SharedPreferences.Editor editor = prefs.edit();
                         editor.putString("arquivo_Data", selectedDate2);
+                        editor.apply();
 
                         textView.setText(selectedDate);
 
-                        Log.d("Verificação Data", "Data:" + year + (month + 1) + dayOfMonth);
+                        Log.d("Verificação Data", "Data:" +selectedDate2);
                     }
                 }, year, month, dayOfMonth);
-
+                dialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
                 dialog.show();
             }
         });
@@ -261,7 +268,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
                         editor.apply();
 
                     }
-                }, hour, minute, DateFormat.is24HourFormat(activity_agenda.this));
+                }, hour, minute, true);
 
                 // Mostrar o diálogo
                 timePickerDialog.show();
@@ -278,12 +285,15 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
 
                 if (editNome.getText().toString().equals("") || editDescricao.getText().toString().equals("")) {
 
-                    InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                    if (imm != null) {
-                        View currentFocus = getCurrentFocus();
-                        if (currentFocus != null) {
-                            imm.hideSoftInputFromWindow(currentFocus.getWindowToken(), 0);
-                        }
+                    Context context = dialog.getContext();
+
+                    InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                    View view2 = dialog.getCurrentFocus();
+                    if (view2 != null) {
+
+                        imm.hideSoftInputFromWindow(view2.getWindowToken(), 0);
+
                     }
                     Snackbar snackbar = Snackbar.make(view, msg_error, Snackbar.LENGTH_SHORT);
                     snackbar.setBackgroundTint(Color.WHITE);
@@ -303,6 +313,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
                         LocalDate localdataEscolhida = LocalDate.parse(dataEscolhida, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
                         SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("arquivoSalvar3", Context.MODE_PRIVATE);
+
                         int horaEscolhida = sharedPrefs2.getInt("arquivo_Hora", 00);
                         int minutoEscolhido = sharedPrefs2.getInt("arquivo_Minuto", 00);
 
@@ -320,33 +331,41 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
                                 localdataEscolhida, horaEscolhida, minutoEscolhido, true, false, dataAtual,
                                 -1, -1, dataAtual,horasInsert ,minutosInsert, false);
 
-//                        if (horaCompleta<=horaCompletaEscolhida) {
+                        if (localdataEscolhida.isEqual(dataAtual) && horaCompletaEscolhida<horaCompleta) {
+
+                            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                            if (imm != null) {
+                                View currentFocus = getCurrentFocus();
+                                if (currentFocus != null) {
+                                    imm.hideSoftInputFromWindow(currentFocus.getWindowToken(), 0);
+                                }
+                            }
+                            Snackbar snackbar = Snackbar.make(view, "O horário definido não pode ser menor que o horário atual.", Snackbar.LENGTH_SHORT);
+                            snackbar.setBackgroundTint(Color.WHITE);
+                            snackbar.setTextColor(Color.BLACK);
+                            snackbar.show();
+
+
+                        } else {
 
                             long idSequencial = agendaDAO.inserir(agenda);
                             agenda.setId(idSequencial);
                             long idAgenda = agenda.getId();
 
-                            SharedPreferences save = getApplicationContext().getSharedPreferences("arquivoSalvar2", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor saveEdit = save.edit();
-                            saveEdit.clear();
-                            saveEdit.commit();
+                            SharedPreferences.Editor prefsEditor = getSharedPreferences("arquivoSalvar2", MODE_PRIVATE).edit();
+                            prefsEditor.clear();
+                            prefsEditor.commit();
+
+                            SharedPreferences.Editor prefsEditor2 = getSharedPreferences("arquivoSalvarData", MODE_PRIVATE).edit();
+                            prefsEditor2.clear();
+                            prefsEditor2.commit();
+
                             dialog.dismiss();
                             Toast.makeText(activity_agenda.this, "Tarefa Salva. Nº " + idAgenda, Toast.LENGTH_LONG).show();
+                            refreshData();
 
-//                        } else {
-//
-//                            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-//                            if (imm != null) {
-//                                View currentFocus = getCurrentFocus();
-//                                if (currentFocus != null) {
-//                                    imm.hideSoftInputFromWindow(currentFocus.getWindowToken(), 0);
-//                                }
-//                            }
-//                            Snackbar snackbar = Snackbar.make(view, "O horário definido não pode ser menor que o horário atual.", Snackbar.LENGTH_SHORT);
-//                            snackbar.setBackgroundTint(Color.WHITE);
-//                            snackbar.setTextColor(Color.BLACK);
-//                            snackbar.show();
-//                        }
+
+                        }
                     } else {
 
                         Calendar calendar = Calendar.getInstance();
@@ -375,6 +394,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
                         SharedPreferences.Editor saveEdit = save.edit();
                         saveEdit.clear();
                         saveEdit.commit();
+                        refreshData();
                         dialog.dismiss();
                     }
 
@@ -422,6 +442,12 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
 
 
         dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT , ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+
+
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -440,24 +466,30 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
 
         Cursor cursor = db.rawQuery("SELECT * FROM agenda WHERE finalizado = 0;", null);
         Cursor cursor2 = db.rawQuery("SELECT * FROM agenda WHERE finalizado = 1;", null);
+        Log.d("Aqui","Aqui"+cursor.getCount()+"-"+cursor2.getCount());
 
         if (cursor.getCount() == 0 && cursor2.getCount() == 0) {
-
+            Log.d("IF ", "AQUI IF");
             textView.setText("Você não possui nenhuma tarefa a ser feito.");
             textView.setTextSize(15);
+            textView.setVisibility(View.VISIBLE);
             imageView.setVisibility(View.GONE);
 
         } else if (cursor.getCount() >= 1 && cursor2.getCount() == 0) {
-
+            Log.d("IF ", "AQUI IF2");
+            textView.setVisibility(View.GONE);
             imageView.setVisibility(View.GONE);
 
         } else if (cursor.getCount() == 0 && cursor2.getCount() >= 1) {
-
+            Log.d("IF ", "AQUI IF3");
             imageView.setVisibility(View.VISIBLE);
             textView.setText("Você não possui nenhuma tarefa a ser feito.");
+            textView.setVisibility(View.VISIBLE);
             textView.setTextSize(15);
 
         } else if (cursor.getCount() >= 1 && cursor2.getCount() >= 1) {
+            Log.d("IF ", "AQUI IF4");
+            textView.setVisibility(View.GONE);
             imageView.setVisibility(View.VISIBLE);
         }
         {
@@ -711,44 +743,6 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
     private void refreshData() {
         VerificaLista();
         ListarAgenda();
-    }
-    private void AbrirDialogDatePicker() {
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-
-        // Criar o DatePickerDialog com a data atual
-        DatePickerDialog dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                Log.d("Verificação Data", "Data:" + year + (month + 1) + dayOfMonth);
-            }
-        }, year, month, dayOfMonth);
-        dialog.show();
-    }
-    private void AbrirDialogTimePicker() {
-
-        final java.util.Calendar calendar = java.util.Calendar.getInstance();
-        int hour = calendar.get(java.util.Calendar.HOUR_OF_DAY);
-        int minute = calendar.get(java.util.Calendar.MINUTE);
-
-        // Crie o TimePickerDialog com a hora atual definida
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                // Lidar com a hora selecionada pelo usuário
-
-                int horadefinida = hourOfDay;
-                int minutodefinido = minute;
-
-                String time = "Hora selecionada: " + hourOfDay + ":" + minute;
-
-            }
-        }, hour, minute, DateFormat.is24HourFormat(this));
-
-        // Mostrar o diálogo
-        timePickerDialog.show();
     }
 }
 

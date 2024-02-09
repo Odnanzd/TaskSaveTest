@@ -13,8 +13,8 @@
     <style name="BackgroundThemeMenu">
         <item name="android:background">@drawable/background_main_menu_itens</item>
     </style>
-    <style name="BackgroundThemeAddAgenda">
-        <item name="android:background">@drawable/background_main_menu_itens</item>
+    <style name="BackgroundThemeAddAgendaDialog">
+        <item name="android:background">@drawable/background_add_agenda_dialog_claro</item>
     </style>
 
     <style name="BackGroundTintThemeButton">
