@@ -1,5 +1,6 @@
 package com.example.tasksave;
 
+import static android.content.Context.MODE_PRIVATE;
 import static android.content.Intent.getIntent;
 import static androidx.core.content.ContextCompat.startActivity;
 
@@ -9,6 +10,7 @@ import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
@@ -269,19 +271,21 @@ public class CustomAdapter extends BaseAdapter {
                         toggleItemSelection(AgendaID.get(position));
                     } else {
                         // Execute a lógica do item
-                        Intent intent = new Intent(context, activity_item_selected_agenda.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        long idTarefa = AgendaID.get(position);
+//                        Intent intent = new Intent(context, activity_item_selected_agenda.class);
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                        intent.putExtra("idTarefa", idTarefa);
-                        intent.putExtra("tituloItem", getItemTitulo(position).toString());
-                        intent.putExtra("descricaoItem", getItemDescricao(position).toString());
-                        intent.putExtra("dataItem", getItemData(position).toString());
-                        intent.putExtra("horaItem", getItemHora(position).toString());
-                        intent.putExtra("lembreteItem", getItemLembrete(position));
-                        // Inicia a nova Activity
-                        context.startActivity(intent);
-//                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                        long idTarefa = AgendaID.get(position);
+                        String titulo = getItemTitulo(position).toString();
+                        String descricao = getItemDescricao(position).toString();
+                        String data = getItemData(position).toString();
+                        String hora = getItemHora(position).toString();
+                        boolean lembrete = getItemLembrete(position);
+                        AgendaDAO agendaDAO = new AgendaDAO(v.getContext());
+
+                        activity_item_selected_agenda customDialog = new activity_item_selected_agenda(v.getContext(), titulo,
+                                descricao, idTarefa, data, hora, lembrete, agendaDAO );
+                        customDialog.show();
+
                     }
                 }
             });
