@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "811126737751",
+    "project_id": "tasksave-7d8b0",
+    "storage_bucket": "tasksave-7d8b0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:811126737751:android:b6859d52d95015f5eb8c12",
+        "android_client_info": {
+          "package_name": "com.example.tasksave"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOTWUjFMNfaRC6YbnQgqBWImPJa-UP45M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
