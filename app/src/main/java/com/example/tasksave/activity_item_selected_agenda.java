@@ -60,8 +60,7 @@ public class activity_item_selected_agenda extends Dialog {
     private boolean arquivoLembrete;
     private AgendaDAO agendaDAO;
     public void onBackPressed() {
-//        finish();
-//        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+        dismiss();
     }
 
     public activity_item_selected_agenda(Context context, String titulo, String descricao, long id, String data, String hora, boolean lembrete, AgendaDAO agendaDAO) {

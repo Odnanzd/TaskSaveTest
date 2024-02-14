@@ -12,7 +12,7 @@
         <item name="android:background">@drawable/background_white_contraist</item>
     </style>
     <style name="BackgroundThemeAddAgenda">
-        <item name="android:background">@drawable/background_add_agenda_contrast</item>
+        <item name="android:background">@drawable/background_add_agenda_dialog</item>
     </style>
     <style name="BackgroundThemeAddAgendaDialog">
         <item name="android:background">@drawable/background_add_agenda_dialog</item>

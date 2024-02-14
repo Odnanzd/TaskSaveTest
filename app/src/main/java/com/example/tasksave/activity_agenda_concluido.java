@@ -4,15 +4,21 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -159,20 +165,63 @@ public class activity_agenda_concluido extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent intent = new Intent(activity_agenda_concluido.this, activity_item_selected_agenda_concluido.class);
                 long idTarefa = listaIDs.get(position);
 
-                intent.putExtra("idTarefa", idTarefa);
-                intent.putExtra("tituloItem", customAdapter.getItemTitulo(position).toString());
-                intent.putExtra("descricaoItem", customAdapter.getItemDescricao(position).toString());
-                intent.putExtra("dataItemInsert", customAdapter.getItemDataInsert(position).toString());
-                intent.putExtra("horaItemInsert", customAdapter.getItemHoraInsert(position).toString());
-                intent.putExtra("dataItemFim", customAdapter.getItemDataFim(position).toString());
-                intent.putExtra("horaItemFim", customAdapter.getItemHoraFim(position).toString());
-                intent.putExtra("lembreteItem", customAdapter.getItemLembrete(position));
-                // Inicia a nova Activity
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                String Titulo = customAdapter.getItemTitulo(position).toString();
+                String Descricao =  customAdapter.getItemDescricao(position).toString();
+                String dataItemInsert = customAdapter.getItemDataInsert(position).toString();
+                String horaItemInsert = customAdapter.getItemHoraInsert(position).toString();
+                String dataItemFim = customAdapter.getItemDataFim(position).toString();
+                String horaItemFim = customAdapter.getItemHoraFim(position).toString();
+                Boolean lembreteItem = customAdapter.getItemLembrete(position);
+
+                Dialog dialog = new Dialog(activity_agenda_concluido.this, R.style.DialogAboveKeyboard2);
+                dialog.setContentView(R.layout.activity_item_selected_agenda_concluido); // Defina o layout do diálogo
+                dialog.setCancelable(true); // Permita que o usuário toque fora do diálogo para fechá-lo
+                dialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
+
+                TextView textView = dialog.findViewById(R.id.textView3);
+                EditText editTextTitulo = dialog.findViewById(R.id.titulo_text_view);
+                EditText editTextDescricao = dialog.findViewById(R.id.descricao_text_view);
+                TextView textViewDataInsert = dialog.findViewById(R.id.textViewDataInsert);
+                TextView textViewHoraInsert = dialog.findViewById(R.id.textViewHoraInsert);
+                TextView textViewDataFim = dialog.findViewById(R.id.textViewDataFim);
+                TextView textViewHoraFim = dialog.findViewById(R.id.textViewHoraFim);
+                ImageView imageViewBack = dialog.findViewById(R.id.imageView4);
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM");
+                LocalDate localdataInsert = LocalDate.parse(dataItemInsert);
+                String dataInsertFormatada = localdataInsert.format(formatter);
+
+                LocalDate localdataFim = LocalDate.parse(dataItemFim);
+                String dataFormatadaFim = localdataFim.format(formatter);
+
+                editTextTitulo.setText(Titulo);
+                editTextTitulo.setEnabled(false);
+                editTextDescricao.setText(Descricao);
+                editTextDescricao.setEnabled(false);
+                textViewDataInsert.setText(dataInsertFormatada);
+                textViewHoraInsert.setText(horaItemInsert);
+                textViewDataFim.setText(dataFormatadaFim);
+                textViewHoraFim.setText(horaItemFim);
+
+                textView.setText("Tarefa concluída nº "+idTarefa);
+
+                imageViewBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+
+                dialog.show();
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT , ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+
+
+
             }
         });
     }

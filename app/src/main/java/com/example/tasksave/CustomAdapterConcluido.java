@@ -108,8 +108,8 @@ public class CustomAdapterConcluido extends BaseAdapter {
         TextView text_view_dat_insert_agenda = convertView.findViewById(R.id.text_view_data_agenda2);
         TextView text_view_data_fim_agenda = convertView.findViewById(R.id.text_view_hora_agenda2);
 
-        text_view_tit_agenda.setText("Tarefa: "+AgendaTitulo[position]);
-        text_view_desc_agenda.setText("Descrição: "+AgendaDescricao[position]);
+        text_view_tit_agenda.setText(AgendaTitulo[position]);
+        text_view_desc_agenda.setText(AgendaDescricao[position]);
 
         if (isReminderSet[position]) {
             try {

@@ -57,7 +57,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class activity_agenda extends AppCompatActivity implements CustomAdapter.OnItemSelectionChangedListener {
+public class activity_agenda extends AppCompatActivity implements CustomAdapter.OnItemSelectionChangedListener, CustomAdapter.OnItemActionListener  {
 
     private Conexao con;
     private SQLiteDatabase db;
@@ -594,6 +594,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         CustomAdapter customAdapter = new CustomAdapter(activity_agenda.this, listaIDs, titulos, descricoes, datas, horas, lembretes);
         listView.setAdapter(customAdapter);
         customAdapter.setOnItemSelectionChangedListener(this);
+        customAdapter.setOnItemActionListener(this);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -744,7 +745,21 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         VerificaLista();
         ListarAgenda();
     }
+    @SuppressLint("NewApi")
+    @Override
+    public void onItemDeleted(int position) {
+        VerificaLista();
+        ListarAgenda();
+    }
+
+    @SuppressLint("NewApi")
+    @Override
+    public void onItemUpdated(int position) {
+        ListarAgenda();
+        VerificaLista();
+    }
 }
+
 
 
 

@@ -80,7 +80,7 @@ public class AgendaDAO {
 
         String[] colunas = {
                 "id", "nomeTarefa", "descricaoTarefa", "dataAgenda", "horaAgenda", "minutoAgenda",
-                "lembretedefinido"};
+                "lembretedefinido", "finalizado"};
 
         String whereClause = "lembretedefinido = ?";
         String[] whereArgs = {"1"}; // Lembrete ativado
@@ -101,11 +101,14 @@ public class AgendaDAO {
                 int horaAgenda = cursor.getInt(cursor.getColumnIndex("horaAgenda"));
                 @SuppressLint("Range")
                 int minutoAgenda = cursor.getInt(cursor.getColumnIndex("minutoAgenda"));
+                @SuppressLint("Range")
+                int finalizado = cursor.getInt(cursor.getColumnIndex("finalizado"));
+                boolean finalizadobl = (finalizado != 0);
 
                 LocalDate localDataAgenda = LocalDate.parse(dataAgenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
                 tarefasComLembrete.add(new Agenda(id, titulo, descricao, localDataAgenda, horaAgenda,
-                 minutoAgenda, true, false, dataAtual, -1, -1, dataAtual,
+                 minutoAgenda, true, finalizadobl, dataAtual, -1, -1, dataAtual,
                         -1, -1, false));
             } while (cursor.moveToNext());
         }

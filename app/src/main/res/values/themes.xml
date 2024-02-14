@@ -159,4 +159,7 @@
     <style name="BackGroundTintThemeItens">
         <item name="android:backgroundTint">@color/rosa2</item>
     </style>
+    <style name="BackgroundThemeAddAgenda">
+        <item name="android:background">@drawable/background_add_agenda_dialog_claro</item>
+    </style>
 </resources>

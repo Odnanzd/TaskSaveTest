@@ -13,5 +13,13 @@
         <item name="android:windowExitAnimation">@anim/animepopdown</item>
     </style>
 
+    <style name="DialogAboveKeyboard2" parent="Theme.AppCompat.Light.Dialog">
+    <item name="android:windowIsFloating">true</item>
+    <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:textColorHint">@color/grey2</item>
+        <item name="android:textColor">@color/grey2</item>
+
+    </style>
+
 
 </resources>
