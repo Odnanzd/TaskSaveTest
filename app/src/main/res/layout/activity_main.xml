@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity_main">
+    tools:context=".activities.activity_main">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageView2"

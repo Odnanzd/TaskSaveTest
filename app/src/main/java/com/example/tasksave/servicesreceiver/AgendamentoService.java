@@ -1,4 +1,4 @@
-package com.example.tasksave;
+package com.example.tasksave.servicesreceiver;
 
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
@@ -13,6 +13,11 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.JobIntentService;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+
+import com.example.tasksave.R;
+import com.example.tasksave.activities.activity_agenda;
+import com.example.tasksave.dao.AgendaDAO;
+import com.example.tasksave.objetos.Agenda;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

@@ -1,8 +1,4 @@
-package com.example.tasksave;
-
-import static android.content.Context.MODE_PRIVATE;
-import static android.content.Intent.getIntent;
-import static androidx.core.content.ContextCompat.startActivity;
+package com.example.tasksave.baseadapter;
 
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
@@ -11,8 +7,6 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -20,7 +14,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +28,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
+
+import com.example.tasksave.R;
+import com.example.tasksave.dao.AgendaDAO;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

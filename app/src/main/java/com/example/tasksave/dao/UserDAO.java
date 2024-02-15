@@ -1,10 +1,13 @@
-package com.example.tasksave;
+package com.example.tasksave.dao;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.example.tasksave.conexaoBD.Conexao;
+import com.example.tasksave.objetos.User;
 
 import java.util.ArrayList;
 import java.util.List;

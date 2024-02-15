@@ -1,4 +1,4 @@
-package com.example.tasksave;
+package com.example.tasksave.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -14,8 +14,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.tasksave.R;
+import com.example.tasksave.dao.UserDAO;
+import com.example.tasksave.objetos.User;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.Firebase;
 
 public class activity_login extends AppCompatActivity {
     public EditText input_Nome;

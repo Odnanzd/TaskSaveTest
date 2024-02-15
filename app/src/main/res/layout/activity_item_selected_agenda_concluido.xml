@@ -7,7 +7,7 @@
     android:layout_height="400dp"
     android:layout_gravity="center"
     android:paddingStart="10dp"
-    tools:context=".activity_item_selected_agenda_concluido">
+    tools:context=".activities.activity_item_selected_agenda_concluido">
 
     <TextView
         android:id="@+id/textView3"

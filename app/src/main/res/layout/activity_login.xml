@@ -7,7 +7,7 @@
     android:layout_gravity="center"
     android:orientation="vertical"
     style="@style/BackgroundTheme"
-    tools:context=".activity_login">
+    tools:context=".activities.activity_login">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

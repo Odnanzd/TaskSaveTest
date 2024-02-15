@@ -6,7 +6,7 @@
     style="@style/BackgroundTheme"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".activity_fingerprint">
+    tools:context=".activities.activity_fingerprint">
 
     <ImageView
         android:id="@+id/image_view_button_fing"

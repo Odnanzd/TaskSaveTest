@@ -1,4 +1,4 @@
-package com.example.tasksave;
+package com.example.tasksave.activities;
 
 
 import android.annotation.SuppressLint;
@@ -17,13 +17,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.text.format.DateFormat;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -44,6 +40,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.tasksave.conexaoBD.Conexao;
+import com.example.tasksave.baseadapter.CustomAdapter;
+import com.example.tasksave.R;
+import com.example.tasksave.dao.AgendaDAO;
+import com.example.tasksave.objetos.Agenda;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -138,7 +139,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         prefsEditor2.commit();
 
         Dialog dialog = new Dialog(this, R.style.DialogAboveKeyboard);
-        dialog.setContentView(R.layout.activity_add_agenda); // Defina o layout do diálogo
+        dialog.setContentView(R.layout.dialog_add_agenda); // Defina o layout do diálogo
         dialog.setCancelable(true); // Permita que o usuário toque fora do diálogo para fechá-lo
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
 

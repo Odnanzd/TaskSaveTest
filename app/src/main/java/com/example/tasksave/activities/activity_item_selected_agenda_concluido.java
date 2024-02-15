@@ -1,4 +1,4 @@
-package com.example.tasksave;
+package com.example.tasksave.activities;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.tasksave.R;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

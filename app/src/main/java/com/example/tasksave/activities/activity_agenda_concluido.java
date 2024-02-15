@@ -1,11 +1,10 @@
-package com.example.tasksave;
+package com.example.tasksave.activities;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -19,6 +18,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.tasksave.conexaoBD.Conexao;
+import com.example.tasksave.baseadapter.CustomAdapterConcluido;
+import com.example.tasksave.R;
+import com.example.tasksave.objetos.Agenda;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

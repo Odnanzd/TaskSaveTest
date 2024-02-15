@@ -23,26 +23,22 @@
         android:theme="@style/Theme.TaskSave"
         tools:targetApi="31">
         <activity
-            android:name=".activity_item_selected_agenda_concluido"
+            android:name=".activities.activity_item_selected_agenda_concluido"
             android:exported="false"
             android:screenOrientation="portrait"/>
+
         <activity
-            android:name=".layout_activity_agenda_concluido"
+            android:name=".activities.activity_agenda_concluido"
             android:exported="false"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name=".activity_agenda_concluido"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            />
-        <activity
-            android:name=".activity_item_selected_agenda"
+            android:name=".activities.activity_item_selected_agenda"
             android:exported="false"
             android:screenOrientation="portrait"
             /> <!-- Definir a SplashActivity como a atividade principal -->
         <activity
-            android:name=".activity_splash_screen"
+            android:name=".activities.activity_splash_screen"
             android:exported="true"
             android:theme="@style/Theme.TaskSave"
             android:screenOrientation="portrait">
@@ -54,42 +50,22 @@
             </intent-filter>
         </activity> <!-- Restante das atividades -->
         <activity
-            android:name=".layout_activity"
+            android:name=".activities.activity_agenda"
             android:exported="false"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name=".activity_add_agenda_hora"
+            android:name=".activities.activity_fingerprint"
             android:exported="false"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name=".activity_add_agenda_data"
+            android:name=".activities.activity_login"
             android:exported="false"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name=".activity_add_agenda"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            />
-        <activity
-            android:name=".activity_agenda"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            />
-        <activity
-            android:name=".activity_fingerprint"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            />
-        <activity
-            android:name=".activity_login"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            />
-        <activity
-            android:name=".activity_main"
+            android:name=".activities.activity_main"
             android:exported="false"
             android:screenOrientation="portrait"
             />
@@ -99,7 +75,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <receiver
-            android:name=".AlarmReceiver"
+            android:name=".servicesreceiver.AlarmReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -108,7 +84,7 @@
         </receiver>
 
         <service
-            android:name=".AgendamentoService"
+            android:name=".servicesreceiver.AgendamentoService"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE">
             <intent-filter>

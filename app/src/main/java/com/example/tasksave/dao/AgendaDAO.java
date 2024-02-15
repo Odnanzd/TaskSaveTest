@@ -1,4 +1,4 @@
-package com.example.tasksave;
+package com.example.tasksave.dao;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
+
+import com.example.tasksave.conexaoBD.Conexao;
+import com.example.tasksave.objetos.Agenda;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
