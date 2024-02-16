@@ -324,6 +324,7 @@ public class CustomAdapter extends BaseAdapter {
                         dialog.setCancelable(true); // Permita que o usuário toque fora do diálogo para fechá-lo
                         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
 
+
                         TextView tituloTextView = dialog.findViewById(R.id.titulo_text_view);
                         TextView descricaoTextView = dialog.findViewById(R.id.descricao_text_view);
                         TextView dataTextView = dialog.findViewById(R.id.textView11);
