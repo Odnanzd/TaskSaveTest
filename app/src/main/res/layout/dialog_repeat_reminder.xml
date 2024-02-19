@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/BackgroundThemeRepeatReminder"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    >
+
+
+    <RadioGroup
+        android:layout_width="300dp"
+        android:id="@+id/RadioGroup"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <RadioButton
+            android:id="@+id/radioNaoRepetir"
+            android:layout_width="match_parent"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:layout_marginTop="15dp"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Não repetir"
+            android:checked="true"
+            />
+
+        <RadioButton
+            android:id="@+id/radioTododia"
+            android:textColor="@color/white"
+            android:layout_marginTop="15dp"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content"
+            android:text="Todo dia"
+            />
+        <RadioButton
+            android:id="@+id/radioTodaSemana"
+            android:textColor="@color/white"
+            android:layout_marginTop="15dp"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content"
+            android:text="Toda semana"
+            />
+
+        <RadioButton
+            android:id="@+id/radioTodoMes"
+            android:textColor="@color/white"
+            android:layout_marginTop="15dp"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content"
+            android:text="Todo mês"
+            />
+
+        <RadioButton
+            android:id="@+id/radioTodoAno"
+            android:textColor="@color/white"
+            android:layout_marginTop="15dp"
+            android:textSize="15dp"
+            android:layout_marginBottom="15dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Todo ano"
+            />
+    </RadioGroup>
+</androidx.constraintlayout.widget.ConstraintLayout>

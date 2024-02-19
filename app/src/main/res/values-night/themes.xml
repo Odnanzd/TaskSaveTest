@@ -17,6 +17,9 @@
     <style name="BackgroundThemeAddAgendaDialog">
         <item name="android:background">@drawable/background_add_agenda_dialog</item>
     </style>
+    <style name="BackgroundThemeRepeatReminder">
+        <item name="android:background">@drawable/background_dialog_repeat_reminder_night</item>
+    </style>
 
     <style name="BackGroundTintThemeButton">
         <item name="android:backgroundTint">@color/blue4</item>

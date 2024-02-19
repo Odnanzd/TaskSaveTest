@@ -67,6 +67,7 @@ public class activity_main extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent2 = new Intent(activity_main.this, activity_agenda.class);
+                intent2.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                 startActivity(intent2);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }

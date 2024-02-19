@@ -1,6 +1,8 @@
 package com.example.tasksave.activities;
 
 
+import static java.security.AccessController.getContext;
+
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -18,8 +20,11 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -29,6 +34,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -138,11 +145,10 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         prefsEditor2.clear();
         prefsEditor2.commit();
 
-        Dialog dialog = new Dialog(this, R.style.DialogAboveKeyboard);
+        Dialog dialog = new Dialog(activity_agenda.this, R.style.DialogAboveKeyboard);
         dialog.setContentView(R.layout.dialog_add_agenda); // Defina o layout do diálogo
         dialog.setCancelable(true); // Permita que o usuário toque fora do diálogo para fechá-lo
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
-
 
 
         EditText editNome = dialog.findViewById(R.id.editTextText);
@@ -153,34 +159,79 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         TextView charCountTextView = dialog.findViewById(R.id.text_view_contador);
         TextView charCountTextView2 = dialog.findViewById(R.id.textView8);
         ImageView imageView = dialog.findViewById(R.id.imageView4);
+        TextView textViewRepeat = dialog.findViewById(R.id.textViewRepetirLembrete);
 
 
         Switch switchCompat = dialog.findViewById(R.id.switch1);
         switchCompat.setChecked(false);
-        textView.setVisibility(View.GONE);
-        textView1.setVisibility(View.GONE);
+        textView.setVisibility(View.VISIBLE);
+        textView1.setVisibility(View.VISIBLE);
 
-        editNome.requestFocus();
+//        editNome.requestFocus();
+
+        textViewRepeat.setOnClickListener(new View.OnClickListener() {
+            private boolean dialogDisplayed = false;
+            private String textoSelecionado;
+            @Override
+            public void onClick(View v) {
+                if (!dialogDisplayed) {
+                    dialogDisplayed = true;
+
+                    // Desativar a capacidade de clicar na TextView
+                    textViewRepeat.setClickable(false);
+
+                    // Exibir o diálogo
+                    Dialog dialog2 = new Dialog(activity_agenda.this, R.style.DialogTheme2);
+                    dialog2.setContentView(R.layout.dialog_repeat_reminder); // Defina o layout do diálogo
+                    dialog2.setCancelable(true); // Permita que o usuário toque fora do diálogo para fechá-lo
+                    dialog2.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
+
+                    Window window = dialog2.getWindow();
+                    WindowManager.LayoutParams layoutParams = window.getAttributes();
+                    layoutParams.gravity = Gravity.CENTER;
+                    window.setAttributes(layoutParams);
+
+
+                    RadioGroup radioGroup = dialog2.findViewById(R.id.RadioGroup);
+                    RadioButton radioButtonSemana = dialog2.findViewById(R.id.radioTodaSemana);
+
+
+
+                    radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(RadioGroup group, int checkedId) {
+                            // Obter a string do RadioButton selecionado
+                            RadioButton radioButton = dialog2.findViewById(checkedId);
+                            textoSelecionado = radioButton.getText().toString();
+                            textViewRepeat.setText(textoSelecionado);
+
+                            // Fechar o diálogo
+                            dialog2.dismiss();
+                        }
+                    });
+
+
+                    dialog2.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            // Ativar a capacidade de clicar na TextView após o diálogo ser fechado
+                            textViewRepeat.setClickable(true);
+                            dialogDisplayed = false;
+                        }
+                    });
+
+                    dialog2.show();
+                    dialog2.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT , ViewGroup.LayoutParams.WRAP_CONTENT);
+                    dialog2.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                }
+            }
+        });
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
 
-            }
-        });
-        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    textView.setVisibility(View.VISIBLE);
-                    textView1.setVisibility(View.VISIBLE);
-//                    AtualizarHora();
-//                    AtualizarData();
-                } else {
-                    textView.setVisibility(View.GONE);
-                    textView1.setVisibility(View.GONE);
-                }
             }
         });
 

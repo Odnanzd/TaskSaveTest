@@ -51,6 +51,7 @@ public class CustomAdapter extends BaseAdapter {
     private ArrayList<Long> AgendaID;
     boolean[] isReminderSet;
     LayoutInflater inflater;
+    private Dialog dialog;
     private boolean showCheckboxes = false;
 
     private int selectedCount = 0;
@@ -301,10 +302,10 @@ public class CustomAdapter extends BaseAdapter {
                         // Execute a lógica do CheckBox
                         checkBox.setChecked(!checkBox.isChecked());
                         toggleItemSelection(AgendaID.get(position));
+
                     } else {
                         // Execute a lógica do item
-//                        Intent intent = new Intent(context, activity_item_selected_agenda.class);
-//                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
 
                         long idTarefa = AgendaID.get(position);
                         String titulo = getItemTitulo(position).toString();
@@ -312,17 +313,14 @@ public class CustomAdapter extends BaseAdapter {
                         String data = getItemData(position).toString();
                         String hora = getItemHora(position).toString();
                         boolean lembrete = getItemLembrete(position);
-//                        AgendaDAO agendaDAO = new AgendaDAO(v.getContext());
-//
-//                        activity_item_selected_agenda customDialog = new activity_item_selected_agenda(v.getContext(), titulo,
-//                                descricao, idTarefa, data, hora, lembrete, agendaDAO );
-//
-//                        customDialog.show();
 
-                        Dialog dialog = new Dialog(context, R.style.DialogAboveKeyboard2);
-                        dialog.setContentView(R.layout.activity_item_selected_agenda); // Defina o layout do diálogo
-                        dialog.setCancelable(true); // Permita que o usuário toque fora do diálogo para fechá-lo
-                        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
+
+                        if (dialog == null) {
+                            dialog = new Dialog(context, R.style.DialogAboveKeyboard2);
+                            dialog.setContentView(R.layout.activity_item_selected_agenda);
+                            dialog.setCancelable(true);
+                            dialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
+                        }
 
 
                         TextView tituloTextView = dialog.findViewById(R.id.titulo_text_view);
