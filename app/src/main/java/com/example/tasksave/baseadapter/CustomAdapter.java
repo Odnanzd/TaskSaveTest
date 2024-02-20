@@ -50,6 +50,11 @@ public class CustomAdapter extends BaseAdapter {
     String AgendaHora[];
     private ArrayList<Long> AgendaID;
     boolean[] isReminderSet;
+
+    boolean[] RepetirLembrete;
+
+    private ArrayList<Integer> RepetirLembreteModo;
+
     LayoutInflater inflater;
     private Dialog dialog;
     private boolean showCheckboxes = false;
@@ -67,7 +72,7 @@ public class CustomAdapter extends BaseAdapter {
 
     public CustomAdapter(Context context,ArrayList<Long> IDAgenda, String[] TituloAgenda,
                          String[] DescricaoAgenda, String[] DataAgenda, String[] HoraAgenda,
-                         boolean[] isReminderSet) {
+                         boolean[] isReminderSet, boolean[] RepetirLembrete, ArrayList<Integer> RepetirLembreteModo ) {
         this.context = context;
         AgendaID = IDAgenda;
         this.AgendaTitulo = TituloAgenda;
@@ -75,6 +80,8 @@ public class CustomAdapter extends BaseAdapter {
         this.AgendaData = DataAgenda;
         this.AgendaHora = HoraAgenda;
         this.isReminderSet = isReminderSet;
+        this.RepetirLembrete = RepetirLembrete;
+        this.RepetirLembreteModo = RepetirLembreteModo;
         inflater = LayoutInflater.from(context);
     }
 
@@ -133,6 +140,14 @@ public class CustomAdapter extends BaseAdapter {
 
     public Boolean getItemLembrete(int position) {
         return isReminderSet[position];
+    }
+
+    public Boolean getRepetirLembrete(int position) {
+        return RepetirLembrete[position];
+    }
+
+    public int getRepetirModoLembrete(int position) {
+        return RepetirLembreteModo.get(position);
     }
 
     public void setShowCheckboxes(boolean showCheckboxes) {
@@ -313,6 +328,8 @@ public class CustomAdapter extends BaseAdapter {
                         String data = getItemData(position).toString();
                         String hora = getItemHora(position).toString();
                         boolean lembrete = getItemLembrete(position);
+                        boolean repetirLembrete = getRepetirLembrete(position);
+                        int repetirModoLembrete = getRepetirModoLembrete(position);
 
 
 
@@ -337,6 +354,7 @@ public class CustomAdapter extends BaseAdapter {
                         CheckBox checkboxConcluido = dialog.findViewById(R.id.checkBoxConcluido);
                         ImageView imageView = dialog.findViewById(R.id.imageView4);
                         TextView textViewLembrete = dialog.findViewById(R.id.textViewLembretenaodefinido);
+                        TextView textViewRepetirLembrete = dialog.findViewById(R.id.textViewRepetirModo);
 
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM");
                         LocalDate localdataEscolhida = LocalDate.parse(data);
@@ -363,6 +381,25 @@ public class CustomAdapter extends BaseAdapter {
                             horaTextView.setVisibility(View.GONE);
                         }
 
+                        if(lembrete && repetirLembrete) {
+                            switch (repetirModoLembrete) {
+                                case 1:
+                                    textViewRepetirLembrete.setText("Todo dia");
+                                    break;
+                                case 2:
+                                    textViewRepetirLembrete.setText("Toda Semana");
+                                    break;
+                                case 3:
+                                    textViewRepetirLembrete.setText("Todo Mês");
+                                    break;
+                                case 4:
+                                    textViewRepetirLembrete.setText("Todo ano");
+                            }
+
+                        } else if(!lembrete) {
+                            textViewRepetirLembrete.setVisibility(View.GONE);
+
+                            }
                         imageView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {

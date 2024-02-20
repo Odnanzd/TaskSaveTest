@@ -76,6 +76,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
     ImageView imageView;
     ImageView imageView2;
     ArrayList<Long> listaIDs = new ArrayList<>();
+    ArrayList<Integer> repetirModoLembrete2 = new ArrayList<>();
 
     private SwipeRefreshLayout swipeRefreshLayout;
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -627,6 +628,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
 
         List<Agenda> listaagenda = new ArrayList<Agenda>();
         listaIDs.clear();
+        repetirModoLembrete2.clear();
 
         Cursor cursor = db.rawQuery("SELECT * FROM agenda WHERE finalizado = 0;", null);
 
@@ -680,6 +682,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
                         lembrete, finalizado, localdataagendaFim, horaAgendaFim, minutoAgendaFim, localdataagendaInsert,
                         horaAgendaInsert, minutoAgendaInsert, agendaAtraso, repetirLembrete, repetirLembreteModo));
                 listaIDs.add(ID);
+                repetirModoLembrete2.add(repetirLembreteModo);
 
             } while (cursor.moveToNext());
         }
@@ -693,6 +696,8 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         String[] horas = new String[listaagenda.size()];
         boolean[] lembretes = new boolean[listaagenda.size()];
         long[] ids = new long[listaagenda.size()];
+        boolean[] repetirLembrete = new boolean[listaagenda.size()];
+        int[] repetirModoLembrete = new int[listaagenda.size()];
 
         for (int i = 0; i < listaagenda.size(); i++) {
             ids[i] = listaIDs.get(i);
@@ -704,10 +709,13 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
             String horaFormatada = String.format(Locale.getDefault(), "%02d:%02d", hora, minuto);
             horas[i] = horaFormatada;
             lembretes[i] = listaagenda.get(i).getLembrete();
+            repetirLembrete[i] = listaagenda.get(i).getRepetirLembrete();
+            repetirModoLembrete[i] = repetirModoLembrete2.get(i);
         }
 
         // Configurando o CustomAdapter para a ListView
-        CustomAdapter customAdapter = new CustomAdapter(activity_agenda.this, listaIDs, titulos, descricoes, datas, horas, lembretes);
+        CustomAdapter customAdapter = new CustomAdapter(activity_agenda.this, listaIDs, titulos, descricoes, datas, horas,
+                lembretes, repetirLembrete, repetirModoLembrete2);
         listView.setAdapter(customAdapter);
         customAdapter.setOnItemSelectionChangedListener(this);
         customAdapter.setOnItemActionListener(this);
