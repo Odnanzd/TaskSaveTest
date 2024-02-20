@@ -174,6 +174,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
             private String textoSelecionado;
             @Override
             public void onClick(View v) {
+
                 if (!dialogDisplayed) {
                     dialogDisplayed = true;
 
@@ -193,8 +194,35 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
 
 
                     RadioGroup radioGroup = dialog2.findViewById(R.id.RadioGroup);
+                    RadioButton radioButtonDefault = dialog2.findViewById(R.id.radioNaoRepetir);
+                    RadioButton radioButtonDia = dialog2.findViewById(R.id.radioTododia);
                     RadioButton radioButtonSemana = dialog2.findViewById(R.id.radioTodaSemana);
+                    RadioButton radioButtonMes = dialog2.findViewById(R.id.radioTodoMes);
+                    RadioButton radioButtonAno = dialog2.findViewById(R.id.radioTodoAno);
 
+
+                    if (textoSelecionado != null) {
+
+                        switch (textoSelecionado) {
+
+                            case "Todo dia":
+                                radioButtonDia.setChecked(true);
+                                break;
+                            case "Toda semana":
+                                radioButtonSemana.setChecked(true);
+                                break;
+                            case "Todo mês":
+                                radioButtonMes.setChecked(true);
+                                break;
+                            case "Todo ano":
+                                radioButtonAno.setChecked(true);
+                                break;
+                            case "Não repetir":
+                                radioButtonDefault.setChecked(true);
+                        }
+                    } else {
+                        radioButtonDefault.setChecked(true);
+                    }
 
 
                     radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -378,10 +406,40 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
 
                         int horaCompletaEscolhida = horaEscolhida * 100 + minutoEscolhido;
 
+                        String textoTextViewRepetir = textViewRepeat.getText().toString();
+
+                        int repetirLembreteModoDB = 0;
+                        boolean repetirLembreteDB = true;
+
+                        if(textoTextViewRepetir !="Não repetir") {
+
+                            switch (textoTextViewRepetir) {
+
+                                case "Todo dia":
+                                    repetirLembreteModoDB=1;
+                                break;
+                                case "Toda semana":
+                                    repetirLembreteModoDB=2;
+                                break;
+                                case "Todo mês":
+                                    repetirLembreteModoDB=3;
+                                break;
+                                case "Todo ano":
+                                    repetirLembreteModoDB=4;
+                                break;
+
+                            }
+                        } else {
+
+                            repetirLembreteDB=false;
+                            repetirLembreteModoDB=0;
+                        }
+
 
                         Agenda agenda = new Agenda(-1, editNome.getText().toString(), editDescricao.getText().toString(),
                                 localdataEscolhida, horaEscolhida, minutoEscolhido, true, false, dataAtual,
-                                -1, -1, dataAtual,horasInsert ,minutosInsert, false);
+                                -1, -1, dataAtual,horasInsert ,minutosInsert, false,
+                                repetirLembreteDB, repetirLembreteModoDB);
 
                         if (localdataEscolhida.isEqual(dataAtual) && horaCompletaEscolhida<horaCompleta) {
 
@@ -427,7 +485,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
 //
                         Agenda agenda = new Agenda(-1, editNome.getText().toString(), editDescricao.getText().toString(),
                                 dataAtual, -1, -1, false, false, dataAtual,
-                                -1, -1, dataAtual, horasInsert, minutosInsert, false);
+                                -1, -1, dataAtual, horasInsert, minutosInsert, false, false, 0);
 
                         long idSequencial = agendaDAO.inserir(agenda);
 
@@ -606,6 +664,11 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
                 @SuppressLint("Range")
                 int agendaAtrasoDB = cursor.getInt(cursor.getColumnIndex("agendaAtraso"));
                 boolean agendaAtraso = (agendaAtrasoDB != 0);
+                @SuppressLint("Range")
+                int repetirLembreteDB = cursor.getInt(cursor.getColumnIndex("repetirLembrete"));
+                boolean repetirLembrete = (repetirLembreteDB != 0);
+                @SuppressLint("Range")
+                int repetirLembreteModo = cursor.getInt(cursor.getColumnIndex("repetirModo"));
 
 
                 LocalDate localdataagenda = LocalDate.parse(dataagenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -614,7 +677,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
 
                 listaagenda.add(new Agenda(ID, titulo, descricao, localdataagenda, horaagenda, minutoagenda,
                         lembrete, finalizado, localdataagendaFim, horaAgendaFim, minutoAgendaFim, localdataagendaInsert,
-                        horaAgendaInsert, minutoAgendaInsert, agendaAtraso));
+                        horaAgendaInsert, minutoAgendaInsert, agendaAtraso, repetirLembrete, repetirLembreteModo));
                 listaIDs.add(ID);
 
             } while (cursor.moveToNext());

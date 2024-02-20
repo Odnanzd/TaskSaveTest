@@ -48,6 +48,8 @@ public class AgendaDAO {
         contentValues.put("horaAgendaInsert", agenda.getHoraAgendaInsert());
         contentValues.put("minutoAgendaInsert", agenda.getMinutoAgendaInsert());
         contentValues.put("agendaAtraso", agenda.getAgendaAtraso());
+        contentValues.put("repetirLembrete", agenda.getRepetirLembrete());
+        contentValues.put("repetirModo", agenda.getRepetirModo());
 
         return db.insert("agenda", null, contentValues);
 
@@ -83,7 +85,7 @@ public class AgendaDAO {
 
         String[] colunas = {
                 "id", "nomeTarefa", "descricaoTarefa", "dataAgenda", "horaAgenda", "minutoAgenda",
-                "lembretedefinido", "finalizado"};
+                "lembretedefinido", "finalizado", "repetirLembrete", "repetirModo"};
 
         String whereClause = "lembretedefinido = ?";
         String[] whereArgs = {"1"}; // Lembrete ativado
@@ -107,12 +109,18 @@ public class AgendaDAO {
                 @SuppressLint("Range")
                 int finalizado = cursor.getInt(cursor.getColumnIndex("finalizado"));
                 boolean finalizadobl = (finalizado != 0);
+                @SuppressLint("Range")
+                int repetirLembrete = cursor.getInt(cursor.getColumnIndex("repetirLembrete"));
+                boolean repetirLembretebl = (repetirLembrete != 0);
+                @SuppressLint("Range")
+                int repetirModo = cursor.getInt(cursor.getColumnIndex("repetirModo"));
+
 
                 LocalDate localDataAgenda = LocalDate.parse(dataAgenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
                 tarefasComLembrete.add(new Agenda(id, titulo, descricao, localDataAgenda, horaAgenda,
                  minutoAgenda, true, finalizadobl, dataAtual, -1, -1, dataAtual,
-                        -1, -1, false));
+                        -1, -1, false, repetirLembretebl, repetirModo));
             } while (cursor.moveToNext());
         }
 

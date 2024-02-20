@@ -31,7 +31,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:text="Não repetir"
-            android:checked="true"
             />
 
         <RadioButton

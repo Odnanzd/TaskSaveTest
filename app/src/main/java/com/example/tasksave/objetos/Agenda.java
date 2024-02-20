@@ -23,13 +23,17 @@ public class Agenda {
     private int minutoAgendaInsert;
     private boolean agendaAtraso;
 
+    private boolean repetirLembrete;
+
+    private int repetirModo;
+
 
 
 
     public Agenda(long id, String nomeAgenda, String descriçãoAgenda, LocalDate dataAgenda,
                   int horaAgenda, int minutoAgenda, boolean lembrete, boolean finalizado,
                   LocalDate dataAgendaFim, int horaAgendaFim, int minutoAgendaFim,
-                  LocalDate dataAgendaInsert, int horaAgendaInsert, int minutoAgendaInsert, boolean agendaAtraso) {
+                  LocalDate dataAgendaInsert, int horaAgendaInsert, int minutoAgendaInsert, boolean agendaAtraso, boolean repetirLembrete, int repetirModo) {
 
         this.id = id;
         this.nomeAgenda = nomeAgenda;
@@ -46,6 +50,8 @@ public class Agenda {
         this.horaAgendaInsert = horaAgendaInsert;
         this.minutoAgendaInsert = minutoAgendaInsert;
         this.agendaAtraso = agendaAtraso;
+        this.repetirLembrete = repetirLembrete;
+        this.repetirModo = repetirModo;
 
     }
 
@@ -177,6 +183,21 @@ public class Agenda {
     }
     public void setAgendaAtraso(boolean agendaAtraso) {
         this.agendaAtraso = agendaAtraso;
+    }
+
+    public boolean getRepetirLembrete() {
+        return repetirLembrete;
+    }
+
+    public void setRepetirLembrete() {
+        this.repetirLembrete = repetirLembrete;
+    }
+
+    public int getRepetirModo() {
+        return repetirModo;
+    }
+    public void setRepetirModo() {
+        this.repetirModo = repetirModo;
     }
 
 }
