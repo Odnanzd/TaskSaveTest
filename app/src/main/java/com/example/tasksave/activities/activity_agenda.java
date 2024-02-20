@@ -105,6 +105,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         ListarAgenda();
         VerificaAgendaComLembretes();
 
+
         imageView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -411,7 +412,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
                         int repetirLembreteModoDB = 0;
                         boolean repetirLembreteDB = true;
 
-                        if(textoTextViewRepetir !="Não repetir") {
+                        if(!textoTextViewRepetir.equals("Não repetir")) {
 
                             switch (textoTextViewRepetir) {
 

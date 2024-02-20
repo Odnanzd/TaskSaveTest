@@ -315,6 +315,7 @@ public class CustomAdapter extends BaseAdapter {
                         boolean lembrete = getItemLembrete(position);
 
 
+
                         if (dialog == null) {
                             dialog = new Dialog(context, R.style.DialogAboveKeyboard2);
                             dialog.setContentView(R.layout.activity_item_selected_agenda);

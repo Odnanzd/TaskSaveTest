@@ -20,7 +20,9 @@ import com.example.tasksave.dao.AgendaDAO;
 import com.example.tasksave.objetos.Agenda;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
@@ -66,14 +68,34 @@ public class AgendamentoService extends JobIntentService {
             LocalDate dataAtual = LocalDate.now();
             LocalTime horaAtual = LocalTime.now().truncatedTo(ChronoUnit.MINUTES);
 
+
             Calendar calendar = Calendar.getInstance();
 
-            Log.d("VerificacaoTarefa", "Data da tarefa: " + dataTarefa + " Hora da tarefa: " + horaTarefa);
-            Log.d("VerificacaoTarefa", "Data atual: " + dataAtual + " Hora atual: " + horaAtual);
 
             long tarefaId = tarefa.getId();
             boolean tarefaFinalizado = tarefa.getFinalizado();
+            boolean repetirLembrete = tarefa.getRepetirLembrete();
+            int repetirLembreteModo = tarefa.getRepetirModo();
 
+            if (repetirLembrete && dataTarefa.isBefore(dataAtual)) {
+                switch (repetirLembreteModo) {
+                    case 1: // Todo dia
+                        dataTarefa = dataTarefa.plusDays(1);
+                        break;
+                    case 2: // Toda semana
+                        dataTarefa = dataTarefa.plusWeeks(1);
+                        break;
+                    case 3: // Todo mês
+                        dataTarefa = dataTarefa.plusMonths(1);
+                        break;
+                    case 4: // Todo ano
+                        dataTarefa = dataTarefa.plusYears(1);
+                        break;
+                }
+            }
+
+            Log.d("VerificacaoTarefa", "Data da tarefa: " + dataTarefa + " Hora da tarefa: " + horaTarefa);
+            Log.d("VerificacaoTarefa", "Data atual: " + dataAtual + " Hora atual: " + horaAtual);
 
             if (dataTarefa.isEqual(dataAtual) && horaTarefa.equals(horaAtual) && !tarefaFinalizado) {
 
@@ -94,13 +116,13 @@ public class AgendamentoService extends JobIntentService {
                         tarefa.getDescriçãoAgenda(), pendingIntentConcluir, notificationId);
 
                 }
-
             if (intent.getAction() != null && intent.getAction().equals("ACTION_CONCLUIR")) {
                 processarAcaoConcluir(context, intent);
             }
         }
 
             }
+
     private void processarAcaoConcluir(Context context, Intent intent) {
 
         AgendaDAO agendaDAO = new AgendaDAO(context);
