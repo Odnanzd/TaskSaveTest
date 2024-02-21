@@ -50,6 +50,7 @@ public class AgendaDAO {
         contentValues.put("agendaAtraso", agenda.getAgendaAtraso());
         contentValues.put("repetirLembrete", agenda.getRepetirLembrete());
         contentValues.put("repetirModo", agenda.getRepetirModo());
+        contentValues.put("notificouTarefa", agenda.isNotificado());
 
         return db.insert("agenda", null, contentValues);
 
@@ -68,6 +69,7 @@ public class AgendaDAO {
 
         return rowsUpdated > 0;
     }
+
     public boolean Excluir(long id) {
 
         String whereClause = "id = ?";
@@ -77,6 +79,7 @@ public class AgendaDAO {
 
         return rowsUpdated > 0;
     }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     public List<Agenda> obterTarefasComLembreteAtivado() {
 
@@ -85,7 +88,7 @@ public class AgendaDAO {
 
         String[] colunas = {
                 "id", "nomeTarefa", "descricaoTarefa", "dataAgenda", "horaAgenda", "minutoAgenda",
-                "lembretedefinido", "finalizado", "repetirLembrete", "repetirModo"};
+                "lembretedefinido", "finalizado", "repetirLembrete", "repetirModo", "notificouTarefa"};
 
         String whereClause = "lembretedefinido = ?";
         String[] whereArgs = {"1"}; // Lembrete ativado
@@ -114,19 +117,33 @@ public class AgendaDAO {
                 boolean repetirLembretebl = (repetirLembrete != 0);
                 @SuppressLint("Range")
                 int repetirModo = cursor.getInt(cursor.getColumnIndex("repetirModo"));
+                @SuppressLint("Range")
+                int notificouTarefaDB = cursor.getInt(cursor.getColumnIndex("notificouTarefa"));
+                boolean notificouTarefa = (notificouTarefaDB != 0);
 
 
                 LocalDate localDataAgenda = LocalDate.parse(dataAgenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
                 tarefasComLembrete.add(new Agenda(id, titulo, descricao, localDataAgenda, horaAgenda,
-                 minutoAgenda, true, finalizadobl, dataAtual, -1, -1, dataAtual,
-                        -1, -1, false, repetirLembretebl, repetirModo));
+                        minutoAgenda, true, finalizadobl, dataAtual, -1, -1, dataAtual,
+                        -1, -1, false, repetirLembretebl, repetirModo, notificouTarefa));
             } while (cursor.moveToNext());
         }
 
         cursor.close();
 
         return tarefasComLembrete;
+    }
+
+    public boolean AtualizarStatusNotificacao(long id, int Status) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("notificouTarefa", Status);
+        String whereClause = "id = ?";
+        String[] whereArgs = {String.valueOf(id)};
+
+        int rowsUpdated = db.update("agenda", contentValues, whereClause, whereArgs);
+
+        return rowsUpdated > 0;
     }
 
     public boolean AtualizarStatus(long id, int Status, LocalDate dataAgendaFim, int horaAgendaFim, int minutoAgendaFim) {

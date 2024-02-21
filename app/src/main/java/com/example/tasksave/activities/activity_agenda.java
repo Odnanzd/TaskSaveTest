@@ -435,13 +435,14 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
 
                             repetirLembreteDB=false;
                             repetirLembreteModoDB=0;
+
                         }
 
 
                         Agenda agenda = new Agenda(-1, editNome.getText().toString(), editDescricao.getText().toString(),
                                 localdataEscolhida, horaEscolhida, minutoEscolhido, true, false, dataAtual,
                                 -1, -1, dataAtual,horasInsert ,minutosInsert, false,
-                                repetirLembreteDB, repetirLembreteModoDB);
+                                repetirLembreteDB, repetirLembreteModoDB, false);
 
                         if (localdataEscolhida.isEqual(dataAtual) && horaCompletaEscolhida<horaCompleta) {
 
@@ -487,7 +488,8 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
 //
                         Agenda agenda = new Agenda(-1, editNome.getText().toString(), editDescricao.getText().toString(),
                                 dataAtual, -1, -1, false, false, dataAtual,
-                                -1, -1, dataAtual, horasInsert, minutosInsert, false, false, 0);
+                                -1, -1, dataAtual, horasInsert, minutosInsert, false, false, 0,
+                                false);
 
                         long idSequencial = agendaDAO.inserir(agenda);
 
@@ -672,6 +674,9 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
                 boolean repetirLembrete = (repetirLembreteDB != 0);
                 @SuppressLint("Range")
                 int repetirLembreteModo = cursor.getInt(cursor.getColumnIndex("repetirModo"));
+                @SuppressLint("Range")
+                int notificouTarefaDB = cursor.getInt(cursor.getColumnIndex("notificouTarefa"));
+                boolean notificouTarefa = (notificouTarefaDB != 0);
 
 
                 LocalDate localdataagenda = LocalDate.parse(dataagenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -680,7 +685,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
 
                 listaagenda.add(new Agenda(ID, titulo, descricao, localdataagenda, horaagenda, minutoagenda,
                         lembrete, finalizado, localdataagendaFim, horaAgendaFim, minutoAgendaFim, localdataagendaInsert,
-                        horaAgendaInsert, minutoAgendaInsert, agendaAtraso, repetirLembrete, repetirLembreteModo));
+                        horaAgendaInsert, minutoAgendaInsert, agendaAtraso, repetirLembrete, repetirLembreteModo, notificouTarefa));
                 listaIDs.add(ID);
                 repetirModoLembrete2.add(repetirLembreteModo);
 

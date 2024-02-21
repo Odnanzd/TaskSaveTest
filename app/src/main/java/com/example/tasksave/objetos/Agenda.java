@@ -26,6 +26,7 @@ public class Agenda {
     private boolean repetirLembrete;
 
     private int repetirModo;
+    private boolean notificouTarefa;
 
 
 
@@ -33,7 +34,8 @@ public class Agenda {
     public Agenda(long id, String nomeAgenda, String descriçãoAgenda, LocalDate dataAgenda,
                   int horaAgenda, int minutoAgenda, boolean lembrete, boolean finalizado,
                   LocalDate dataAgendaFim, int horaAgendaFim, int minutoAgendaFim,
-                  LocalDate dataAgendaInsert, int horaAgendaInsert, int minutoAgendaInsert, boolean agendaAtraso, boolean repetirLembrete, int repetirModo) {
+                  LocalDate dataAgendaInsert, int horaAgendaInsert, int minutoAgendaInsert, boolean agendaAtraso, boolean repetirLembrete,
+                  int repetirModo, boolean notificouTarefa) {
 
         this.id = id;
         this.nomeAgenda = nomeAgenda;
@@ -52,6 +54,7 @@ public class Agenda {
         this.agendaAtraso = agendaAtraso;
         this.repetirLembrete = repetirLembrete;
         this.repetirModo = repetirModo;
+        this.notificouTarefa = notificouTarefa;
 
     }
 
@@ -198,6 +201,13 @@ public class Agenda {
     }
     public void setRepetirModo() {
         this.repetirModo = repetirModo;
+    }
+    public boolean isNotificado() {
+        return notificouTarefa;
+    }
+
+    public void setNotificado(boolean notificouTarefa) {
+        this.notificouTarefa = notificouTarefa;
     }
 
 }

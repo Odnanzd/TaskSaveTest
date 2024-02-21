@@ -76,6 +76,7 @@ public class AgendamentoService extends JobIntentService {
             boolean tarefaFinalizado = tarefa.getFinalizado();
             boolean repetirLembrete = tarefa.getRepetirLembrete();
             int repetirLembreteModo = tarefa.getRepetirModo();
+            boolean notificouTarefa = tarefa.isNotificado();
 
             if (repetirLembrete && dataTarefa.isBefore(dataAtual)) {
                 switch (repetirLembreteModo) {
@@ -99,29 +100,56 @@ public class AgendamentoService extends JobIntentService {
 
             if (dataTarefa.isEqual(dataAtual) && horaTarefa.equals(horaAtual) && !tarefaFinalizado) {
 
-                Intent intentConcluir = new Intent(context, AlarmReceiver.class);
-                intentConcluir.setAction("ACTION_CONCLUIR");
-                intentConcluir.putExtra("tarefaId", tarefa.getId());// Adicione o ID da tarefa como extra
-                intentConcluir.putExtra("tarefaFinalizado", tarefa.getFinalizado());
+                Notificar(context, tarefaId, tarefaFinalizado, tarefa.getNomeAgenda(), tarefa.getDescriçãoAgenda() );
+                    notificouTarefa =true;
+                    agendaDAO.AtualizarStatusNotificacao(tarefaId, 1);
 
-                int notificationId = (int) tarefaId;
-
-                PendingIntent pendingIntentConcluir = PendingIntent.getBroadcast(
-                        context,
-                        notificationId,
-                        intentConcluir,
-                        PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-
-                mostrarNotificacao(context, tarefa.getNomeAgenda(),
-                        tarefa.getDescriçãoAgenda(), pendingIntentConcluir, notificationId);
 
                 }
+
+            if(dataTarefa.isEqual(dataAtual) && (horaAtual.equals(horaTarefa.plusMinutes(1)) ||
+                    horaAtual.equals(horaTarefa.plusMinutes(2)) || horaAtual.equals(horaTarefa.plusMinutes(3)) ||
+                    horaAtual.equals(horaTarefa.plusMinutes(4)) || horaAtual.equals(horaTarefa.plusMinutes(5)))
+                    && !tarefaFinalizado && !notificouTarefa) {
+
+                Notificar(context, tarefaId, tarefaFinalizado, tarefa.getNomeAgenda(), tarefa.getDescriçãoAgenda() );
+                notificouTarefa =true;
+                agendaDAO.AtualizarStatusNotificacao(tarefaId, 1 );
+            }
+
+            if(repetirLembrete && notificouTarefa) {
+                notificouTarefa=false;
+            }
+
             if (intent.getAction() != null && intent.getAction().equals("ACTION_CONCLUIR")) {
                 processarAcaoConcluir(context, intent);
             }
         }
 
             }
+
+
+
+    private void Notificar(Context context,long tarefaID, boolean tarefaFinalizado,
+                           String NomeAgenda, String DescriçaoAgenda) {
+
+        Intent intentConcluir = new Intent(context, AlarmReceiver.class);
+        intentConcluir.setAction("ACTION_CONCLUIR");
+        intentConcluir.putExtra("tarefaId", tarefaID);// Adicione o ID da tarefa como extra
+        intentConcluir.putExtra("tarefaFinalizado", tarefaFinalizado);
+
+        int notificationId = (int) tarefaID;
+
+        PendingIntent pendingIntentConcluir = PendingIntent.getBroadcast(
+                context,
+                notificationId,
+                intentConcluir,
+                PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+        mostrarNotificacao(context, NomeAgenda,
+                DescriçaoAgenda, pendingIntentConcluir, notificationId);
+    }
+
 
     private void processarAcaoConcluir(Context context, Intent intent) {
 
