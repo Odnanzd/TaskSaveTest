@@ -20,9 +20,7 @@ import com.example.tasksave.dao.AgendaDAO;
 import com.example.tasksave.objetos.Agenda;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
@@ -69,9 +67,6 @@ public class AgendamentoService extends JobIntentService {
             LocalTime horaAtual = LocalTime.now().truncatedTo(ChronoUnit.MINUTES);
 
 
-            Calendar calendar = Calendar.getInstance();
-
-
             long tarefaId = tarefa.getId();
             boolean tarefaFinalizado = tarefa.getFinalizado();
             boolean repetirLembrete = tarefa.getRepetirLembrete();
@@ -82,21 +77,28 @@ public class AgendamentoService extends JobIntentService {
                 switch (repetirLembreteModo) {
                     case 1: // Todo dia
                         dataTarefa = dataTarefa.plusDays(1);
+                        agendaDAO.AtualizarDataTarefa(tarefaId, dataTarefa);
                         break;
                     case 2: // Toda semana
                         dataTarefa = dataTarefa.plusWeeks(1);
+                        agendaDAO.AtualizarDataTarefa(tarefaId, dataTarefa);
                         break;
                     case 3: // Todo mês
                         dataTarefa = dataTarefa.plusMonths(1);
+                        agendaDAO.AtualizarDataTarefa(tarefaId, dataTarefa);
                         break;
                     case 4: // Todo ano
                         dataTarefa = dataTarefa.plusYears(1);
+                        agendaDAO.AtualizarDataTarefa(tarefaId, dataTarefa);
                         break;
                 }
+                notificouTarefa = false;
+                agendaDAO.AtualizarStatusNotificacao(tarefaId, 0);
             }
 
             Log.d("VerificacaoTarefa", "Data da tarefa: " + dataTarefa + " Hora da tarefa: " + horaTarefa);
             Log.d("VerificacaoTarefa", "Data atual: " + dataAtual + " Hora atual: " + horaAtual);
+            Log.d("VerificacaoTarefa", "NotificouTarefaSwitch: " + notificouTarefa);
 
             if (dataTarefa.isEqual(dataAtual) && horaTarefa.equals(horaAtual) && !tarefaFinalizado) {
 
@@ -116,10 +118,7 @@ public class AgendamentoService extends JobIntentService {
                 notificouTarefa =true;
                 agendaDAO.AtualizarStatusNotificacao(tarefaId, 1 );
             }
-
-            if(repetirLembrete && notificouTarefa) {
-                notificouTarefa=false;
-            }
+            Log.d("VerificacaoTarefa", "NotificouTarefa IF's: " + notificouTarefa);
 
             if (intent.getAction() != null && intent.getAction().equals("ACTION_CONCLUIR")) {
                 processarAcaoConcluir(context, intent);
@@ -181,7 +180,7 @@ public class AgendamentoService extends JobIntentService {
                 .setSmallIcon(R.drawable.rocket)
                 .setContentTitle(titulo)
                 .setContentText(descricao)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setAutoCancel(true)
                 .addAction(R.drawable.ic_launcher_background, "Concluir", pendingIntentConcluir);
 

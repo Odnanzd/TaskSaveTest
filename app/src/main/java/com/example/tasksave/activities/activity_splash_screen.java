@@ -2,6 +2,7 @@ package com.example.tasksave.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -41,10 +42,14 @@ public class activity_splash_screen extends AppCompatActivity {
 
                 CharSequence name = getString(R.string.channel_name);
                 String description = getString(R.string.channel_description);
-                int importance = NotificationManager.IMPORTANCE_HIGH;
+                int importance = NotificationManager.IMPORTANCE_MAX;
 
+                @SuppressLint("WrongConstant")
                 NotificationChannel channel = new NotificationChannel("CHANNEL_ID", name, importance);
                 channel.setDescription(description);
+
+                long[] pattern = {0, 1000, 500, 1000};
+                channel.setVibrationPattern(pattern);
 
                 NotificationManager notificationManager = getSystemService(NotificationManager.class);
                 notificationManager.createNotificationChannel(channel);

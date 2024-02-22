@@ -173,6 +173,18 @@ public class AgendaDAO {
 
         return rowsUpdated > 0;
     }
+    public boolean AtualizarDataTarefa(long id, LocalDate dataTarefa) {
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("dataAgenda", String.valueOf(dataTarefa));
+
+        String whereClause = "id = ?";
+        String[] whereArgs = {String.valueOf(id)};
+
+        int rowsUpdated = db.update("agenda", contentValues, whereClause, whereArgs);
+
+        return rowsUpdated > 0;
+    }
 
 
 
