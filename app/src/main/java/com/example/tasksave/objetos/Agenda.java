@@ -29,8 +29,6 @@ public class Agenda {
     private boolean notificouTarefa;
 
 
-
-
     public Agenda(long id, String nomeAgenda, String descriçãoAgenda, LocalDate dataAgenda,
                   int horaAgenda, int minutoAgenda, boolean lembrete, boolean finalizado,
                   LocalDate dataAgendaFim, int horaAgendaFim, int minutoAgendaFim,

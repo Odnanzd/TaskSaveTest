@@ -104,7 +104,7 @@ public class CustomAdapterConcluido extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        convertView = inflater.inflate(R.layout.activity_layout_agenda_concluido, null);
+        convertView = inflater.inflate(R.layout.layout_agenda_concluido, null);
         TextView text_view_tit_agenda = convertView.findViewById(R.id.text_view_titulo_agenda2);
         TextView text_view_desc_agenda = convertView.findViewById(R.id.text_view_descricao_agenda2);
         TextView text_view_dat_insert_agenda = convertView.findViewById(R.id.text_view_data_agenda2);

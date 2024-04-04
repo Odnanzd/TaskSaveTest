@@ -211,7 +211,7 @@ public class CustomAdapter extends BaseAdapter {
 
 
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.layout_activity, parent, false);
+            convertView = inflater.inflate(R.layout.layout_item_agenda, parent, false);
         }
         TextView text_view_tit_agenda = convertView.findViewById(R.id.text_view_titulo_agenda);
         TextView text_view_desc_agenda = convertView.findViewById(R.id.text_view_descricao_agenda);
@@ -219,6 +219,8 @@ public class CustomAdapter extends BaseAdapter {
         TextView text_view_hr_agenda = convertView.findViewById(R.id.text_view_hora_agenda);
         CheckBox checkBox = convertView.findViewById(R.id.checkbox1);
         ImageView imageViewBarra = convertView.findViewById(R.id.imageViewpalito);
+
+
 
         final View yourView = convertView.findViewById(R.id.your_view);
 
