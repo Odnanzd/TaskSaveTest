@@ -17,6 +17,7 @@
     <color name="blue7">#577399</color>
     <color name="green">#395B50</color>
     <color name="yellow2">#FFEB3B</color>
+    <color name="orange2">#ff8006</color>
     <color name="white1">#FFFFFFFF</color>
     <color name="grey">#4F6D7A</color>
     <color name="blue8">#6A8EAE</color>
@@ -34,4 +35,5 @@
     <color name="white7">#FFFFFFFF</color>
     <color name="lavender">#8692f7</color>
     <color name="grey4">#495168</color>
+    <color name="rosa3">#f5a489</color>
  </resources>

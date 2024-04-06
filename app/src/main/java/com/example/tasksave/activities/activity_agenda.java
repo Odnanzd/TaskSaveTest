@@ -69,12 +69,12 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
 
     private Conexao con;
     private SQLiteDatabase db;
-    FloatingActionButton floatingActionButton;
     TextView textView;
 
     ListView listView;
     ImageView imageView;
     ImageView imageView2;
+    ImageView imageView3;
     ArrayList<Long> listaIDs = new ArrayList<>();
     ArrayList<Integer> repetirModoLembrete2 = new ArrayList<>();
 
@@ -95,7 +95,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agenda);
 
-        floatingActionButton = findViewById(R.id.button_mais_agenda);
+        imageView3 = findViewById(R.id.button_mais_agenda);
         textView = findViewById(R.id.text_view_agenda_validador);
         listView = findViewById(R.id.list_view_agenda);
         imageView = findViewById(R.id.icon_concluido);
@@ -127,7 +127,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         });
 
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        imageView3.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("NewApi")
             @Override
             public void onClick(View v) {

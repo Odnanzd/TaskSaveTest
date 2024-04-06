@@ -33,12 +33,13 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <ImageView
+        android:foreground="?android:attr/selectableItemBackground"
         android:id="@+id/button_mais_agenda"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/IconPlus"
+        android:layout_width="59dp"
+        android:layout_height="56dp"
         android:layout_marginBottom="16dp"
-        style="@style/AppTheme.FabStyle"
         android:clickable="true"
         android:focusable="true"
         app:fabCustomSize="56dp"
@@ -47,7 +48,7 @@
         app:layout_constraintHorizontal_bias="0.898"
         app:layout_constraintStart_toStartOf="parent"
         app:maxImageSize="40dp"
-        app:srcCompat="@drawable/icon_mais" />
+         />
 
 
     <TextView
@@ -63,6 +64,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
         android:id="@+id/icon_concluido"
         style="@style/IconTaskFinalizadas"
         android:layout_width="59dp"

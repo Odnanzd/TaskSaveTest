@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.TaskSave" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="Base.Theme.TaskSave" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:statusBarColor">@color/white</item>
     </style>
@@ -55,6 +55,14 @@
     </style>
     <style name="ButtonColorTheme">
         <item name="backgroundTint">@color/rosa</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="ButtonColorTheme2">
+        <item name="backgroundTint">@color/rosa2</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="ButtonColorTheme3">
+        <item name="backgroundTint">@color/rosa3</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
@@ -165,5 +173,8 @@
     </style>
     <style name="BackgroundThemeAddAgenda">
         <item name="android:background">@drawable/background_add_agenda_dialog_claro</item>
+    </style>
+    <style name="IconPlus">
+        <item name="android:background">@drawable/plus_icon_fill_light</item>
     </style>
 </resources>
