@@ -1,8 +1,5 @@
 package com.example.tasksave.activities;
 
-
-import static java.security.AccessController.getContext;
-
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -52,7 +49,6 @@ import com.example.tasksave.baseadapter.CustomAdapter;
 import com.example.tasksave.R;
 import com.example.tasksave.dao.AgendaDAO;
 import com.example.tasksave.objetos.Agenda;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;

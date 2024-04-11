@@ -7,8 +7,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.Spanned;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -23,6 +25,7 @@ public class activity_login extends AppCompatActivity {
     public EditText input_Nome;
     public EditText input_Password;
     private Button button_login;
+    CheckBox checkBox;
 
     @Override
     public void onBackPressed() {
@@ -33,10 +36,11 @@ public class activity_login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        input_Nome = findViewById(R.id.inputNome);
-        button_login = findViewById(R.id.button_login);
-        input_Password = findViewById(R.id.input_Password);
+        input_Nome = findViewById(R.id.editTextEmail);
+        button_login = findViewById(R.id.buttonLogin);
+        input_Password = findViewById(R.id.editTextSenha);
         input_Nome.requestFocus();
+        checkBox = findViewById(R.id.checkBox2);
 
         InputFilter noSpaceFilter = new InputFilter() {
             public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
@@ -65,30 +69,60 @@ public class activity_login extends AppCompatActivity {
                     snackbar.show();
 
                 } else {
-                    SharedPreferences prefs = getSharedPreferences("arquivoSalvar", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putBoolean("primeiroAcesso", true);
-                    editor.commit();
-                    InserirUser();
-                    Intent intentMain = new Intent(activity_login.this, activity_main.class);
-                    intentMain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intentMain);
+                    InserirUser(view);
                 }
 
             }
 
         });
         }
-        public void InserirUser() {
+        public void InserirUser(View view) {
 
             try {
-
-                User user = new User(input_Nome.getText().toString(), input_Password.getText().toString());
-
                 UserDAO userDAO = new UserDAO(this);
-                long id = userDAO.inserir(user);
+                String username = input_Nome.getText().toString();
+                String password = input_Password.getText().toString();
+                boolean checarUser = userDAO.checkUser(username);
 
-                Toast.makeText(this, "Usuário salvo. ID: " + id, Toast.LENGTH_LONG).show();
+                if(!checarUser) {
+
+                    String msg_error2 = "Usuário não existe.";
+                    Snackbar snackbar = Snackbar.make(view,msg_error2,Snackbar.LENGTH_SHORT );
+                    snackbar.setBackgroundTint(Color.WHITE);
+                    snackbar.setTextColor(Color.BLACK);
+                    snackbar.show();
+
+                }
+                boolean validarAcesso = userDAO.authenticateUser(username, password);
+
+                Log.d("Verificação validar Acesso", "validarAcesso" +   validarAcesso);
+
+                if(validarAcesso) {
+
+                    if(checkBox.isChecked()) {
+
+                        SharedPreferences prefs = getSharedPreferences("arquivoSalvarSenha", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putBoolean("SalvarSenha", true);
+                        editor.commit();
+                    }
+                    SharedPreferences prefs = getSharedPreferences("ArquivoPrimeiroAcesso", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putBoolean("PrimeiroAcesso", true);
+                    editor.commit();
+                   Toast.makeText(this, "Sucesso!", Toast.LENGTH_SHORT);
+                    Intent intentMain = new Intent(activity_login.this, activity_main.class);
+                    intentMain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intentMain);
+
+                } else {
+                    String msg_error2 = "Senha incorreta.";
+                    Snackbar snackbar = Snackbar.make(view,msg_error2,Snackbar.LENGTH_SHORT );
+                    snackbar.setBackgroundTint(Color.WHITE);
+                    snackbar.setTextColor(Color.BLACK);
+                    snackbar.show();
+                }
+
 
 
             } catch (Exception e) {

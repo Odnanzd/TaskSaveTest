@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="Cadastre-se"
+        android:fontFamily="@font/ptsans_bold"
         android:textSize="55sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView">
 
         <EditText
-            android:id="@+id/editTextTextPersonName4"
+            android:id="@+id/editTextUsuarioCadastro"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="32dp"
@@ -48,13 +49,15 @@
             android:layout_marginBottom="8dp"
             android:background="@drawable/edittext_background"
             android:ems="10"
-            android:hint="Username"
+            android:textColor="#464646"
+            android:hint="Usuário"
             android:inputType="textPersonName"
+            android:fontFamily="@font/ptsans_regular"
             android:paddingStart="20dp"
             android:textColorHint="#464646" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName3"
+            android:id="@+id/editTextEmailCadastro"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="32dp"
@@ -63,13 +66,15 @@
             android:layout_marginBottom="8dp"
             android:background="@drawable/edittext_background"
             android:ems="10"
-            android:hint="Email"
+            android:hint="E-mail"
+            android:textColor="#464646"
             android:inputType="textPersonName"
+            android:fontFamily="@font/ptsans_regular"
             android:paddingStart="20dp"
             android:textColorHint="#464646" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName2"
+            android:id="@+id/editTextSenhaCadastro"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="32dp"
@@ -78,13 +83,15 @@
             android:layout_marginBottom="8dp"
             android:background="@drawable/edittext_background"
             android:ems="10"
-            android:hint="Password"
-            android:inputType="textPersonName"
+            android:hint="Senha"
+            android:textColor="#464646"
+            android:inputType="textPassword"
+            android:fontFamily="@font/ptsans_regular"
             android:paddingStart="20dp"
             android:textColorHint="#464646" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/editTextSenhaCadastro2"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="32dp"
@@ -93,13 +100,15 @@
             android:layout_marginBottom="8dp"
             android:background="@drawable/edittext_background"
             android:ems="10"
-            android:hint="RePassword"
-            android:inputType="textPersonName"
+            android:hint="Repetir Senha"
+            android:textColor="#464646"
+            android:inputType="textPassword"
             android:paddingStart="20dp"
+            android:fontFamily="@font/ptsans_regular"
             android:textColorHint="#464646" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/buttonCadastro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -107,7 +116,7 @@
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="8dp"
             style="@style/ButtonColorTheme2"
-            android:text="SignUp"
+            android:text="Cadastrar"
             android:textColor="#ffffff"
             android:textSize="24sp"
             android:textStyle="bold" />

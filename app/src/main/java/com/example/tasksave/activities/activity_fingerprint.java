@@ -54,18 +54,9 @@ public class activity_fingerprint extends activity_login {
                 super.onAuthenticationSucceeded(result);
                 Toast.makeText(activity_fingerprint.this, "Sucesso", Toast.LENGTH_SHORT).show();
 
-                SharedPreferences sharedPrefs = getApplicationContext().getSharedPreferences("arquivoSalvar", Context.MODE_PRIVATE);
-                if (!sharedPrefs.getBoolean("primeiroAcesso", false)) {
-                    Intent intent = new Intent(activity_fingerprint.this, activity_login.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                    finish();
-                } else {
                     Intent intent = new Intent(activity_fingerprint.this, activity_main.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
-                }
-
             }
 
             @Override

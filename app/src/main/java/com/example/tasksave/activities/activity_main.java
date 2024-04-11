@@ -1,12 +1,20 @@
 package com.example.tasksave.activities;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +23,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.biometric.BiometricManager;
 
 import com.example.tasksave.conexaoBD.Conexao;
 import com.example.tasksave.R;
@@ -50,6 +59,7 @@ public class activity_main extends AppCompatActivity {
 
         ExibirUsername();
         VerificarAtrasos();
+        ChecarBiometria();
 
 
 
@@ -179,4 +189,81 @@ public class activity_main extends AppCompatActivity {
         }
 
     }
+
+    public void dialogFingerprint() {
+
+
+        SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("ArquivoPrimeiroAcessoFingerPrint", Context.MODE_PRIVATE);
+
+        if(!sharedPrefs2.getBoolean("PrimeiroAcessoFingerPrint", false)) {
+
+            Dialog dialog = new Dialog(activity_main.this, R.style.DialogAboveKeyboard);
+            dialog.setContentView(R.layout.dialog_fingerprint); // Defina o layout do diálogo
+            dialog.setCancelable(true); // Permita que o usuário toque fora do diálogo para fechá-lo
+            dialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
+
+            Button button = dialog.findViewById(R.id.button_login);
+            Button button2 = dialog.findViewById(R.id.button_login2);
+
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    SharedPreferences prefs = getSharedPreferences("ArquivoFingerPrint", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putBoolean("AcessoFingerPrint", true);
+                    editor.commit();
+
+                    SharedPreferences prefs2 = getSharedPreferences("ArquivoPrimeiroAcessoFingerPrint", MODE_PRIVATE);
+                    SharedPreferences.Editor editor2 = prefs2.edit();
+                    editor2.putBoolean("PrimeiroAcessoFingerPrint", true);
+                    editor2.commit();
+
+                    dialog.dismiss();
+                }
+            });
+
+            button2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    SharedPreferences prefs = getSharedPreferences("ArquivoFingerPrint", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putBoolean("AcessoFingerPrint", false);
+                    editor.commit();
+
+                    SharedPreferences prefs2 = getSharedPreferences("ArquivoPrimeiroAcessoFingerPrint", MODE_PRIVATE);
+                    SharedPreferences.Editor editor2 = prefs2.edit();
+                    editor2.putBoolean("PrimeiroAcessoFingerPrint", true);
+                    editor2.commit();
+
+                    dialog.dismiss();
+                }
+            });
+
+
+            dialog.show();
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT , ViewGroup.LayoutParams.WRAP_CONTENT);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        }
+
+
+
+    }
+    private void ChecarBiometria() {
+
+        BiometricManager manager = BiometricManager.from(this);
+        switch (manager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_WEAK |
+                BiometricManager.Authenticators.BIOMETRIC_STRONG)) {
+            case BiometricManager.BIOMETRIC_SUCCESS:
+                Log.d("Verificar Biometreia", "Sucesso");
+                dialogFingerprint();
+                break;
+
+        }
+    }
+
+
+
 }

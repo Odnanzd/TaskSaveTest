@@ -29,6 +29,7 @@ public class UserDAO {
 
         contentValues.put("username", user.getUsername());
         contentValues.put("password", user.getPassword());
+        contentValues.put("email", user.getEmail());
 
         return db.insert("user", null, contentValues);
 
@@ -46,7 +47,10 @@ public class UserDAO {
                 String username = cursor.getString(cursor.getColumnIndex("username"));
                 @SuppressLint("Range")
                 String password = cursor.getString(cursor.getColumnIndex("password"));
-                listausername.add(new User(username, password));
+                @SuppressLint("Range")
+                String email = cursor.getString(cursor.getColumnIndex("password"));
+
+                listausername.add(new User(username, password, email));
             } while (cursor.moveToNext());
         }
 
@@ -54,4 +58,22 @@ public class UserDAO {
 
         return listausername;
     }
+
+    public boolean checkUser(String username) {
+
+        Cursor cursor = db.rawQuery("SELECT * FROM user WHERE username = ?", new String[]{username});
+        boolean exists = cursor.getCount() > 0;
+        cursor.close();
+        return exists;
+    }
+    public boolean authenticateUser(String username, String password) {
+
+        Cursor cursor = db.rawQuery("SELECT * FROM user WHERE username = ? AND password = ?", new String[]{username, password});
+        boolean authenticated = cursor.getCount() > 0;
+        cursor.close();
+        return authenticated;
+
+    }
+
+
 }
