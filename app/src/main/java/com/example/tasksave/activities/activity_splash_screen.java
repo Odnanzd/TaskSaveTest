@@ -12,7 +12,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.tasksave.dao.UserDAO;
 import com.example.tasksave.objetos.User;
 import com.example.tasksave.servicesreceiver.AlarmReceiver;
@@ -23,10 +27,23 @@ import java.util.TimerTask;
 
 public class activity_splash_screen extends AppCompatActivity {
     private static final int SPLASH_TIME_OUT = 1000;
+    ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+        imageView = findViewById(R.id.splashImageView);
+
+        Glide.with(this)
+                .load(R.raw.tasksavegid) // Substitua seu_gif pelo nome do arquivo GIF na pasta res/raw
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true) // Isso é opcional, dependendo do seu caso de uso
+                .transition(DrawableTransitionOptions.withCrossFade()) // Efeito de transição ao carregar o GIF
+                .into(imageView);
+
+
+
         UserDAO userDAO = new UserDAO(this);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -42,6 +59,9 @@ public class activity_splash_screen extends AppCompatActivity {
 // Agendar o BroadcastReceiver para ser chamado a cada minuto (ajuste conforme necessário)
 
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 60000, pendingIntent);
+
+
+
 
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

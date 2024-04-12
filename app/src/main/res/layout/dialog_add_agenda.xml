@@ -51,11 +51,13 @@
 
     <Button
         android:id="@+id/button_login"
-        style="@style/ButtonColorTheme"
-        android:layout_width="250dp"
+        style="@style/ButtonSelector"
+        android:textAllCaps="false"
+        android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:text="@string/button_salvar_agenda"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"

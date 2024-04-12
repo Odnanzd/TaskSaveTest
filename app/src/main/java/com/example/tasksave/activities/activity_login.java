@@ -12,13 +12,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.tasksave.R;
 import com.example.tasksave.dao.UserDAO;
-import com.example.tasksave.objetos.User;
 import com.google.android.material.snackbar.Snackbar;
 
 public class activity_login extends AppCompatActivity {
@@ -39,8 +42,20 @@ public class activity_login extends AppCompatActivity {
         input_Nome = findViewById(R.id.editTextEmail);
         button_login = findViewById(R.id.buttonLogin);
         input_Password = findViewById(R.id.editTextSenha);
-        input_Nome.requestFocus();
+//        input_Nome.requestFocus();
         checkBox = findViewById(R.id.checkBox2);
+        WindowAdjuster.assistActivity(this);
+
+        ImageView imageView = findViewById(R.id.tassavegif);
+
+        Glide.with(this)
+                .load(R.raw.tasksave3) // Substitua seu_gif pelo nome do arquivo GIF na pasta res/raw
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true) // Isso é opcional, dependendo do seu caso de uso
+                .transition(DrawableTransitionOptions.withCrossFade()) // Efeito de transição ao carregar o GIF
+                .into(imageView);
+
+
 
         InputFilter noSpaceFilter = new InputFilter() {
             public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {

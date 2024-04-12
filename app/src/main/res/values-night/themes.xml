@@ -1,8 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.TaskSave" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.TaskSave" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:statusBarColor">@color/blue1</item>
+        <item name="android:windowFullscreen">true</item>
+
     </style>
 
     <style name="BackgroundTheme">
@@ -62,6 +64,7 @@
         <!-- Defina outras propriedades do tema para o modo noturno aqui -->
         <item name="android:textColor">@color/grey2</item>
     </style>
+
     <style name="AppTheme3" parent="Theme.AppCompat">
         <!-- ... outras definições de estilo ... -->
         <item name="colorAccent">@color/blue2</item>
@@ -84,7 +87,7 @@
         <item name="android:background">@drawable/input_button_night</item>
     </style>
     <style name="LogoTipo">
-        <item name="android:src">@drawable/logotipo</item>
+        <item name="android:src">@drawable/tasksave2</item>
     </style>
     <style name="IconLogin">
         <item name="android:src">@drawable/baseline_person_24</item>
@@ -165,4 +168,12 @@
         <item name="backgroundTint">@color/grey</item>
         <item name="android:textColor">@color/black</item>
     </style>
+
+    <style name="ButtonSelector">
+        <item name="android:background">@drawable/button_colors_night</item>
+    </style>
+    <style name="ButtonSelector2">
+        <item name="android:background">@drawable/button_colors_night_2</item>
+    </style>
+
 </resources>

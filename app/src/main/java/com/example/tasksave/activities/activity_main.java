@@ -194,8 +194,9 @@ public class activity_main extends AppCompatActivity {
 
 
         SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("ArquivoPrimeiroAcessoFingerPrint", Context.MODE_PRIVATE);
+        SharedPreferences sharedPrefs3 = getApplicationContext().getSharedPreferences("arquivoSalvarSenha", Context.MODE_PRIVATE);
 
-        if(!sharedPrefs2.getBoolean("PrimeiroAcessoFingerPrint", false)) {
+        if(!sharedPrefs2.getBoolean("PrimeiroAcessoFingerPrint", false) && sharedPrefs3.getBoolean("SalvarSenha", false)){
 
             Dialog dialog = new Dialog(activity_main.this, R.style.DialogAboveKeyboard);
             dialog.setContentView(R.layout.dialog_fingerprint); // Defina o layout do diálogo

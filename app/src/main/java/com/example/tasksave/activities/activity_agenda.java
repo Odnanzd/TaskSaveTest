@@ -158,6 +158,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         TextView charCountTextView2 = dialog.findViewById(R.id.textView8);
         ImageView imageView = dialog.findViewById(R.id.imageView4);
         TextView textViewRepeat = dialog.findViewById(R.id.textViewRepetirLembrete);
+        editNome.requestFocus();
 
 
         Switch switchCompat = dialog.findViewById(R.id.switch1);

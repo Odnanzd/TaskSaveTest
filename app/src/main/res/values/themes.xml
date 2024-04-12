@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.TaskSave" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.TaskSave" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:statusBarColor">@color/white</item>
     </style>
@@ -145,6 +145,13 @@
     </style>
     <style name="BackgroundThemeHora">
         <item name="android:background">@drawable/backgroud_add_agenda_hora</item>
+    </style>
+
+    <style name="ButtonSelector">
+        <item name="android:background">@drawable/button_colors_light</item>
+    </style>
+    <style name="ButtonSelector2">
+        <item name="android:background">@drawable/button_colors_light_2</item>
     </style>
 
     <style name="TimePickerTheme">

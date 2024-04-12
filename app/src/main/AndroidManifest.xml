@@ -51,7 +51,9 @@
         <activity
             android:name=".activities.activity_agenda"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            />
         <activity
             android:name=".activities.activity_fingerprint"
             android:exported="false"
@@ -59,7 +61,9 @@
         <activity
             android:name=".activities.activity_login"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            />
         <activity
             android:name=".activities.activity_main"
             android:exported="false"

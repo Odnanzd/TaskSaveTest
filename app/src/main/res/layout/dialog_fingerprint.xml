@@ -11,11 +11,13 @@
 
     <Button
         android:id="@+id/button_login"
-        style="@style/ButtonColorTheme"
+        style="@style/ButtonSelector"
+        android:textAllCaps="false"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:text="Ativar"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.881"
@@ -24,11 +26,14 @@
 
     <Button
         android:id="@+id/button_login2"
-        style="@style/ButtonColorTheme"
+        android:background="@drawable/edittext_background"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:text="Não Ativar"
+        android:backgroundTint="@color/red3"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.118"
