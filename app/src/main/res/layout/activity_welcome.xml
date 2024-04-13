@@ -7,52 +7,52 @@
     style="@style/BackgroundTheme"
     tools:context=".activities.activity_welcome" >
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="148dp"
-        android:text="TaskSave"
-        android:textSize="55sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="196dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@drawable/logo_intro" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logotipo_svg2" />
 
-
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="411dp"
+        android:layout_height="87dp"
+        android:layout_marginTop="44dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:srcCompat="@drawable/textonight" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="128dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView">
+        app:layout_constraintTop_toBottomOf="@+id/imageView2">
 
         <Button
             android:id="@+id/buttonEntrar"
+            style="@style/ButtonSelector"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/ButtonSelector"
-            android:textAllCaps="false"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="8dp"
-            android:text="Entrar"
             android:fontFamily="@font/ptsans_bold"
+            android:text="Entrar"
+            android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -60,15 +60,15 @@
         <Button
             android:id="@+id/buttonCadastrar"
             style="@style/ButtonSelector2"
-            android:textAllCaps="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="8dp"
-            android:text="Cadastrar"
             android:fontFamily="@font/ptsans_bold"
+            android:text="Cadastrar"
+            android:textAllCaps="false"
             android:textColor="#ffffff"
             android:textSize="24sp"
             android:textStyle="bold" />

@@ -3,7 +3,6 @@
     <style name="Base.Theme.TaskSave" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:statusBarColor">@color/blue1</item>
-        <item name="android:windowFullscreen">true</item>
 
     </style>
 

@@ -26,7 +26,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class activity_splash_screen extends AppCompatActivity {
-    private static final int SPLASH_TIME_OUT = 1000;
+    private static final int SPLASH_TIME_OUT = 1500;
     ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,27 +42,15 @@ public class activity_splash_screen extends AppCompatActivity {
                 .transition(DrawableTransitionOptions.withCrossFade()) // Efeito de transição ao carregar o GIF
                 .into(imageView);
 
-
-
         UserDAO userDAO = new UserDAO(this);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
-        String username = "Odnan";
-        String password = "1234";
-        String email = "fernando.trindade.ti@gmail.com";
-        User user = new User(username, password, email);
-        long id = userDAO.inserir(user);
-
 // Agendar o BroadcastReceiver para ser chamado a cada minuto (ajuste conforme necessário)
 
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 60000, pendingIntent);
-
-
-
-
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
@@ -90,6 +78,12 @@ public class activity_splash_screen extends AppCompatActivity {
                 SharedPreferences sharedPrefs3 = getApplicationContext().getSharedPreferences("ArquivoFingerPrint", Context.MODE_PRIVATE);
 
                 if (!sharedPrefs2.getBoolean("PrimeiroAcesso", false)) {
+
+                    String username = "Odnan";
+                    String password = "1234";
+                    String email = "fernando.trindade.ti@gmail.com";
+                    User user = new User(username, password, email);
+                    long id = userDAO.inserir(user);
 
                     Intent intent = new Intent(activity_splash_screen.this, activity_welcome.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
