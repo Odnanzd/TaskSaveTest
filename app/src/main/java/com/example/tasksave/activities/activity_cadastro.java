@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tasksave.R;
@@ -25,6 +26,11 @@ public class activity_cadastro extends AppCompatActivity {
     EditText editTextSenha2;
     Button buttonCadastro;
 
+    TextView textViewLogin;
+
+    public void onBackPressed() {
+
+    }
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -32,18 +38,30 @@ public class activity_cadastro extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
 
+    WindowAdjuster.assistActivity(this);
+
     editTextUsuario = findViewById(R.id.editTextUsuarioCadastro);
     editTextEmail = findViewById(R.id.editTextEmailCadastro);
     editTextSenha = findViewById(R.id.editTextSenhaCadastro);
     editTextSenha2 = findViewById(R.id.editTextSenhaCadastro2);
 
     buttonCadastro = findViewById(R.id.buttonCadastro);
+    textViewLogin = findViewById(R.id.textViewLogin);
 
     buttonCadastro.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             inserirUser(v);
             }
+    });
+
+    textViewLogin.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(activity_cadastro.this, activity_login.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
     });
 
     }
@@ -70,7 +88,8 @@ public class activity_cadastro extends AppCompatActivity {
             long id = userDAO.inserir(user);
             Intent intent = new Intent(activity_cadastro.this, activity_login.class);
             startActivity(intent);
-            Toast.makeText(this, "Faça o login para continuar " + id, Toast.LENGTH_LONG).show();
+            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            Toast.makeText(this, "Faça o login para continuar ", Toast.LENGTH_LONG).show();
 
         }
     }

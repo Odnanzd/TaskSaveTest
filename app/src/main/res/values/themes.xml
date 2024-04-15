@@ -8,7 +8,7 @@
     <style name="Theme.TaskSave" parent="Base.Theme.TaskSave" />
     
     <style name="BackgroundTheme">
-        <item name="android:background">@color/rosa</item>
+        <item name="android:background">@color/white</item>
     </style>
     <style name="BackgroundThemeMenu">
         <item name="android:background">@drawable/background_main_menu_itens</item>
@@ -44,7 +44,7 @@
     </style>
 
     <style name="TextColorTheme3">
-        <item name="android:textColor">@color/rosa2</item>
+        <item name="android:textColor">@color/grey5</item>
     </style>
 
     <style name="BackgroundThemeItens">
@@ -74,11 +74,11 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.Light">
 
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/white</item>
     </style>
     <style name="AppTheme2" parent="Theme.AppCompat">
         <!-- Defina outras propriedades do tema para o modo noturno aqui -->
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/white</item>
     </style>
     <style name="AppTheme3" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- ... outras definições de estilo ... -->
@@ -173,15 +173,36 @@
         <item name="android:src">@drawable/baseline_arrow_back_ios_new_24</item>
     </style>
     <style name="Back_Button_Item2">
-        <item name="android:src">@drawable/baseline_arrow_back_24</item>
+        <item name="android:src">@drawable/icon_back</item>
     </style>
     <style name="BackGroundTintThemeItens">
-        <item name="android:backgroundTint">@color/rosa2</item>
+        <item name="android:backgroundTint">@color/blue9</item>
     </style>
     <style name="BackgroundThemeAddAgenda">
         <item name="android:background">@drawable/background_add_agenda_dialog_claro</item>
     </style>
     <style name="IconPlus">
         <item name="android:background">@drawable/plus_icon_fill_light</item>
+    </style>
+    <style name="BackGroundSplashScreen">
+        <item name="android:background">@color/white</item>
+    </style>
+    <style name="ImageViewText">
+        <item name="android:src">@drawable/textolight</item>
+    </style>
+    <style name="ImageViewWelcomeSVG">
+        <item name="android:src">@drawable/logo_welcome_svg</item>
+    </style>
+    <style name="TextViewColor">
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="TextViewMain">
+        <item name="android:textColor">@color/grey5</item>
+    </style>
+    <style name="LogoCadastro">
+        <item name="android:src">@drawable/tasksave_logo_light</item>
+    </style>
+    <style name="ImageViewCadastro">
+        <item name="android:src">@drawable/logotipo_welcome_svg</item>
     </style>
 </resources>

@@ -9,6 +9,8 @@ import android.text.InputFilter;
 import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -29,10 +31,11 @@ public class activity_login extends AppCompatActivity {
     public EditText input_Password;
     private Button button_login;
     CheckBox checkBox;
+    private Button button_cadastro;
 
     @Override
     public void onBackPressed() {
-        finish();
+
     }
 
     @SuppressLint("MissingInflatedId")
@@ -42,20 +45,10 @@ public class activity_login extends AppCompatActivity {
         input_Nome = findViewById(R.id.editTextEmail);
         button_login = findViewById(R.id.buttonLogin);
         input_Password = findViewById(R.id.editTextSenha);
+        button_cadastro = findViewById(R.id.buttonLogin2);
 //        input_Nome.requestFocus();
         checkBox = findViewById(R.id.checkBox2);
         WindowAdjuster.assistActivity(this);
-
-        ImageView imageView = findViewById(R.id.tassavegif);
-
-        Glide.with(this)
-                .load(R.raw.tasksave3) // Substitua seu_gif pelo nome do arquivo GIF na pasta res/raw
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true) // Isso é opcional, dependendo do seu caso de uso
-                .transition(DrawableTransitionOptions.withCrossFade()) // Efeito de transição ao carregar o GIF
-                .into(imageView);
-
-
 
         InputFilter noSpaceFilter = new InputFilter() {
             public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
@@ -90,6 +83,16 @@ public class activity_login extends AppCompatActivity {
             }
 
         });
+        button_cadastro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity_login.this, activity_cadastro.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            }
+        });
+
         }
         public void InserirUser(View view) {
 
@@ -129,6 +132,7 @@ public class activity_login extends AppCompatActivity {
                     Intent intentMain = new Intent(activity_login.this, activity_main.class);
                     intentMain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intentMain);
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
                 } else {
                     String msg_error2 = "Senha incorreta.";

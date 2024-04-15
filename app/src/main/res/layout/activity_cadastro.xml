@@ -10,15 +10,15 @@
 
     <ImageView
         android:id="@+id/tasksavelogo"
+        style="@style/LogoCadastro"
         android:layout_width="900px"
         android:layout_height="200px"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:src="@drawable/task_save_logo"
+        app:layout_constraintHorizontal_bias="0.235"
 
-        />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -29,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/logotipocadastro" />
+        style="@style/ImageViewCadastro" />
 
     <TextView
         android:id="@+id/textView"
@@ -70,7 +70,7 @@
             android:inputType="textPersonName"
             android:paddingStart="20dp"
             android:textColor="#464646"
-            android:textColorHint="#464646" />
+            android:textColorHint="@color/grey3" />
 
         <EditText
             android:id="@+id/editTextEmailCadastro"
@@ -87,7 +87,7 @@
             android:inputType="textPersonName"
             android:paddingStart="20dp"
             android:textColor="#464646"
-            android:textColorHint="#464646" />
+            android:textColorHint="@color/grey3" />
 
         <EditText
             android:id="@+id/editTextSenhaCadastro"
@@ -104,7 +104,7 @@
             android:inputType="textPassword"
             android:paddingStart="20dp"
             android:textColor="#464646"
-            android:textColorHint="#464646" />
+            android:textColorHint="@color/grey3" />
 
         <EditText
             android:id="@+id/editTextSenhaCadastro2"
@@ -121,7 +121,7 @@
             android:inputType="textPassword"
             android:paddingStart="20dp"
             android:textColor="#464646"
-            android:textColorHint="#464646" />
+            android:textColorHint="@color/grey3" />
 
         <Button
             android:id="@+id/buttonCadastro"
@@ -137,5 +137,20 @@
             android:textAllCaps="false"
             android:textColor="#ffffff"
             android:textSize="24sp" />
+
     </LinearLayout>
+
+    <TextView
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:id="@+id/textViewLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="96dp"
+        android:fontFamily="@font/ptsans_bold"
+        android:text="Já tenho uma conta"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

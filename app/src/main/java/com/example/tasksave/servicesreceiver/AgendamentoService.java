@@ -1,6 +1,9 @@
 package com.example.tasksave.servicesreceiver;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -45,6 +48,12 @@ public class AgendamentoService extends JobIntentService {
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "AgendamentoService:WakeLock");
         wakeLock.acquire();
 
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createNotificationChannel();
+            startForeground(JOB_ID, createNotification());
+        }
+
         // Iniciar a tarefa de verificação com o Handler
         verificarTarefasEExibirNotificacoes(this, intent);
 
@@ -52,6 +61,30 @@ public class AgendamentoService extends JobIntentService {
         if (wakeLock != null && wakeLock.isHeld()) {
             wakeLock.release();
         }
+    }
+    private void createNotificationChannel() {
+        CharSequence name = "Nome do Canal";
+        String description = "Descrição do Canal";
+        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        NotificationChannel channel = null;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            channel = new NotificationChannel("CHANNEL_ID", name, importance);
+            channel.setDescription(description);
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    private Notification createNotification() {
+        // Construir uma notificação para o serviço em primeiro plano
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "CHANNEL_ID")
+                .setContentTitle("Título da Notificação")
+                .setContentText("Texto da Notificação")
+                .setSmallIcon(R.drawable.ic_launcher_background);
+
+        // Criar a notificação
+        return builder.build();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -106,7 +139,6 @@ public class AgendamentoService extends JobIntentService {
                     notificouTarefa =true;
                     agendaDAO.AtualizarStatusNotificacao(tarefaId, 1);
 
-
                 }
 
             if(dataTarefa.isEqual(dataAtual) && (horaAtual.equals(horaTarefa.plusMinutes(1)) ||
@@ -126,9 +158,6 @@ public class AgendamentoService extends JobIntentService {
         }
 
             }
-
-
-
     private void Notificar(Context context,long tarefaID, boolean tarefaFinalizado,
                            String NomeAgenda, String DescriçaoAgenda) {
 

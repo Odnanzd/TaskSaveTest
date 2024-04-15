@@ -7,6 +7,7 @@ import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.UiModeManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -35,12 +36,25 @@ public class activity_splash_screen extends AppCompatActivity {
 
         imageView = findViewById(R.id.splashImageView);
 
-        Glide.with(this)
-                .load(R.raw.tasksavegid) // Substitua seu_gif pelo nome do arquivo GIF na pasta res/raw
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true) // Isso é opcional, dependendo do seu caso de uso
-                .transition(DrawableTransitionOptions.withCrossFade()) // Efeito de transição ao carregar o GIF
-                .into(imageView);
+        UiModeManager uiModeManager = (UiModeManager) getSystemService(Context.UI_MODE_SERVICE);
+        int mode = uiModeManager.getNightMode();
+        if (mode == UiModeManager.MODE_NIGHT_YES) {
+            // Modo escuro ativado
+            Glide.with(this)
+                    .load(R.raw.tasksavegid) // Substitua gif_escuro pelo nome do seu GIF escuro na pasta res/raw
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .into(imageView);
+        } else {
+            // Modo escuro não ativado
+            Glide.with(this)
+                    .load(R.raw.tasksavelight) // Substitua gif_claro pelo nome do seu GIF claro na pasta res/raw
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .into(imageView);
+        }
 
         UserDAO userDAO = new UserDAO(this);
 

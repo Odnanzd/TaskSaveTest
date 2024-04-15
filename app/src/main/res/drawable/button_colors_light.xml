@@ -3,28 +3,28 @@
     <!-- Cor normal -->
     <item android:state_enabled="true">
         <shape android:shape="rectangle">
-            <solid android:color="@color/rosa2"/>
+            <solid android:color="@color/blue9"/>
             <corners android:radius="10dp"/>
         </shape>
     </item>
     <!-- Cor quando pressionado -->
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
-            <solid android:color="@color/rosa"/>
+            <solid android:color="@color/grey"/>
             <corners android:radius="10dp"/>
         </shape>
     </item>
     <!-- Cor quando focado -->
     <item android:state_focused="true">
         <shape android:shape="rectangle">
-            <solid android:color="@color/rosa3"/>
+            <solid android:color="@color/grey3"/>
             <corners android:radius="10dp"/>
         </shape>
     </item>
     <!-- Cor quando desativado -->
     <item android:state_enabled="false">
         <shape android:shape="rectangle">
-            <solid android:color="@color/grey3"/>
+            <solid android:color="@color/white"/>
             <corners android:radius="10dp"/>
         </shape>
     </item>
