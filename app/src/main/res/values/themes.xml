@@ -40,7 +40,7 @@
     </style>
 
     <style name="BackgroundFingerPrint">
-        <item name="android:tint">@color/rosa2</item>
+        <item name="android:tint">@color/blue9</item>
     </style>
 
     <style name="TextColorTheme3">

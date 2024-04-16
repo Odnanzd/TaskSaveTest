@@ -43,16 +43,20 @@ public class AgendamentoService extends JobIntentService {
     @SuppressLint("NewApi")
     @Override
     protected void onHandleWork(@NonNull Intent intent) {
+        // Crie uma notificação para o serviço em primeiro plano
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "CHANNEL_ID")
+                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setContentTitle("Meu título de notificação")
+                .setContentText("Texto da notificação")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        // Inicie o serviço em primeiro plano
+        startForeground(1, builder.build());
+
         // Obter um WakeLock para manter o serviço em execução
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "AgendamentoService:WakeLock");
         wakeLock.acquire();
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            createNotificationChannel();
-            startForeground(JOB_ID, createNotification());
-        }
 
         // Iniciar a tarefa de verificação com o Handler
         verificarTarefasEExibirNotificacoes(this, intent);
@@ -61,30 +65,9 @@ public class AgendamentoService extends JobIntentService {
         if (wakeLock != null && wakeLock.isHeld()) {
             wakeLock.release();
         }
-    }
-    private void createNotificationChannel() {
-        CharSequence name = "Nome do Canal";
-        String description = "Descrição do Canal";
-        int importance = NotificationManager.IMPORTANCE_DEFAULT;
-        NotificationChannel channel = null;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            channel = new NotificationChannel("CHANNEL_ID", name, importance);
-            channel.setDescription(description);
-        NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
-
-    private Notification createNotification() {
-        // Construir uma notificação para o serviço em primeiro plano
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "CHANNEL_ID")
-                .setContentTitle("Título da Notificação")
-                .setContentText("Texto da Notificação")
-                .setSmallIcon(R.drawable.ic_launcher_background);
-
-        // Criar a notificação
-        return builder.build();
+        // Pare o serviço em primeiro plano
+        stopForeground(true);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
