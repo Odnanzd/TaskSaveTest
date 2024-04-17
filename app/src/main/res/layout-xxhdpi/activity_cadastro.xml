@@ -16,7 +16,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="0.746">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,30 +27,31 @@
             <ImageView
                 android:id="@+id/tasksavelogo"
                 style="@style/LogoCadastro"
-                android:layout_width="265dp"
-                android:layout_height="40dp"
+                android:layout_width="900px"
+                android:layout_height="200px"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toTopOf="@+id/imageView"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.505"
+                app:layout_constraintHorizontal_bias="0.235"
 
                 app:layout_constraintStart_toStartOf="parent" />
 
             <ImageView
                 android:id="@+id/imageView"
                 style="@style/ImageViewCadastro"
-                android:layout_width="206dp"
-                android:layout_height="195dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
                 app:layout_constraintBottom_toTopOf="@+id/textView"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.496"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="12dp"
                 android:fontFamily="@font/ptsans_bold"
                 android:text="Faça o cadastro para continuar."
                 android:textSize="18sp"
@@ -63,7 +64,7 @@
                 android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="52dp"
+                android:layout_marginBottom="96dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -73,9 +74,9 @@
                 <EditText
                     android:id="@+id/editTextUsuarioCadastro"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="50dp"
                     android:layout_marginStart="32dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="32dp"
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/edittext_background"
@@ -90,9 +91,9 @@
                 <EditText
                     android:id="@+id/editTextEmailCadastro"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="50dp"
                     android:layout_marginStart="32dp"
-                    android:layout_marginTop="0dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="32dp"
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/edittext_background"
@@ -107,9 +108,9 @@
                 <EditText
                     android:id="@+id/editTextSenhaCadastro"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="50dp"
                     android:layout_marginStart="32dp"
-                    android:layout_marginTop="0dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="32dp"
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/edittext_background"
@@ -124,9 +125,9 @@
                 <EditText
                     android:id="@+id/editTextSenhaCadastro2"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="50dp"
                     android:layout_marginStart="32dp"
-                    android:layout_marginTop="0dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="32dp"
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/edittext_background"
@@ -138,23 +139,25 @@
                     android:textColor="#464646"
                     android:textColorHint="@color/grey3" />
 
+
                 <TextView
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="35dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
                     android:fontFamily="@font/ptsans_bold"
                     android:text="* A senha deve ter no minímo 6 caracteres "
                     android:textSize="15sp" />
+
 
                 <Button
                     android:id="@+id/buttonCadastro"
                     style="@style/ButtonSelector"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
-                    android:layout_marginTop="0dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="32dp"
                     android:layout_marginBottom="8dp"
                     android:clickable="true"
@@ -165,21 +168,24 @@
                     android:textColor="#ffffff"
                     android:textSize="24sp" />
 
+
             </LinearLayout>
 
             <TextView
                 android:id="@+id/textViewLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="40dp"
+                android:layout_marginBottom="76dp"
                 android:clickable="true"
                 android:fontFamily="@font/ptsans_bold"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:text="Já tenho uma conta"
-                android:textSize="15sp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

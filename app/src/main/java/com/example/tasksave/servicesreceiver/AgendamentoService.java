@@ -69,6 +69,10 @@ public class AgendamentoService extends JobIntentService {
         // Pare o serviço em primeiro plano
         stopForeground(true);
     }
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return START_STICKY;
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void verificarTarefasEExibirNotificacoes(Context context, Intent intent) {

@@ -26,8 +26,8 @@
 
             <ImageView
                 android:id="@+id/tassavegif"
-                android:layout_width="265dp"
-                android:layout_height="40dp"
+                android:layout_width="900px"
+                android:layout_height="200px"
                 android:scaleType="centerCrop"
                 style="@style/LogoCadastro"
                 app:layout_constraintBottom_toTopOf="@+id/imageView"
@@ -37,8 +37,8 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="206dp"
-                android:layout_height="195dp"
+                android:layout_width="384dp"
+                android:layout_height="315dp"
                 android:layout_marginBottom="4dp"
                 app:layout_constraintBottom_toTopOf="@+id/textView7"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -54,7 +54,7 @@
                 android:text="Faça o login para continuar no app:"
                 app:layout_constraintBottom_toTopOf="@+id/liner"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.272"
+                app:layout_constraintHorizontal_bias="0.173"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <LinearLayout
@@ -71,7 +71,7 @@
                 <EditText
                     android:id="@+id/editTextEmail"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="50dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="32dp"
@@ -79,7 +79,7 @@
                     android:background="@drawable/edittext_background"
                     android:ems="10"
                     android:fontFamily="@font/ptsans_regular"
-                    android:hint="Usuário"
+                    android:hint="Email"
                     android:inputType="textPersonName"
                     android:paddingStart="20dp"
                     android:textColor="@color/black"
@@ -88,7 +88,7 @@
                 <EditText
                     android:id="@+id/editTextSenha"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="50dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="32dp"
@@ -107,25 +107,24 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout"
-                android:layout_width="wrap_content"
+                android:layout_width="408dp"
                 android:layout_height="37dp"
-                android:layout_marginBottom="4dp"
+                android:layout_marginBottom="8dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toTopOf="@+id/buttonLogin"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.529"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:ignore="MissingConstraints">
 
                 <CheckBox
                     android:id="@+id/checkBox2"
                     android:layout_width="wrap_content"
-                    android:layout_height="32dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginEnd="50dp"
                     android:fontFamily="@font/ptsans_bold"
                     android:text="Lembrar meu acesso"
-                    android:textSize="12sp"
                     app:layout_constraintEnd_toStartOf="@+id/textView2"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -133,10 +132,9 @@
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="36dp"
                     android:fontFamily="@font/ptsans_bold"
                     android:text="Esqueci minha senha."
-                    android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -150,16 +148,16 @@
                 android:foreground="?android:attr/selectableItemBackground"
                 android:clickable="true"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="50dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
-                android:layout_marginBottom="12dp"
+                android:layout_marginBottom="180dp"
                 android:fontFamily="@font/ptsans_bold"
                 android:text="Entrar"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toTopOf="@+id/buttonLogin2"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -170,15 +168,15 @@
                 android:foreground="?android:attr/selectableItemBackground"
                 android:clickable="true"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="50dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
-                android:layout_marginBottom="72dp"
+                android:layout_marginBottom="120dp"
                 android:fontFamily="@font/ptsans_bold"
                 android:text="Criar uma conta"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

@@ -2,50 +2,50 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     style="@style/BackgroundTheme"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    tools:context=".activities.activity_welcome">
+    tools:context=".activities.activity_welcome" >
 
 
     <ImageView
         android:id="@+id/imageView"
-        style="@style/ImageViewWelcomeSVG"
-        android:layout_width="210dp"
-        android:layout_height="209dp"
-        android:layout_marginBottom="40dp"
-        android:layout_marginTop="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="196dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/ImageViewWelcomeSVG" />
 
     <ImageView
         android:id="@+id/imageView2"
         style="@style/ImageViewText"
-        android:layout_width="360dp"
-        android:layout_height="104dp"
-        android:layout_marginBottom="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        android:layout_width="410dp"
+        android:layout_height="108dp"
+        android:layout_marginTop="44dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="360dp"
-        android:layout_height="134dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="128dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="1.0">
 
         <Button
             android:id="@+id/buttonEntrar"
             style="@style/ButtonSelector"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:layout_width="289dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
@@ -61,9 +61,7 @@
         <Button
             android:id="@+id/buttonCadastrar"
             style="@style/ButtonSelector2"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:layout_width="290dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
