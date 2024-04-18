@@ -9,12 +9,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +24,8 @@ import com.example.tasksave.R;
 import com.example.tasksave.dao.UserDAO;
 import com.example.tasksave.objetos.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
@@ -29,6 +33,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class activity_cadastro extends AppCompatActivity {
 
@@ -42,6 +51,7 @@ public class activity_cadastro extends AppCompatActivity {
     FrameLayout frameLayout;
     ProgressBar progressBar;
     TextView textViewButton;
+    String USUARIOID;
 
     public void onBackPressed() {
 
@@ -64,7 +74,6 @@ public class activity_cadastro extends AppCompatActivity {
     frameLayout = findViewById(R.id.framelayout1);
     progressBar = findViewById(R.id.progressbar1);
     textViewButton = findViewById(R.id.textviewbutton);
-
 
     frameLayout.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -115,6 +124,9 @@ public class activity_cadastro extends AppCompatActivity {
             snackbar.setBackgroundTint(Color.WHITE);
             snackbar.setTextColor(Color.BLACK);
             snackbar.show();
+            progressBar.setVisibility(View.GONE);
+            textViewButton.setVisibility(View.VISIBLE);
+            frameLayout.setClickable(true);
 
         }
     }
@@ -127,7 +139,7 @@ public class activity_cadastro extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if (task.isSuccessful()) {
-
+                    SalvarDadosUser();
                     SharedPreferences prefs = getSharedPreferences("ArquivoPrimeiroAcesso", MODE_PRIVATE);
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putBoolean("PrimeiroAcesso", true);
@@ -153,6 +165,9 @@ public class activity_cadastro extends AppCompatActivity {
                         progressBar.setVisibility(View.GONE);
                         textViewButton.setVisibility(View.VISIBLE);
                         frameLayout.setClickable(true);
+                        editTextSenha.setTextColor(Color.RED);
+                        editTextSenha2.setTextColor(Color.RED);
+                        editTextEmail.setTextColor(getResources().getColor(R.color.grey6));
 
                     }catch (FirebaseAuthUserCollisionException e) {
                         erro="Esta conta já foi cadastrada";
@@ -164,6 +179,7 @@ public class activity_cadastro extends AppCompatActivity {
                         progressBar.setVisibility(View.GONE);
                         textViewButton.setVisibility(View.VISIBLE);
                         frameLayout.setClickable(true);
+                        editTextEmail.setTextColor(Color.RED);
 
                     }catch (FirebaseAuthInvalidCredentialsException e) {
                         erro="E-mail inválido";
@@ -175,6 +191,8 @@ public class activity_cadastro extends AppCompatActivity {
                         progressBar.setVisibility(View.GONE);
                         textViewButton.setVisibility(View.VISIBLE);
                         frameLayout.setClickable(true);
+                        editTextEmail.setTextColor(Color.RED);
+
                     }catch (Exception e) {
                         erro="Erro inesperado";
                         InputMethodManager imm = (InputMethodManager) getBaseContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -192,6 +210,32 @@ public class activity_cadastro extends AppCompatActivity {
                     snackbar.show();
 
                 }
+            }
+        });
+
+    }
+
+    private void SalvarDadosUser() {
+
+        String usuarioText = editTextUsuario.getText().toString();
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Map<String, Object> usuarios = new HashMap<>();
+        usuarios.put("usuario", usuarioText);
+
+        USUARIOID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        DocumentReference documentReference = db.collection("Usuários").
+                document(USUARIOID);
+        documentReference.set(usuarios).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Log.d("db", "Sucesso ao salvar user.");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("DB_ERROR", "Erro ao salvar User" + e.toString());
             }
         });
 

@@ -84,7 +84,7 @@
                     android:hint="Usuário"
                     android:inputType="textPersonName"
                     android:paddingStart="20dp"
-                    android:textColor="#464646"
+                    android:textColor="@color/grey6"
                     android:textColorHint="@color/grey3" />
 
                 <EditText

@@ -29,6 +29,12 @@ import com.example.tasksave.conexaoBD.Conexao;
 import com.example.tasksave.R;
 import com.example.tasksave.dao.UserDAO;
 import com.example.tasksave.objetos.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.List;
 
@@ -45,6 +51,9 @@ public class activity_main extends AppCompatActivity {
     private static final int GALLERY_REQUEST_CODE = 1001;
     private Conexao con;
     private SQLiteDatabase db;
+    FirebaseFirestore dbFirebase = FirebaseFirestore.getInstance();
+    String usuarioID;
+
     @SuppressLint({"MissingInflatedId", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +70,6 @@ public class activity_main extends AppCompatActivity {
         VerificarAtrasos();
         ChecarBiometria();
 
-
-
         imageView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,7 +77,6 @@ public class activity_main extends AppCompatActivity {
                 finish();
             }
         });
-
 
 
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -113,16 +119,18 @@ public class activity_main extends AppCompatActivity {
 
         public void ExibirUsername() {
 
-        UserDAO userDAO = new UserDAO(this);
-        List<User> userList = userDAO.ListarNome();
+        usuarioID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        if (userList.size() > 0) {
-            User user = userList.get(0);
-            text_view_main.setText("Olá, " + user.getUsername());
-        } else {
-            text_view_main.setText("Usuário");
-        }
+            DocumentReference documentReference = dbFirebase.collection("Usuários").document(usuarioID);
+            documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
 
+                    if(documentSnapshot != null) {
+                        text_view_main.setText("Olá, " + documentSnapshot.getString("usuario"));
+                    }
+                }
+            });
         }
     @Override
     public void onBackPressed() {

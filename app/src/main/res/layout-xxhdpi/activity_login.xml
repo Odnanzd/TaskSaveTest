@@ -8,22 +8,6 @@
     tools:context=".activities.activity_login">
 
 
-    <ScrollView
-        android:id="@+id/scrollview"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:fillViewport="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
             <ImageView
                 android:id="@+id/tassavegif"
                 android:layout_width="900px"
@@ -112,7 +96,7 @@
                 android:layout_height="37dp"
                 android:layout_marginBottom="8dp"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toTopOf="@+id/buttonLogin"
+                app:layout_constraintBottom_toTopOf="@+id/framelayout1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -123,9 +107,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:layout_marginEnd="50dp"
+                    android:layout_marginEnd="40dp"
                     android:fontFamily="@font/ptsans_bold"
                     android:text="Lembrar meu acesso"
+                    android:textSize="15sp"
                     app:layout_constraintEnd_toStartOf="@+id/textView2"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -136,6 +121,7 @@
                     android:layout_marginEnd="36dp"
                     android:fontFamily="@font/ptsans_bold"
                     android:text="Esqueci minha senha."
+                    android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -143,25 +129,43 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <Button
-                android:id="@+id/buttonLogin"
-                style="@style/ButtonSelector"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:clickable="true"
+            <FrameLayout
+                android:id="@+id/framelayout1"
+                android:background="@drawable/button_colors_light"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="180dp"
-                android:fontFamily="@font/ptsans_bold"
-                android:text="Entrar"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="24sp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent" >
+
+                <TextView
+                    android:id="@+id/textviewbutton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Continuar"
+                    android:gravity="center"
+                    android:textSize="22sp"
+                    android:fontFamily="@font/ptsans_bold"
+                    android:textColor="@color/white"
+                    />
+                <ProgressBar
+                    android:id="@+id/progressbar1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_gravity="center"
+                    android:indeterminateTint="@color/white"
+
+                    />
+
+            </FrameLayout>
 
             <Button
                 android:id="@+id/buttonLogin2"
@@ -183,8 +187,3 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </ScrollView>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>

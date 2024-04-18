@@ -22,6 +22,8 @@ import com.example.tasksave.dao.UserDAO;
 import com.example.tasksave.objetos.User;
 import com.example.tasksave.servicesreceiver.AlarmReceiver;
 import com.example.tasksave.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -56,8 +58,6 @@ public class activity_splash_screen extends AppCompatActivity {
                     .into(imageView);
         }
 
-        UserDAO userDAO = new UserDAO(this);
-
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
@@ -86,41 +86,41 @@ public class activity_splash_screen extends AppCompatActivity {
             @Override
             public void run() {
 
-
+                FirebaseUser usuarioatual = FirebaseAuth.getInstance().getCurrentUser();
                 SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("ArquivoPrimeiroAcesso", Context.MODE_PRIVATE);
                 SharedPreferences sharedPrefs = getApplicationContext().getSharedPreferences("arquivoSalvarSenha", Context.MODE_PRIVATE);
                 SharedPreferences sharedPrefs3 = getApplicationContext().getSharedPreferences("ArquivoFingerPrint", Context.MODE_PRIVATE);
 
                 if (!sharedPrefs2.getBoolean("PrimeiroAcesso", false)) {
 
-                    String username = "Odnan";
-                    String password = "1234";
-                    String email = "fernando.trindade.ti@gmail.com";
-                    User user = new User(username, password, email);
-                    long id = userDAO.inserir(user);
-
                     Intent intent = new Intent(activity_splash_screen.this, activity_welcome.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
 
-                } else if (!sharedPrefs.getBoolean("SalvarSenha", false) ) {
+                } else if (!sharedPrefs.getBoolean("SalvarSenha", false)) {
 
                     Intent intent = new Intent(activity_splash_screen.this, activity_login.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
 
-                } else if(sharedPrefs.getBoolean("SalvarSenha", false) && sharedPrefs3.getBoolean("AcessoFingerPrint", false)) {
+
+                }
+                if(usuarioatual != null) {
+
+                    if (sharedPrefs.getBoolean("SalvarSenha", false) && sharedPrefs3.getBoolean("AcessoFingerPrint", false)) {
 
                     Intent intent = new Intent(activity_splash_screen.this, activity_fingerprint.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
 
-                } else if(sharedPrefs.getBoolean("SalvarSenha", false) && !sharedPrefs3.getBoolean("AcessoFingerPrint", false)) {
+                } else if (sharedPrefs.getBoolean("SalvarSenha", false) && !sharedPrefs3.getBoolean("AcessoFingerPrint", false)) {
+
                     Intent intent = new Intent(activity_splash_screen.this, activity_main.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
+                    }
                 }
             }
         }, SPLASH_TIME_OUT);
     }
-    }
+}
