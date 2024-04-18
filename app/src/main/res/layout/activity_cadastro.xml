@@ -7,150 +7,201 @@
     style="@style/BackgroundTheme"
     tools:context=".activities.activity_cadastro">
 
-
-    <ImageView
-        android:id="@+id/tasksavelogo"
-        style="@style/LogoCadastro"
-        android:layout_width="900px"
-        android:layout_height="200px"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.235"
-
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        style="@style/ImageViewCadastro" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:fontFamily="@font/ptsans_bold"
-        android:text="Faça o cadastro para continuar."
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="116dp"
-        android:orientation="vertical"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.746">
 
-        <EditText
-            android:id="@+id/editTextUsuarioCadastro"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/edittext_background"
-            android:ems="10"
-            android:fontFamily="@font/ptsans_regular"
-            android:hint="Usuário"
-            android:inputType="textPersonName"
-            android:paddingStart="20dp"
-            android:textColor="#464646"
-            android:textColorHint="@color/grey3" />
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/editTextEmailCadastro"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/edittext_background"
-            android:ems="10"
-            android:fontFamily="@font/ptsans_regular"
-            android:hint="E-mail"
-            android:inputType="textPersonName"
-            android:paddingStart="20dp"
-            android:textColor="#464646"
-            android:textColorHint="@color/grey3" />
 
-        <EditText
-            android:id="@+id/editTextSenhaCadastro"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/edittext_background"
-            android:ems="10"
-            android:fontFamily="@font/ptsans_regular"
-            android:hint="Senha"
-            android:inputType="textPassword"
-            android:paddingStart="20dp"
-            android:textColor="#464646"
-            android:textColorHint="@color/grey3" />
+            <ImageView
+                android:id="@+id/tasksavelogo"
+                style="@style/LogoCadastro"
+                android:layout_width="900px"
+                android:layout_height="200px"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toTopOf="@+id/imageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.235"
 
-        <EditText
-            android:id="@+id/editTextSenhaCadastro2"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/edittext_background"
-            android:ems="10"
-            android:fontFamily="@font/ptsans_regular"
-            android:hint="Repetir Senha"
-            android:inputType="textPassword"
-            android:paddingStart="20dp"
-            android:textColor="#464646"
-            android:textColorHint="@color/grey3" />
+                app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/buttonCadastro"
-            style="@style/ButtonSelector"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="8dp"
-            android:fontFamily="@font/ptsans_bold"
-            android:text="Cadastrar"
-            android:textAllCaps="false"
-            android:textColor="#ffffff"
-            android:textSize="24sp" />
+            <ImageView
+                android:id="@+id/imageView"
+                style="@style/ImageViewCadastro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                app:layout_constraintBottom_toTopOf="@+id/textView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.496"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/ptsans_bold"
+                android:text="Faça o cadastro para continuar."
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:foreground="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:id="@+id/textViewLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="96dp"
-        android:fontFamily="@font/ptsans_bold"
-        android:text="Já tenho uma conta"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="96dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <EditText
+                    android:id="@+id/editTextUsuarioCadastro"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/edittext_background"
+                    android:ems="10"
+                    android:fontFamily="@font/ptsans_regular"
+                    android:hint="Usuário"
+                    android:inputType="textPersonName"
+                    android:paddingStart="20dp"
+                    android:textColor="#464646"
+                    android:textColorHint="@color/grey3" />
+
+                <EditText
+                    android:id="@+id/editTextEmailCadastro"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/edittext_background"
+                    android:ems="10"
+                    android:fontFamily="@font/ptsans_regular"
+                    android:hint="E-mail"
+                    android:inputType="textPersonName"
+                    android:paddingStart="20dp"
+                    android:textColor="#464646"
+                    android:textColorHint="@color/grey3" />
+
+                <EditText
+                    android:id="@+id/editTextSenhaCadastro"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/edittext_background"
+                    android:ems="10"
+                    android:fontFamily="@font/ptsans_regular"
+                    android:hint="Senha"
+                    android:inputType="textPassword"
+                    android:paddingStart="20dp"
+                    android:textColor="#464646"
+                    android:textColorHint="@color/grey3" />
+
+                <EditText
+                    android:id="@+id/editTextSenhaCadastro2"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/edittext_background"
+                    android:ems="10"
+                    android:fontFamily="@font/ptsans_regular"
+                    android:hint="Repetir Senha"
+                    android:inputType="textPassword"
+                    android:paddingStart="20dp"
+                    android:textColor="#464646"
+                    android:textColorHint="@color/grey3" />
+
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/ptsans_bold"
+                    android:text="* A senha deve ter no minímo 6 caracteres "
+                    android:textSize="15sp" />
+
+
+                <FrameLayout
+                    android:id="@+id/framelayout1"
+                    android:background="@drawable/button_colors_light"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="8dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    >
+                    <TextView
+                        android:id="@+id/textviewbutton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Cadastrar"
+                        android:gravity="center"
+                        android:textSize="22sp"
+                        android:fontFamily="@font/ptsans_bold"
+                        android:textColor="@color/white"
+                        />
+                    <ProgressBar
+                        android:id="@+id/progressbar1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_gravity="center"
+                        android:indeterminateTint="@color/white"
+
+                        />
+
+                </FrameLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="76dp"
+                android:clickable="true"
+                android:fontFamily="@font/ptsans_bold"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="Já tenho uma conta"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

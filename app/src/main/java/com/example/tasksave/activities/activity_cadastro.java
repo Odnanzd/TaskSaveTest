@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,12 +39,15 @@ public class activity_cadastro extends AppCompatActivity {
     Button buttonCadastro;
 
     TextView textViewLogin;
+    FrameLayout frameLayout;
+    ProgressBar progressBar;
+    TextView textViewButton;
 
     public void onBackPressed() {
 
     }
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,12 +60,18 @@ public class activity_cadastro extends AppCompatActivity {
     editTextSenha = findViewById(R.id.editTextSenhaCadastro);
     editTextSenha2 = findViewById(R.id.editTextSenhaCadastro2);
 
-    buttonCadastro = findViewById(R.id.buttonCadastro);
     textViewLogin = findViewById(R.id.textViewLogin);
+    frameLayout = findViewById(R.id.framelayout1);
+    progressBar = findViewById(R.id.progressbar1);
+    textViewButton = findViewById(R.id.textviewbutton);
 
-    buttonCadastro.setOnClickListener(new View.OnClickListener() {
+
+    frameLayout.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            progressBar.setVisibility(View.VISIBLE);
+            textViewButton.setVisibility(View.GONE);
+            frameLayout.setClickable(false);
             inserirUser(v);
             }
     });
@@ -90,6 +101,9 @@ public class activity_cadastro extends AppCompatActivity {
             snackbar.setBackgroundTint(Color.WHITE);
             snackbar.setTextColor(Color.BLACK);
             snackbar.show();
+            progressBar.setVisibility(View.GONE);
+            textViewButton.setVisibility(View.VISIBLE);
+            frameLayout.setClickable(true);
 
         } else if(editTextSenha.getText().toString().equals(editTextSenha2.getText().toString())) {
 
@@ -101,6 +115,7 @@ public class activity_cadastro extends AppCompatActivity {
             snackbar.setBackgroundTint(Color.WHITE);
             snackbar.setTextColor(Color.BLACK);
             snackbar.show();
+
         }
     }
 
@@ -135,6 +150,10 @@ public class activity_cadastro extends AppCompatActivity {
                         if (view2 != null) {
                             imm.hideSoftInputFromWindow(view2.getWindowToken(), 0);
                         }
+                        progressBar.setVisibility(View.GONE);
+                        textViewButton.setVisibility(View.VISIBLE);
+                        frameLayout.setClickable(true);
+
                     }catch (FirebaseAuthUserCollisionException e) {
                         erro="Esta conta já foi cadastrada";
                         InputMethodManager imm = (InputMethodManager) getBaseContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -142,6 +161,9 @@ public class activity_cadastro extends AppCompatActivity {
                         if (view2 != null) {
                             imm.hideSoftInputFromWindow(view2.getWindowToken(), 0);
                         }
+                        progressBar.setVisibility(View.GONE);
+                        textViewButton.setVisibility(View.VISIBLE);
+                        frameLayout.setClickable(true);
 
                     }catch (FirebaseAuthInvalidCredentialsException e) {
                         erro="E-mail inválido";
@@ -150,6 +172,9 @@ public class activity_cadastro extends AppCompatActivity {
                         if (view2 != null) {
                             imm.hideSoftInputFromWindow(view2.getWindowToken(), 0);
                         }
+                        progressBar.setVisibility(View.GONE);
+                        textViewButton.setVisibility(View.VISIBLE);
+                        frameLayout.setClickable(true);
                     }catch (Exception e) {
                         erro="Erro inesperado";
                         InputMethodManager imm = (InputMethodManager) getBaseContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -157,6 +182,9 @@ public class activity_cadastro extends AppCompatActivity {
                         if (view2 != null) {
                             imm.hideSoftInputFromWindow(view2.getWindowToken(), 0);
                         }
+                        progressBar.setVisibility(View.GONE);
+                        textViewButton.setVisibility(View.VISIBLE);
+                        frameLayout.setClickable(true);
                     }
                     Snackbar snackbar = Snackbar.make(view,erro,Snackbar.LENGTH_SHORT );
                     snackbar.setBackgroundTint(Color.WHITE);

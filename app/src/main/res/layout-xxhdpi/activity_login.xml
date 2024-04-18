@@ -52,9 +52,10 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/ptsans_bold"
                 android:text="Faça o login para continuar no app:"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@+id/liner"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.173"
+                app:layout_constraintHorizontal_bias="0.274"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <LinearLayout
