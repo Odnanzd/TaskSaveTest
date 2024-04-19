@@ -51,6 +51,7 @@ public class activity_main extends AppCompatActivity {
     private static final int GALLERY_REQUEST_CODE = 1001;
     private Conexao con;
     private SQLiteDatabase db;
+    public ImageView imageViewMenuConfig;
     FirebaseFirestore dbFirebase = FirebaseFirestore.getInstance();
     String usuarioID;
 
@@ -65,10 +66,21 @@ public class activity_main extends AppCompatActivity {
         imageView1 = findViewById(R.id.image_view_circle_logout);
         imageView2 = findViewById(R.id.imageView2);
         numeroIcon = findViewById(R.id.iconnumero);
+        imageViewMenuConfig = findViewById(R.id.image_view_circle_config);
 
         ExibirUsername();
         VerificarAtrasos();
         ChecarBiometria();
+
+        imageViewMenuConfig.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentConfig = new Intent(activity_main.this, activity_config.class);
+                intentConfig.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intentConfig);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            }
+        });
 
         imageView1.setOnClickListener(new View.OnClickListener() {
             @Override

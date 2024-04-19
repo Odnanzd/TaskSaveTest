@@ -107,7 +107,7 @@
         <item name="android:src">@drawable/document_button</item>
     </style>
     <style name="Logo_Menu_Main_Item_confg">
-        <item name="android:src">@drawable/confg_button</item>
+        <item name="android:src">@drawable/config_iconsvgdark</item>
     </style>
     <style name="Logo_Menu_Main_Item_Logout">
         <item name="android:src">@drawable/logout_button</item>
@@ -194,5 +194,29 @@
     </style>
     <style name="ImageViewCadastro">
         <item name="android:src">@drawable/logotipocadastro</item>
+    </style>
+    <style name="ImageViewConfigUser">
+        <item name="android:src">@drawable/user_icon2_dark</item>
+    </style>
+    <style name="ImageViewConfigLock">
+        <item name="android:src">@drawable/lock_icon_2_dark</item>
+    </style>
+    <style name="ImageViewConfigNext">
+        <item name="android:src">@drawable/button_add_agenda_next</item>
+    </style>
+    <style name="ImageViewConfigBell">
+        <item name="android:src">@drawable/bell_icon_svg_dark</item>
+    </style>
+    <style name="ImageViewConfigLinha">
+        <item name="android:src">@drawable/linha_horizontal_dark</item>
+    </style>
+    <style name="ImageViewIconEmail">
+        <item name="android:src">@drawable/mail_icon_svg_dark</item>
+    </style>
+    <style name="ImageViewIconLogout">
+        <item name="android:src">@drawable/logout_icon</item>
+    </style>
+    <style name="ImageViewIconBook">
+        <item name="android:src">@drawable/book_icon_svg_dark</item>
     </style>
 </resources>

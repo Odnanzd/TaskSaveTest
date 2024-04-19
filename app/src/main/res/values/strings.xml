@@ -35,4 +35,9 @@
     <string name="edit_text_nome_add_agenda">Nome</string>
     <string name="channel_name">NotificaçãoAgenda</string>
     <string name="channel_description">Descrição</string>
+
+    <!---Strings activity_config-->
+    <string name="text_view_config_act">Configurações</string>
+
+
 </resources>
