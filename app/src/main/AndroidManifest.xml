@@ -24,6 +24,9 @@
         android:theme="@style/Theme.TaskSave"
         tools:targetApi="31">
         <activity
+            android:name=".activities.activity_confg_perfil_nome"
+            android:exported="false" />
+        <activity
             android:name=".activities.activity_confg_perfil"
             android:exported="false" />
         <activity

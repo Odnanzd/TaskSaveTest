@@ -219,4 +219,7 @@
     <style name="ImageViewIconBook">
         <item name="android:src">@drawable/book_icon_svg_dark</item>
     </style>
+    <style name="ImageViewIconPencil">
+        <item name="android:src">@drawable/pencil_icon_svg_dark</item>
+    </style>
 </resources>
