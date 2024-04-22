@@ -44,211 +44,268 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:orientation="horizontal"
-        android:layout_marginTop="40dp"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        >
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="20dp"
-            style="@style/ImageViewConfigUser"
-            tools:layout_editor_absoluteX="14dp"
-            tools:layout_editor_absoluteY="112dp" />
-
-        <TextView
-            android:id="@+id/textView9"
-            style="@style/TextViewMain"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="4dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/ptsans_bold"
-            android:gravity="left"
-            android:text="Meu Perfil"
-            android:textSize="18sp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp" />
-
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginRight="10dp"
-            style="@style/ImageViewConfigNext"
-            />
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/imageViewPalito"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/linha_horizontal"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout2" />
 
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:layout_marginTop="13dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewPalito">
+        android:layout_height="48dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        android:layout_marginTop="40dp"
+        >
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+
+            >
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                style="@style/ImageViewConfigUser"
+                tools:layout_editor_absoluteX="14dp"
+                tools:layout_editor_absoluteY="112dp" />
+
+            <TextView
+                android:id="@+id/textView9"
+                style="@style/TextViewMain"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="9dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/ptsans_bold"
+                android:gravity="start"
+                android:text="@string/text_view_linear_perfil"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp" />
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                style="@style/ImageViewConfigNext"
+                />
+        </LinearLayout>
 
         <ImageView
-            style="@style/ImageViewConfigLock"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:id="@+id/imageViewPalito"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/linha_horizontal"
             android:layout_marginStart="20dp"
-            tools:layout_editor_absoluteX="14dp"
-            tools:layout_editor_absoluteY="112dp" />
-
-        <TextView
-            android:id="@+id/textView10"
-            style="@style/TextViewMain"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="4dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/ptsans_bold"
-            android:gravity="left"
-            android:text="Segurança e Privacidade"
-            android:textSize="18sp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp" />
-
-        <ImageView
-            android:id="@+id/imageView6"
-            style="@style/ImageViewConfigNext"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginRight="10dp" />
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="5dp"
+            />
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/imageViewPalito2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:src="@drawable/linha_horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
     <LinearLayout
         android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:layout_marginTop="13dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewPalito2">
+        android:layout_height="48dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+
+
+        >
+
+        <LinearLayout
+            android:id="@+id/linearLayoutSeg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+
+            >
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                style="@style/ImageViewConfigLock"
+                tools:layout_editor_absoluteX="14dp"
+                tools:layout_editor_absoluteY="112dp" />
+
+            <TextView
+                android:id="@+id/textViewSeg"
+                style="@style/TextViewMain"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="9dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/ptsans_bold"
+                android:gravity="start"
+                android:text="@string/text_view_linear_segura"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp" />
+
+            <ImageView
+                android:id="@+id/imageViewSeta2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                style="@style/ImageViewConfigNext"
+                />
+        </LinearLayout>
 
         <ImageView
-            style="@style/ImageViewConfigBell"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:id="@+id/imageViewPalito2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/linha_horizontal"
             android:layout_marginStart="20dp"
-            tools:layout_editor_absoluteX="14dp"
-            tools:layout_editor_absoluteY="112dp" />
-
-        <TextView
-            android:id="@+id/textView11"
-            style="@style/TextViewMain"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="4dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/ptsans_bold"
-            android:gravity="left"
-            android:text="Notificações"
-            android:textSize="18sp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp" />
-
-        <ImageView
-            android:id="@+id/imageView7"
-            style="@style/ImageViewConfigNext"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginRight="10dp" />
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="5dp"
+            />
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/imageViewPalito3"
-        style="@style/ImageViewConfigLinha"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
     <LinearLayout
         android:id="@+id/linearLayout5"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:layout_marginTop="13dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewPalito3">
+        android:layout_height="48dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+
+
+        >
+
+        <LinearLayout
+            android:id="@+id/linearLayoutNot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+
+            >
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                style="@style/ImageViewConfigBell"
+                tools:layout_editor_absoluteX="14dp"
+                tools:layout_editor_absoluteY="112dp" />
+
+            <TextView
+                android:id="@+id/textViewNot"
+                style="@style/TextViewMain"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="9dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/ptsans_bold"
+                android:gravity="start"
+                android:text="@string/text_view_linear_not"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp" />
+
+            <ImageView
+                android:id="@+id/imageViewSeta3"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                style="@style/ImageViewConfigNext"
+                />
+        </LinearLayout>
 
         <ImageView
-            style="@style/ImageViewIconBook"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:id="@+id/imageViewPalito3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/linha_horizontal"
             android:layout_marginStart="20dp"
-            tools:layout_editor_absoluteX="14dp"
-            tools:layout_editor_absoluteY="112dp" />
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="5dp"
+            />
+    </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView12"
-            style="@style/TextViewMain"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="4dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/ptsans_bold"
-            android:gravity="left"
-            android:text="Sobre"
-            android:textSize="18sp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp" />
+    <LinearLayout
+        android:id="@+id/linearLayout6"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
+
+
+        >
+
+        <LinearLayout
+            android:id="@+id/linearLayoutSobre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+
+            >
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                style="@style/ImageViewIconBook"
+                tools:layout_editor_absoluteX="14dp"
+                tools:layout_editor_absoluteY="112dp" />
+
+            <TextView
+                android:id="@+id/textViewSobre"
+                style="@style/TextViewMain"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="9dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/ptsans_bold"
+                android:gravity="start"
+                android:text="@string/text_view_liner_sobre"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp" />
+
+            <ImageView
+                android:id="@+id/imageViewSeta4"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                style="@style/ImageViewConfigNext"
+                />
+        </LinearLayout>
 
         <ImageView
-            android:id="@+id/imageView8"
-            style="@style/ImageViewConfigNext"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginRight="10dp" />
+            android:id="@+id/imageViewPalito4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/linha_horizontal"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="5dp"
+            />
     </LinearLayout>
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

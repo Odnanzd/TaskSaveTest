@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:foreground="?android:attr/selectableItemBackground"
     android:clickable="true"
+    android:focusable="true"
     android:id="@+id/CardView"
     android:layout_marginStart="12dp"
     android:layout_marginEnd="12dp"
@@ -42,8 +43,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginTop="22dp"
-            android:paddingLeft="10sp"
-            android:text="Teste de Título"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="@string/text_view_titulo"
             android:fontFamily="@font/ptsans_bold"
             android:textSize="15sp"
             android:textStyle="bold"
@@ -57,14 +59,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
             android:layout_marginEnd="50dp"
-            android:drawableLeft="@drawable/baseline_calendar_month_24"
             android:drawablePadding="7sp"
-            android:text="teste"
+            android:text="@string/text_view_hor"
             android:textSize="15sp"
             android:fontFamily="@font/ptsans_regular"
             android:theme="@style/AppTheme"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:drawableLeftCompat="@drawable/baseline_calendar_month_24" />
 
         <TextView
             android:id="@+id/text_view_descricao_agenda"
@@ -73,7 +75,8 @@
             android:layout_marginStart="40dp"
             android:layout_marginTop="8dp"
             android:paddingLeft="10sp"
-            android:text="Descricao"
+            android:paddingRight="10sp"
+            android:text="@string/text_view_desc"
             android:fontFamily="@font/ptsans_regular"
             android:textSize="15sp"
             android:theme="@style/AppTheme2"
@@ -86,14 +89,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="50dp"
-            android:drawableLeft="@drawable/baseline_schedule_24"
             android:drawablePadding="7sp"
-            android:text="teste"
+            android:text="@string/text_view_hor"
             android:fontFamily="@font/ptsans_regular"
             android:textSize="15sp"
             android:theme="@style/AppTheme"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_data_agenda" />
+            app:layout_constraintTop_toBottomOf="@+id/text_view_data_agenda"
+            app:drawableLeftCompat="@drawable/baseline_schedule_24" />
 
 
         <ImageView

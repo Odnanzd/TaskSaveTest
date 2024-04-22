@@ -7,12 +7,13 @@
     android:layout_height="430dp"
     android:layout_gravity="center"
     android:paddingStart="10dp"
+    android:paddingEnd="10dp"
     tools:context=".activities.activity_item_selected_agenda">
 
     <EditText
         android:id="@+id/titulo_text_view"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginTop="24dp"
         android:drawableEnd="@drawable/baseline_edit_24"
         android:gravity="center"
@@ -20,22 +21,23 @@
         android:maxLines="1"
         android:backgroundTint="@color/grey"
         android:maxLength="14"
-        android:text="Titulo"
+        android:text="@string/edit_text_tit"
         style="@style/TextViewColor"
         android:textSize="20sp"
         android:fontFamily="@font/ptsans_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/descricao_text_view"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginTop="30dp"
         android:drawableEnd="@drawable/baseline_edit_24"
         android:gravity="center"
-        android:text="Descrição"
+        android:text="@string/edit_text_desc"
         android:backgroundTint="@color/grey"
         style="@style/TextViewColor"
         android:maxLength="20"
@@ -45,14 +47,15 @@
         android:fontFamily="@font/ptsans_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titulo_text_view" />
+        app:layout_constraintTop_toBottomOf="@+id/titulo_text_view"
+        android:importantForAutofill="no" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Editar tarefa"
+        android:text="@string/text_view_edit"
         style="@style/TextViewColor"
         android:textSize="20sp"
         android:fontFamily="@font/ptsans_bold"
@@ -65,7 +68,7 @@
         android:id="@+id/textViewLembretenaodefinido"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="aaa"
+        android:text="@string/text_view_test"
         android:textSize="15sp"
         android:layout_marginTop="20dp"
         style="@style/TextViewColor"
@@ -81,29 +84,29 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
         android:layout_marginTop="20dp"
-        android:drawableLeft="@drawable/baseline_calendar_month_24"
         android:drawablePadding="7sp"
-        android:text="Data"
+        android:text="@string/text_view_data_edit"
         style="@style/TextViewColor"
         android:textSize="20sp"
         android:fontFamily="@font/ptsans_bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descricao_text_view" />
+        app:layout_constraintTop_toBottomOf="@+id/descricao_text_view"
+        app:drawableLeftCompat="@drawable/baseline_calendar_month_24" />
 
     <TextView
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:drawableLeft="@drawable/baseline_schedule_24"
-        android:text="Hora"
+        android:text="@string/text_view_hora_edit"
         android:layout_marginEnd="80dp"
         android:textSize="20sp"
         style="@style/TextViewColor"
         android:fontFamily="@font/ptsans_bold"
         android:drawablePadding="7sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descricao_text_view" />
+        app:layout_constraintTop_toBottomOf="@+id/descricao_text_view"
+        app:drawableLeftCompat="@drawable/baseline_schedule_24" />
 
     <Button
         android:id="@+id/button"
@@ -113,7 +116,7 @@
         android:layout_marginBottom="13dp"
         android:background="@drawable/edittext_background"
         android:backgroundTint="@color/red3"
-        android:text="Excluir"
+        android:text="@string/button_excluir"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -128,7 +131,7 @@
         style="@style/ButtonSelector"
         android:textAllCaps="false"
         android:enabled="false"
-        android:text="Atualizar"
+        android:text="@string/button_att"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -136,7 +139,7 @@
         android:id="@+id/text_view_contador1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0/14"
+        android:text="@string/text_view_contador_titulo"
         style="@style/TextViewColor"
         android:fontFamily="@font/ptsans_regular"
         app:layout_constraintBottom_toBottomOf="@+id/titulo_text_view"
@@ -149,7 +152,7 @@
         android:id="@+id/text_view_contador2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0/20"
+        android:text="@string/text_view_contador_descricao"
         style="@style/TextViewColor"
         android:fontFamily="@font/ptsans_regular"
         app:layout_constraintBottom_toBottomOf="@+id/descricao_text_view"
@@ -164,7 +167,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="92dp"
         android:buttonTint="@color/white"
-        android:text="Marcar como concluída"
+        android:text="@string/checkbox_conc"
         style="@style/TextViewColor"
         android:textSize="15sp"
         android:fontFamily="@font/ptsans_bold"
@@ -188,8 +191,7 @@
         android:id="@+id/textViewRepetirModo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Não repetir"
-        android:drawableLeft="@drawable/refresh_icon"
+        android:text="@string/text_view_repeti"
         android:layout_marginTop="10dp"
         android:textSize="15sp"
         android:drawablePadding="2dp"
@@ -198,7 +200,8 @@
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        app:drawableLeftCompat="@drawable/refresh_icon" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

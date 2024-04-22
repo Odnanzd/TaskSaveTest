@@ -34,7 +34,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="90dp"
             android:fontFamily="@font/ptsans_bold"
-            android:text="Nome Completo"
+            android:text="@string/text_view_nome_completo2"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -58,14 +58,16 @@
             android:layout_height="50dp"
             android:background="@drawable/edittext_background"
             android:fontFamily="@font/ptsans_bold"
-            android:hint="Fernando Macoache Rabelo Trindade"
+            android:hint="@string/text_view_nome_completo"
             android:maxLines="1"
             android:paddingStart="20dp"
             android:textColor="@color/black"
             android:paddingEnd="20dp"
             android:textColorHint="@color/grey3"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:inputType="textPersonName"
+            android:autofillHints="name" />
 
         <ImageView
             style="@style/ImageViewIconPencil"
@@ -88,7 +90,8 @@
         android:foreground="?android:attr/selectableItemBackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        android:focusable="true">
 
         <TextView
             android:id="@+id/textviewbutton"
@@ -96,7 +99,7 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/ptsans_bold"
             android:gravity="center"
-            android:text="Atualizar"
+            android:text="@string/button_att"
             android:textColor="@color/white"
             android:textSize="22sp" />
 

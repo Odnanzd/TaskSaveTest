@@ -4,6 +4,28 @@
 
     <string name="app_name">TaskSave</string>
 
+    <!---Strings activity_welcome-->
+    <string name="welcome_entrar_button">Entrar</string>
+    <string name="welcome_cadastrar_button">Cadastrar</string>
+
+    <!---Strings activity_cadastro-->
+    <string name="text_view_cadastro">Faça o cadastro para continuar</string>
+    <string name="edit_text_hint_usuario">Nome Completo</string>
+    <string name="edit_text_hint_email">E-mail</string>
+    <string name="edit_text_hint_senha">Senha</string>
+    <string name="edit_text_hint_senha2">Repetir Senha</string>
+    <string name="text_view_senha_forte">* A senha deve ter no minímo 6 caracteres</string>
+    <string name="button_cadastrar">Cadastrar</string>
+    <string name="text_view_login_cadastro">Já tenho uma conta</string>
+
+    <!---Strings activity_login-->
+    <string name="text_view_login_login">Faça o login para continuar no app:</string>
+    <string name="edit_text_hint_email_login">Email</string>
+    <string name="edit_text_hint_senha_login">Senha</string>
+    <string name="checkbox_lembrar">Lembrar meu acesso</string>
+    <string name="text_view_esquecer_senha">Esqueci minha senha</string>
+    <string name="button_continuar_login">Continuar</string>
+    <string name="button_cadastrar_login">Criar uma conta</string>
 
     <!---Strings activity_fingerprint-->
 
@@ -28,6 +50,9 @@
     <string name="text_view_config">Config.</string>
     <string name="text_view_sair">Sair</string>
 
+    <!---Strings activity_agenda-->
+    <string name="text_view_tarefas">Tarefas Pendentes</string>
+    
     <!---Strings activity_add_agenda-->
     <string name="text_view_add_agenda">Criar nova tarefa:</string>
     <string name="edit_text_descricao_add_agenda">Descrição</string>
@@ -35,9 +60,65 @@
     <string name="edit_text_nome_add_agenda">Nome</string>
     <string name="channel_name">NotificaçãoAgenda</string>
     <string name="channel_description">Descrição</string>
+    <string name="switch_button">Definir lembrete</string>
+    <string name="text_view_horario">Horário</string>
+    <string name="text_view_data">Data</string>
+    <string name="text_view_contador_descricao">0/20</string>
+    <string name="text_view_repetir">Não repetir</string>
+    <string name="text_view_contador_titulo">0/14</string>
+
+    <!---Strings activity_agenda_concluido-->
+    <string name="text_view_concluido">Tarefas concluídas</string>
+
+    <!---Strings dialog_fingerprint-->
+    <string name="text_view_dialog_fingerprint">Deseja ativar o acesso por biometria?</string>
+    <string name="button_ativar">Ativar</string>
+    <string name="button_nao">Não Ativar</string>
+
+    <!---Strings dialog_repeat_reminder-->
+    <string name="text_view_nao_repetir">Não repetir</string>
+    <string name="text_view_dia">Todo dia</string>
+    <string name="text_view_semana">Toda semana</string>
+    <string name="text_view_mes">Todo mês</string>
+    <string name="text_view_ano">Todo ano</string>
 
     <!---Strings activity_config-->
     <string name="text_view_config_act">Configurações</string>
 
+    <!---Strings layout_agenda_concluido-->
+    <string name="text_view_titulo">Teste de Título</string>
+    <string name="text_view_desc">Descricao</string>
+    <string name="text_view_hor">teste</string>
+
+    <!---Strings activity_item_selected_agenda-->
+    <string name="button_excluir">Excluir</string>
+    <string name="button_att">Atualizar</string>
+    <string name="checkbox_conc">Marcar como concluída</string>
+    <string name="edit_text_desc">Descrição</string>
+    <string name="text_view_data_edit">Data</string>
+    <string name="text_view_hora_edit">Hora</string>
+    <string name="text_view_edit">Editar tarefa</string>
+    <string name="text_view_test">aaa</string>
+    <string name="text_view_repeti">Não repetir</string>
+    <string name="edit_text_tit">Titulo</string>
+
+
+    <!---Strings activity_item_selected_agenda_concluido -->
+    <string name="text_view_conc">Tarefa concluída nº</string>
+    <string name="edit_text_desco">Descrição</string>
+    <string name="text_view_criado">Criado em:</string>
+    <string name="text_view_conc2">Concluído em:</string>
+
+    <!---Strings activity_config -->
+    <string name="text_view_linear_perfil">Meu Perfil</string>
+    <string name="text_view_linear_segura">Segurança e Privacidade</string>
+    <string name="text_view_linear_not">Notificações</string>
+    <string name="text_view_liner_sobre">Sobre</string>
+
+    <!---Strings activity_config_perfil -->
+    <string name="text_view_nome_completo">Fernando Macoache Rabelo Trindade</string>
+    <string name="text_view_email">E-Mail</string>
+    <string name="text_view_sair_conta">Sair da Conta</string>
+    <string name="text_view_nome_completo2">Nome Completo</string>
 
 </resources>

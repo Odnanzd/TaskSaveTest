@@ -41,7 +41,8 @@
             android:layout_marginStart="28dp"
             android:layout_marginTop="28dp"
             android:paddingLeft="10sp"
-            android:text="Teste de Título"
+            android:paddingRight="10sp"
+            android:text="@string/text_view_titulo"
             android:textSize="15sp"
             android:fontFamily="@font/ptsans_bold"
             android:theme="@style/AppTheme"
@@ -54,14 +55,14 @@
             android:layout_height="30dp"
             android:layout_marginTop="18dp"
             android:layout_marginEnd="70dp"
-            android:drawableLeft="@drawable/baseline_calendar_month_24"
             android:drawablePadding="7sp"
-            android:text="teste"
+            android:text="@string/text_view_hor"
             android:fontFamily="@font/ptsans_regular"
             android:textSize="12sp"
             android:theme="@style/AppTheme"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:drawableLeftCompat="@drawable/baseline_calendar_month_24" />
 
 
 
@@ -73,7 +74,8 @@
             android:layout_marginStart="28dp"
             android:layout_marginTop="8dp"
             android:paddingLeft="10sp"
-            android:text="Descricao"
+            android:paddingRight="10sp"
+            android:text="@string/text_view_desc"
             android:textSize="15sp"
             android:fontFamily="@font/ptsans_regular"
             android:theme="@style/AppTheme2"
@@ -86,14 +88,14 @@
             android:layout_height="30dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="60dp"
-            android:drawableLeft="@drawable/baseline_calendar_month_24_green"
             android:drawablePadding="7sp"
-            android:text="teste"
+            android:text="@string/text_view_hor"
             android:textSize="12sp"
             android:fontFamily="@font/ptsans_regular"
             android:theme="@style/AppTheme"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_data_agenda2" />
+            app:layout_constraintTop_toBottomOf="@+id/text_view_data_agenda2"
+            app:drawableLeftCompat="@drawable/baseline_calendar_month_24_green" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

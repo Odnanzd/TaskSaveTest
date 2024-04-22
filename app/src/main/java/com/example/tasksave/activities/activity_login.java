@@ -47,7 +47,6 @@ public class activity_login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         input_Nome = findViewById(R.id.editTextEmail);
-        button_login = findViewById(R.id.buttonLogin);
         input_Password = findViewById(R.id.editTextSenha);
         button_cadastro = findViewById(R.id.buttonLogin2);
 //        input_Nome.requestFocus();

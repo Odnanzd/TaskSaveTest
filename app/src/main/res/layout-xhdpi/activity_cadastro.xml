@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:fontFamily="@font/ptsans_bold"
-                android:text="Faça o cadastro para continuar."
+                android:text="@string/text_view_cadastro"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/linearLayout"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -81,9 +81,11 @@
                     android:background="@drawable/edittext_background"
                     android:ems="10"
                     android:fontFamily="@font/ptsans_regular"
-                    android:hint="Usuário"
+                    android:hint="@string/edit_text_hint_usuario"
+                    android:autofillHints="name"
                     android:inputType="textPersonName"
                     android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
                     android:textColor="@color/grey6"
                     android:textColorHint="@color/grey3" />
 
@@ -98,9 +100,11 @@
                     android:background="@drawable/edittext_background"
                     android:ems="10"
                     android:fontFamily="@font/ptsans_regular"
-                    android:hint="E-mail"
-                    android:inputType="textPersonName"
+                    android:hint="@string/edit_text_hint_email"
+                    android:autofillHints="emailAddress"
+                    android:inputType="textEmailAddress"
                     android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
                     android:textColor="#464646"
                     android:textColorHint="@color/grey3" />
 
@@ -115,9 +119,11 @@
                     android:background="@drawable/edittext_background"
                     android:ems="10"
                     android:fontFamily="@font/ptsans_regular"
-                    android:hint="Senha"
+                    android:hint="@string/edit_text_hint_senha"
                     android:inputType="textPassword"
+                    android:autofillHints="password"
                     android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
                     android:textColor="#464646"
                     android:textColorHint="@color/grey3" />
 
@@ -132,9 +138,11 @@
                     android:background="@drawable/edittext_background"
                     android:ems="10"
                     android:fontFamily="@font/ptsans_regular"
-                    android:hint="Repetir Senha"
+                    android:hint="@string/edit_text_hint_senha2"
                     android:inputType="textPassword"
+                    android:autofillHints="password"
                     android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
                     android:textColor="#464646"
                     android:textColorHint="@color/grey3" />
 
@@ -145,7 +153,7 @@
                     android:layout_marginStart="35dp"
                     android:layout_marginBottom="5dp"
                     android:fontFamily="@font/ptsans_bold"
-                    android:text="* A senha deve ter no minímo 6 caracteres "
+                    android:text="@string/text_view_senha_forte"
                     android:textSize="15sp" />
 
                 <FrameLayout
@@ -159,12 +167,13 @@
                     android:layout_marginBottom="8dp"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:clickable="true"
+                    android:focusable="true"
                     >
                     <TextView
                         android:id="@+id/textviewbutton"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="Cadastrar"
+                        android:text="@string/button_cadastrar"
                         android:gravity="center"
                         android:textSize="22sp"
                         android:fontFamily="@font/ptsans_bold"
@@ -192,8 +201,9 @@
                 android:clickable="true"
                 android:fontFamily="@font/ptsans_bold"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:text="Já tenho uma conta"
+                android:text="@string/text_view_login_cadastro"
                 android:textSize="15sp"
+                android:focusable="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

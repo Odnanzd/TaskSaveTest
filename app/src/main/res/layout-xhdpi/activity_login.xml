@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/ptsans_bold"
-                android:text="Faça o login para continuar no app:"
+                android:text="@string/text_view_login_login"
                 app:layout_constraintBottom_toTopOf="@+id/liner"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.272"
@@ -79,9 +79,11 @@
                     android:background="@drawable/edittext_background"
                     android:ems="10"
                     android:fontFamily="@font/ptsans_regular"
-                    android:hint="Usuário"
-                    android:inputType="textPersonName"
+                    android:hint="@string/edit_text_hint_email_login"
+                    android:autofillHints="emailAddress"
+                    android:inputType="textEmailAddress"
                     android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
                     android:textColor="@color/black"
                     android:textColorHint="@color/grey3" />
 
@@ -96,9 +98,11 @@
                     android:background="@drawable/edittext_background"
                     android:ems="10"
                     android:fontFamily="@font/ptsans_regular"
-                    android:hint="Senha"
+                    android:autofillHints="password"
+                    android:hint="@string/edit_text_hint_senha_login"
                     android:inputType="textPassword"
                     android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
                     android:textColor="@color/black"
                     android:textColorHint="@color/grey3" />
 
@@ -111,7 +115,7 @@
                 android:layout_height="37dp"
                 android:layout_marginBottom="4dp"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toTopOf="@+id/buttonLogin"
+                app:layout_constraintBottom_toTopOf="@+id/framelayout1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.529"
                 app:layout_constraintStart_toStartOf="parent"
@@ -124,7 +128,7 @@
                     android:layout_marginTop="2dp"
                     android:layout_marginEnd="20dp"
                     android:fontFamily="@font/ptsans_bold"
-                    android:text="Lembrar meu acesso"
+                    android:text="@string/checkbox_lembrar"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toStartOf="@+id/textView2"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -135,7 +139,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:fontFamily="@font/ptsans_bold"
-                    android:text="Esqueci minha senha."
+                    android:text="@string/text_view_esquecer_senha"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -144,38 +148,58 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <Button
-                android:id="@+id/buttonLogin"
-                style="@style/ButtonSelector"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:clickable="true"
+            <FrameLayout
+                android:id="@+id/framelayout1"
+                android:background="@drawable/button_colors_light"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="12dp"
-                android:fontFamily="@font/ptsans_bold"
-                android:text="Entrar"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="20sp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
                 app:layout_constraintBottom_toTopOf="@+id/buttonLogin2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent" >
+
+                <TextView
+                    android:id="@+id/textviewbutton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/button_continuar_login"
+                    android:gravity="center"
+                    android:textSize="22sp"
+                    android:fontFamily="@font/ptsans_bold"
+                    android:textColor="@color/white"
+                    />
+                <ProgressBar
+                    android:id="@+id/progressbar1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_gravity="center"
+                    android:indeterminateTint="@color/white"
+
+                    />
+
+            </FrameLayout>
 
             <Button
                 android:id="@+id/buttonLogin2"
                 style="@style/ButtonSelector2"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:clickable="true"
+                android:focusable="true"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="72dp"
                 android:fontFamily="@font/ptsans_bold"
-                android:text="Criar uma conta"
+                android:text="@string/button_cadastrar_login"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="20sp"

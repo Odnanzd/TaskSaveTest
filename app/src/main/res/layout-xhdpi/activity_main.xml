@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/ptsans_bold"
-        android:text="Olá, usuário."
+        android:text="@string/text_view"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
@@ -71,6 +71,7 @@
                             android:layout_width="102dp"
                             android:layout_height="115dp"
                             android:clickable="true"
+                            android:focusable="true"
                             android:foreground="?android:attr/selectableItemBackground"
                             tools:ignore="MissingConstraints" />
 
@@ -131,6 +132,7 @@
                             android:layout_width="102dp"
                             android:layout_height="115dp"
                             android:clickable="true"
+                            android:focusable="true"
                             android:foreground="?android:attr/selectableItemBackground"
                             tools:ignore="MissingConstraints" />
 
@@ -177,6 +179,7 @@
                             android:layout_width="102dp"
                             android:layout_height="115dp"
                             android:clickable="true"
+                            android:focusable="true"
                             android:foreground="?android:attr/selectableItemBackground"
                             tools:ignore="MissingConstraints"
                             tools:layout_editor_absoluteX="0dp"
@@ -231,6 +234,7 @@
                             android:layout_width="102dp"
                             android:layout_height="115dp"
                             android:clickable="true"
+                            android:focusable="true"
                             android:foreground="?android:attr/selectableItemBackground"
                             tools:ignore="MissingConstraints" />
 
@@ -277,6 +281,7 @@
                             android:layout_width="102dp"
                             android:layout_height="115dp"
                             android:clickable="true"
+                            android:focusable="true"
                             android:foreground="?android:attr/selectableItemBackground"
                             tools:ignore="MissingConstraints" />
 
@@ -324,6 +329,7 @@
                             android:layout_width="102dp"
                             android:layout_height="115dp"
                             android:clickable="true"
+                            android:focusable="true"
                             android:foreground="?android:attr/selectableItemBackground"
                             tools:ignore="MissingConstraints" />
 
