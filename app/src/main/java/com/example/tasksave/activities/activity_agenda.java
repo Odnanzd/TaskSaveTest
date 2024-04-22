@@ -42,6 +42,7 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.tasksave.conexaoBD.Conexao;
@@ -161,7 +162,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         editNome.requestFocus();
 
 
-        Switch switchCompat = dialog.findViewById(R.id.switch1);
+        SwitchCompat switchCompat = dialog.findViewById(R.id.switch1);
         switchCompat.setChecked(false);
         textView.setVisibility(View.VISIBLE);
         textView1.setVisibility(View.VISIBLE);
