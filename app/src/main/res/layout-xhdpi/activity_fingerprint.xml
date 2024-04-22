@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="@string/text_view_fingerprint"
-        android:fontFamily="@font/ptsans_regular"
+        android:fontFamily="@font/ptsans_bold"
         />
 
     <Button
@@ -34,7 +34,7 @@
         android:layout_marginEnd="62dp"
         android:layout_marginBottom="84dp"
         android:text="@string/button_fing"
-        android:fontFamily="@font/ptsans_regular"
+        android:fontFamily="@font/ptsans_bold"
         style="@style/ButtonSelector"
         android:textAllCaps="false"
         android:textColor="@color/white"

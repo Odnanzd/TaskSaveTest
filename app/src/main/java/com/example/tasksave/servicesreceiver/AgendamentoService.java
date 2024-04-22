@@ -62,10 +62,11 @@ public class AgendamentoService extends JobIntentService {
             wakeLock.release();
         }
     }
+    @SuppressLint("WrongConstant")
     private void createNotificationChannel() {
         CharSequence name = "Nome do Canal";
         String description = "Descrição do Canal";
-        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        int importance = NotificationManager.IMPORTANCE_HIGH;
         NotificationChannel channel = null;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
