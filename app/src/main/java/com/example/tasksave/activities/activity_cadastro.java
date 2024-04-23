@@ -81,7 +81,7 @@ public class activity_cadastro extends AppCompatActivity {
             progressBar.setVisibility(View.VISIBLE);
             textViewButton.setVisibility(View.GONE);
             frameLayout.setClickable(false);
-            inserirUser(v);
+//            inserirUser(v);
             }
     });
 
@@ -144,8 +144,8 @@ public class activity_cadastro extends AppCompatActivity {
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putBoolean("PrimeiroAcesso", true);
                     editor.commit();
-                    User user = new User(editTextUsuario.getText().toString(), editTextSenha.getText().toString(), editTextEmail.getText().toString());
-                    long id = userDAO.inserir(user);
+//                    User user = new User(editTextUsuario.getText().toString(), editTextSenha.getText().toString(), editTextEmail.getText().toString());
+//                    long id = userDAO.inserir(user);
                     Intent intent = new Intent(activity_cadastro.this, activity_login.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out);

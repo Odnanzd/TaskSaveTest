@@ -6,7 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.tasksave.conexaoBD.Conexao;
+import com.example.tasksave.conexaoSQLite.Conexao;
 import com.example.tasksave.objetos.User;
 
 import java.util.ArrayList;
@@ -23,41 +23,41 @@ public class UserDAO {
 
     }
 
-    public long inserir(User user) {
-
-        ContentValues contentValues = new ContentValues();
-
-        contentValues.put("username", user.getUsername());
-        contentValues.put("password", user.getPassword());
-        contentValues.put("email", user.getEmail());
-
-        return db.insert("user", null, contentValues);
-
-    }
-
-    public List<User> ListarNome() {
-
-        List<User> listausername = new ArrayList<User>();
-
-        Cursor cursor = db.rawQuery("SELECT * FROM user;", null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                @SuppressLint("Range")
-                String username = cursor.getString(cursor.getColumnIndex("username"));
-                @SuppressLint("Range")
-                String password = cursor.getString(cursor.getColumnIndex("password"));
-                @SuppressLint("Range")
-                String email = cursor.getString(cursor.getColumnIndex("password"));
-
-                listausername.add(new User(username, password, email));
-            } while (cursor.moveToNext());
-        }
-
-        cursor.close();
-
-        return listausername;
-    }
+//    public long inserir(User user) {
+//
+//        ContentValues contentValues = new ContentValues();
+//
+//        contentValues.put("username", user.getUsername());
+//        contentValues.put("password", user.getPassword());
+//        contentValues.put("email", user.getEmail());
+//
+//        return db.insert("user", null, contentValues);
+//
+//    }
+//
+//    public List<User> ListarNome() {
+//
+//        List<User> listausername = new ArrayList<User>();
+//
+//        Cursor cursor = db.rawQuery("SELECT * FROM user;", null);
+//
+//        if (cursor.moveToFirst()) {
+//            do {
+//                @SuppressLint("Range")
+//                String username = cursor.getString(cursor.getColumnIndex("username"));
+//                @SuppressLint("Range")
+//                String password = cursor.getString(cursor.getColumnIndex("password"));
+//                @SuppressLint("Range")
+//                String email = cursor.getString(cursor.getColumnIndex("password"));
+//
+//                listausername.add(new User(username, password, email));
+//            } while (cursor.moveToNext());
+//        }
+//
+//        cursor.close();
+//
+//        return listausername;
+//    }
 
     public boolean checkUser(String username) {
 

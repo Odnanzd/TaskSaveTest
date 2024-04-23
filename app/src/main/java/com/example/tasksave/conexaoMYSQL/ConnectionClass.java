@@ -1,4 +1,4 @@
-package com.example.tasksave;
+package com.example.tasksave.conexaoMYSQL;
 
 import android.util.Log;
 
@@ -8,10 +8,10 @@ import java.util.Objects;
 
 public class ConnectionClass {
     protected static String db = "tasksave";
-    protected static String ip = "10.0.2.2";
+    protected static String ip = "tasksaveaws.cnuguuiogphj.us-east-1.rds.amazonaws.com";
     protected static String port = "3306";
-    protected static String username = "root";
-    protected static String password = "tasksave@2024";
+    protected static String username = "odnan";
+    protected static String password = "tasksave2024";
 
     public Connection CONN() {
         Connection conn = null;

@@ -1,4 +1,4 @@
-package com.example.tasksave.conexaoBD;
+package com.example.tasksave.conexaoSQLite;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

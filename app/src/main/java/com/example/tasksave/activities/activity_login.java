@@ -20,12 +20,16 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.tasksave.R;
-import com.example.tasksave.dao.UserDAO;
+import com.example.tasksave.dao.usuarioDAOMYsql;
+import com.example.tasksave.objetos.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class activity_login extends AppCompatActivity {
     public EditText input_Nome;
@@ -88,7 +92,8 @@ public class activity_login extends AppCompatActivity {
                     progressBar.setVisibility(View.VISIBLE);
                     frameLayout.setClickable(false);
                     button_cadastro.setClickable(false);
-                    InserirUser(view);
+//                    InserirUser(view);
+                    AutenticarUser();
                 }
 
             }
@@ -157,6 +162,39 @@ public class activity_login extends AppCompatActivity {
             }
         });
     }
+
+    public void AutenticarUser() {
+
+        try {
+            String emailUser = input_Nome.getText().toString();
+            String senhaUser = input_Password.getText().toString();
+
+            User user = new User();
+            user.setEmail_usuario(emailUser);
+            user.setSenha_usuario(senhaUser);
+
+            usuarioDAOMYsql usuarioDAOMYsql = new usuarioDAOMYsql();
+            ResultSet resultSet = usuarioDAOMYsql.autenticaUsuarioAWS(user);
+
+            if(resultSet.next()) {
+
+                Toast.makeText(this, "Sucesso ao autenticar", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(activity_login.this, activity_main.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+
+            }else {
+
+                Toast.makeText(this, "Erro ao autenticar", Toast.LENGTH_SHORT).show();
+            }
+
+        }catch (SQLException e) {
+            Log.d("ERRO SQL AUT", "ERRO SQL" + e);
+        }
+
+    }
+
+
 }
 
 

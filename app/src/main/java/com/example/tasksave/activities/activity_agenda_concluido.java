@@ -19,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.tasksave.conexaoBD.Conexao;
+import com.example.tasksave.conexaoSQLite.Conexao;
 import com.example.tasksave.baseadapter.CustomAdapterConcluido;
 import com.example.tasksave.R;
 import com.example.tasksave.objetos.Agenda;

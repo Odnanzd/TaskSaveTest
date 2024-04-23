@@ -1,37 +1,32 @@
 package com.example.tasksave.objetos;
 
 public class User {
+    private int id_usuario;
+    private String email_usuario;
 
-    private String username;
-    private String password;
-    private String email;
+    private String senha_usuario;
 
-    public User(String username, String password, String email) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
+    public int getId_usuario() {
+        return id_usuario;
     }
 
-    public String getUsername() {
-        return username;
-    }
-    public String getPassword() {
-        return password;
+    public void setId_usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
     }
 
-    public String getEmail() {
-        return email;
+    public String getEmail_usuario() {
+        return email_usuario;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail_usuario(String email_usuario) {
+        this.email_usuario = email_usuario;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public String getSenha_usuario() {
+        return senha_usuario;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSenha_usuario(String senha_usuario) {
+        this.senha_usuario = senha_usuario;
     }
 }
