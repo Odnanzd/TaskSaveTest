@@ -44,7 +44,7 @@ public class activity_welcome extends AppCompatActivity {
         buttonCadastrar = findViewById(R.id.buttonCadastrar);
         buttonDB = findViewById(R.id.button4);
 
-        Connect();
+//        Connect();
         buttonEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

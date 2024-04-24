@@ -64,7 +64,7 @@ public class activity_main extends AppCompatActivity {
         numeroIcon = findViewById(R.id.iconnumero);
         imageViewMenuConfig = findViewById(R.id.image_view_circle_config);
 
-        ExibirUsername();
+//        ExibirUsername();
         VerificarAtrasos();
         ChecarBiometria();
 

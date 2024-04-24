@@ -20,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.tasksave.R;
+import com.example.tasksave.conexaoMYSQL.ConnectionClass;
 import com.example.tasksave.dao.usuarioDAOMYsql;
 import com.example.tasksave.objetos.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,8 +29,12 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class activity_login extends AppCompatActivity {
     public EditText input_Nome;
@@ -41,6 +46,7 @@ public class activity_login extends AppCompatActivity {
     private TextView textView;
     private ProgressBar progressBar;
 
+    String str, str2;
     @Override
     public void onBackPressed() {
 
@@ -92,13 +98,15 @@ public class activity_login extends AppCompatActivity {
                     progressBar.setVisibility(View.VISIBLE);
                     frameLayout.setClickable(false);
                     button_cadastro.setClickable(false);
-//                    InserirUser(view);
-                    AutenticarUser();
+                    Autentica();
+
+
                 }
 
             }
 
         });
+
         button_cadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,95 +116,55 @@ public class activity_login extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
         });
-
     }
 
-    public void InserirUser(View view) {
+    public void Autentica() {
 
-        String emailUser = input_Nome.getText().toString();
-        String senhaUser = input_Password.getText().toString();
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(() -> {
+            try {
+                String emailUser = input_Nome.getText().toString();
+                String senhaUser = input_Password.getText().toString();
 
-        FirebaseAuth.getInstance().signInWithEmailAndPassword(emailUser, senhaUser).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
+                User user = new User();
+                user.setEmail_usuario(emailUser);
+                user.setSenha_usuario(senhaUser);
 
-                if (task.isSuccessful()) {
+                usuarioDAOMYsql usuarioDAOMYsql = new usuarioDAOMYsql();
+                ResultSet resultSet = usuarioDAOMYsql.autenticaUsuarioAWS(user);
 
-                    if (checkBox.isChecked()) {
-
-                        SharedPreferences prefs = getSharedPreferences("arquivoSalvarSenha", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = prefs.edit();
-                        editor.putBoolean("SalvarSenha", true);
-                        editor.commit();
-                    }
-                    SharedPreferences prefs = getSharedPreferences("ArquivoPrimeiroAcesso", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putBoolean("PrimeiroAcesso", true);
-                    editor.commit();
-
-                    Toast.makeText(activity_login.this, "Sucesso!", Toast.LENGTH_SHORT);
-
-                    Intent intentMain = new Intent(activity_login.this, activity_main.class);
-                    intentMain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intentMain);
-                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-
+                if (resultSet.next()) {
+                    // Sucesso na autenticação
+                    str = "Sucesso";
+                    runOnUiThread(() -> {
+                        Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(activity_login.this, activity_main.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    });
                 } else {
-
-                    String erro;
-
-                    try {
-                        throw task.getException();
-                    }catch (Exception e) {
-                        erro="E-mail e/ou senha errada(s).";
-                    }
-                    textView.setVisibility(View.VISIBLE);
-                    progressBar.setVisibility(View.GONE);
-                    frameLayout.setClickable(true);
-                    button_cadastro.setClickable(true);
-                    Snackbar snackbar = Snackbar.make(view, erro, Snackbar.LENGTH_SHORT);
-                    snackbar.setBackgroundTint(Color.WHITE);
-                    snackbar.setTextColor(Color.BLACK);
-                    snackbar.show();
+                    // Falha na autenticação
+                    str2 = "Usuário ou senha incorreta.";
+                    runOnUiThread(() -> {
+                        textView.setVisibility(View.VISIBLE);
+                        progressBar.setVisibility(View.GONE);
+                        frameLayout.setClickable(true);
+                        button_cadastro.setClickable(true);
+                        Snackbar snackbar = Snackbar.make(this.getCurrentFocus(), str2, Snackbar.LENGTH_SHORT);
+                        snackbar.setBackgroundTint(Color.WHITE);
+                        snackbar.setTextColor(Color.BLACK);
+                        snackbar.show();
+                    });
                 }
+            } catch (SQLException e) {
+                Log.d("ERRO SQL AUT", "ERRO SQL" + e);
             }
         });
-    }
-
-    public void AutenticarUser() {
-
-        try {
-
-            String emailUser = input_Nome.getText().toString();
-            String senhaUser = input_Password.getText().toString();
-
-            User user = new User();
-            user.setEmail_usuario(emailUser);
-            user.setSenha_usuario(senhaUser);
-
-            usuarioDAOMYsql usuarioDAOMYsql = new usuarioDAOMYsql();
-            ResultSet resultSet = usuarioDAOMYsql.autenticaUsuarioAWS(user);
-
-            if(resultSet.next()) {
-
-                Toast.makeText(this, "Sucesso ao autenticar", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(activity_login.this, activity_main.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-
-            }else {
-
-                Toast.makeText(this, "Erro ao autenticar", Toast.LENGTH_SHORT).show();
-            }
-
-        }catch (SQLException e) {
-            Log.d("ERRO SQL AUT", "ERRO SQL" + e);
         }
-
-    }
-
-
 }
+
+
+
 
 
 

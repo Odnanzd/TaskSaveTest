@@ -16,12 +16,11 @@ public class ConnectionClass {
     public Connection CONN() {
         Connection conn = null;
         try{
-//            Class.forName("com.mysql.jdbc.Driver");
-//            String connectionString = "jdbc:mysql://"+ip + ":" +port +"/" +db;
-            String url = "jdbc:mysql://tasksaveaws.cnuguuiogphj.us-east-1.rds.amazonaws.com:3306/tasksave?user=odnan&password=tasksave2024";
-            conn = DriverManager.getConnection(url);
+            Class.forName("com.mysql.jdbc.Driver");
+            String connectionString = "jdbc:mysql://"+ip + ":" +port +"/" +db;
+            conn = DriverManager.getConnection(connectionString, username, password);
         }catch (Exception e) {
-            Log.e("ERROSSS", Objects.requireNonNull(e.getMessage()));
+            Log.e("ERRO", Objects.requireNonNull(e.getMessage()));
         }
         return conn;
     }

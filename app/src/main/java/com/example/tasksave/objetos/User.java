@@ -2,6 +2,8 @@ package com.example.tasksave.objetos;
 
 public class User {
     private int id_usuario;
+
+    private String nome_usuario;
     private String email_usuario;
 
     private String senha_usuario;
@@ -12,6 +14,14 @@ public class User {
 
     public void setId_usuario(int id_usuario) {
         this.id_usuario = id_usuario;
+    }
+
+    public String getNome_usuario() {
+        return nome_usuario;
+    }
+
+    public void setNome_usuario(String nome_usuario) {
+        this.nome_usuario = nome_usuario;
     }
 
     public String getEmail_usuario() {
