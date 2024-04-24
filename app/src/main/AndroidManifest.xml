@@ -50,9 +50,15 @@
             android:screenOrientation="portrait" /> <!-- Definir a SplashActivity como a atividade principal -->
         <activity
             android:name=".activities.activity_splash_screen"
-            android:exported="false"
+            android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.TaskSave"/> <!-- Restante das atividades -->
+            android:theme="@style/Theme.TaskSave"> <!-- Restante das atividades -->
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity
             android:name=".activities.activity_agenda"
             android:exported="false"
@@ -64,17 +70,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.activity_login"
-            android:exported="true"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:windowFullscreen="true"
-            android:windowSoftInputMode="adjustResize">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-
-    </activity>
+            android:windowSoftInputMode="adjustResize"/>
 
         <activity
             android:name=".activities.activity_main"

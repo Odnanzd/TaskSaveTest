@@ -13,27 +13,28 @@ import java.sql.SQLException;
 public class usuarioDAOMYsql {
 
     Connection conn;
-    String erro;
+
     public ResultSet autenticaUsuarioAWS(User user) {
 
+        ConnectionClass connectionClass = new ConnectionClass();
+        conn = connectionClass.CONN();
 
-        conn = new ConnectionClass().CONN();
+            try {
+                String sql = "select * from usuario where email_usuario = ? and senha_usuario = ?";
+                PreparedStatement pstm = conn.prepareStatement(sql);
+                pstm.setString(1, user.getEmail_usuario());
+                pstm.setString(2, user.getSenha_usuario());
 
+                ResultSet rs = pstm.executeQuery();
+                return rs;
 
-        try {
-            String sql="SELECT * FROM usuario WHERE email_usuario = ? AND senha_usuario = ?";
-            PreparedStatement pstm = conn.prepareStatement(sql);
-            pstm.setString(1, user.getEmail_usuario());
-            pstm.setString(2, user.getSenha_usuario());
-
-            ResultSet rs = pstm.executeQuery();
-            return rs;
-
-        }catch (SQLException e) {
-            Log.d("Usuario autenticacao", "ERRO AO AUTENTICAR" + e);
-            return null;
+            }catch (SQLException e) {
+                e.printStackTrace();
+                Log.d("Usuario autenticacao", "ERRO AO AUTENTICAR" + e);
+                return null;
+            }
         }
+
+
     }
 
-
-}

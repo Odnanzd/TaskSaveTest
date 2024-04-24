@@ -166,6 +166,7 @@ public class activity_login extends AppCompatActivity {
     public void AutenticarUser() {
 
         try {
+
             String emailUser = input_Nome.getText().toString();
             String senhaUser = input_Password.getText().toString();
 
