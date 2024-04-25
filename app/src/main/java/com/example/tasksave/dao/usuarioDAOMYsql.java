@@ -58,30 +58,22 @@ public class usuarioDAOMYsql {
             return false;
         }
     }
-    public boolean emailJaCadastrado(String email) {
-
-        boolean jaCadastrado = false;
+    public ResultSet emailJaCadastrado(String email) {
 
         ConnectionClass connectionClass = new ConnectionClass();
         conn = connectionClass.CONN();
 
         try {
-            String sql = "SELECT COUNT(*) AS total FROM usuario WHERE email_usuario = ?";
+            String sql = "SELECT email_usuario FROM usuario WHERE email_usuario = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
+            return resultSet;
 
-            if (resultSet.next()) {
-                int total = resultSet.getInt("total");
-                jaCadastrado = (total > 0);
-            }
         } catch (SQLException e) {
-            // Tratar exceção, se necessário
             e.printStackTrace();
+            return null;
         }
 
-        return jaCadastrado;
     }
-
-
-}
+    }

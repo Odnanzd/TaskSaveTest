@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -113,7 +114,6 @@ public class activity_cadastro extends AppCompatActivity {
 
         usuarioDAOMYsql usuarioDAOMYsql = new usuarioDAOMYsql();
 
-        boolean usercadastrado = usuarioDAOMYsql.emailJaCadastrado(emailCadastro);
 
         if (usuarioCadastro.isEmpty() || emailCadastro.isEmpty() || senhaCadastro.isEmpty() || senhaCadastro2.isEmpty()) {
 
@@ -134,6 +134,24 @@ public class activity_cadastro extends AppCompatActivity {
             frameLayout.setClickable(true);
 
 
+        }else if (!Patterns.EMAIL_ADDRESS.matcher(emailCadastro).matches()) {
+
+            String msg_error2 = "Endereço de e-mail inválido.";
+
+            InputMethodManager imm = (InputMethodManager) getBaseContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            View view2 = getCurrentFocus();
+            if (view2 != null) {
+                imm.hideSoftInputFromWindow(view2.getWindowToken(), 0);
+            }
+
+            Snackbar snackbar = Snackbar.make(view, msg_error2, Snackbar.LENGTH_SHORT);
+            snackbar.setBackgroundTint(Color.WHITE);
+            snackbar.setTextColor(Color.BLACK);
+            snackbar.show();
+            progressBar.setVisibility(View.GONE);
+            textViewButton.setVisibility(View.VISIBLE);
+            frameLayout.setClickable(true);
+
         } else if (senhaCadastro.length() < 6) {
 
             String msg_error2 = "Senha deve conter no minímo 6 caracteres";
@@ -152,28 +170,10 @@ public class activity_cadastro extends AppCompatActivity {
             textViewButton.setVisibility(View.VISIBLE);
             frameLayout.setClickable(true);
 
-        } else if (usercadastrado) {
-
-            String msg_error2 = "Esse e-mail já está cadastrado.";
-
-            InputMethodManager imm = (InputMethodManager) getBaseContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            View view2 = getCurrentFocus();
-            if (view2 != null) {
-                imm.hideSoftInputFromWindow(view2.getWindowToken(), 0);
-            }
-
-            Snackbar snackbar = Snackbar.make(view, msg_error2, Snackbar.LENGTH_SHORT);
-            snackbar.setBackgroundTint(Color.WHITE);
-            snackbar.setTextColor(Color.BLACK);
-            snackbar.show();
-            progressBar.setVisibility(View.GONE);
-            textViewButton.setVisibility(View.VISIBLE);
-            frameLayout.setClickable(true);
-
-
         } else if (editTextSenha.getText().toString().equals(editTextSenha2.getText().toString())) {
 
             CadastrarUserMYSQL(usuarioCadastro, emailCadastro, senhaCadastro);
+
 
         } else {
             String msg_error2 = "As senhas devem ser iguais";
@@ -196,35 +196,20 @@ public class activity_cadastro extends AppCompatActivity {
     }
 
     public void CadastrarUserMYSQL(String usuarioCadastro, String emailCadastro, String senhaCadastro) {
-
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(() -> {
-            try {
+            usuarioDAOMYsql usuarioDAOMysql = new usuarioDAOMYsql();
+            try (ResultSet resultSet = usuarioDAOMysql.emailJaCadastrado(emailCadastro)) {
 
-                User user = new User();
-                user.setNome_usuario(usuarioCadastro);
-                user.setEmail_usuario(emailCadastro);
-                user.setSenha_usuario(senhaCadastro);
-
-
-                usuarioDAOMYsql usuarioDAOMYsql = new usuarioDAOMYsql();
-
-                boolean sucesso = usuarioDAOMYsql.CadastraUsuarioAWS(user);
-
-
-                if (sucesso) {
+                if (resultSet.next()) {
                     // Sucesso na autenticação
-                    str = "Faça o login para continuar.";
+                    str2 = "Esse e-mail já está cadastrado.";
                     runOnUiThread(() -> {
-                        Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(activity_cadastro.this, activity_login.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                    });
-                } else {
-                    // Falha na autenticação
-                    str2 = "Erro ao autenticar";
-                    runOnUiThread(() -> {
+                        InputMethodManager imm = (InputMethodManager) getBaseContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        View view2 = getCurrentFocus();
+                        if (view2 != null) {
+                            imm.hideSoftInputFromWindow(view2.getWindowToken(), 0);
+                        }
                         progressBar.setVisibility(View.GONE);
                         textViewButton.setVisibility(View.VISIBLE);
                         frameLayout.setClickable(true);
@@ -233,13 +218,47 @@ public class activity_cadastro extends AppCompatActivity {
                         snackbar.setTextColor(Color.BLACK);
                         snackbar.show();
                     });
+                } else {
+                    // Falha na autenticação
+                    str2 = "Erro no cadastro.";
+                    str = "Faça o login para continuar.";
+                    User user = new User();
+                    user.setNome_usuario(usuarioCadastro);
+                    user.setEmail_usuario(emailCadastro);
+                    user.setSenha_usuario(senhaCadastro);
+                    boolean sucesso = usuarioDAOMysql.CadastraUsuarioAWS(user);
+                    runOnUiThread(() -> {
+                        try {
+
+                            if (sucesso) {
+                                Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(activity_cadastro.this, activity_login.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            } else {
+                                InputMethodManager imm = (InputMethodManager) getBaseContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                                View view2 = getCurrentFocus();
+                                if (view2 != null) {
+                                    imm.hideSoftInputFromWindow(view2.getWindowToken(), 0);
+                                }
+                                progressBar.setVisibility(View.GONE);
+                                textViewButton.setVisibility(View.VISIBLE);
+                                frameLayout.setClickable(true);
+                                Snackbar snackbar = Snackbar.make(this.getCurrentFocus(), str2, Snackbar.LENGTH_SHORT);
+                                snackbar.setBackgroundTint(Color.WHITE);
+                                snackbar.setTextColor(Color.BLACK);
+                                snackbar.show();
+                            }
+                        } catch (Exception e) {
+                            Log.d("ERRO SQL CADASTRO", "Erro ao cadastrar usuário: " + e);
+                        }
+                    });
                 }
             } catch (Exception e) {
                 Log.d("ERRO SQL AUT", "ERRO SQL" + e);
             }
         });
     }
-
 
     private void CadastrarUserFirebase(String usuario, String email, String senha, String senha2, View view) {
 
