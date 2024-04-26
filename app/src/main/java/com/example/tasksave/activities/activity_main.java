@@ -27,6 +27,7 @@ import androidx.biometric.BiometricManager;
 
 import com.example.tasksave.conexaoSQLite.Conexao;
 import com.example.tasksave.R;
+import com.example.tasksave.objetos.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;

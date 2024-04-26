@@ -24,13 +24,8 @@ public class activity_welcome extends AppCompatActivity {
 
     Button buttonEntrar;
     Button buttonCadastrar;
-    Button buttonDB;
-
-    ConnectionClass connectionClass;
 
     Connection con;
-
-    ResultSet rs;
 
     String name, str, str2;
 
@@ -42,7 +37,6 @@ public class activity_welcome extends AppCompatActivity {
 
         buttonEntrar = findViewById(R.id.buttonEntrar);
         buttonCadastrar = findViewById(R.id.buttonCadastrar);
-        buttonDB = findViewById(R.id.button4);
 
 //        Connect();
         buttonEntrar.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +62,7 @@ public class activity_welcome extends AppCompatActivity {
     public void Connect() {
 
         ConnectionClass connectionClass = new ConnectionClass();
+
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(() -> {

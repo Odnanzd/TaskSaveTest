@@ -62,35 +62,48 @@
                     android:layout_marginEnd="32dp"
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/edittext_background"
+                    android:drawableStart="@drawable/email_icon_svg4"
+                    android:drawablePadding="10dp"
+                    android:paddingStart="10dp"
                     android:ems="10"
                     android:fontFamily="@font/ptsans_regular"
                     android:hint="@string/edit_text_hint_email_login"
                     android:autofillHints="emailAddress"
                     android:inputType="textEmailAddress"
-                    android:paddingStart="20dp"
                     android:paddingEnd="20dp"
                     android:textColor="@color/black"
                     android:textColorHint="@color/grey3" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutSenhaCadastro"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="32dp"
+                    android:textColorHint="@color/grey3"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@color/grey3"
+                    >
 
                 <EditText
                     android:id="@+id/editTextSenha"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginBottom="8dp"
                     android:background="@drawable/edittext_background"
                     android:ems="10"
                     android:fontFamily="@font/ptsans_regular"
                     android:hint="@string/edit_text_hint_senha_login"
                     android:autofillHints="password"
                     android:inputType="textPassword"
-                    android:paddingStart="20dp"
+                    android:drawableStart="@drawable/password_icon_svg5"
+                    android:drawablePadding="10dp"
+                    android:paddingStart="10dp"
                     android:paddingEnd="20dp"
                     android:textColor="@color/black"
                     android:textColorHint="@color/grey3" />
-
+                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
 

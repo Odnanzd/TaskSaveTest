@@ -100,7 +100,6 @@ public class activity_login extends AppCompatActivity {
                     button_cadastro.setClickable(false);
                     Autentica();
 
-
                 }
 
             }
@@ -137,6 +136,33 @@ public class activity_login extends AppCompatActivity {
                     // Sucesso na autenticação
                     str = "Sucesso";
                     runOnUiThread(() -> {
+
+                        if(checkBox.isChecked()) {
+
+                            SharedPreferences prefs3 = getSharedPreferences("arquivoSalvarSenha", MODE_PRIVATE);
+                            SharedPreferences.Editor editor3 = prefs3.edit();
+                            editor3.putBoolean("SalvarSenha", true);
+                            editor3.apply();
+
+                            SharedPreferences prefs4 = getSharedPreferences("ArquivoPrimeiroAcesso", MODE_PRIVATE);
+                            SharedPreferences.Editor editor4 = prefs4.edit();
+                            editor4.putBoolean("PrimeiroAcesso", true);
+                            editor4.apply();
+
+                            SharedPreferences prefs = getSharedPreferences("arquivoSalvarLoginEmail", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = prefs.edit();
+                            editor.putString("arquivo_Email", emailUser);
+                            editor.apply();
+
+                            SharedPreferences pref2s = getSharedPreferences("arquivoSalvarLoginSenha", MODE_PRIVATE);
+                            SharedPreferences.Editor editor2 = pref2s.edit();
+                            editor2.putString("arquivo_Senha", senhaUser);
+                            editor2.apply();
+                        }
+                        SharedPreferences prefs4 = getSharedPreferences("ArquivoPrimeiroAcesso", MODE_PRIVATE);
+                        SharedPreferences.Editor editor4 = prefs4.edit();
+                        editor4.putBoolean("PrimeiroAcesso", true);
+                        editor4.apply();
                         Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(activity_login.this, activity_main.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

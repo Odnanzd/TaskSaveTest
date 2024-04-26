@@ -76,4 +76,23 @@ public class usuarioDAOMYsql {
         }
 
     }
+    public ResultSet emailAutenticado(String email) {
+
+        ConnectionClass connectionClass = new ConnectionClass();
+        conn = connectionClass.CONN();
+
+        try {
+            String sql = "SELECT email_usuario FROM usuario WHERE email_usuario = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            return resultSet;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
     }
