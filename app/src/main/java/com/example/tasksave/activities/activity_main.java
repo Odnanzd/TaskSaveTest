@@ -128,18 +128,7 @@ public class activity_main extends AppCompatActivity {
 
         public void ExibirUsername() {
 
-        usuarioID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-            DocumentReference documentReference = dbFirebase.collection("Usuários").document(usuarioID);
-            documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                @Override
-                public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
-
-                    if(documentSnapshot != null) {
-                        text_view_main.setText("Olá, " + documentSnapshot.getString("usuario"));
-                    }
-                }
-            });
         }
     @Override
     public void onBackPressed() {
