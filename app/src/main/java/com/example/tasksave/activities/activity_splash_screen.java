@@ -1,25 +1,31 @@
 package com.example.tasksave.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.animation.ObjectAnimator;
+import androidx.biometric.BiometricManager;
+import androidx.biometric.BiometricPrompt;
+import androidx.core.content.ContextCompat;
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.ProgressDialog;
 import android.app.UiModeManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -36,15 +42,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.Executor;
 
 public class activity_splash_screen extends AppCompatActivity {
     private static final int SPLASH_TIME_OUT = 1500;
     ImageView imageView;
     Connection con;
-    String name, str, str2;
-    ProgressBar progressBar;
+    String str, str2;
+    TextView textViewInfo;
+    Button buttonTenta;
 
     private class ConsultaBancoDados extends AsyncTask<Void, Void, Void> {
         ProgressBar progressBar;
@@ -74,12 +80,32 @@ public class activity_splash_screen extends AppCompatActivity {
             String valorEmail = sharedPrefs2.getString("arquivo_Email", "");
             String valorsenha = sharedPrefs.getString("arquivo_Senha", "");
 
+            Log.d("TESTE", "TESTE" + isNetworkConnected(activity_splash_screen.this));
+
+//            if (!isNetworkConnected(activity_splash_screen.this)) {
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        buttonTenta.setVisibility(View.VISIBLE);
+//                        buttonTenta.setText("Iniciar no MODO OFFLINE");
+//                        buttonTenta.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                Intent intent = new Intent(activity_splash_screen.this, activity_main.class);
+//                                startActivity(intent);
+//                            }
+//                        });
+//                    }
+//                });
+//            }
+
             ConnectionClass connectionClass = new ConnectionClass();
 
                 try {
                     con = connectionClass.CONN();
                     if (con == null) {
                         str = "Erro de autenticação";
+
                     } else {
 
                         User user = new User();
@@ -94,17 +120,22 @@ public class activity_splash_screen extends AppCompatActivity {
                             str = "Sucesso";
                                 if (sharedPrefs4.getBoolean("SalvarSenha", false) && sharedPrefs3.getBoolean("AcessoFingerPrint", false)) {
 
-                                    Intent intent = new Intent(activity_splash_screen.this, activity_fingerprint.class);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    startActivity(intent);
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            ExibirFingerprint(); // Chama o método ExibirFingerprint() na thread principal
+                                        }
+                                    });
+                                }
+
+                            return null;
 
                                 } else if (sharedPrefs4.getBoolean("SalvarSenha", false) && !sharedPrefs3.getBoolean("AcessoFingerPrint", false)) {
 
                                     Intent intent = new Intent(activity_splash_screen.this, activity_main.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
-                                }
-                        } else {
+                                } else {
                             // Falha na autenticação
                             str2 = "ERRO";
                                 Toast.makeText(getBaseContext(), "ERRO", Toast.LENGTH_SHORT).show();
@@ -124,34 +155,17 @@ public class activity_splash_screen extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
         imageView = findViewById(R.id.splashImageView);
+        textViewInfo = findViewById(R.id.textViewInfo);
+        buttonTenta = findViewById(R.id.button_fing_tenta);
 
-//        new ConsultaBancoDados().execute();
-
-        UiModeManager uiModeManager = (UiModeManager) getSystemService(Context.UI_MODE_SERVICE);
-        int mode = uiModeManager.getNightMode();
-        if (mode == UiModeManager.MODE_NIGHT_YES) {
-            // Modo escuro ativado
-            Glide.with(this)
-                    .load(R.raw.tasksavegid) // Substitua gif_escuro pelo nome do seu GIF escuro na pasta res/raw
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true)
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(imageView);
-        } else {
-            // Modo escuro não ativado
-            Glide.with(this)
-                    .load(R.raw.tasksavelight) // Substitua gif_claro pelo nome do seu GIF claro na pasta res/raw
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true)
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(imageView);
-        }
+        gifThemeMode();
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlarmReceiver.class);
@@ -198,7 +212,7 @@ public class activity_splash_screen extends AppCompatActivity {
 
 
                 }else {
-//                    UsuarioAtual();
+
                     ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
                     new ConsultaBancoDados(progressBar).execute();
                 }
@@ -206,82 +220,134 @@ public class activity_splash_screen extends AppCompatActivity {
             }
         }, SPLASH_TIME_OUT);
 
-
-
     }
 
-//    public void UsuarioAtual() {
-//
-//
-//        SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("arquivoSalvarLoginEmail", Context.MODE_PRIVATE);
-//        SharedPreferences sharedPrefs = getApplicationContext().getSharedPreferences("arquivoSalvarLoginSenha", Context.MODE_PRIVATE);
-//        SharedPreferences sharedPrefs3 = getApplicationContext().getSharedPreferences("ArquivoFingerPrint", Context.MODE_PRIVATE);
-//        SharedPreferences sharedPrefs4 = getApplicationContext().getSharedPreferences("arquivoSalvarSenha", Context.MODE_PRIVATE);
-//
-//        String valorEmail = sharedPrefs2.getString("arquivo_Email", "");
-//        String valorsenha = sharedPrefs.getString("arquivo_Senha", "");
-//
-//        ConnectionClass connectionClass = new ConnectionClass();
-//
-//        ExecutorService executorService = Executors.newSingleThreadExecutor();
-//        executorService.execute(() -> {
-//            try {
-//                con = connectionClass.CONN();
-//                if (con == null) {
-//                    str = "Erro de autenticação";
-//                } else {
-//
-//                    User user = new User();
-//                    user.setEmail_usuario(valorEmail);
-//                    user.setSenha_usuario(valorsenha);
-//
-//                    usuarioDAOMYsql usuarioDAOMYsql = new usuarioDAOMYsql();
-//                    ResultSet resultSet = usuarioDAOMYsql.autenticaUsuarioAWS(user);
-//
-//                    if (resultSet.next()) {
-//                        // Sucesso na autenticação
-//                        str = "Sucesso";
-//                        runOnUiThread(() -> {
-//                            if (sharedPrefs4.getBoolean("SalvarSenha", false) && sharedPrefs3.getBoolean("AcessoFingerPrint", false)) {
-//
-//                                progressAnimator = ObjectAnimator.ofInt(progressBar, "progress", 0, 1000);
-//                                progressAnimator.setDuration(5000); // Defina a duração da animação em milissegundos
-//                                progressAnimator.setRepeatCount(ObjectAnimator.INFINITE); // Define o número de repetições para infinito
-//                                progressAnimator.setRepeatMode(ObjectAnimator.REVERSE); // Inverte a animação quando termina
-//
-//                                progressAnimator.start();
-//                                Intent intent = new Intent(activity_splash_screen.this, activity_fingerprint.class);
-//                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//                                startActivity(intent);
-//
-//                            } else if (sharedPrefs4.getBoolean("SalvarSenha", false) && !sharedPrefs3.getBoolean("AcessoFingerPrint", false)) {
-//
-//                                progressAnimator = ObjectAnimator.ofInt(progressBar, "progress", 0, 1000);
-//                                progressAnimator.setDuration(5000); // Defina a duração da animação em milissegundos
-//                                progressAnimator.setRepeatCount(ObjectAnimator.INFINITE); // Define o número de repetições para infinito
-//                                progressAnimator.setRepeatMode(ObjectAnimator.REVERSE); // Inverte a animação quando termina
-//
-//                                // Iniciar a animação
-//                                progressAnimator.start();
-//                                Intent intent = new Intent(activity_splash_screen.this, activity_main.class);
-//                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//                                startActivity(intent);
-//                            }
-//                        });
-//                    } else {
-//                        // Falha na autenticação
-//                        str2 = "ERRO";
-//                        runOnUiThread(() -> {
-//                            Toast.makeText(this, str2, Toast.LENGTH_SHORT).show();
-//                        });
-//                    }
-//                }
-//                } catch(SQLException e){
-//
-//                    Log.d("ERRO SQL AUT", "ERRO SQL" + e);
-//                }
-//        });
-//    }
+    public void ExibirFingerprint() {
 
+        ChecarBiometria();
+
+        Executor executor = ContextCompat.getMainExecutor(this);
+        BiometricPrompt biometricPrompt = new BiometricPrompt(activity_splash_screen.this,
+                executor, new BiometricPrompt.AuthenticationCallback() {
+            @Override
+            public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
+                super.onAuthenticationError(errorCode, errString);
+                buttonTenta.setVisibility(View.VISIBLE);
+                Toast.makeText(activity_splash_screen.this, "Erro de autenticação " + errString, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                super.onAuthenticationSucceeded(result);
+                Toast.makeText(activity_splash_screen.this, "Sucesso", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(activity_splash_screen.this, activity_main.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onAuthenticationFailed() {
+                super.onAuthenticationFailed();
+                buttonTenta.setVisibility(View.VISIBLE);
+                Toast.makeText(activity_splash_screen.this, "Erro", Toast.LENGTH_SHORT).show();
+            }
+        });
+        BiometricPrompt.PromptInfo.Builder promptInfo = CaixaDialogo();
+        promptInfo.setNegativeButtonText("Cancelar");
+        biometricPrompt.authenticate(promptInfo.build());
+
+        imageView.setOnClickListener(view -> {
+            BiometricPrompt.PromptInfo.Builder promtInfo = CaixaDialogo();
+            buttonTenta.setVisibility(View.GONE);
+            promtInfo.setNegativeButtonText("Cancelar");
+            biometricPrompt.authenticate(promtInfo.build());
+        });
+        buttonTenta.setOnClickListener(view -> {
+            BiometricPrompt.PromptInfo.Builder promtInfo = CaixaDialogo();
+            promtInfo.setDeviceCredentialAllowed(true);
+            biometricPrompt.authenticate(promtInfo.build());
+        });
+    }
+
+    BiometricPrompt.PromptInfo.Builder CaixaDialogo() {
+        return new BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Login fingerprint")
+                .setSubtitle("Faça o login utilizando sua impressão digital");
+    }
+
+    public void ChecarBiometria () {
+        String info;
+        BiometricManager manager = BiometricManager.from(this);
+        switch (manager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_WEAK |
+                BiometricManager.Authenticators.BIOMETRIC_STRONG)) {
+            case BiometricManager.BIOMETRIC_SUCCESS:
+                info = "Impressão digital detectada";
+                enableButton(true);
+                break;
+            case BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE:
+                info = "Dispositivo não possui hardware de impressão digital";
+                enableButton(false);
+                break;
+            case BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE:
+                info = "Dispositivo está com o hardware comprometido";
+                enableButton(false);
+                break;
+            case BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED:
+                info = "Não há autentição fingerprint definido neste dispositivo";
+                enableButton(true, false);
+                break;
+            default:
+                info = "Erro desconhecido";
+                break;
+
+        }
+        textViewInfo.setVisibility(View.VISIBLE);
+        textViewInfo.setText(info);
+    }
+    void enableButton(boolean enable) {
+
+        imageView.setEnabled(enable);
+
+    }
+    void enableButton(boolean enable, boolean enroll) {
+        enableButton(enable);
+        if (!enroll) return;
+        Intent enrollIntent = new Intent(Settings.ACTION_BIOMETRIC_ENROLL);
+        enrollIntent.putExtra(Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED,
+                BiometricManager.Authenticators.BIOMETRIC_STRONG |
+                        BiometricManager.Authenticators.BIOMETRIC_WEAK);
+        startActivity(enrollIntent);
+    }
+
+    public void gifThemeMode() {
+
+        UiModeManager uiModeManager = (UiModeManager) getSystemService(Context.UI_MODE_SERVICE);
+        int mode = uiModeManager.getNightMode();
+        if (mode == UiModeManager.MODE_NIGHT_YES) {
+            // Modo escuro ativado
+            Glide.with(this)
+                    .load(R.raw.tasksavegid) // Substitua gif_escuro pelo nome do seu GIF escuro na pasta res/raw
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .into(imageView);
+        } else {
+            // Modo escuro não ativado
+            Glide.with(this)
+                    .load(R.raw.tasksavelight) // Substitua gif_claro pelo nome do seu GIF claro na pasta res/raw
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .into(imageView);
+        }
+    }
+    public static boolean isNetworkConnected(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (cm == null) {
+            return false;
+        }
+        return true;
+    }
 
 }

@@ -27,13 +27,6 @@ import androidx.biometric.BiometricManager;
 
 import com.example.tasksave.conexaoSQLite.Conexao;
 import com.example.tasksave.R;
-import com.example.tasksave.objetos.User;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class activity_main extends AppCompatActivity {
 
@@ -49,8 +42,6 @@ public class activity_main extends AppCompatActivity {
     private Conexao con;
     private SQLiteDatabase db;
     public ImageView imageViewMenuConfig;
-    FirebaseFirestore dbFirebase = FirebaseFirestore.getInstance();
-    String usuarioID;
 
     @SuppressLint({"MissingInflatedId", "SetTextI18n"})
     @Override
@@ -65,7 +56,7 @@ public class activity_main extends AppCompatActivity {
         numeroIcon = findViewById(R.id.iconnumero);
         imageViewMenuConfig = findViewById(R.id.image_view_circle_config);
 
-//        ExibirUsername();
+        ExibirUsername();
         VerificarAtrasos();
         ChecarBiometria();
 
@@ -128,8 +119,21 @@ public class activity_main extends AppCompatActivity {
 
         public void ExibirUsername() {
 
+            SharedPreferences sharedPrefs = getApplicationContext().getSharedPreferences("arquivoSalvarUser", Context.MODE_PRIVATE);
+            String sharedPrd = sharedPrefs.getString("userString", "");
 
+            String[] Nomes = sharedPrd.split(" ");
+            if (Nomes.length > 0) {
+                // A primeira palavra estará no índice 0 do array
+                String primeiroNome = Nomes[0];
+                text_view_main.setText("Olá, "+primeiroNome);
+
+            } else {
+
+                text_view_main.setText("Olá, "+sharedPrd);
+            }
         }
+
     @Override
     public void onBackPressed() {
 

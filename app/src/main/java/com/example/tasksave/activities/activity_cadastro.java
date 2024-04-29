@@ -1,12 +1,10 @@
 package com.example.tasksave.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,25 +18,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tasksave.R;
-import com.example.tasksave.dao.UserDAO;
 import com.example.tasksave.dao.usuarioDAOMYsql;
 import com.example.tasksave.objetos.User;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.sql.ResultSet;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -201,7 +185,7 @@ public class activity_cadastro extends AppCompatActivity {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(() -> {
             usuarioDAOMYsql usuarioDAOMysql = new usuarioDAOMYsql();
-            try (ResultSet resultSet = usuarioDAOMysql.emailJaCadastrado(emailCadastro)) {
+            try (ResultSet resultSet = usuarioDAOMysql.emailJaCadastradoAWS(emailCadastro)) {
 
                 if (resultSet.next()) {
                     // Sucesso na autenticação

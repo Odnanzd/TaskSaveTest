@@ -27,6 +27,8 @@ public class usuarioDAOMYsql {
             pstm.setString(1, user.getEmail_usuario());
             pstm.setString(2, user.getSenha_usuario());
 
+
+
             ResultSet rs = pstm.executeQuery();
             return rs;
 
@@ -58,25 +60,7 @@ public class usuarioDAOMYsql {
             return false;
         }
     }
-    public ResultSet emailJaCadastrado(String email) {
-
-        ConnectionClass connectionClass = new ConnectionClass();
-        conn = connectionClass.CONN();
-
-        try {
-            String sql = "SELECT email_usuario FROM usuario WHERE email_usuario = ?";
-            PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, email);
-            ResultSet resultSet = statement.executeQuery();
-            return resultSet;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-
-    }
-    public ResultSet emailAutenticado(String email) {
+    public ResultSet emailJaCadastradoAWS(String email) {
 
         ConnectionClass connectionClass = new ConnectionClass();
         conn = connectionClass.CONN();
@@ -95,4 +79,30 @@ public class usuarioDAOMYsql {
 
     }
 
+    public String usuarioCadastrado(String email, String senha) {
+        ConnectionClass connectionClass = new ConnectionClass();
+        conn = connectionClass.CONN();
+
+        try {
+            String sql = "SELECT nome_usuario FROM usuario WHERE email_usuario = ? AND senha_usuario = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, email);
+            statement.setString(2, senha);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                // Se houver pelo menos uma linha no resultado
+                return resultSet.getString("nome_usuario"); // Recupere o nome do usuário da coluna "nome_usuario"
+            } else {
+                // Se não houver linha correspondente aos parâmetros fornecidos
+                return null; // Ou outra indicação de que nenhum usuário foi encontrado
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
+    }
+
+
+

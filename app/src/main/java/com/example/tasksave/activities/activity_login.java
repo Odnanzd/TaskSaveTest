@@ -17,22 +17,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.tasksave.R;
-import com.example.tasksave.conexaoMYSQL.ConnectionClass;
 import com.example.tasksave.dao.usuarioDAOMYsql;
 import com.example.tasksave.objetos.User;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -132,6 +123,10 @@ public class activity_login extends AppCompatActivity {
                 usuarioDAOMYsql usuarioDAOMYsql = new usuarioDAOMYsql();
                 ResultSet resultSet = usuarioDAOMYsql.autenticaUsuarioAWS(user);
 
+                String userShared = usuarioDAOMYsql.usuarioCadastrado(emailUser, senhaUser);
+
+                    Log.d("userShared", "username" + userShared);
+
                 if (resultSet.next()) {
                     // Sucesso na autenticação
                     str = "Sucesso";
@@ -158,6 +153,11 @@ public class activity_login extends AppCompatActivity {
                             SharedPreferences.Editor editor2 = pref2s.edit();
                             editor2.putString("arquivo_Senha", senhaUser);
                             editor2.apply();
+
+                            SharedPreferences prefs5 = getSharedPreferences("arquivoSalvarUser", MODE_PRIVATE);
+                            SharedPreferences.Editor editor5 = prefs5.edit();
+                            editor5.putString("userString",userShared) ;
+                            editor5.apply();
                         }
                         SharedPreferences prefs4 = getSharedPreferences("ArquivoPrimeiroAcesso", MODE_PRIVATE);
                         SharedPreferences.Editor editor4 = prefs4.edit();
