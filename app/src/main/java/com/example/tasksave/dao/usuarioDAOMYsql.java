@@ -28,16 +28,16 @@ public class usuarioDAOMYsql {
             pstm.setString(2, user.getSenha_usuario());
 
 
-
             ResultSet rs = pstm.executeQuery();
             return rs;
 
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             Log.d("Usuario autenticacao", "ERRO AO AUTENTICAR" + e);
             return null;
         }
     }
+
     public boolean CadastraUsuarioAWS(User user) {
 
         ConnectionClass connectionClass = new ConnectionClass();
@@ -54,12 +54,13 @@ public class usuarioDAOMYsql {
             pstm.executeUpdate();
             return true;
 
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             Log.d("Usuario cadastro", "ERRO AO CADASTRAR" + e);
             return false;
         }
     }
+
     public ResultSet emailJaCadastradoAWS(String email) {
 
         ConnectionClass connectionClass = new ConnectionClass();
@@ -102,7 +103,52 @@ public class usuarioDAOMYsql {
             return null;
         }
     }
+
+    public int idUsarioAWS(String email) {
+
+        ConnectionClass connectionClass = new ConnectionClass();
+        conn = connectionClass.CONN();
+
+        try {
+            String sql = "SELECT id_usuario FROM usuario WHERE email_usuario = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                // Se houver pelo menos uma linha no resultado
+                return resultSet.getInt("id_usuario"); // Recupere o nome do usuário da coluna "nome_usuario"
+            } else {
+                // Se não houver linha correspondente aos parâmetros fornecidos
+                return 0; // Ou outra indicação de que nenhum usuário foi encontrado
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
+    public boolean atualizarNomeCompletoAWS(User user) {
+
+        ConnectionClass connectionClass = new ConnectionClass();
+        conn = connectionClass.CONN();
+
+        try {
+            String sql = "UPDATE usuario SET nome_usuario = ? WHERE id_usuario = ?";
+
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setString(1, user.getNome_usuario());
+            pstm.setInt(2, user.getId_usuario());
+
+            pstm.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Log.d("Usuario cadastro", "ERRO AO CADASTRAR" + e);
+            return false;
+        }
+    }
+}
 
 
 

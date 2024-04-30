@@ -120,5 +120,6 @@
     <string name="text_view_email">E-Mail</string>
     <string name="text_view_sair_conta">Sair da Conta</string>
     <string name="text_view_nome_completo2">Nome Completo</string>
+    <string name="text_view_nome_completo3">Alterar Nome</string>
 
 </resources>

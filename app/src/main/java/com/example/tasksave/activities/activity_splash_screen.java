@@ -82,22 +82,26 @@ public class activity_splash_screen extends AppCompatActivity {
 
             Log.d("TESTE", "TESTE" + isNetworkConnected(activity_splash_screen.this));
 
-//            if (!isNetworkConnected(activity_splash_screen.this)) {
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        buttonTenta.setVisibility(View.VISIBLE);
-//                        buttonTenta.setText("Iniciar no MODO OFFLINE");
-//                        buttonTenta.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                Intent intent = new Intent(activity_splash_screen.this, activity_main.class);
-//                                startActivity(intent);
-//                            }
-//                        });
-//                    }
-//                });
-//            }
+            if (!isNetworkConnected(activity_splash_screen.this)) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        textViewInfo.setVisibility(View.VISIBLE);
+                        textViewInfo.setText("Você está sem internet.");
+
+                        buttonTenta.setVisibility(View.VISIBLE);
+                        buttonTenta.setText("Iniciar no MODO OFFLINE");
+                        buttonTenta.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                ExibirFingerprint();
+                            }
+                        });
+                    }
+                });
+            }
 
             ConnectionClass connectionClass = new ConnectionClass();
 
@@ -344,10 +348,11 @@ public class activity_splash_screen extends AppCompatActivity {
     }
     public static boolean isNetworkConnected(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (cm == null) {
-            return false;
+        if (cm != null) {
+            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+            return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
         }
-        return true;
+        return false;
     }
 
 }

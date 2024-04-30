@@ -127,7 +127,9 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
             @SuppressLint("NewApi")
             @Override
             public void onClick(View v) {
+
                 DialogAddAgenda();
+
             }
         });
 
@@ -506,6 +508,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
                         saveEdit.clear();
                         saveEdit.commit();
                         refreshData();
+
                         dialog.dismiss();
                     }
 
@@ -551,12 +554,29 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
             }
         });
 
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+
+                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                View view = getCurrentFocus();
+
+                if (view != null && imm != null) {
+                    Log.d("TESTE", "IF AQUI");
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                } else {
+                    Log.d("TESTE", "IF AQUI ELSE NAO");
+                }
+            }
+        });
+
 
         dialog.show();
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT , ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-
 
 
     }
@@ -567,6 +587,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         super.onResume();
         VerificaLista();
         ListarAgenda();
+        esconderTeclado();
     }
 
     public void VerificaLista() {
@@ -883,6 +904,15 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
     public void onItemUpdated(int position) {
         ListarAgenda();
         VerificaLista();
+    }
+    public void esconderTeclado() {
+
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        View view = getCurrentFocus();
+        if (view != null && imm != null) {
+            Log.d("TESTE", "IF AQUI");
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }
 
