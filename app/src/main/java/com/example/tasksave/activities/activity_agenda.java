@@ -24,7 +24,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
@@ -42,7 +41,6 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.tasksave.conexaoSQLite.Conexao;
@@ -887,15 +885,6 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
     public void onItemUpdated(int position) {
         ListarAgenda();
         VerificaLista();
-    }
-    public void esconderTeclado() {
-
-        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        View view = getCurrentFocus();
-        if (view != null && imm != null) {
-            Log.d("TESTE", "IF AQUI");
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
     }
 }
 

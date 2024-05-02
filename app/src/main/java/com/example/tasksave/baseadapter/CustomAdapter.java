@@ -372,36 +372,63 @@ public class CustomAdapter extends BaseAdapter {
                         tituloTextView.setText(titulo);
                         descricaoTextView.setText(descricao);
 
-                        if(lembrete) {
-                            dataTextView.setText(dataFormatada);
+                        if(lembrete && !repetirLembrete) {
+
+                            dataTextView.setVisibility(View.VISIBLE);
+                            horaTextView.setVisibility(View.VISIBLE);
+                            textViewRepetirLembrete.setVisibility(View.VISIBLE);
                             horaTextView.setText(hora);
+                            dataTextView.setText(dataFormatada);
                             textViewLembrete.setVisibility(View.GONE);
-                        }else {
+                            textViewRepetirLembrete.setText("Não Repetir");
+
+                        }else if(!lembrete) {
+
                             textViewLembrete.setVisibility(View.VISIBLE);
                             textViewLembrete.setText("Lembrete não definido");
                             dataTextView.setVisibility(View.GONE);
                             horaTextView.setVisibility(View.GONE);
-                        }
+                            textViewRepetirLembrete.setVisibility(View.GONE);
 
-                        if(lembrete && repetirLembrete) {
+                        } else if(repetirLembrete) {
                             switch (repetirModoLembrete) {
                                 case 1:
+                                    dataTextView.setVisibility(View.VISIBLE);
+                                    horaTextView.setVisibility(View.VISIBLE);
+                                    textViewRepetirLembrete.setVisibility(View.VISIBLE);
+                                    horaTextView.setText(hora);
+                                    dataTextView.setText(dataFormatada);
+                                    textViewLembrete.setVisibility(View.GONE);
                                     textViewRepetirLembrete.setText("Todo dia");
                                     break;
                                 case 2:
+                                    dataTextView.setVisibility(View.VISIBLE);
+                                    horaTextView.setVisibility(View.VISIBLE);
+                                    textViewRepetirLembrete.setVisibility(View.VISIBLE);
+                                    horaTextView.setText(hora);
+                                    dataTextView.setText(dataFormatada);
+                                    textViewLembrete.setVisibility(View.GONE);
                                     textViewRepetirLembrete.setText("Toda Semana");
                                     break;
                                 case 3:
+                                    dataTextView.setVisibility(View.VISIBLE);
+                                    horaTextView.setVisibility(View.VISIBLE);
+                                    textViewRepetirLembrete.setVisibility(View.VISIBLE);
+                                    horaTextView.setText(hora);
+                                    dataTextView.setText(dataFormatada);
+                                    textViewLembrete.setVisibility(View.GONE);
                                     textViewRepetirLembrete.setText("Todo Mês");
                                     break;
                                 case 4:
+                                    dataTextView.setVisibility(View.VISIBLE);
+                                    horaTextView.setVisibility(View.VISIBLE);
+                                    textViewRepetirLembrete.setVisibility(View.VISIBLE);
+                                    horaTextView.setText(hora);
+                                    dataTextView.setText(dataFormatada);
+                                    textViewLembrete.setVisibility(View.GONE);
                                     textViewRepetirLembrete.setText("Todo ano");
                             }
-
-                        } else if(!lembrete) {
-                            textViewRepetirLembrete.setVisibility(View.GONE);
-
-                            }
+                        }
                         imageView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -524,7 +551,6 @@ public class CustomAdapter extends BaseAdapter {
 
                                     // Atualize os valores no banco de dados
 
-//                    AgendaDAO agendaDAO = new AgendaDAO(activity_item_selected_agenda.this);
                                     boolean atualizado = agendaDAO.Atualizar(idTarefa, novoTitulo, novaDescricao);
 
                                     if (atualizado) {
