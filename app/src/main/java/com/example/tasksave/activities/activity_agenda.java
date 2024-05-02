@@ -33,6 +33,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -148,27 +149,25 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         Dialog dialog = new Dialog(activity_agenda.this, R.style.DialogAboveKeyboard);
         dialog.setContentView(R.layout.dialog_add_agenda); // Defina o layout do diálogo
         dialog.setCancelable(true); // Permita que o usuário toque fora do diálogo para fechá-lo
-        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
 
 
         EditText editNome = dialog.findViewById(R.id.editTextText);
         EditText editDescricao = dialog.findViewById(R.id.editTextText2);
-        Button buttonSalvar = dialog.findViewById(R.id.button_login);
+        ImageView buttonSalvar = dialog.findViewById(R.id.button_login);
         TextView textView = dialog.findViewById(R.id.textView5);
         TextView textView1 = dialog.findViewById(R.id.textView4);
         TextView charCountTextView = dialog.findViewById(R.id.text_view_contador);
         TextView charCountTextView2 = dialog.findViewById(R.id.textView8);
-        ImageView imageView = dialog.findViewById(R.id.imageView4);
         TextView textViewRepeat = dialog.findViewById(R.id.textViewRepetirLembrete);
         editNome.requestFocus();
 
 
-        SwitchCompat switchCompat = dialog.findViewById(R.id.switch1);
+        Switch switchCompat = dialog.findViewById(R.id.switch1);
         switchCompat.setChecked(false);
         textView.setVisibility(View.VISIBLE);
         textView1.setVisibility(View.VISIBLE);
-
-//        editNome.requestFocus();
 
         textViewRepeat.setOnClickListener(new View.OnClickListener() {
             private boolean dialogDisplayed = false;
@@ -256,13 +255,6 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
             }
         });
 
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-
-            }
-        });
 
         LocalDate dataAtual = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM");
@@ -371,9 +363,11 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
                     InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
 
                     View view2 = dialog.getCurrentFocus();
+
                     if (view2 != null) {
 
                         imm.hideSoftInputFromWindow(view2.getWindowToken(), 0);
+                        Log.d("MSG ", "TESTE" + view2);
 
                     }
                     Snackbar snackbar = Snackbar.make(view, msg_error, Snackbar.LENGTH_SHORT);
@@ -554,26 +548,16 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
             }
         });
 
-        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-
-                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                View view = getCurrentFocus();
-
-                if (view != null && imm != null) {
-                    Log.d("TESTE", "IF AQUI");
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                } else {
-                    Log.d("TESTE", "IF AQUI ELSE NAO");
-                }
-            }
-        });
-
-
         dialog.show();
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+
+        boolean teste = editNome.hasFocus();
+        Log.d("MSG", "MSG FOCUS" + teste);
+
+        if(editNome.hasFocus()) {
+
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0);
+        }
 
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT , ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -587,7 +571,6 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         super.onResume();
         VerificaLista();
         ListarAgenda();
-        esconderTeclado();
     }
 
     public void VerificaLista() {

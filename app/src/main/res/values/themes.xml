@@ -181,6 +181,9 @@
     <style name="BackgroundThemeAddAgenda">
         <item name="android:background">@drawable/background_add_agenda_dialog_claro</item>
     </style>
+    <style name="BackgroundThemeAddAgenda2">
+        <item name="android:background">@drawable/background_add_agenda_dialog_light</item>
+    </style>
     <style name="IconPlus">
         <item name="android:background">@drawable/plus_icon_fill_light</item>
     </style>
@@ -231,5 +234,9 @@
     </style>
     <style name="ImageViewIconPencil">
         <item name="android:src">@drawable/pencil_icon_svg</item>
+    </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
     </style>
 </resources>

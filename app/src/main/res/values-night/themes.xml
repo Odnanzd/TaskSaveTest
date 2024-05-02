@@ -159,6 +159,9 @@
     <style name="IconPlus">
         <item name="android:background">@drawable/plus_icon_fill</item>
     </style>
+    <style name="BackgroundThemeAddAgenda2">
+        <item name="android:background">@drawable/background_add_agenda_dialog2</item>
+    </style>
     <style name="ButtonColorTheme2">
         <item name="backgroundTint">@color/blue2</item>
         <item name="android:textColor">@color/black</item>

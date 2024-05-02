@@ -57,7 +57,7 @@
     <string name="text_view_add_agenda">Criar nova tarefa:</string>
     <string name="edit_text_descricao_add_agenda">Descrição</string>
     <string name="button_salvar_agenda">Salvar</string>
-    <string name="edit_text_nome_add_agenda">Nome</string>
+    <string name="edit_text_nome_add_agenda">Insira uma nova tarefa</string>
     <string name="channel_name">NotificaçãoAgenda</string>
     <string name="channel_description">Descrição</string>
     <string name="switch_button">Definir lembrete</string>
