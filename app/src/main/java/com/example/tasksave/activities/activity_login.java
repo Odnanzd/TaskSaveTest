@@ -30,7 +30,6 @@ import java.util.concurrent.Executors;
 public class activity_login extends AppCompatActivity {
     public EditText input_Nome;
     public EditText input_Password;
-    private Button button_login;
     CheckBox checkBox;
     private Button button_cadastro;
     private FrameLayout frameLayout;

@@ -80,7 +80,11 @@ public class activity_splash_screen extends AppCompatActivity {
             String valorEmail = sharedPrefs2.getString("arquivo_Email", "");
             String valorsenha = sharedPrefs.getString("arquivo_Senha", "");
 
-            Log.d("TESTE", "TESTE" + isNetworkConnected(activity_splash_screen.this));
+
+            Log.d("teste bollean", "teste salvar senha: " +sharedPrefs4.getBoolean("SalvarSenha", false));
+
+            Log.d("teste bollean", "teste fingerprint: " +sharedPrefs4.getBoolean("AcessoFingerPrint", false));
+
 
             if (!isNetworkConnected(activity_splash_screen.this)) {
                 runOnUiThread(new Runnable() {
@@ -122,27 +126,26 @@ public class activity_splash_screen extends AppCompatActivity {
                         if (resultSet.next()) {
                             // Sucesso na autenticação
                             str = "Sucesso";
-                                if (sharedPrefs4.getBoolean("SalvarSenha", false) && sharedPrefs3.getBoolean("AcessoFingerPrint", false)) {
+                            if (sharedPrefs4.getBoolean("SalvarSenha", false) && sharedPrefs3.getBoolean("AcessoFingerPrint", false)) {
 
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            ExibirFingerprint(); // Chama o método ExibirFingerprint() na thread principal
-                                        }
-                                    });
-                                }
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        ExibirFingerprint(); // Chama o método ExibirFingerprint() na thread principal
+                                    }
+                                });
 
-                            return null;
+                            } else if (sharedPrefs4.getBoolean("SalvarSenha", false) && !sharedPrefs3.getBoolean("AcessoFingerPrint", false)) {
 
-                                } else if (sharedPrefs4.getBoolean("SalvarSenha", false) && !sharedPrefs3.getBoolean("AcessoFingerPrint", false)) {
+                                Intent intent = new Intent(activity_splash_screen.this, activity_main.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
 
-                                    Intent intent = new Intent(activity_splash_screen.this, activity_main.class);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    startActivity(intent);
-                                } else {
-                            // Falha na autenticação
-                            str2 = "ERRO";
+                            } else {
+                                // Falha na autenticação
+                                str2 = "ERRO";
                                 Toast.makeText(getBaseContext(), "ERRO", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                 } catch(SQLException e){

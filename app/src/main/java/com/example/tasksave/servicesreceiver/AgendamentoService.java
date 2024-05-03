@@ -207,7 +207,7 @@ public class AgendamentoService extends JobIntentService {
 
     private void mostrarNotificacao(Context context, String titulo, String descricao, PendingIntent pendingIntentConcluir, int notificationId) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "CHANNEL_ID")
-                .setSmallIcon(R.drawable.rocket)
+                .setSmallIcon(R.drawable.tasksavelogo_notific)
                 .setContentTitle(titulo)
                 .setContentText(descricao)
                 .setPriority(NotificationCompat.PRIORITY_MAX)

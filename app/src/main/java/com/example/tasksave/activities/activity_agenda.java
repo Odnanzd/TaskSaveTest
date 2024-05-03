@@ -22,6 +22,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
@@ -70,6 +72,8 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
     ImageView imageView;
     ImageView imageView2;
     ImageView imageView3;
+    ImageView imageViewFundoLista;
+    ImageView imageViewBalao;
     ArrayList<Long> listaIDs = new ArrayList<>();
     ArrayList<Integer> repetirModoLembrete2 = new ArrayList<>();
 
@@ -96,6 +100,8 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         imageView = findViewById(R.id.icon_concluido);
         imageView2 = findViewById(R.id.imageView4);
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+        imageViewFundoLista = findViewById(R.id.imageViewLista);
+        imageViewBalao = findViewById(R.id.imageViewBalaoFala);
 
         VerificaLista();
         ListarAgenda();
@@ -337,6 +343,9 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
                         editor.putInt("arquivo_Hora", horadefinida);
                         editor.putInt("arquivo_Minuto", minutodefinido);
                         editor.apply();
+
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0);
 
                     }
                 }, hour, minute, true);
@@ -582,16 +591,25 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         Log.d("Aqui","Aqui"+cursor.getCount()+"-"+cursor2.getCount());
 
         if (cursor.getCount() == 0 && cursor2.getCount() == 0) {
-            Log.d("IF ", "AQUI IF");
+
             textView.setText("Você não possui nenhuma tarefa a ser feito.");
             textView.setTextSize(15);
             textView.setVisibility(View.VISIBLE);
             imageView.setVisibility(View.GONE);
+            imageViewFundoLista.setVisibility(View.VISIBLE);
+
+            imageViewBalao.setVisibility(View.VISIBLE);
+            Animation breathAnimation = AnimationUtils.loadAnimation(this, R.anim.respiracao_anim);
+            imageViewBalao.startAnimation(breathAnimation);
+
 
         } else if (cursor.getCount() >= 1 && cursor2.getCount() == 0) {
             Log.d("IF ", "AQUI IF2");
             textView.setVisibility(View.GONE);
             imageView.setVisibility(View.GONE);
+            imageViewBalao.setVisibility(View.GONE);
+            imageViewFundoLista.setVisibility(View.GONE);
+            imageViewBalao.clearAnimation();
 
         } else if (cursor.getCount() == 0 && cursor2.getCount() >= 1) {
             Log.d("IF ", "AQUI IF3");
@@ -599,11 +617,19 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
             textView.setText("Você não possui nenhuma tarefa a ser feito.");
             textView.setVisibility(View.VISIBLE);
             textView.setTextSize(15);
+            imageViewFundoLista.setVisibility(View.VISIBLE);
+
+            imageViewBalao.setVisibility(View.VISIBLE);
+            Animation breathAnimation = AnimationUtils.loadAnimation(this, R.anim.respiracao_anim);
+            imageViewBalao.startAnimation(breathAnimation);
 
         } else if (cursor.getCount() >= 1 && cursor2.getCount() >= 1) {
             Log.d("IF ", "AQUI IF4");
             textView.setVisibility(View.GONE);
             imageView.setVisibility(View.VISIBLE);
+            imageViewBalao.setVisibility(View.GONE);
+            imageViewFundoLista.setVisibility(View.GONE);
+            imageViewBalao.clearAnimation();
         }
         {
 
