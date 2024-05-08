@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -24,6 +25,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TaskSave"
         tools:targetApi="31">
+        <activity
+            android:name=".activities.activity_calendar"
+            android:exported="false" />
         <activity
             android:name=".activities.activity_confg_perfil_nome"
             android:exported="false" />
@@ -53,11 +57,11 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.TaskSave"> <!-- Restante das atividades -->
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activities.activity_agenda"
@@ -73,8 +77,7 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowFullscreen="true"
-            android:windowSoftInputMode="adjustResize"/>
-
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activities.activity_main"
             android:exported="false"

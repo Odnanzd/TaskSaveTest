@@ -50,17 +50,6 @@
         app:maxImageSize="40dp"
         />
 
-    <ImageView
-        android:id="@+id/imageViewLista"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/fundo_svg"
-        android:layout_marginTop="170dp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 
     <TextView
         android:id="@+id/text_view_agenda_validador"

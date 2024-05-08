@@ -52,7 +52,7 @@
 
     <!---Strings activity_agenda-->
     <string name="text_view_tarefas">Tarefas Pendentes</string>
-    
+
     <!---Strings activity_add_agenda-->
     <string name="text_view_add_agenda">Criar nova tarefa:</string>
     <string name="edit_text_descricao_add_agenda">Descrição</string>

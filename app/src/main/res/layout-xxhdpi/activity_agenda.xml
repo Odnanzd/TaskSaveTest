@@ -50,18 +50,6 @@
         app:maxImageSize="40dp"
         />
 
-    <ImageView
-        android:id="@+id/imageViewLista"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/fundo_svg3"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/swipe_refresh_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.44" />
-
 
     <TextView
         android:id="@+id/text_view_agenda_validador"
@@ -73,8 +61,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewLista"
-        app:layout_constraintVertical_bias="0.01999998" />
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <ImageView
         android:foreground="?android:attr/selectableItemBackground"

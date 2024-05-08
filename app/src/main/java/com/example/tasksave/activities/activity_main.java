@@ -42,6 +42,7 @@ public class activity_main extends AppCompatActivity {
     private Conexao con;
     private SQLiteDatabase db;
     public ImageView imageViewMenuConfig;
+    public ImageView imageViewMenuCalendar;
 
     @SuppressLint({"MissingInflatedId", "SetTextI18n"})
     @Override
@@ -55,6 +56,7 @@ public class activity_main extends AppCompatActivity {
         imageView2 = findViewById(R.id.imageView2);
         numeroIcon = findViewById(R.id.iconnumero);
         imageViewMenuConfig = findViewById(R.id.image_view_circle_config);
+        imageViewMenuCalendar = findViewById(R.id.image_view_circle_calendar);
 
         ExibirUsername();
         VerificarAtrasos();
@@ -84,6 +86,15 @@ public class activity_main extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent2 = new Intent(activity_main.this, activity_agenda.class);
                 intent2.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                startActivity(intent2);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            }
+        });
+
+        imageViewMenuCalendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2 = new Intent(activity_main.this, activity_calendar.class);
                 startActivity(intent2);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }

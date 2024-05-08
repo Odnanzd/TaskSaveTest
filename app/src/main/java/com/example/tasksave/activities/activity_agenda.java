@@ -596,7 +596,6 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
             textView.setTextSize(15);
             textView.setVisibility(View.VISIBLE);
             imageView.setVisibility(View.GONE);
-            imageViewFundoLista.setVisibility(View.VISIBLE);
 
             imageViewBalao.setVisibility(View.VISIBLE);
             Animation breathAnimation = AnimationUtils.loadAnimation(this, R.anim.respiracao_anim);
@@ -608,7 +607,6 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
             textView.setVisibility(View.GONE);
             imageView.setVisibility(View.GONE);
             imageViewBalao.setVisibility(View.GONE);
-            imageViewFundoLista.setVisibility(View.GONE);
             imageViewBalao.clearAnimation();
 
         } else if (cursor.getCount() == 0 && cursor2.getCount() >= 1) {
@@ -617,7 +615,6 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
             textView.setText("Você não possui nenhuma tarefa a ser feito.");
             textView.setVisibility(View.VISIBLE);
             textView.setTextSize(15);
-            imageViewFundoLista.setVisibility(View.VISIBLE);
 
             imageViewBalao.setVisibility(View.VISIBLE);
             Animation breathAnimation = AnimationUtils.loadAnimation(this, R.anim.respiracao_anim);
@@ -628,7 +625,6 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
             textView.setVisibility(View.GONE);
             imageView.setVisibility(View.VISIBLE);
             imageViewBalao.setVisibility(View.GONE);
-            imageViewFundoLista.setVisibility(View.GONE);
             imageViewBalao.clearAnimation();
         }
         {
