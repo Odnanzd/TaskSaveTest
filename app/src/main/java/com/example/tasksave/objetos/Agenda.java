@@ -71,6 +71,9 @@ public class Agenda {
             return null;
         }
     }
+    public LocalDate getDate() {
+        return dataAgenda;
+    }
 
     public int getHoraAgenda() {
         return horaAgenda;

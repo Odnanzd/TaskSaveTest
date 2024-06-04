@@ -50,11 +50,14 @@ import com.example.tasksave.baseadapter.CustomAdapter;
 import com.example.tasksave.R;
 import com.example.tasksave.dao.AgendaDAO;
 import com.example.tasksave.objetos.Agenda;
+import com.example.tasksave.servicesreceiver.AlarmReceiver;
+import com.example.tasksave.servicesreceiver.AlarmScheduler;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -79,7 +82,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
 
     private SwipeRefreshLayout swipeRefreshLayout;
     @RequiresApi(api = Build.VERSION_CODES.O)
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint({"MissingInflatedId", "MissingSuperCall"})
     @Override
     public void onBackPressed() {
 
@@ -464,6 +467,14 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
                             long idSequencial = agendaDAO.inserir(agenda);
                             agenda.setId(idSequencial);
                             long idAgenda = agenda.getId();
+
+                            Intent reminderIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
+                            reminderIntent.putExtra("title", editNome.getText().toString());
+                            reminderIntent.putExtra("content", editDescricao.getText().toString());
+
+                            Calendar calendar2 = convertToCalendar(localdataEscolhida, horaEscolhida, minutoEscolhido);
+                            Log.d("CALENDAR", "calendar"+calendar);
+                            AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2);
 
                             SharedPreferences.Editor prefsEditor = getSharedPreferences("arquivoSalvar2", MODE_PRIVATE).edit();
                             prefsEditor.clear();
@@ -907,6 +918,16 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
     public void onItemUpdated(int position) {
         ListarAgenda();
         VerificaLista();
+    }
+    @SuppressLint("NewApi")
+    private Calendar convertToCalendar(LocalDate date, int hour, int minute) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(java.util.Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar;
     }
 }
 

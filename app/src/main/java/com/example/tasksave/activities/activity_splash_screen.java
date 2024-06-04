@@ -1,12 +1,15 @@
 package com.example.tasksave.activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -32,14 +35,21 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.tasksave.conexaoMYSQL.ConnectionClass;
+import com.example.tasksave.dao.AgendaDAO;
 import com.example.tasksave.dao.usuarioDAOMYsql;
+import com.example.tasksave.objetos.Agenda;
 import com.example.tasksave.objetos.User;
 import com.example.tasksave.servicesreceiver.AlarmReceiver;
 import com.example.tasksave.R;
+import com.example.tasksave.servicesreceiver.AlarmScheduler;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Executor;
@@ -162,6 +172,7 @@ public class activity_splash_screen extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,22 +185,40 @@ public class activity_splash_screen extends AppCompatActivity {
 
         gifThemeMode();
 
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
-// Agendar o BroadcastReceiver para ser chamado a cada minuto (ajuste conforme necessário)
+//        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+//        Intent intent = new Intent(this, AlarmReceiver.class);
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+//
+//// Agendar o BroadcastReceiver para ser chamado a cada minuto (ajuste conforme necessário)
+//
+//        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 60000, pendingIntent);
 
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 60000, pendingIntent);
+        AgendaDAO agendaDAO = new AgendaDAO(this);
+
+        List<Agenda> tarefasComLembrete = agendaDAO.obterTarefasComLembreteAtivado();
+
+//        for (Agenda tarefa : tarefasComLembrete) {
+////            LocalDate dataTarefa = LocalDate.parse(tarefa.getDataAgendaString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+////            LocalTime horaTarefa = LocalTime.of(tarefa.getHoraAgenda(), tarefa.getMinutoAgenda());
+////            LocalDate dataAtual = LocalDate.now();
+////            LocalTime horaAtual = LocalTime.now().truncatedTo(ChronoUnit.MINUTES);
+//
+//            Calendar calendar = convertToCalendar(tarefa.getDate(), tarefa.getHoraAgenda(), tarefa.getMinutoAgenda());
+//            Log.d("CALENDAR", "calendar"+calendar);
+//            AlarmScheduler.scheduleAlarm(this, calendar);
+//
+//        }
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-            CharSequence name = getString(R.string.channel_name);
+            CharSequence name = getString(R.string.default_notification_channel_name);
             String description = getString(R.string.channel_description);
             int importance = NotificationManager.IMPORTANCE_MAX;
 
             @SuppressLint("WrongConstant")
-            NotificationChannel channel = new NotificationChannel("CHANNEL_ID", name, importance);
+            NotificationChannel channel = new NotificationChannel("channel_id", name, importance);
             channel.setDescription(description);
 
             long[] pattern = {0, 1000, 500, 1000};
@@ -356,6 +385,16 @@ public class activity_splash_screen extends AppCompatActivity {
             return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
         }
         return false;
+    }
+    @SuppressLint("NewApi")
+    private Calendar convertToCalendar(LocalDate date, int hour, int minute) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(java.util.Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar;
     }
 
 }

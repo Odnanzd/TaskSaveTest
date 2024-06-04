@@ -24,6 +24,7 @@ import com.example.tasksave.objetos.Agenda;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
@@ -95,63 +96,67 @@ public class AgendamentoService extends JobIntentService {
         List<Agenda> tarefasComLembrete = agendaDAO.obterTarefasComLembreteAtivado();
 
         for (Agenda tarefa : tarefasComLembrete) {
-            LocalDate dataTarefa = LocalDate.parse(tarefa.getDataAgendaString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            LocalTime horaTarefa = LocalTime.of(tarefa.getHoraAgenda(), tarefa.getMinutoAgenda());
-            LocalDate dataAtual = LocalDate.now();
-            LocalTime horaAtual = LocalTime.now().truncatedTo(ChronoUnit.MINUTES);
+//            LocalDate dataTarefa = LocalDate.parse(tarefa.getDataAgendaString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+//            LocalTime horaTarefa = LocalTime.of(tarefa.getHoraAgenda(), tarefa.getMinutoAgenda());
+//            LocalDate dataAtual = LocalDate.now();
+//            LocalTime horaAtual = LocalTime.now().truncatedTo(ChronoUnit.MINUTES);
+
+            Calendar calendar = convertToCalendar(tarefa.getDate(), tarefa.getHoraAgenda(), tarefa.getMinutoAgenda());
+
+            AlarmScheduler.scheduleAlarm(this, calendar);
 
 
-            long tarefaId = tarefa.getId();
-            boolean tarefaFinalizado = tarefa.getFinalizado();
-            boolean repetirLembrete = tarefa.getRepetirLembrete();
-            int repetirLembreteModo = tarefa.getRepetirModo();
-            boolean notificouTarefa = tarefa.isNotificado();
-
-            if (repetirLembrete && dataTarefa.isBefore(dataAtual)) {
-                switch (repetirLembreteModo) {
-                    case 1: // Todo dia
-                        dataTarefa = dataTarefa.plusDays(1);
-                        agendaDAO.AtualizarDataTarefa(tarefaId, dataTarefa);
-                        break;
-                    case 2: // Toda semana
-                        dataTarefa = dataTarefa.plusWeeks(1);
-                        agendaDAO.AtualizarDataTarefa(tarefaId, dataTarefa);
-                        break;
-                    case 3: // Todo mês
-                        dataTarefa = dataTarefa.plusMonths(1);
-                        agendaDAO.AtualizarDataTarefa(tarefaId, dataTarefa);
-                        break;
-                    case 4: // Todo ano
-                        dataTarefa = dataTarefa.plusYears(1);
-                        agendaDAO.AtualizarDataTarefa(tarefaId, dataTarefa);
-                        break;
-                }
-                notificouTarefa = false;
-                agendaDAO.AtualizarStatusNotificacao(tarefaId, 0);
-            }
-
-            Log.d("VerificacaoTarefa", "Data da tarefa: " + dataTarefa + " Hora da tarefa: " + horaTarefa);
-            Log.d("VerificacaoTarefa", "Data atual: " + dataAtual + " Hora atual: " + horaAtual);
-            Log.d("VerificacaoTarefa", "NotificouTarefaSwitch: " + notificouTarefa);
-
-            if (dataTarefa.isEqual(dataAtual) && horaTarefa.equals(horaAtual) && !tarefaFinalizado) {
-
-                Notificar(context, tarefaId, tarefaFinalizado, tarefa.getNomeAgenda(), tarefa.getDescriçãoAgenda() );
-                notificouTarefa =true;
-                agendaDAO.AtualizarStatusNotificacao(tarefaId, 1);
-
-            }
-
-            if(dataTarefa.isEqual(dataAtual) && (horaAtual.equals(horaTarefa.plusMinutes(1)) ||
-                    horaAtual.equals(horaTarefa.plusMinutes(2)) || horaAtual.equals(horaTarefa.plusMinutes(3)) ||
-                    horaAtual.equals(horaTarefa.plusMinutes(4)) || horaAtual.equals(horaTarefa.plusMinutes(5)))
-                    && !tarefaFinalizado && !notificouTarefa) {
-
-                Notificar(context, tarefaId, tarefaFinalizado, tarefa.getNomeAgenda(), tarefa.getDescriçãoAgenda() );
-                notificouTarefa =true;
-                agendaDAO.AtualizarStatusNotificacao(tarefaId, 1 );
-            }
-            Log.d("VerificacaoTarefa", "NotificouTarefa IF's: " + notificouTarefa);
+//            long tarefaId = tarefa.getId();
+//            boolean tarefaFinalizado = tarefa.getFinalizado();
+//            boolean repetirLembrete = tarefa.getRepetirLembrete();
+//            int repetirLembreteModo = tarefa.getRepetirModo();
+//            boolean notificouTarefa = tarefa.isNotificado();
+//
+//            if (repetirLembrete && dataTarefa.isBefore(dataAtual)) {
+//                switch (repetirLembreteModo) {
+//                    case 1: // Todo dia
+//                        dataTarefa = dataTarefa.plusDays(1);
+//                        agendaDAO.AtualizarDataTarefa(tarefaId, dataTarefa);
+//                        break;
+//                    case 2: // Toda semana
+//                        dataTarefa = dataTarefa.plusWeeks(1);
+//                        agendaDAO.AtualizarDataTarefa(tarefaId, dataTarefa);
+//                        break;
+//                    case 3: // Todo mês
+//                        dataTarefa = dataTarefa.plusMonths(1);
+//                        agendaDAO.AtualizarDataTarefa(tarefaId, dataTarefa);
+//                        break;
+//                    case 4: // Todo ano
+//                        dataTarefa = dataTarefa.plusYears(1);
+//                        agendaDAO.AtualizarDataTarefa(tarefaId, dataTarefa);
+//                        break;
+//                }
+//                notificouTarefa = false;
+//                agendaDAO.AtualizarStatusNotificacao(tarefaId, 0);
+//            }
+//
+//            Log.d("VerificacaoTarefa", "Data da tarefa: " + dataTarefa + " Hora da tarefa: " + horaTarefa);
+//            Log.d("VerificacaoTarefa", "Data atual: " + dataAtual + " Hora atual: " + horaAtual);
+//            Log.d("VerificacaoTarefa", "NotificouTarefaSwitch: " + notificouTarefa);
+//
+//            if (dataTarefa.isEqual(dataAtual) && horaTarefa.equals(horaAtual) && !tarefaFinalizado) {
+//
+//                Notificar(context, tarefaId, tarefaFinalizado, tarefa.getNomeAgenda(), tarefa.getDescriçãoAgenda() );
+//                notificouTarefa =true;
+//                agendaDAO.AtualizarStatusNotificacao(tarefaId, 1);
+//
+//            }
+//
+//            if(dataTarefa.isEqual(dataAtual) && (horaAtual.equals(horaTarefa.plusMinutes(1)) ||
+//                    horaAtual.equals(horaTarefa.plusMinutes(2)) || horaAtual.equals(horaTarefa.plusMinutes(3)) ||
+//                    horaAtual.equals(horaTarefa.plusMinutes(4)) || horaAtual.equals(horaTarefa.plusMinutes(5)))
+//                    && !tarefaFinalizado && !notificouTarefa) {
+//
+//                Notificar(context, tarefaId, tarefaFinalizado, tarefa.getNomeAgenda(), tarefa.getDescriçãoAgenda() );
+//                notificouTarefa =true;
+//                agendaDAO.AtualizarStatusNotificacao(tarefaId, 1 );
+//            }
+//            Log.d("VerificacaoTarefa", "NotificouTarefa IF's: " + notificouTarefa);
 
             if (intent.getAction() != null && intent.getAction().equals("ACTION_CONCLUIR")) {
                 processarAcaoConcluir(context, intent);
@@ -222,5 +227,15 @@ public class AgendamentoService extends JobIntentService {
         // Construir o gerenciador de notificações e exibir a notificação
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         notificationManager.notify(notificationId, builder.build());
+    }
+    @SuppressLint("NewApi")
+    private Calendar convertToCalendar(LocalDate date, int hour, int minute) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(java.util.Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar;
     }
 }
