@@ -468,13 +468,31 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
                             agenda.setId(idSequencial);
                             long idAgenda = agenda.getId();
 
-                            Intent reminderIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
-                            reminderIntent.putExtra("title", editNome.getText().toString());
-                            reminderIntent.putExtra("content", editDescricao.getText().toString());
+                            String titulointent = editNome.getText().toString();
+                            String descintent = editDescricao.getText().toString();
+
+
+                            Log.d("INTENT ", "Titulo: "+titulointent+ "Descricao: "+descintent);
 
                             Calendar calendar2 = convertToCalendar(localdataEscolhida, horaEscolhida, minutoEscolhido);
                             Log.d("CALENDAR", "calendar"+calendar);
-                            AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2);
+
+                            int repeatMode = 0; // Não repetir por padrão
+
+                            switch (textoTextViewRepetir) {
+                                case "Todo dia":
+                                    repeatMode = 1;
+                                    break;
+                                case "Toda semana":
+                                    repeatMode = 2;
+                                    break;
+                                case "Todo mês":
+                                    repeatMode = 3;
+                                    break;
+                            }
+
+                            // Passe os parâmetros title, content e repeatMode ao método scheduleAlarm
+                            AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2, titulointent, descintent, repeatMode, idAgenda);
 
                             SharedPreferences.Editor prefsEditor = getSharedPreferences("arquivoSalvar2", MODE_PRIVATE).edit();
                             prefsEditor.clear();
@@ -496,7 +514,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
                         int horasInsert = calendar.get(Calendar.HOUR_OF_DAY);
                         int minutosInsert = calendar.get(Calendar.MINUTE);
                         LocalDate dataAtual = LocalDate.now();
-//
+
                         Agenda agenda = new Agenda(-1, editNome.getText().toString(), editDescricao.getText().toString(),
                                 dataAtual, -1, -1, false, false, dataAtual,
                                 -1, -1, dataAtual, horasInsert, minutosInsert, false, false, 0,
@@ -735,6 +753,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         long[] ids = new long[listaagenda.size()];
         boolean[] repetirLembrete = new boolean[listaagenda.size()];
         int[] repetirModoLembrete = new int[listaagenda.size()];
+        boolean[] notificouTarefa = new boolean[listaagenda.size()];
 
         for (int i = 0; i < listaagenda.size(); i++) {
             ids[i] = listaIDs.get(i);
@@ -748,11 +767,12 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
             lembretes[i] = listaagenda.get(i).getLembrete();
             repetirLembrete[i] = listaagenda.get(i).getRepetirLembrete();
             repetirModoLembrete[i] = repetirModoLembrete2.get(i);
+            notificouTarefa[i] = listaagenda.get(i).isNotificado();
         }
 
         // Configurando o CustomAdapter para a ListView
         CustomAdapter customAdapter = new CustomAdapter(activity_agenda.this, listaIDs, titulos, descricoes, datas, horas,
-                lembretes, repetirLembrete, repetirModoLembrete2);
+                lembretes, repetirLembrete, repetirModoLembrete2, notificouTarefa);
         listView.setAdapter(customAdapter);
         customAdapter.setOnItemSelectionChangedListener(this);
         customAdapter.setOnItemActionListener(this);

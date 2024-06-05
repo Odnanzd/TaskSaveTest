@@ -103,7 +103,7 @@ public class AgendamentoService extends JobIntentService {
 
             Calendar calendar = convertToCalendar(tarefa.getDate(), tarefa.getHoraAgenda(), tarefa.getMinutoAgenda());
 
-            AlarmScheduler.scheduleAlarm(this, calendar);
+//            AlarmScheduler.scheduleAlarm(this, calendar);
 
 
 //            long tarefaId = tarefa.getId();

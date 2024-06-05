@@ -14,6 +14,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +53,7 @@ public class CustomAdapter extends BaseAdapter {
     boolean[] isReminderSet;
 
     boolean[] RepetirLembrete;
+    boolean[] notificouTarefa;
 
     private ArrayList<Integer> RepetirLembreteModo;
 
@@ -72,7 +74,7 @@ public class CustomAdapter extends BaseAdapter {
 
     public CustomAdapter(Context context,ArrayList<Long> IDAgenda, String[] TituloAgenda,
                          String[] DescricaoAgenda, String[] DataAgenda, String[] HoraAgenda,
-                         boolean[] isReminderSet, boolean[] RepetirLembrete, ArrayList<Integer> RepetirLembreteModo ) {
+                         boolean[] isReminderSet, boolean[] RepetirLembrete, ArrayList<Integer> RepetirLembreteModo, boolean[] notificouTarefa ) {
         this.context = context;
         AgendaID = IDAgenda;
         this.AgendaTitulo = TituloAgenda;
@@ -82,6 +84,7 @@ public class CustomAdapter extends BaseAdapter {
         this.isReminderSet = isReminderSet;
         this.RepetirLembrete = RepetirLembrete;
         this.RepetirLembreteModo = RepetirLembreteModo;
+        this.notificouTarefa = notificouTarefa;
         inflater = LayoutInflater.from(context);
     }
 
@@ -149,6 +152,10 @@ public class CustomAdapter extends BaseAdapter {
     public int getRepetirModoLembrete(int position) {
         return RepetirLembreteModo.get(position);
     }
+    public Boolean getNotificouTarefa(int position) {
+        return notificouTarefa[position];
+    }
+
 
     public void setShowCheckboxes(boolean showCheckboxes) {
         this.showCheckboxes = showCheckboxes;
@@ -681,6 +688,9 @@ public class CustomAdapter extends BaseAdapter {
                     calendar.add(Calendar.MINUTE, horarioDate.getMinutes());
                     Date dataHoraCombinada = calendar.getTime();
 
+                    boolean repetirLembreteBL = getRepetirLembrete(position);
+
+
 
                     // Verifique se a data da agenda é amanhã em relação à data atual
                     Calendar currentCalendar = Calendar.getInstance();
@@ -688,7 +698,7 @@ public class CustomAdapter extends BaseAdapter {
                             calendar.get(Calendar.DAY_OF_YEAR) == currentCalendar.get(Calendar.DAY_OF_YEAR) + 1) {
                         text_view_dat_agenda.setText("Amanhã");
 
-                    } else if (dataHoraCombinada.before(dataAtual) && LocaldatedataAtual.isEqual(LocaldatedataCombinada)) {
+                    } else if (dataHoraCombinada.before(dataAtual) && LocaldatedataAtual.isEqual(LocaldatedataCombinada) && !repetirLembreteBL) {
 
                         AgendaDAO agendaDAO = new AgendaDAO(context);
                         long idTarefa = AgendaID.get(position);
@@ -705,7 +715,7 @@ public class CustomAdapter extends BaseAdapter {
                             notifyDataSetChanged();
                         }
 
-                    } else if (LocaldatedataAtual.isAfter(LocaldatedataCombinada)) {
+                    } else if (LocaldatedataAtual.isAfter(LocaldatedataCombinada) && !repetirLembreteBL) {
 
                         String formattedDate = targetFormat.format(date);
                         text_view_dat_agenda.setText(formattedDate);
@@ -719,6 +729,50 @@ public class CustomAdapter extends BaseAdapter {
 
                         String formattedDate = targetFormat.format(date);
                         text_view_dat_agenda.setText(formattedDate);
+                    }
+
+                    int repetirLembreteModo2 = getRepetirModoLembrete(position);
+                    boolean notificouTarefaBL = getNotificouTarefa(position);
+
+                    if(repetirLembreteModo2==1 && notificouTarefaBL) {
+
+                        Calendar calendarDate = Calendar.getInstance();
+                        calendarDate.setTime(date);
+                        calendarDate.add(Calendar.DAY_OF_YEAR, 1); // Adiciona 1 dia
+                        Date newDate = calendarDate.getTime();
+
+                        String formattedDate = targetFormat.format(newDate);
+                        text_view_dat_agenda.setText(formattedDate);
+
+                        AgendaDAO agendaDAO = new AgendaDAO(context);
+                        agendaDAO.AtualizarStatusNotificacao(getItemId(position), 0);
+
+                    }else if(repetirLembreteModo2==2 && notificouTarefaBL) {
+
+                        Calendar calendarDate = Calendar.getInstance();
+                        calendarDate.setTime(date);
+                        calendarDate.add(Calendar.WEEK_OF_YEAR, 1);
+                        Date newDate = calendarDate.getTime();
+
+                        String formattedDate = targetFormat.format(newDate);
+                        text_view_dat_agenda.setText(formattedDate);
+
+                        AgendaDAO agendaDAO = new AgendaDAO(context);
+                        agendaDAO.AtualizarStatusNotificacao(getItemId(position), 0);
+
+                    }else if(repetirLembreteModo2==3 && notificouTarefaBL) {
+
+                        Calendar calendarDate = Calendar.getInstance();
+                        calendarDate.setTime(date);
+                        calendarDate.add(Calendar.MONTH, 1);
+                        Date newDate = calendarDate.getTime();
+
+                        String formattedDate = targetFormat.format(newDate);
+                        text_view_dat_agenda.setText(formattedDate);
+
+                        AgendaDAO agendaDAO = new AgendaDAO(context);
+                        agendaDAO.AtualizarStatusNotificacao(getItemId(position), 0);
+
                     }
 
                 } catch (ParseException e) {

@@ -186,31 +186,6 @@ public class activity_splash_screen extends AppCompatActivity {
         gifThemeMode();
 
 
-//        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-//        Intent intent = new Intent(this, AlarmReceiver.class);
-//        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
-//
-//// Agendar o BroadcastReceiver para ser chamado a cada minuto (ajuste conforme necessário)
-//
-//        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 60000, pendingIntent);
-
-        AgendaDAO agendaDAO = new AgendaDAO(this);
-
-        List<Agenda> tarefasComLembrete = agendaDAO.obterTarefasComLembreteAtivado();
-
-//        for (Agenda tarefa : tarefasComLembrete) {
-////            LocalDate dataTarefa = LocalDate.parse(tarefa.getDataAgendaString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-////            LocalTime horaTarefa = LocalTime.of(tarefa.getHoraAgenda(), tarefa.getMinutoAgenda());
-////            LocalDate dataAtual = LocalDate.now();
-////            LocalTime horaAtual = LocalTime.now().truncatedTo(ChronoUnit.MINUTES);
-//
-//            Calendar calendar = convertToCalendar(tarefa.getDate(), tarefa.getHoraAgenda(), tarefa.getMinutoAgenda());
-//            Log.d("CALENDAR", "calendar"+calendar);
-//            AlarmScheduler.scheduleAlarm(this, calendar);
-//
-//        }
-
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
             CharSequence name = getString(R.string.default_notification_channel_name);
