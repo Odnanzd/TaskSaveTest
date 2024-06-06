@@ -41,14 +41,13 @@ public class AlarmReceiver extends BroadcastReceiver {
     }
 
     private void Notificar(Intent intent, Context context) {
+
         String title = intent.getStringExtra("title");
         String content = intent.getStringExtra("content");
         int repeatMode = intent.getIntExtra("repeatMode", 0);
         long id = intent.getLongExtra("idLong", 0);
-        Log.d("ID AGENDA:", "ID: "+id);
-        int idInt = (int) id;
 
-        Log.d("INTENT", "Titulo: " + title + " Descricao: " + content);
+        int idInt = (int) id;
 
         Intent intentConcluir = new Intent(context, AlarmReceiver.class);
         intentConcluir.setAction("ACTION_CONCLUIR");
@@ -140,6 +139,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         }
     }
     private void processarAcaoOk(Context context, Intent intent) {
+
         long idTarefa = intent.getLongExtra("idLong", 0);
         if (idTarefa != 0) {
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);

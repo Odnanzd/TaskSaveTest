@@ -9,6 +9,7 @@ import android.text.InputFilter;
 import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -37,6 +38,7 @@ public class activity_login extends AppCompatActivity {
     private ProgressBar progressBar;
 
     String str, str2;
+    @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
 
@@ -88,6 +90,7 @@ public class activity_login extends AppCompatActivity {
                     progressBar.setVisibility(View.VISIBLE);
                     frameLayout.setClickable(false);
                     button_cadastro.setClickable(false);
+                    escondeTeclado();
                     Autentica();
 
                 }
@@ -157,6 +160,11 @@ public class activity_login extends AppCompatActivity {
                             SharedPreferences.Editor editor5 = prefs5.edit();
                             editor5.putString("userString",userShared) ;
                             editor5.apply();
+                        }else {
+                            SharedPreferences prefs5 = getSharedPreferences("arquivoSalvarUser", MODE_PRIVATE);
+                            SharedPreferences.Editor editor5 = prefs5.edit();
+                            editor5.putString("userString",userShared) ;
+                            editor5.apply();
                         }
                         SharedPreferences prefs4 = getSharedPreferences("ArquivoPrimeiroAcesso", MODE_PRIVATE);
                         SharedPreferences.Editor editor4 = prefs4.edit();
@@ -186,6 +194,15 @@ public class activity_login extends AppCompatActivity {
             }
         });
         }
+    public void escondeTeclado() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            View currentFocus = getCurrentFocus();
+            if (currentFocus != null) {
+                imm.hideSoftInputFromWindow(currentFocus.getWindowToken(), 0);
+            }
+        }
+    }
 }
 
 

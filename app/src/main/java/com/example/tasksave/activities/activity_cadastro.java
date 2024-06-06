@@ -39,6 +39,7 @@ public class activity_cadastro extends AppCompatActivity {
     TextView textViewButton;
     String str, str2;
 
+    @SuppressLint("MissingSuperCall")
     public void onBackPressed() {
 
     }
@@ -155,6 +156,8 @@ public class activity_cadastro extends AppCompatActivity {
 
         } else if (editTextSenha.getText().toString().equals(editTextSenha2.getText().toString())) {
 
+
+            escondeTeclado();
             CadastrarUserMYSQL(usuarioCadastro, emailCadastro, senhaCadastro);
 
 
@@ -248,5 +251,14 @@ public class activity_cadastro extends AppCompatActivity {
                 Log.d("ERRO SQL AUT", "ERRO SQL" + e);
             }
         });
+    }
+    public void escondeTeclado() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            View currentFocus = getCurrentFocus();
+            if (currentFocus != null) {
+                imm.hideSoftInputFromWindow(currentFocus.getWindowToken(), 0);
+            }
+        }
     }
 }

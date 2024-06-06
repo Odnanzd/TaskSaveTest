@@ -123,7 +123,8 @@
     <string name="text_view_nome_completo3">Alterar Nome</string>
 
 
-
+    <!---Strings Canal de notificação -->
     <string name="default_notification_channel_id">channel_id</string>
     <string name="default_notification_channel_name">Notifications</string>
+
 </resources>
