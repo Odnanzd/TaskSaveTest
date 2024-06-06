@@ -17,9 +17,11 @@ public class AlarmScheduler {
         intent.putExtra("repeatMode", repeatMode);
         intent.putExtra("idLong", id);
 
+        int idInt = (int) id;
+
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 context,
-                0,
+                idInt,
                 intent,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
         );
