@@ -10,42 +10,52 @@
 
     <EditText
         android:id="@+id/titulo_text_view"
+        style="@style/TextViewColor"
         android:layout_width="300dp"
         android:layout_height="48dp"
         android:layout_marginTop="24dp"
-        android:gravity="center"
-        android:inputType="text"
-        android:maxLines="1"
         android:backgroundTint="@color/grey"
-        android:maxLength="14"
-        android:text="@string/edit_text_tit"
-        style="@style/TextViewColor"
-        android:textSize="20sp"
         android:fontFamily="@font/ptsans_bold"
+        android:gravity="center"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:maxLength="14"
+        android:maxLines="1"
+        android:text="@string/edit_text_tit"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/icon_desc"
+        app:layout_constraintEnd_toStartOf="@+id/descricao_text_view"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titulo_text_view" />
 
     <EditText
         android:id="@+id/descricao_text_view"
+        style="@style/TextViewColor"
         android:layout_width="300dp"
         android:layout_height="48dp"
-        android:layout_marginTop="10dp"
-        android:drawableStart="@drawable/icon_desc"
-        android:gravity="center"
-        android:text="@string/edit_text_desc"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="56dp"
         android:backgroundTint="@color/grey"
-        style="@style/TextViewColor"
+        android:fontFamily="@font/ptsans_bold"
+        android:gravity="center"
+        android:importantForAutofill="no"
+        android:inputType="text"
         android:maxLength="20"
         android:maxLines="1"
-        android:inputType="text"
+        android:text="@string/edit_text_desc"
         android:textSize="20sp"
-        android:fontFamily="@font/ptsans_bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titulo_text_view"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/titulo_text_view" />
 
     <TextView
         android:id="@+id/textView3"
@@ -110,7 +120,7 @@
                 android:fontFamily="@font/ptsans_bold"
                 android:gravity="start"
                 android:text="@string/switch_button"
-                android:textSize="19sp"
+                android:textSize="18sp"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="0dp" />
 
@@ -140,7 +150,7 @@
         android:layout_height="56dp"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
-        android:layout_marginTop="10dp"
+
         >
 
         <LinearLayout
@@ -157,7 +167,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/baseline_calendar_month_24"
                 tools:layout_editor_absoluteX="14dp"
                 tools:layout_editor_absoluteY="112dp" />
@@ -168,12 +178,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/ptsans_bold"
                 android:gravity="start"
                 android:text="@string/text_view_data_edit"
-                android:textSize="19sp"
+                android:textSize="18sp"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="0dp" />
 
@@ -184,12 +194,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="10dp"
-                android:clickable="true"
-                android:focusable="true"
                 android:fontFamily="@font/ptsans_bold"
-                android:foreground="?android:attr/selectableItemBackground"
                 android:text="@string/text_view_data"
-                android:textSize="20sp"
+                android:textSize="19sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/LinearLayout"
                 tools:ignore="MissingConstraints" />
@@ -212,7 +219,6 @@
         android:layout_height="56dp"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-        android:layout_marginTop="10dp"
         >
 
         <LinearLayout
@@ -229,7 +235,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/baseline_schedule_24"
                 tools:layout_editor_absoluteX="14dp"
                 tools:layout_editor_absoluteY="112dp" />
@@ -240,12 +246,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/ptsans_bold"
                 android:gravity="start"
                 android:text="@string/text_view_hora_edit"
-                android:textSize="19sp"
+                android:textSize="18sp"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="0dp" />
 
@@ -256,12 +262,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="10dp"
-                android:clickable="true"
-                android:focusable="true"
                 android:fontFamily="@font/ptsans_bold"
-                android:foreground="?android:attr/selectableItemBackground"
                 android:text="@string/text_view_horario"
-                android:textSize="20sp"
+                android:textSize="19sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/LinearLayout"
                 tools:ignore="MissingConstraints" />
@@ -284,7 +287,6 @@
         android:layout_height="56dp"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
-        android:layout_marginTop="10dp"
         >
 
         <LinearLayout
@@ -298,10 +300,10 @@
 
             >
             <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
+                android:layout_width="29dp"
+                android:layout_height="29dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/refresh_icon"
                 tools:layout_editor_absoluteX="14dp"
                 tools:layout_editor_absoluteY="112dp" />
@@ -312,12 +314,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/ptsans_bold"
                 android:gravity="start"
                 android:text="@string/text_view_repeti"
-                android:textSize="19sp"
+                android:textSize="18sp"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="0dp" />
 
