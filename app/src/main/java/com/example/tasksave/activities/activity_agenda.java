@@ -492,7 +492,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
                             }
 
                             // Passe os parâmetros title, content e repeatMode ao método scheduleAlarm
-                            AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2, titulointent, descintent, repeatMode, idAgenda);
+                            AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2, titulointent, descintent, repeatMode, idAgenda, localdataEscolhida);
 
                             SharedPreferences.Editor prefsEditor = getSharedPreferences("arquivoSalvar2", MODE_PRIVATE).edit();
                             prefsEditor.clear();

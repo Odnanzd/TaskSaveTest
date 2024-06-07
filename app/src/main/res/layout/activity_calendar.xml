@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="voltar"
-            android:textColor="@color/blue1"
+            android:textColor="@color/white"
             android:background="@null"
             android:textStyle="bold"
             android:onClick="previousMonthAction"
@@ -34,14 +34,14 @@
             android:text="Feb 2021"
             android:textSize="20sp"
             android:textAlignment="center"
-            android:textColor="@color/black"/>
+            android:textColor="@color/white"/>
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="avançar"
-            android:textColor="@color/blue1"
+            android:textColor="@color/white"
             android:background="@null"
             android:textStyle="bold"
             android:onClick="nextMonthAction"
@@ -58,8 +58,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="SUN"
-            android:textColor="@color/grey"
+            android:text="DOM"
+            android:textColor="@color/grey2"
             android:textAlignment="center"
             android:textSize="16sp"/>
 
@@ -67,8 +67,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="MON"
-            android:textColor="@color/grey"
+            android:text="SEG"
+            android:textColor="@color/grey2"
             android:textAlignment="center"
             android:textSize="16sp"/>
 
@@ -76,8 +76,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="TUE"
-            android:textColor="@color/grey"
+            android:text="TER"
+            android:textColor="@color/grey2"
             android:textAlignment="center"
             android:textSize="16sp"/>
 
@@ -85,8 +85,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="WED"
-            android:textColor="@color/grey"
+            android:text="QUA"
+            android:textColor="@color/grey2"
             android:textAlignment="center"
             android:textSize="16sp"/>
 
@@ -94,8 +94,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="THUR"
-            android:textColor="@color/grey"
+            android:text="QUI"
+            android:textColor="@color/grey2"
             android:textAlignment="center"
             android:textSize="16sp"/>
 
@@ -103,8 +103,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="FRI"
-            android:textColor="@color/grey"
+            android:text="SEX"
+            android:textColor="@color/grey2"
             android:textAlignment="center"
             android:textSize="16sp"/>
 
@@ -112,8 +112,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="SAT"
-            android:textColor="@color/grey"
+            android:text="SAB"
+            android:textColor="@color/grey2"
             android:textAlignment="center"
             android:textSize="16sp"/>
 

@@ -14,8 +14,13 @@ import com.example.tasksave.R;
 import com.example.tasksave.activities.activity_main;
 import com.example.tasksave.dao.AgendaDAO;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Calendar;
+import java.util.Date;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
@@ -40,12 +45,14 @@ public class AlarmReceiver extends BroadcastReceiver {
         }
     }
 
+    @SuppressLint("NewApi")
     private void Notificar(Intent intent, Context context) {
 
         String title = intent.getStringExtra("title");
         String content = intent.getStringExtra("content");
         int repeatMode = intent.getIntExtra("repeatMode", 0);
         long id = intent.getLongExtra("idLong", 0);
+
 
         int idInt = (int) id;
 
@@ -73,25 +80,33 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         showNotification(context, title, content, pendingIntentConcluir, idInt, pendingIntentOk);
 
+        String dataEscolhida = intent.getStringExtra("dataIntent");
+        LocalDate localDateDataEscolhida = stringToLocalDate(dataEscolhida);
+        LocalDate localDateDataEscolhida2 = LocalDate.now();
+
         // Reagendar o próximo alarme
         Calendar nextAlarm = Calendar.getInstance();
         switch (repeatMode) {
             case 1: // Todo dia
                 nextAlarm.add(Calendar.DAY_OF_YEAR, 1);
+                localDateDataEscolhida2 = localDateDataEscolhida.plusDays(1);
                 break;
             case 2: // Toda semana
                 nextAlarm.add(Calendar.WEEK_OF_YEAR, 1);
+                localDateDataEscolhida2 = localDateDataEscolhida.plusWeeks(1);
                 break;
             case 3: // Todo mês
                 nextAlarm.add(Calendar.MONTH, 1);
+                localDateDataEscolhida2 = localDateDataEscolhida.plusMonths(1);
                 break;
         }
 
         // Reagendar o alarme se repeatMode não for 0
         if (repeatMode != 0) {
-            AlarmScheduler.scheduleAlarm(context, nextAlarm, title, content, repeatMode, id);
+            AgendaDAO agendaDAO = new AgendaDAO(context);
+            AlarmScheduler.scheduleAlarm(context, nextAlarm, title, content, repeatMode, id, localDateDataEscolhida2);
+            agendaDAO.AtualizarDataTarefa(id, localDateDataEscolhida2);
         }
-
         AgendaDAO agendaDAO = new AgendaDAO(context);
         agendaDAO.AtualizarStatusNotificacao(id, 1);
     }
@@ -149,6 +164,20 @@ public class AlarmReceiver extends BroadcastReceiver {
         } else {
             Log.e("AlarmReceiver", "ID da tarefa não encontrado no Intent para ação OK");
         }
+    }
+    @SuppressLint("NewApi")
+    public static LocalDate stringToLocalDate(String dateString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = null;
+        try {
+            localDate = LocalDate.parse(dateString, formatter);
+        } catch (DateTimeParseException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            Log.e("stringToLocalDate", "A string de data fornecida é nula.");
+        }
+        return localDate;
     }
 }
 

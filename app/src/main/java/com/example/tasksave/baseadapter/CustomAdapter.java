@@ -657,6 +657,7 @@ public class CustomAdapter extends BaseAdapter {
 
             if (isReminderSet[position]) {
                 try {
+
                     SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                     SimpleDateFormat targetFormat = new SimpleDateFormat("dd/MM/yy", Locale.getDefault());
 
@@ -689,8 +690,6 @@ public class CustomAdapter extends BaseAdapter {
                     Date dataHoraCombinada = calendar.getTime();
 
                     boolean repetirLembreteBL = getRepetirLembrete(position);
-
-
 
                     // Verifique se a data da agenda é amanhã em relação à data atual
                     Calendar currentCalendar = Calendar.getInstance();
@@ -734,46 +733,46 @@ public class CustomAdapter extends BaseAdapter {
                     int repetirLembreteModo2 = getRepetirModoLembrete(position);
                     boolean notificouTarefaBL = getNotificouTarefa(position);
 
-                    if(repetirLembreteModo2==1 && notificouTarefaBL) {
-
-                        Calendar calendarDate = Calendar.getInstance();
-                        calendarDate.setTime(date);
-                        calendarDate.add(Calendar.DAY_OF_YEAR, 1); // Adiciona 1 dia
-                        Date newDate = calendarDate.getTime();
-
-                        String formattedDate = targetFormat.format(newDate);
-                        text_view_dat_agenda.setText(formattedDate);
-
-                        AgendaDAO agendaDAO = new AgendaDAO(context);
-                        agendaDAO.AtualizarStatusNotificacao(getItemId(position), 0);
-
-                    }else if(repetirLembreteModo2==2 && notificouTarefaBL) {
-
-                        Calendar calendarDate = Calendar.getInstance();
-                        calendarDate.setTime(date);
-                        calendarDate.add(Calendar.WEEK_OF_YEAR, 1);
-                        Date newDate = calendarDate.getTime();
-
-                        String formattedDate = targetFormat.format(newDate);
-                        text_view_dat_agenda.setText(formattedDate);
-
-                        AgendaDAO agendaDAO = new AgendaDAO(context);
-                        agendaDAO.AtualizarStatusNotificacao(getItemId(position), 0);
-
-                    }else if(repetirLembreteModo2==3 && notificouTarefaBL) {
-
-                        Calendar calendarDate = Calendar.getInstance();
-                        calendarDate.setTime(date);
-                        calendarDate.add(Calendar.MONTH, 1);
-                        Date newDate = calendarDate.getTime();
-
-                        String formattedDate = targetFormat.format(newDate);
-                        text_view_dat_agenda.setText(formattedDate);
-
-                        AgendaDAO agendaDAO = new AgendaDAO(context);
-                        agendaDAO.AtualizarStatusNotificacao(getItemId(position), 0);
-
-                    }
+//                    if(repetirLembreteModo2==1 && notificouTarefaBL) {
+//
+//                        Calendar calendarDate = Calendar.getInstance();
+//                        calendarDate.setTime(date);
+//                        calendarDate.add(Calendar.DAY_OF_YEAR, 1); // Adiciona 1 dia
+//                        Date newDate = calendarDate.getTime();
+//
+//                        String formattedDate = targetFormat.format(newDate);
+//                        text_view_dat_agenda.setText(formattedDate);
+//
+//                        AgendaDAO agendaDAO = new AgendaDAO(context);
+//                        agendaDAO.AtualizarStatusNotificacao(getItemId(position), 0);
+//
+//                    }else if(repetirLembreteModo2==2 && notificouTarefaBL) {
+//
+//                        Calendar calendarDate = Calendar.getInstance();
+//                        calendarDate.setTime(date);
+//                        calendarDate.add(Calendar.WEEK_OF_YEAR, 1);
+//                        Date newDate = calendarDate.getTime();
+//
+//                        String formattedDate = targetFormat.format(newDate);
+//                        text_view_dat_agenda.setText(formattedDate);
+//
+//                        AgendaDAO agendaDAO = new AgendaDAO(context);
+//                        agendaDAO.AtualizarStatusNotificacao(getItemId(position), 0);
+//
+//                    }else if(repetirLembreteModo2==3 && notificouTarefaBL) {
+//
+//                        Calendar calendarDate = Calendar.getInstance();
+//                        calendarDate.setTime(date);
+//                        calendarDate.add(Calendar.MONTH, 1);
+//                        Date newDate = calendarDate.getTime();
+//
+//                        String formattedDate = targetFormat.format(newDate);
+//                        text_view_dat_agenda.setText(formattedDate);
+//
+//                        AgendaDAO agendaDAO = new AgendaDAO(context);
+//                        agendaDAO.AtualizarStatusNotificacao(getItemId(position), 0);
+//
+//                    }
 
                 } catch (ParseException e) {
                     e.printStackTrace();

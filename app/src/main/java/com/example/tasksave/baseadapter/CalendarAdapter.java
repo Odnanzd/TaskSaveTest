@@ -39,7 +39,13 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
     @Override
     public void onBindViewHolder(@NonNull CalendarViewHolder holder, int position)
     {
-        holder.dayOfMonth.setText(daysOfMonth.get(position));
+        String day = daysOfMonth.get(position);
+        if(day.equals("")) {
+            holder.parentView.setVisibility(View.GONE);
+        } else {
+            holder.parentView.setVisibility(View.VISIBLE);
+            holder.dayOfMonth.setText(day);
+        }
     }
 
     @Override
