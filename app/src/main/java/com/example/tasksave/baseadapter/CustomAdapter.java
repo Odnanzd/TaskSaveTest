@@ -351,7 +351,9 @@ public class CustomAdapter extends BaseAdapter {
                         intent.putExtra("lembreteIntent", lembrete);
                         intent.putExtra("repetirLembreteIntent", repetirLembrete);
                         intent.putExtra("repetirModoIntent", repetirModoLembrete);
+                        Log.d("lembrete", "lembrete: "+lembrete);
                         context.startActivity(intent);
+
 
 
 

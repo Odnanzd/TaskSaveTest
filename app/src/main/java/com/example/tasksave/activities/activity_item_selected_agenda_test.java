@@ -2,16 +2,23 @@ package com.example.tasksave.activities;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.tasksave.R;
@@ -35,6 +42,14 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
     LinearLayout linearLayoutData;
     LinearLayout linearLayoutHora;
     LinearLayout linearLayoutRepetir;
+    Calendar selectedDateCalendar;
+    Calendar selectedHourCalendar;
+    ImageView imageViewBack;
+    ImageView imageViewCheck;
+    @SuppressLint("MissingSuperCall")
+    public void onBackPressed() {
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +66,8 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
         linearLayoutData = findViewById(R.id.linearLayout5);
         linearLayoutHora = findViewById(R.id.linearLayout7);
         linearLayoutRepetir = findViewById(R.id.linearLayout9);
+        imageViewBack = findViewById(R.id.imageView4);
+        imageViewCheck = findViewById(R.id.imageViewCheck);
 
 
         Intent intent = getIntent();
@@ -70,6 +87,7 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
 
         editTextTitulo.setText(tituloTarefa);
         editTextDesc.setText(descTarefa);
+
 
         if(lembreteTarefa) {
 
@@ -97,67 +115,116 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
                 textViewRepetir.setText("Todo ano");
         }
     }
+        selectedDateCalendar = Calendar.getInstance();
+        selectedHourCalendar = Calendar.getInstance();
+
+        if(lembreteTarefa) {
+            @SuppressLint({"NewApi", "LocalSuppress"})
+            Date date = Date.from(localdataEscolhida.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            selectedDateCalendar.setTime(date);
+
+            String[] timeParts = horaTarefa.split(":");
+            int hour = Integer.parseInt(timeParts[0]);
+            int minute = Integer.parseInt(timeParts[1]);
+            selectedHourCalendar.set(Calendar.HOUR_OF_DAY, hour);
+            selectedHourCalendar.set(Calendar.MINUTE, minute);
+
+
+        }
+
 
  linearLayoutData.setOnClickListener(new View.OnClickListener() {
      @Override
      public void onClick(View view) {
-         if(repetirLembrete) {
 
-             @SuppressLint({"NewApi", "LocalSuppress"})
-             Date date = Date.from(localdataEscolhida.atStartOfDay(ZoneId.systemDefault()).toInstant());
-             Calendar calendarDate = Calendar.getInstance();
-             calendarDate.setTime(date);
-             dialogDateUser(calendarDate);
+        dialogDateUser(selectedDateCalendar);
 
-         }else {
-             dialogDate();
-         }
      }
  });
 
+ linearLayoutHora.setOnClickListener(new View.OnClickListener() {
+     @Override
+     public void onClick(View view) {
 
-    }
-    public void dialogDate() {
+         dialogHourUser(selectedHourCalendar);
 
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-
-        DatePickerDialog dialog = new DatePickerDialog(activity_item_selected_agenda_test.this, new DatePickerDialog.OnDateSetListener() {
+     }
+ });
+        imageViewBack.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
-                String selectedDate;
-                Calendar selectedCalendar = Calendar.getInstance();
-                selectedCalendar.set(year, month, dayOfMonth);
-
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
-                selectedDate = sdf.format(selectedCalendar.getTime());
-
-                String selectedDate2;
-                Calendar selectedCalendar2 = Calendar.getInstance();
-                selectedCalendar2.set(year, month, dayOfMonth);
-                SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
-                selectedDate2 = sdf2.format(selectedCalendar2.getTime());
-
-                SharedPreferences prefs = getSharedPreferences("arquivoSalvarDataEdit", MODE_PRIVATE);
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putString("arquivo_Data_Edit", selectedDate2);
-                editor.apply();
-
-                textViewData.setText(selectedDate);
-
-                Log.d("Verificação Data", "Data:" +selectedDate2);
+            public void onClick(View view) {
+                finish();
             }
-        }, year, month, dayOfMonth);
-        dialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
-        dialog.show();
+        });
+
+
+        boolean estadoOriginal = aswitch.isChecked();
+        aswitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            // Torne o botão visível quando o Switch for alterado
+
+            if(estadoOriginal!=aswitch.isChecked()) {
+
+                imageViewCheck.setVisibility(View.VISIBLE);
+
+            }else {
+                imageViewCheck.setVisibility(View.GONE);
+            }
+
+        });
+                editTextTitulo.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                                // Não é necessário implementar nada aqui
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                // Verifica se o EditText não está vazio
+                                String novoTitulo = s.toString();
+                                boolean saoIguais = novoTitulo.equals(tituloTarefa);
+
+                                if (s.length() > 0 && !saoIguais) {
+                                    imageViewCheck.setVisibility(View.VISIBLE);
+                                } else {
+                                    imageViewCheck.setVisibility(View.GONE);
+                                }
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable s) {
+                                // Não é necessário implementar nada aqui
+                            }
+                        });
+                    editTextDesc.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                                // Não é necessário implementar nada aqui
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                // Verifica se o EditText não está vazio
+                                String novoDes = s.toString();
+                                boolean saoIguais = novoDes.equals(descTarefa);
+
+                                if (s.length() > 0 && !saoIguais) {
+                                    imageViewCheck.setVisibility(View.VISIBLE);
+                                } else {
+                                    imageViewCheck.setVisibility(View.GONE);
+                                }
+                            }
+                            @Override
+                            public void afterTextChanged(Editable s) {
+                                // Não é necessário implementar nada aqui
+                            }
+                        });
+
+
     }
+
 
     public void dialogDateUser(Calendar calendar) {
 
-        calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
@@ -166,18 +233,24 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
-                String selectedDate;
                 Calendar selectedCalendar = Calendar.getInstance();
                 selectedCalendar.set(year, month, dayOfMonth);
 
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
-                selectedDate = sdf.format(selectedCalendar.getTime());
+                if (calendar.get(Calendar.YEAR) == selectedCalendar.get(Calendar.YEAR) &&
+                        calendar.get(Calendar.MONTH) == selectedCalendar.get(Calendar.MONTH) &&
+                        calendar.get(Calendar.DAY_OF_MONTH) == selectedCalendar.get(Calendar.DAY_OF_MONTH)) {
 
-                String selectedDate2;
-                Calendar selectedCalendar2 = Calendar.getInstance();
-                selectedCalendar2.set(year, month, dayOfMonth);
+                    imageViewCheck.setVisibility(View.GONE);
+
+                } else {
+                    imageViewCheck.setVisibility(View.VISIBLE);
+                }
+
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+                String selectedDate = sdf.format(selectedCalendar.getTime());
+
                 SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
-                selectedDate2 = sdf2.format(selectedCalendar2.getTime());
+                String selectedDate2 = sdf2.format(selectedCalendar.getTime());
 
                 SharedPreferences prefs = getSharedPreferences("arquivoSalvarDataEdit", MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();
@@ -185,11 +258,56 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
                 editor.apply();
 
                 textViewData.setText(selectedDate);
+                Log.d("DATA", "DATA: "+selectedDate2);
 
-                Log.d("Verificação Data", "Data:" +selectedDate2);
+
             }
         }, year, month, dayOfMonth);
-        dialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
+
+        dialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());  // Definir a data mínima para a data atual
         dialog.show();
     }
+
+    public void dialogHourUser(Calendar calendar) {
+
+        int hour = calendar.get(java.util.Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(java.util.Calendar.MINUTE);
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(activity_item_selected_agenda_test.this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+                Date time = new Date();
+                time.setHours(hourOfDay);
+                time.setMinutes(minute);
+                SimpleDateFormat hourFormat = new SimpleDateFormat("HH");
+                SimpleDateFormat minuteFormat = new SimpleDateFormat("mm");
+
+                String hora_formatada = hourFormat.format(time);
+                String minuto_Formatado = minuteFormat.format(time);
+
+                // Lidar com a hora selecionada pelo usuário
+                textViewHora.setText(hora_formatada+":"+minuto_Formatado);
+
+                int horadefinida = hourOfDay;
+                int minutodefinido = minute;
+
+                SharedPreferences prefs = getSharedPreferences("arquivoSalvar3", MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putInt("arquivo_Hora", horadefinida);
+                editor.putInt("arquivo_Minuto", minutodefinido);
+                editor.apply();
+
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0);
+                imageViewCheck.setVisibility(View.VISIBLE);
+
+            }
+        }, hour, minute, true);
+
+        // Mostrar o diálogo
+        timePickerDialog.show();
+
+    }
+
 }
