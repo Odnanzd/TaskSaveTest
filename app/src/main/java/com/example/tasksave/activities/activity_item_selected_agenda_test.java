@@ -46,6 +46,9 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
     Calendar selectedHourCalendar;
     ImageView imageViewBack;
     ImageView imageViewCheck;
+    boolean tituloMudança;
+    boolean dataMudanca;
+    boolean horaMudanca;
     @SuppressLint("MissingSuperCall")
     public void onBackPressed() {
         finish();
@@ -68,6 +71,9 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
         linearLayoutRepetir = findViewById(R.id.linearLayout9);
         imageViewBack = findViewById(R.id.imageView4);
         imageViewCheck = findViewById(R.id.imageViewCheck);
+        tituloMudança = false;
+        dataMudanca = false;
+        horaMudanca = false;
 
 
         Intent intent = getIntent();
@@ -87,6 +93,10 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
 
         editTextTitulo.setText(tituloTarefa);
         editTextDesc.setText(descTarefa);
+
+        editTextTitulo.addTextChangedListener(textWatcher);
+        editTextDesc.addTextChangedListener(textWatcher);
+        aswitch.setOnCheckedChangeListener(switchListener);
 
 
         if(lembreteTarefa) {
@@ -159,6 +169,7 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
 
 
         boolean estadoOriginal = aswitch.isChecked();
+
         aswitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             // Torne o botão visível quando o Switch for alterado
 
@@ -166,7 +177,7 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
 
                 imageViewCheck.setVisibility(View.VISIBLE);
 
-            }else {
+            }else if(!tituloMudança||!dataMudanca||!horaMudanca) {
                 imageViewCheck.setVisibility(View.GONE);
             }
 
@@ -185,8 +196,10 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
 
                                 if (s.length() > 0 && !saoIguais) {
                                     imageViewCheck.setVisibility(View.VISIBLE);
+                                    tituloMudança=true;
                                 } else {
                                     imageViewCheck.setVisibility(View.GONE);
+                                    tituloMudança=false;
                                 }
                             }
 
@@ -241,9 +254,11 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
                         calendar.get(Calendar.DAY_OF_MONTH) == selectedCalendar.get(Calendar.DAY_OF_MONTH)) {
 
                     imageViewCheck.setVisibility(View.GONE);
+                    dataMudanca=false;
 
                 } else {
                     imageViewCheck.setVisibility(View.VISIBLE);
+                    dataMudanca=true;
                 }
 
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");

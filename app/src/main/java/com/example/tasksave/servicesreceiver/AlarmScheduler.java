@@ -13,6 +13,7 @@ import java.util.Calendar;
 public class AlarmScheduler {
     @SuppressLint({"ScheduleExactAlarm", "NewApi"})
     public static void scheduleAlarm(Context context, Calendar calendar, String title, String content, int repeatMode, long id, LocalDate localDate) {
+
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
         intent.putExtra("title", title);

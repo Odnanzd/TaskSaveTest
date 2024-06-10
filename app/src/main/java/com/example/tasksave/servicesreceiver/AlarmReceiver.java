@@ -28,21 +28,13 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
+
             Notificar(intent, context);
             if (intent.getAction() != null && intent.getAction().equals("ACTION_CONCLUIR")) {
                 processarAcaoConcluir(context, intent);
             }else if (intent.getAction() != null && intent.getAction().equals("ACTION_OK")) {
                 processarAcaoOk(context, intent);
             }
-        } else {
-            Notificar(intent, context);
-            if (intent.getAction() != null && intent.getAction().equals("ACTION_CONCLUIR")) {
-                processarAcaoConcluir(context, intent);
-            }else if (intent.getAction() != null && intent.getAction().equals("ACTION_OK")) {
-                processarAcaoOk(context, intent);
-            }
-        }
     }
 
     @SuppressLint("NewApi")
