@@ -2,7 +2,7 @@
 
     <!---Nome do app-->
 
-    <string name="app_name">TaskSave</string>
+    <string name="app_name">TaskSaveAppTest</string>
 
     <!---Strings activity_welcome-->
     <string name="welcome_entrar_button">Entrar</string>

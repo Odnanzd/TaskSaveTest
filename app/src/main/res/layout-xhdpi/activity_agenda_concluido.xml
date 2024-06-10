@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     style="@style/BackgroundTheme"
-    tools:context=".activities.activity_agenda_concluido">
+    tools:context=".test.activities.activity_agenda_concluido">
 
     <ListView
         android:id="@+id/listview2"

@@ -6,7 +6,7 @@
     style="@style/BackgroundTheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.activity_item_selected_agenda_test">
+    tools:context=".test.activities.activity_item_selected_agenda_test">
 
     <EditText
         android:id="@+id/titulo_text_view"

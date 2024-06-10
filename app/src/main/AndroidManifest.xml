@@ -21,46 +21,46 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/logotipo_icon"
+        android:icon="@mipmap/logotipo_test_icon"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@mipmap/logotipo_icon"
+        android:roundIcon="@mipmap/logotipo_test_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.TaskSave"
         tools:targetApi="31">
         <activity
-            android:name=".activities.activity_item_selected_agenda_test"
+            android:name=".test.activities.activity_item_selected_agenda_test"
             android:exported="false" />
         <activity
-            android:name=".activities.activity_calendar"
+            android:name=".test.activities.activity_calendar"
             android:exported="false" />
         <activity
-            android:name=".activities.activity_confg_perfil_nome"
+            android:name=".test.activities.activity_confg_perfil_nome"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".activities.activity_confg_perfil"
+            android:name=".test.activities.activity_confg_perfil"
             android:exported="false" />
         <activity
-            android:name=".activities.activity_config"
+            android:name=".test.activities.activity_config"
             android:exported="false" />
         <activity
-            android:name=".activities.activity_welcome"
+            android:name=".test.activities.activity_welcome"
             android:exported="false" />
         <activity
-            android:name=".activities.activity_item_selected_agenda_concluido"
+            android:name=".test.activities.activity_item_selected_agenda_concluido"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.activity_agenda_concluido"
+            android:name=".test.activities.activity_agenda_concluido"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.activity_item_selected_agenda"
+            android:name=".test.activities.activity_item_selected_agenda"
             android:exported="false"
             android:screenOrientation="portrait" /> <!-- Definir a SplashActivity como a atividade principal -->
         <activity
-            android:name=".activities.activity_splash_screen"
+            android:name=".test.activities.activity_splash_screen"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.TaskSave"> <!-- Restante das atividades -->
@@ -71,22 +71,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.activity_agenda"
+            android:name=".test.activities.activity_agenda"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".activities.activity_login"
+            android:name=".test.activities.activity_login"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowFullscreen="true"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".activities.activity_main"
+            android:name=".test.activities.activity_main"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.activity_cadastro"
+            android:name=".test.activities.activity_cadastro"
             android:exported="false"
             android:screenOrientation="portrait" />
 
@@ -95,7 +95,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <receiver
-            android:name=".servicesreceiver.AlarmReceiver"
+            android:name=".test.servicesreceiver.AlarmReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -104,7 +104,7 @@
         </receiver>
 
         <service
-            android:name=".servicesreceiver.AgendamentoService"
+            android:name=".test.servicesreceiver.AgendamentoService"
             android:exported="true"
             android:foregroundServiceType="dataSync"
             android:permission="android.permission.BIND_JOB_SERVICE">

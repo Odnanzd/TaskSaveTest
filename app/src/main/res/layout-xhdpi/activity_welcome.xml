@@ -5,7 +5,7 @@
     style="@style/BackgroundTheme"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context=".activities.activity_welcome">
+    tools:context=".test.activities.activity_welcome">
 
 
     <ImageView

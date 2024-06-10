@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:811126737751:android:b6859d52d95015f5eb8c12",
         "android_client_info": {
-          "package_name": "com.example.tasksave"
+          "package_name": "com.example.tasksave.test"
         }
       },
       "oauth_client": [],
