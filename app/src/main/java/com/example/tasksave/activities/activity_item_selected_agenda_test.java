@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -46,9 +47,14 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
     Calendar selectedHourCalendar;
     ImageView imageViewBack;
     ImageView imageViewCheck;
-    boolean tituloMudança;
-    boolean dataMudanca;
-    boolean horaMudanca;
+    String tituloTarefa;
+    String descTarefa;
+    String dataTarefa;
+    String horaTarefa;
+    boolean lembreteTarefa;
+    private Calendar selectedDate;
+    private Calendar selectedHour;
+
     @SuppressLint("MissingSuperCall")
     public void onBackPressed() {
         finish();
@@ -71,18 +77,15 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
         linearLayoutRepetir = findViewById(R.id.linearLayout9);
         imageViewBack = findViewById(R.id.imageView4);
         imageViewCheck = findViewById(R.id.imageViewCheck);
-        tituloMudança = false;
-        dataMudanca = false;
-        horaMudanca = false;
 
 
         Intent intent = getIntent();
         long idTarefa = intent.getLongExtra("idTarefa", 0);
-        String tituloTarefa = intent.getStringExtra("tituloIntent");
-        String descTarefa = intent.getStringExtra("descIntent");
-        String dataTarefa = intent.getStringExtra("dataIntent");
-        String horaTarefa = intent.getStringExtra("horaIntent");
-        boolean lembreteTarefa = intent.getBooleanExtra("lembreteIntent", false);
+        tituloTarefa = intent.getStringExtra("tituloIntent");
+        descTarefa = intent.getStringExtra("descIntent");
+        dataTarefa = intent.getStringExtra("dataIntent");
+        horaTarefa = intent.getStringExtra("horaIntent");
+        lembreteTarefa = intent.getBooleanExtra("lembreteIntent", false);
         boolean repetirLembrete = intent.getBooleanExtra("repetirLembreteIntent", false);
         int repetirModoLembrete = intent.getIntExtra("repetirModoIntent", 0);
 
@@ -94,10 +97,6 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
         editTextTitulo.setText(tituloTarefa);
         editTextDesc.setText(descTarefa);
 
-        editTextTitulo.addTextChangedListener(textWatcher);
-        editTextDesc.addTextChangedListener(textWatcher);
-        aswitch.setOnCheckedChangeListener(switchListener);
-
 
         if(lembreteTarefa) {
 
@@ -108,6 +107,9 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
             textViewData.setText("");
             textViewHora.setText("");
         }
+        editTextTitulo.addTextChangedListener(textWatcher);
+        editTextDesc.addTextChangedListener(textWatcher);
+        aswitch.setOnCheckedChangeListener(switchListener);
 
         if (repetirLembrete) {
 
@@ -141,6 +143,8 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
 
 
         }
+        selectedDate = (Calendar) selectedDateCalendar.clone();
+        selectedHour = (Calendar) selectedHourCalendar.clone();
 
 
  linearLayoutData.setOnClickListener(new View.OnClickListener() {
@@ -167,71 +171,52 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
             }
         });
 
+    }
 
-        boolean estadoOriginal = aswitch.isChecked();
+    private CompoundButton.OnCheckedChangeListener switchListener = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            checkForChanges();
+        }
+    };
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
-        aswitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            // Torne o botão visível quando o Switch for alterado
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            checkForChanges();
+        }
 
-            if(estadoOriginal!=aswitch.isChecked()) {
+        @Override
+        public void afterTextChanged(Editable s) { }
+    };
 
-                imageViewCheck.setVisibility(View.VISIBLE);
+    private void checkForChanges() {
+        boolean text1Changed = !editTextTitulo.getText().toString().equals(tituloTarefa);
+        boolean text2Changed = !editTextDesc.getText().toString().equals(descTarefa);
+        boolean switchChanged = aswitch.isChecked() != lembreteTarefa;
+        boolean dateChanged = !isSameDay(selectedDate, selectedDateCalendar);
+        boolean hourChanged = !horaIgual(selectedHour, selectedHourCalendar);
 
-            }else if(!tituloMudança||!dataMudanca||!horaMudanca) {
-                imageViewCheck.setVisibility(View.GONE);
-            }
 
-        });
-                editTextTitulo.addTextChangedListener(new TextWatcher() {
-                            @Override
-                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                                // Não é necessário implementar nada aqui
-                            }
+        if (text1Changed || text2Changed || switchChanged || dateChanged|| hourChanged) {
+            imageViewCheck.setVisibility(View.VISIBLE);
 
-                            @Override
-                            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                                // Verifica se o EditText não está vazio
-                                String novoTitulo = s.toString();
-                                boolean saoIguais = novoTitulo.equals(tituloTarefa);
+        } else {
+            imageViewCheck.setVisibility(View.GONE);
 
-                                if (s.length() > 0 && !saoIguais) {
-                                    imageViewCheck.setVisibility(View.VISIBLE);
-                                    tituloMudança=true;
-                                } else {
-                                    imageViewCheck.setVisibility(View.GONE);
-                                    tituloMudança=false;
-                                }
-                            }
+        }
+    }
+    private boolean isSameDay(Calendar cal1, Calendar cal2) {
+        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
+                cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH) &&
+                cal1.get(Calendar.DAY_OF_MONTH) == cal2.get(Calendar.DAY_OF_MONTH);
+    }
+    private boolean horaIgual(Calendar hora1, Calendar hora2) {
 
-                            @Override
-                            public void afterTextChanged(Editable s) {
-                                // Não é necessário implementar nada aqui
-                            }
-                        });
-                    editTextDesc.addTextChangedListener(new TextWatcher() {
-                            @Override
-                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                                // Não é necessário implementar nada aqui
-                            }
-
-                            @Override
-                            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                                // Verifica se o EditText não está vazio
-                                String novoDes = s.toString();
-                                boolean saoIguais = novoDes.equals(descTarefa);
-
-                                if (s.length() > 0 && !saoIguais) {
-                                    imageViewCheck.setVisibility(View.VISIBLE);
-                                } else {
-                                    imageViewCheck.setVisibility(View.GONE);
-                                }
-                            }
-                            @Override
-                            public void afterTextChanged(Editable s) {
-                                // Não é necessário implementar nada aqui
-                            }
-                        });
-
+        return hora1.get(Calendar.HOUR_OF_DAY) == hora2.get(Calendar.HOUR_OF_DAY) &&
+                hora1.get(Calendar.MINUTE) == hora2.get(Calendar.MINUTE);
 
     }
 
@@ -246,33 +231,21 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
-                Calendar selectedCalendar = Calendar.getInstance();
-                selectedCalendar.set(year, month, dayOfMonth);
-
-                if (calendar.get(Calendar.YEAR) == selectedCalendar.get(Calendar.YEAR) &&
-                        calendar.get(Calendar.MONTH) == selectedCalendar.get(Calendar.MONTH) &&
-                        calendar.get(Calendar.DAY_OF_MONTH) == selectedCalendar.get(Calendar.DAY_OF_MONTH)) {
-
-                    imageViewCheck.setVisibility(View.GONE);
-                    dataMudanca=false;
-
-                } else {
-                    imageViewCheck.setVisibility(View.VISIBLE);
-                    dataMudanca=true;
-                }
+                selectedDate.set(year, month, dayOfMonth);
 
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
-                String selectedDate = sdf.format(selectedCalendar.getTime());
+                String selectedDate2 = sdf.format(selectedDate.getTime());
 
                 SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
-                String selectedDate2 = sdf2.format(selectedCalendar.getTime());
+                String selectedDate3 = sdf2.format(selectedDate.getTime());
 
                 SharedPreferences prefs = getSharedPreferences("arquivoSalvarDataEdit", MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();
-                editor.putString("arquivo_Data_Edit", selectedDate2);
+                editor.putString("arquivo_Data_Edit", selectedDate3);
                 editor.apply();
+                checkForChanges();
 
-                textViewData.setText(selectedDate);
+                textViewData.setText(selectedDate2);
                 Log.d("DATA", "DATA: "+selectedDate2);
 
 
@@ -292,6 +265,9 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
+
+                selectedHour.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                selectedHour.set(Calendar.MINUTE, minute);
                 Date time = new Date();
                 time.setHours(hourOfDay);
                 time.setMinutes(minute);
@@ -312,10 +288,15 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
                 editor.putInt("arquivo_Hora", horadefinida);
                 editor.putInt("arquivo_Minuto", minutodefinido);
                 editor.apply();
+                checkForChanges();
+                Log.d("Hora Selecionada", "HoraSelecionada: "+selectedHour.get(Calendar.HOUR_OF_DAY));
+                Log.d("Minuto Selecionada", "Minuto Selecionada: "+selectedHour.get(Calendar.MINUTE));
+
+                Log.d("Hora inicial", "Hora inicial: "+calendar.get(Calendar.HOUR_OF_DAY));
+                Log.d("Minuto inicial", "Minuto inicial: "+calendar.get(Calendar.MINUTE));
 
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0);
-                imageViewCheck.setVisibility(View.VISIBLE);
 
             }
         }, hour, minute, true);
