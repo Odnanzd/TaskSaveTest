@@ -6,6 +6,7 @@ import com.example.tasksave.test.conexaoMYSQL.ConnectionClass;
 import com.example.tasksave.test.objetos.User;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -146,6 +147,29 @@ public class usuarioDAOMYsql {
             Log.d("Usuario cadastro", "ERRO AO CADASTRAR" + e);
             return false;
         }
+    }
+    public double getVersionAPP() {
+        double versaoAppDB = 0.0;
+        ConnectionClass connectionClass = new ConnectionClass();
+        conn = connectionClass.CONN();
+        try {
+
+            String query = "SELECT versao FROM versaoapp WHERE id = 1";
+            PreparedStatement statement = conn.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                versaoAppDB = resultSet.getDouble("versao");
+            }
+
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return versaoAppDB;
     }
 }
 

@@ -13,7 +13,7 @@ android {
         minSdk 23
         targetSdk 34
         versionCode 1
-        versionName "2.0"
+        versionName "2.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -47,4 +47,5 @@ dependencies {
     implementation 'mysql:mysql-connector-java:5.1.49'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.8.22"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22"
+    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
 }

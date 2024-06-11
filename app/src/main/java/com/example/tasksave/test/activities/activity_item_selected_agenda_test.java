@@ -60,8 +60,6 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
         finish();
     }
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,9 +89,9 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
         boolean repetirLembrete = intent.getBooleanExtra("repetirLembreteIntent", false);
         int repetirModoLembrete = intent.getIntExtra("repetirModoIntent", 0);
 
-         @SuppressLint({"NewApi", "LocalSuppress"}) DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
-         @SuppressLint({"NewApi", "LocalSuppress"}) LocalDate localdataEscolhida = LocalDate.parse(dataTarefa);
-         @SuppressLint({"NewApi", "LocalSuppress"}) String dataFormatada = localdataEscolhida.format(formatter);
+        @SuppressLint({"NewApi", "LocalSuppress"}) DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+        @SuppressLint({"NewApi", "LocalSuppress"}) LocalDate localdataEscolhida = LocalDate.parse(dataTarefa);
+        @SuppressLint({"NewApi", "LocalSuppress"}) String dataFormatada = localdataEscolhida.format(formatter);
 
         editTextTitulo.setText(tituloTarefa);
         editTextDesc.setText(descTarefa);
@@ -114,20 +112,20 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
 
         if (repetirLembrete) {
 
-        switch (repetirModoLembrete) {
-            case 1:
-                textViewRepetir.setText("Todo dia");
-                break;
-            case 2:
-                textViewRepetir.setText("Toda Semana");
-                break;
-            case 3:
-                textViewRepetir.setText("Todo Mês");
-                break;
-            case 4:
-                textViewRepetir.setText("Todo ano");
+            switch (repetirModoLembrete) {
+                case 1:
+                    textViewRepetir.setText("Todo dia");
+                    break;
+                case 2:
+                    textViewRepetir.setText("Toda Semana");
+                    break;
+                case 3:
+                    textViewRepetir.setText("Todo Mês");
+                    break;
+                case 4:
+                    textViewRepetir.setText("Todo ano");
+            }
         }
-    }
         selectedDateCalendar = Calendar.getInstance();
         selectedHourCalendar = Calendar.getInstance();
 
@@ -148,23 +146,23 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
         selectedHour = (Calendar) selectedHourCalendar.clone();
 
 
- linearLayoutData.setOnClickListener(new View.OnClickListener() {
-     @Override
-     public void onClick(View view) {
+        linearLayoutData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-        dialogDateUser(selectedDateCalendar);
+                dialogDateUser(selectedDateCalendar);
 
-     }
- });
+            }
+        });
 
- linearLayoutHora.setOnClickListener(new View.OnClickListener() {
-     @Override
-     public void onClick(View view) {
+        linearLayoutHora.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-         dialogHourUser(selectedHourCalendar);
+                dialogHourUser(selectedHourCalendar);
 
-     }
- });
+            }
+        });
         imageViewBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
