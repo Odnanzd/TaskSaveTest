@@ -47,6 +47,8 @@
             style="@style/ButtonSelector"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
@@ -61,6 +63,8 @@
         <Button
             android:id="@+id/buttonCadastrar"
             style="@style/ButtonSelector2"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -73,5 +77,6 @@
             android:textColor="#ffffff"
             android:textSize="24sp"
             android:textStyle="bold" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
