@@ -86,7 +86,7 @@
 
     <FrameLayout
         android:id="@+id/framelayout1"
-        android:layout_width="80dp"
+        android:layout_width="90dp"
         android:layout_height="30dp"
         android:layout_marginStart="230dp"
         android:layout_marginTop="20dp"
@@ -103,9 +103,9 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/ptsans_bold"
             android:gravity="center"
-            android:text="instalar"
+            android:text="Instalar"
             android:textColor="@color/white"
-            android:textSize="10sp" />
+            android:textSize="13sp" />
 
         <ProgressBar
             android:id="@+id/progressbar1"
@@ -121,7 +121,7 @@
 
     <FrameLayout
         android:id="@+id/framelayout2"
-        android:layout_width="80dp"
+        android:layout_width="90dp"
         android:layout_height="30dp"
         android:layout_marginTop="20dp"
         android:layout_marginStart="90dp"
@@ -140,7 +140,7 @@
             android:gravity="center"
             android:text="Não agora"
             android:textColor="@color/white"
-            android:textSize="10sp" />
+            android:textSize="12sp" />
 
         <ProgressBar
             android:id="@+id/progressbar2"

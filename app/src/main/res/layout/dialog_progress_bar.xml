@@ -30,7 +30,7 @@
         android:layout_marginTop="10dp"
         android:fontFamily="@font/ptsans_bold"
         style="@style/TextColorAddAgenda"
-        android:text="Não fecha o app."
+        android:text="Não feche o app."
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
