@@ -1,16 +1,22 @@
 package com.example.tasksave.test.activities;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,11 +30,16 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricManager;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.tasksave.test.conexaoSQLite.Conexao;
 import com.example.tasksave.R;
+import com.example.tasksave.test.servicos.ServicosATT;
 
 public class activity_main extends AppCompatActivity {
+    private ServicosATT servicosATT;
+
 
     public ImageView imageView;
     public TextView text_view_main;
@@ -61,6 +72,24 @@ public class activity_main extends AppCompatActivity {
         ExibirUsername();
         VerificarAtrasos();
         ChecarBiometria();
+
+        SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("ArquivoATT", Context.MODE_PRIVATE);
+        boolean arquivoATT = sharedPrefs2.getBoolean("NaoATT", false);
+
+
+        String versaoAtual = obterVersaoAtual();
+        servicosATT = new ServicosATT(this, versaoAtual);
+
+        if(!arquivoATT) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                if (Environment.isExternalStorageManager()) {
+                    verificarPermissoes();
+                }
+            } else {
+                verificarPermissoes();
+            }
+        }
+
 
         imageViewMenuConfig.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +138,27 @@ public class activity_main extends AppCompatActivity {
         }
     });
 }
+    private void verificarPermissoes() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            servicosATT.verificarAtt(new ServicosATT.VerificarAttCallback() {
+                @Override
+                public void onResult(boolean isNewVersionAvailable) {
+                    if (!isNewVersionAvailable) {
+                    }
+                }
+            });
+        }
+    }
+    public String obterVersaoAtual() {
+        try {
+            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            return pInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onResume() {

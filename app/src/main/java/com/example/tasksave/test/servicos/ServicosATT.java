@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -19,7 +20,6 @@ import android.widget.Toast;
 import androidx.core.content.FileProvider;
 
 import com.example.tasksave.R;
-import com.example.tasksave.test.activities.activity_welcome;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.io.File;
@@ -109,7 +109,6 @@ public class ServicosATT {
             @Override
             public void onClick(View view) {
                 frameLayout.setClickable(false);
-                frameLayoutNao.setClickable(false);
                 baixarAtualizacao();
             }
         });
@@ -117,6 +116,10 @@ public class ServicosATT {
         frameLayoutNao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SharedPreferences prefs = context.getSharedPreferences("ArquivoATT", context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putBoolean("NaoATT", true);
+                editor.commit();
                 bottomSheetDialog.dismiss();
             }
         });

@@ -2,21 +2,31 @@ package com.example.tasksave.test.activities;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -43,6 +53,7 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
     LinearLayout linearLayoutData;
     LinearLayout linearLayoutHora;
     LinearLayout linearLayoutRepetir;
+    LinearLayout linearLayoutDefinirLembrete;
     Calendar selectedDateCalendar;
     Calendar selectedHourCalendar;
     ImageView imageViewBack;
@@ -51,6 +62,7 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
     String descTarefa;
     String dataTarefa;
     String horaTarefa;
+    String modoSelecionado;
     boolean lembreteTarefa;
     private Calendar selectedDate;
     private Calendar selectedHour;
@@ -77,6 +89,7 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
         linearLayoutRepetir = findViewById(R.id.linearLayout9);
         imageViewBack = findViewById(R.id.imageView4);
         imageViewCheck = findViewById(R.id.imageViewCheck);
+        linearLayoutDefinirLembrete = findViewById(R.id.linearLayout2);
 
 
         Intent intent = getIntent();
@@ -96,14 +109,14 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
         editTextTitulo.setText(tituloTarefa);
         editTextDesc.setText(descTarefa);
 
-        if(lembreteTarefa) {
+        if (lembreteTarefa) {
 
             textViewData.setText(dataFormatada);
             textViewHora.setText(horaTarefa);
             aswitch.setChecked(true);
-        }else {
-            textViewData.setText("");
-            textViewHora.setText("");
+        } else {
+            textViewData.setVisibility(View.GONE);
+            textViewHora.setVisibility(View.GONE);
         }
 
         editTextTitulo.addTextChangedListener(textWatcher);
@@ -113,23 +126,31 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
         if (repetirLembrete) {
 
             switch (repetirModoLembrete) {
+                case 0:
+                    modoSelecionado="Não repetir";
+                    break;
                 case 1:
                     textViewRepetir.setText("Todo dia");
+                    modoSelecionado="Todo dia";
                     break;
                 case 2:
-                    textViewRepetir.setText("Toda Semana");
+                    textViewRepetir.setText("Toda semana");
+                    modoSelecionado="Toda semana";
                     break;
                 case 3:
-                    textViewRepetir.setText("Todo Mês");
+                    textViewRepetir.setText("Todo mês");
+                    modoSelecionado="Todo mês";
                     break;
                 case 4:
                     textViewRepetir.setText("Todo ano");
+                    modoSelecionado="Todo ano";
+                    break;
             }
         }
         selectedDateCalendar = Calendar.getInstance();
         selectedHourCalendar = Calendar.getInstance();
 
-        if(lembreteTarefa) {
+        if (lembreteTarefa) {
             @SuppressLint({"NewApi", "LocalSuppress"})
             Date date = Date.from(localdataEscolhida.atStartOfDay(ZoneId.systemDefault()).toInstant());
             selectedDateCalendar.setTime(date);
@@ -150,8 +171,13 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                dialogDateUser(selectedDateCalendar);
+                linearLayoutData.setClickable(false);
 
+                if (aswitch.isChecked()) {
+                    dialogDateUser(selectedDateCalendar);
+                } else {
+
+                }
             }
         });
 
@@ -159,16 +185,57 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                dialogHourUser(selectedHourCalendar);
+                linearLayoutHora.setClickable(false);
+
+                if (aswitch.isChecked()) {
+                    dialogHourUser(selectedHourCalendar);
+                } else {
+
+                }
 
             }
         });
+        linearLayoutDefinirLembrete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                aswitch.toggle();
+            }
+        });
+
+
         imageViewBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
+        aswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    textViewHora.setVisibility(View.VISIBLE);
+                    textViewData.setVisibility(View.VISIBLE);
+                    checkForChanges();
+                } else {
+                    textViewHora.setVisibility(View.GONE);
+                    textViewData.setVisibility(View.GONE);
+                    checkForChanges();
+                }
+            }
+        });
+
+        linearLayoutRepetir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                linearLayoutRepetir.setClickable(false);
+                String textViewRepaterString = textViewRepetir.getText().toString();
+                dialogRepeater(textViewRepaterString);
+                Log.d("TESTE", "texto texview: "+textViewRepaterString);
+
+            }
+        });
+
 
     }
 
@@ -180,7 +247,8 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
     };
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -188,7 +256,8 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
         }
 
         @Override
-        public void afterTextChanged(Editable s) { }
+        public void afterTextChanged(Editable s) {
+        }
     };
 
     private void checkForChanges() {
@@ -197,9 +266,10 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
         boolean switchChanged = aswitch.isChecked() != lembreteTarefa;
         boolean dateChanged = !isSameDay(selectedDate, selectedDateCalendar);
         boolean hourChanged = !horaIgual(selectedHour, selectedHourCalendar);
+        boolean repeaterChanged = !repeaterIgual(modoSelecionado);
 
 
-        if (text1Changed || text2Changed || switchChanged || dateChanged|| hourChanged) {
+        if (text1Changed || text2Changed || switchChanged || dateChanged || hourChanged || repeaterChanged ) {
 
             imageViewCheck.setVisibility(View.VISIBLE);
 
@@ -209,15 +279,22 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
 
         }
     }
+
     private boolean isSameDay(Calendar cal1, Calendar cal2) {
         return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
                 cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH) &&
                 cal1.get(Calendar.DAY_OF_MONTH) == cal2.get(Calendar.DAY_OF_MONTH);
     }
+
     private boolean horaIgual(Calendar hora1, Calendar hora2) {
 
         return hora1.get(Calendar.HOUR_OF_DAY) == hora2.get(Calendar.HOUR_OF_DAY) &&
                 hora1.get(Calendar.MINUTE) == hora2.get(Calendar.MINUTE);
+
+    }
+    private boolean repeaterIgual(String repeaterOriginal) {
+
+       return textViewRepetir.getText().toString().equals(repeaterOriginal);
 
     }
 
@@ -247,13 +324,20 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
                 checkForChanges();
 
                 textViewData.setText(selectedDate2);
-                Log.d("DATA", "DATA: "+selectedDate2);
+                Log.d("DATA", "DATA: " + selectedDate2);
 
 
             }
         }, year, month, dayOfMonth);
 
-        dialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());  // Definir a data mínima para a data atual
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+
+                    linearLayoutData.setClickable(true);
+              }
+             });
+                dialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());  // Definir a data mínima para a data atual
         dialog.show();
     }
 
@@ -278,7 +362,7 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
                 String minuto_Formatado = minuteFormat.format(time);
 
                 // Lidar com a hora selecionada pelo usuário
-                textViewHora.setText(hora_formatada+":"+minuto_Formatado);
+                textViewHora.setText(hora_formatada + ":" + minuto_Formatado);
 
                 int horadefinida = hourOfDay;
                 int minutodefinido = minute;
@@ -291,15 +375,91 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
 
                 checkForChanges();
 
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0);
 
             }
         }, hour, minute, true);
+
+        timePickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                linearLayoutHora.setClickable(true);
+            }
+        });
 
         // Mostrar o diálogo
         timePickerDialog.show();
 
     }
+
+    void dialogRepeater(String textoRepeater) {
+
+
+        Dialog dialog2 = new Dialog(activity_item_selected_agenda_test.this, R.style.DialogTheme2);
+        dialog2.setContentView(R.layout.dialog_repeat_reminder); // Defina o layout do diálogo
+        dialog2.setCancelable(true); // Permita que o usuário toque fora do diálogo para fechá-lo
+        dialog2.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
+
+        Window window = dialog2.getWindow();
+        WindowManager.LayoutParams layoutParams = window.getAttributes();
+        layoutParams.gravity = Gravity.CENTER;
+        window.setAttributes(layoutParams);
+
+        RadioGroup radioGroup = dialog2.findViewById(R.id.RadioGroup);
+        RadioButton radioButtonDefault = dialog2.findViewById(R.id.radioNaoRepetir);
+        RadioButton radioButtonDia = dialog2.findViewById(R.id.radioTododia);
+        RadioButton radioButtonSemana = dialog2.findViewById(R.id.radioTodaSemana);
+        RadioButton radioButtonMes = dialog2.findViewById(R.id.radioTodoMes);
+        RadioButton radioButtonAno = dialog2.findViewById(R.id.radioTodoAno);
+
+        if (textoRepeater != null) {
+
+            switch (textoRepeater) {
+
+                case "Todo dia":
+                    radioButtonDia.setChecked(true);
+                    break;
+                case "Toda semana":
+                    radioButtonSemana.setChecked(true);
+                    break;
+                case "Todo mês":
+                    radioButtonMes.setChecked(true);
+                    break;
+                case "Todo ano":
+                    radioButtonAno.setChecked(true);
+                    break;
+                case "Não repetir":
+                    radioButtonDefault.setChecked(true);
+            }
+        } else {
+            radioButtonDefault.setChecked(true);
+        }
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // Obter a string do RadioButton selecionado
+                RadioButton radioButton = dialog2.findViewById(checkedId);
+                String textoSelecionado = radioButton.getText().toString();
+                textViewRepetir.setText(textoSelecionado);
+
+                // Fechar o diálogo
+                checkForChanges();
+                dialog2.dismiss();
+            }
+        });
+        dialog2.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                // Ativar a capacidade de clicar na TextView após o diálogo ser fechado
+                linearLayoutRepetir.setClickable(true);
+            }
+        });
+        dialog2.show();
+        dialog2.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog2.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+
+    }
+
+
 
 }
