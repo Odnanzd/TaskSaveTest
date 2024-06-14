@@ -64,8 +64,11 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
     String horaTarefa;
     String modoSelecionado;
     boolean lembreteTarefa;
+    ImageView imageViewSalvar;
     private Calendar selectedDate;
     private Calendar selectedHour;
+    private boolean isDatePickerShown = false;
+    private boolean isHourPickerShown = false;
 
     @SuppressLint("MissingSuperCall")
     public void onBackPressed() {
@@ -90,6 +93,7 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
         imageViewBack = findViewById(R.id.imageView4);
         imageViewCheck = findViewById(R.id.imageViewCheck);
         linearLayoutDefinirLembrete = findViewById(R.id.linearLayout2);
+        imageViewSalvar  = findViewById(R.id.imageViewCheck);
 
 
         Intent intent = getIntent();
@@ -171,9 +175,10 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                linearLayoutData.setClickable(false);
+//                linearLayoutData.setClickable(false);
 
                 if (aswitch.isChecked()) {
+
                     dialogDateUser(selectedDateCalendar);
                 } else {
 
@@ -185,7 +190,7 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                linearLayoutHora.setClickable(false);
+//                linearLayoutHora.setClickable(false);
 
                 if (aswitch.isChecked()) {
                     dialogHourUser(selectedHourCalendar);
@@ -228,10 +233,22 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                linearLayoutRepetir.setClickable(false);
-                String textViewRepaterString = textViewRepetir.getText().toString();
-                dialogRepeater(textViewRepaterString);
-                Log.d("TESTE", "texto texview: "+textViewRepaterString);
+              if(aswitch.isChecked()) {
+
+                  linearLayoutRepetir.setClickable(false);
+                  String textViewRepaterString = textViewRepetir.getText().toString();
+                  dialogRepeater(textViewRepaterString);
+
+              }else {
+
+              }
+
+
+            }
+        });
+        imageViewSalvar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
             }
         });
@@ -301,6 +318,11 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
 
     public void dialogDateUser(Calendar calendar) {
 
+        if (isDatePickerShown) {
+            return;
+        }
+        isDatePickerShown = true;
+
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
@@ -309,13 +331,13 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
-                selectedDate.set(year, month, dayOfMonth);
+                calendar.set(year, month, dayOfMonth);
 
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
-                String selectedDate2 = sdf.format(selectedDate.getTime());
+                String selectedDate2 = sdf.format(calendar.getTime());
 
                 SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
-                String selectedDate3 = sdf2.format(selectedDate.getTime());
+                String selectedDate3 = sdf2.format(calendar.getTime());
 
                 SharedPreferences prefs = getSharedPreferences("arquivoSalvarDataEdit", MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();
@@ -325,6 +347,7 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
 
                 textViewData.setText(selectedDate2);
                 Log.d("DATA", "DATA: " + selectedDate2);
+                isDatePickerShown = false;
 
 
             }
@@ -335,6 +358,7 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
                     public void onDismiss(DialogInterface dialogInterface) {
 
                     linearLayoutData.setClickable(true);
+                    isDatePickerShown = false;
               }
              });
                 dialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());  // Definir a data mínima para a data atual
@@ -343,6 +367,11 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
 
     public void dialogHourUser(Calendar calendar) {
 
+        if (isHourPickerShown) {
+            return;
+        }
+        isHourPickerShown = true;
+
         int hour = calendar.get(java.util.Calendar.HOUR_OF_DAY);
         int minute = calendar.get(java.util.Calendar.MINUTE);
 
@@ -350,8 +379,8 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-                selectedHour.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                selectedHour.set(Calendar.MINUTE, minute);
+                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                calendar.set(Calendar.MINUTE, minute);
                 Date time = new Date();
                 time.setHours(hourOfDay);
                 time.setMinutes(minute);
@@ -373,6 +402,8 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
                 editor.putInt("arquivo_Minuto", minutodefinido);
                 editor.apply();
 
+                isHourPickerShown = false;
+
                 checkForChanges();
 
 
@@ -382,6 +413,7 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
         timePickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
+                isHourPickerShown = false;
                 linearLayoutHora.setClickable(true);
             }
         });
@@ -460,6 +492,11 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
 
     }
 
+public void attDados() {
 
+        String textViewTitAtt = editTextTitulo.getText().toString();
+
+
+}
 
 }
