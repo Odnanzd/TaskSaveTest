@@ -237,7 +237,7 @@ public class activity_item_selected_agenda extends Dialog {
                     // Atualize os valores no banco de dados
 
 //                    AgendaDAO agendaDAO = new AgendaDAO(activity_item_selected_agenda.this);
-                    boolean atualizado = agendaDAO.Atualizar(arquivoId, novoTitulo, novaDescricao);
+                    boolean atualizado = agendaDAO.atualizarTitDesc(arquivoId, novoTitulo, novaDescricao);
 
                     if (atualizado) {
                         // Atualização bem-sucedida

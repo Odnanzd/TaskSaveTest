@@ -56,11 +56,32 @@ public class AgendaDAO {
 
     }
 
-    public boolean Atualizar(long id, String novoTitulo, String novaDescricao) {
+    public boolean atualizarTitDesc(long id, String novoTitulo, String novaDescricao) {
 
         ContentValues contentValues = new ContentValues();
         contentValues.put("nomeTarefa", novoTitulo);
         contentValues.put("descricaoTarefa", novaDescricao);
+
+        String whereClause = "id = ?";
+        String[] whereArgs = {String.valueOf(id)};
+
+        int rowsUpdated = db.update("agenda", contentValues, whereClause, whereArgs);
+
+        return rowsUpdated > 0;
+    }
+    public boolean atualizarAll(long id, String tituloTarefa, String descTarefa, LocalDate localDateData,
+                                int horaAgenda, int minutoAgenda, int lembrete, int repetir, int repetirModo ) {
+
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put("nomeTarefa", tituloTarefa);
+        contentValues.put("descricaoTarefa", descTarefa);
+        contentValues.put("dataAgenda", String.valueOf(localDateData));
+        contentValues.put("horaAgenda", horaAgenda);
+        contentValues.put("minutoAgenda", minutoAgenda);
+        contentValues.put("lembretedefinido", lembrete);
+        contentValues.put("repetirLembrete", repetir);
+        contentValues.put("repetirModo", repetirModo);
 
         String whereClause = "id = ?";
         String[] whereArgs = {String.valueOf(id)};
