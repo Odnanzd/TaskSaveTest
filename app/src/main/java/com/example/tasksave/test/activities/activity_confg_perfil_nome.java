@@ -29,8 +29,6 @@ import java.util.concurrent.Executors;
 public class activity_confg_perfil_nome extends AppCompatActivity {
 
 
-
-
     FrameLayout frameLayout;
     EditText editTextNomeCompleto;
     ProgressBar progressBar;
