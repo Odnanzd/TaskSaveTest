@@ -3,6 +3,7 @@ package com.example.tasksave.test.objetos;
 import android.annotation.SuppressLint;
 
 import java.time.LocalDate;
+import java.util.Calendar;
 
 public class Agenda {
     static long id;
@@ -209,6 +210,18 @@ public class Agenda {
 
     public void setNotificado(boolean notificouTarefa) {
         this.notificouTarefa = notificouTarefa;
+    }
+    @SuppressLint("NewApi")
+    public long getDateTimeInMillis() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, dataAgenda.getYear());
+        calendar.set(Calendar.MONTH, dataAgenda.getMonthValue() - 1);
+        calendar.set(Calendar.DAY_OF_MONTH, dataAgenda.getDayOfMonth());
+        calendar.set(Calendar.HOUR_OF_DAY, horaAgenda);
+        calendar.set(Calendar.MINUTE, minutoAgenda);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTimeInMillis();
     }
 
 }

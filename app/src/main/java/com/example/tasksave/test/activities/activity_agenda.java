@@ -491,7 +491,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
                             }
 
                             // Passe os parâmetros title, content e repeatMode ao método scheduleAlarm
-                            AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2, titulointent, descintent, repeatMode, idAgenda, localdataEscolhida);
+                            AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2.getTimeInMillis(), titulointent, descintent, repeatMode, idAgenda, localdataEscolhida);
 
                             SharedPreferences.Editor prefsEditor = getSharedPreferences("arquivoSalvar2", MODE_PRIVATE).edit();
                             prefsEditor.clear();
@@ -665,12 +665,26 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
 
     public void VerificaAgendaComLembretes() {
 
-        con = new Conexao(this);
-        db = con.getWritableDatabase();
+//        con = new Conexao(this);
+//        db = con.getWritableDatabase();
+//
+//        Cursor cursor = db.rawQuery("SELECT lembretedefinido FROM agenda WHERE lembretedefinido = 1;", null);
+//
+//        Log.d("Verificação cursor DB", "Numero de lembretes = " + cursor.getCount());
+        AgendaDAO agendaDAO = new AgendaDAO(activity_agenda.this);
+        @SuppressLint({"NewApi", "LocalSuppress"})
+        List<Agenda> agendasComLembrete = agendaDAO.obterTarefasComLembreteAtivado();
 
-        Cursor cursor = db.rawQuery("SELECT lembretedefinido FROM agenda WHERE lembretedefinido = 1;", null);
+        for (Agenda tarefa : agendasComLembrete) {
 
-        Log.d("Verificação cursor DB", "Numero de lembretes = " + cursor.getCount());
+            Log.d("TAREFA", "titulo: "+tarefa.getNomeAgenda());
+            Log.d("TAREFA", "DESCRICAO: "+tarefa.getDescriçãoAgenda());
+            Log.d("TAREFA", "REPETIR MODO: "+tarefa.getRepetirModo());
+            Log.d("TAREFA", "ID: "+tarefa.getId());
+            Log.d("TAREFA", "Data: "+tarefa.getDate());
+            Log.d("TAREFA", "Millis: "+tarefa.getDateTimeInMillis());
+
+        }
 
     }
 

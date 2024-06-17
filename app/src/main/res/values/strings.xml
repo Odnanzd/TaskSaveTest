@@ -95,8 +95,10 @@
     <string name="button_att">Atualizar</string>
     <string name="checkbox_conc">Marcar como concluída</string>
     <string name="edit_text_desc">Descrição</string>
-    <string name="text_view_data_edit">Data</string>
-    <string name="text_view_hora_edit">Hora</string>
+    <string name="text_view_data_edit">Escolha uma data</string>
+    <string name="text_view_hora_edit">Escolha um horário</string>
+    <string name="text_view_dat_edit">Data</string>
+    <string name="text_view_hor_edit">Hora</string>
     <string name="text_view_edit">Editar tarefa</string>
     <string name="text_view_test">aaa</string>
     <string name="text_view_repeti">Não repetir</string>

@@ -12,7 +12,7 @@ import java.util.Calendar;
 
 public class AlarmScheduler {
     @SuppressLint({"ScheduleExactAlarm", "NewApi"})
-    public static void scheduleAlarm(Context context, Calendar calendar, String title, String content, int repeatMode, long id, LocalDate localDate) {
+    public static void scheduleAlarm(Context context, long triggerAtMillis, String title, String content, int repeatMode, long id, LocalDate localDate) {
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
@@ -34,7 +34,8 @@ public class AlarmScheduler {
         );
 
         if (alarmManager != null) {
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent);
+            Log.d("AlarmScheduler", "Intent" + triggerAtMillis);
         }
     }
 }

@@ -61,6 +61,7 @@ public class AgendaDAO {
         ContentValues contentValues = new ContentValues();
         contentValues.put("nomeTarefa", novoTitulo);
         contentValues.put("descricaoTarefa", novaDescricao);
+        contentValues.put("lembretedefinido", false);
 
         String whereClause = "id = ?";
         String[] whereArgs = {String.valueOf(id)};

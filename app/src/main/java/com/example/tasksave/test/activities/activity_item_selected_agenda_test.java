@@ -74,6 +74,8 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
     int minuteTarefa;
     LocalDate localdataEscolhida;
     boolean repetirLembrete;
+    String dataFormatada;
+    int repetirModoLembreteSelecionado;
     private Calendar selectedDate;
     private Calendar selectedHour;
     private boolean isDatePickerShown = false;
@@ -118,9 +120,11 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
         repetirLembrete = intent.getBooleanExtra("repetirLembreteIntent", false);
         repetirModoLembrete = intent.getIntExtra("repetirModoIntent", -1);
 
-        @SuppressLint({"NewApi", "LocalSuppress"}) DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
-        localdataEscolhida = LocalDate.parse(dataTarefa);
-        @SuppressLint({"NewApi", "LocalSuppress"}) String dataFormatada = localdataEscolhida.format(formatter);
+        if(lembreteTarefa) {
+            @SuppressLint({"NewApi", "LocalSuppress"}) DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+            localdataEscolhida = LocalDate.parse(dataTarefa);
+            dataFormatada = localdataEscolhida.format(formatter);
+        }
 
         editTextTitulo.setText(tituloTarefa);
         editTextDesc.setText(descTarefa);
@@ -308,7 +312,8 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
         boolean repeaterChanged = !repeaterIgual(modoSelecionadoOriginal);
 
 
-        if (text1Changed || text2Changed || switchChanged || dateChanged || hourChanged || repeaterChanged ) {
+        if ((text1Changed || text2Changed || switchChanged || dateChanged || hourChanged || repeaterChanged)
+                && localdataEscolhida != null && hourTarefa != 0 && minuteTarefa != 0) {
 
             imageViewCheck.setVisibility(View.VISIBLE);
 
@@ -359,21 +364,13 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
                 String selectedDate2 = sdf.format(calendar.getTime());
 
-                SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
-                String selectedDate3 = sdf2.format(calendar.getTime());
-
                 localdataEscolhida = convertCalendarToLocalDate(calendar);
                 Log.d("Teste calendar","LOCALDATE: "+localdataEscolhida);
-
-                SharedPreferences prefs = getSharedPreferences("arquivoSalvarDataEdit", MODE_PRIVATE);
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putString("arquivo_Data_Edit", selectedDate3);
-                editor.apply();
-                checkForChanges();
 
                 textViewData.setText(selectedDate2);
 
                 isDatePickerShown = false;
+                checkForChanges();
 
 
             }
@@ -421,12 +418,6 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
 
                 hourTarefa = hourOfDay;
                 minuteTarefa = minute;
-
-                SharedPreferences prefs = getSharedPreferences("arquivoSalvar3", MODE_PRIVATE);
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putInt("arquivo_Hora", hourTarefa);
-                editor.putInt("arquivo_Minuto", minuteTarefa);
-                editor.apply();
 
                 isHourPickerShown = false;
 
@@ -500,10 +491,22 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
 
                 if(modoSelecionado.equals("Não repetir")) {
                     repetirLembrete=false;
-                }else {
+                    repetirModoLembreteSelecionado=0;
+                }else if(modoSelecionado.equals("Todo dia")) {
                     repetirLembrete=true;
+                    repetirModoLembreteSelecionado=1;
+                }else if(modoSelecionado.equals("Toda semana")) {
+                    repetirLembrete=true;
+                    repetirModoLembreteSelecionado=2;
+                }else if(modoSelecionado.equals("Todo mês")) {
+                    repetirLembrete=true;
+                    repetirModoLembreteSelecionado=3;
+                }else if(modoSelecionado.equals("Todo ano")) {
+                    repetirLembrete=true;
+                    repetirModoLembreteSelecionado=4;
                 }
 
+                Log.d("TESTE REPETIR", "TESTE: "+repetirModoLembreteSelecionado);
                 // Fechar o diálogo
                 checkForChanges();
                 dialog2.dismiss();
@@ -525,12 +528,10 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
 
 public void attDados() {
 
-        AgendaDAO agendaDAO = new AgendaDAO(activity_item_selected_agenda_test.this);
+    AgendaDAO agendaDAO = new AgendaDAO(activity_item_selected_agenda_test.this);
 
     String textViewTitAtt = editTextTitulo.getText().toString();
     String textViewDescAtt = editTextDesc.getText().toString();
-
-    Log.d("TESTE REPETIR", "REPETIR: "+repetirLembrete);
 
         if(!aswitch.isChecked()) {
 
@@ -538,13 +539,19 @@ public void attDados() {
 
             finish();
 
-
         }else if(aswitch.isChecked() && !repetirLembrete) {
 
         agendaDAO.atualizarAll(idTarefa, textViewTitAtt, textViewDescAtt, localdataEscolhida, hourTarefa, minuteTarefa,
-                1, 0,  0   );
+                1, 0,0);
 
                 finish();
+
+        }else if(aswitch.isChecked() && repetirLembrete) {
+
+            agendaDAO.atualizarAll(idTarefa, textViewTitAtt, textViewDescAtt, localdataEscolhida, hourTarefa, minuteTarefa,
+                    1, 1, repetirModoLembreteSelecionado );
+
+            finish();
         }
 
 
