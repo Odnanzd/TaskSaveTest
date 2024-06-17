@@ -34,6 +34,9 @@ import android.widget.TimePicker;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.tasksave.R;
 import com.example.tasksave.test.dao.AgendaDAO;
+import com.example.tasksave.test.servicesreceiver.AlarmReceiver;
+import com.example.tasksave.test.servicesreceiver.AlarmScheduler;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -274,7 +277,7 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
         imageViewSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                attDados();
+                attDados(view);
             }
         });
 
@@ -491,19 +494,19 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
 
                 if(modoSelecionado.equals("Não repetir")) {
                     repetirLembrete=false;
-                    repetirModoLembreteSelecionado=0;
+                    repetirModoLembrete=0;
                 }else if(modoSelecionado.equals("Todo dia")) {
                     repetirLembrete=true;
-                    repetirModoLembreteSelecionado=1;
+                    repetirModoLembrete=1;
                 }else if(modoSelecionado.equals("Toda semana")) {
                     repetirLembrete=true;
-                    repetirModoLembreteSelecionado=2;
+                    repetirModoLembrete=2;
                 }else if(modoSelecionado.equals("Todo mês")) {
                     repetirLembrete=true;
-                    repetirModoLembreteSelecionado=3;
+                    repetirModoLembrete=3;
                 }else if(modoSelecionado.equals("Todo ano")) {
                     repetirLembrete=true;
-                    repetirModoLembreteSelecionado=4;
+                    repetirModoLembrete=4;
                 }
 
                 Log.d("TESTE REPETIR", "TESTE: "+repetirModoLembreteSelecionado);
@@ -526,32 +529,71 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
 
     }
 
-public void attDados() {
+@SuppressLint("NewApi")
+public void attDados(View view) {
 
     AgendaDAO agendaDAO = new AgendaDAO(activity_item_selected_agenda_test.this);
 
     String textViewTitAtt = editTextTitulo.getText().toString();
     String textViewDescAtt = editTextDesc.getText().toString();
 
+    Calendar calendar = Calendar.getInstance();
+    int horasInsert = calendar.get(Calendar.HOUR_OF_DAY);
+    int minutosInsert = calendar.get(Calendar.MINUTE);
+
+    int horaCompleta = horasInsert * 100 + minutosInsert;
+
+    int horaCompletaEscolhida = hourTarefa * 100 +minuteTarefa;
+
+    LocalDate dataAtual = LocalDate.now();
+
         if(!aswitch.isChecked()) {
 
             agendaDAO.atualizarTitDesc(idTarefa, textViewTitAtt, textViewDescAtt);
-
+            AlarmScheduler.cancelAlarm(getApplicationContext(), idTarefa);
             finish();
 
-        }else if(aswitch.isChecked() && !repetirLembrete) {
+        }else {
 
-        agendaDAO.atualizarAll(idTarefa, textViewTitAtt, textViewDescAtt, localdataEscolhida, hourTarefa, minuteTarefa,
-                1, 0,0);
+            if (localdataEscolhida.isEqual(dataAtual) && horaCompletaEscolhida < horaCompleta) {
 
-                finish();
+                Snackbar snackbar = Snackbar.make(view, "O horário definido não pode ser menor que o horário atual.", Snackbar.LENGTH_SHORT);
+                snackbar.setBackgroundTint(Color.WHITE);
+                snackbar.setTextColor(Color.BLACK);
+                snackbar.show();
 
-        }else if(aswitch.isChecked() && repetirLembrete) {
+            } else {
 
-            agendaDAO.atualizarAll(idTarefa, textViewTitAtt, textViewDescAtt, localdataEscolhida, hourTarefa, minuteTarefa,
-                    1, 1, repetirModoLembreteSelecionado );
+                if (aswitch.isChecked() && !repetirLembrete) {
 
-            finish();
+                    Calendar calendar2 = convertToCalendar(localdataEscolhida, hourTarefa, minuteTarefa);
+
+                    agendaDAO.atualizarAll(idTarefa, textViewTitAtt, textViewDescAtt, localdataEscolhida, hourTarefa, minuteTarefa,
+                            1, 0, 0);
+                    AlarmScheduler.cancelAlarm(getApplicationContext(), idTarefa);
+
+                    AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2.getTimeInMillis(), textViewTitAtt,
+                            textViewDescAtt, 0, idTarefa, localdataEscolhida);
+
+                    finish();
+
+                } else if (aswitch.isChecked() && repetirLembrete) {
+
+                    Calendar calendar2 = convertToCalendar(localdataEscolhida, hourTarefa, minuteTarefa);
+
+                    agendaDAO.atualizarAll(idTarefa, textViewTitAtt, textViewDescAtt, localdataEscolhida, hourTarefa, minuteTarefa,
+                            1, 1, repetirModoLembrete);
+
+                    AlarmScheduler.cancelAlarm(getApplicationContext(), idTarefa);
+
+                    AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2.getTimeInMillis(), textViewTitAtt,
+                            textViewDescAtt, repetirModoLembrete, idTarefa, localdataEscolhida);
+
+                    Log.d("Repetir modo", "REPETIR MODO LEMBRETE: " + repetirModoLembrete);
+
+                    finish();
+                }
+            }
         }
 
 
@@ -568,5 +610,15 @@ public void attDados() {
 
         // Converter Date para LocalDate
         return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    }
+    @SuppressLint("NewApi")
+    private Calendar convertToCalendar(LocalDate date, int hour, int minute) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(java.util.Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar;
     }
 }

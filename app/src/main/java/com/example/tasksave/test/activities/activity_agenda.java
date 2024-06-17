@@ -107,7 +107,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
 
         VerificaLista();
         ListarAgenda();
-        VerificaAgendaComLembretes();
+//        VerificaAgendaComLembretes();
 
 
         imageView2.setOnClickListener(new View.OnClickListener() {
@@ -487,6 +487,9 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
                                     break;
                                 case "Todo mês":
                                     repeatMode = 3;
+                                    break;
+                                case "Todo ano":
+                                    repeatMode = 4;
                                     break;
                             }
 

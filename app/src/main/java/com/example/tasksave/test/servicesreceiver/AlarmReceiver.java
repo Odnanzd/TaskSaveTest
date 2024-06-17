@@ -46,9 +46,10 @@ public class AlarmReceiver extends BroadcastReceiver {
         long id = intent.getLongExtra("idLong", 0);
 
         if (title == null || title.isEmpty() || content == null || content.isEmpty()) {
-            Log.e("AlarmReceiver", "Notificação com dados incompletos. Título ou descrição estão vazios.");
-        }else {
 
+            Log.e("AlarmReceiver", "Notificação com dados incompletos. Título ou descrição estão vazios.");
+
+        }else {
 
             int idInt = (int) id;
 
@@ -94,6 +95,10 @@ public class AlarmReceiver extends BroadcastReceiver {
                 case 3: // Todo mês
                     nextAlarm.add(Calendar.MONTH, 1);
                     localDateDataEscolhida2 = localDateDataEscolhida.plusMonths(1);
+                    break;
+                case 4:
+                    nextAlarm.add(Calendar.YEAR, 1);
+                    localDateDataEscolhida2 = localDateDataEscolhida.plusYears(1);
                     break;
             }
 
