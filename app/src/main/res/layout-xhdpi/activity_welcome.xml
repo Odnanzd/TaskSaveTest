@@ -43,6 +43,7 @@
         <Button
             android:id="@+id/buttonEntrar"
             style="@style/ButtonSelector"
+            android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:layout_width="289dp"
@@ -61,6 +62,7 @@
         <Button
             android:id="@+id/buttonCadastrar"
             style="@style/ButtonSelector2"
+            android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:layout_width="290dp"

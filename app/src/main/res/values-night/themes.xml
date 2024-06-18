@@ -225,4 +225,25 @@
     <style name="ImageViewIconPencil">
         <item name="android:src">@drawable/pencil_icon_svg_dark</item>
     </style>
+    <style name="IconBellImage">
+        <item name="android:src">@drawable/icon_bell</item>
+    </style>
+    <style name="IconCalendarImage">
+        <item name="android:src">@drawable/baseline_calendar_month_24</item>
+    </style>
+    <style name="IconHoraImage">
+        <item name="android:src">@drawable/baseline_schedule_24</item>
+    </style>
+    <style name="IconRefreshImage">
+        <item name="android:src">@drawable/refresh_icon</item>
+    </style>
+    <style name="IconDescImage">
+        <item name="android:src">@drawable/icon_desc</item>
+    </style>
+    <style name="IconDownImage">
+        <item name="android:src">@drawable/down_icon</item>
+    </style>
+    <style name="IconCheckImage">
+        <item name="android:src">@drawable/icon_check</item>
+    </style>
 </resources>

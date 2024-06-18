@@ -4,10 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -19,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -31,10 +28,10 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.tasksave.R;
 import com.example.tasksave.test.dao.AgendaDAO;
-import com.example.tasksave.test.servicesreceiver.AlarmReceiver;
 import com.example.tasksave.test.servicesreceiver.AlarmScheduler;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -87,7 +84,12 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
 
     @SuppressLint("MissingSuperCall")
     public void onBackPressed() {
-        finish();
+
+        if(checkForChanges()) {
+            cancelarAtt();
+        }else {
+            finish();
+        }
     }
 
     @SuppressLint("NewApi")
@@ -264,7 +266,7 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
               if(aswitch.isChecked()) {
 
                   linearLayoutRepetir.setClickable(false);
-                  String textViewRepaterString = textViewRepetir.getText().toString();
+
                   dialogRepeater(modoSelecionado);
 
               }else {
@@ -305,7 +307,7 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
         }
     };
 
-    private void checkForChanges() {
+    private boolean checkForChanges() {
 
         boolean text1Changed = !editTextTitulo.getText().toString().equals(tituloTarefa);
         boolean text2Changed = !editTextDesc.getText().toString().equals(descTarefa);
@@ -315,17 +317,39 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
         boolean repeaterChanged = !repeaterIgual(modoSelecionadoOriginal);
 
 
-        if ((text1Changed || text2Changed || switchChanged || dateChanged || hourChanged || repeaterChanged)
-                && localdataEscolhida != null && hourTarefa != 0 && minuteTarefa != 0) {
+        if(aswitch.isChecked()) {
 
-            imageViewCheck.setVisibility(View.VISIBLE);
+            if ((text1Changed || text2Changed || switchChanged || dateChanged || hourChanged || repeaterChanged)
+                    && localdataEscolhida != null && hourTarefa != 0 && minuteTarefa != 0 &&
+                    !editTextTitulo.getText().toString().equals("") && !editTextDesc.getText().toString().equals("")) {
 
-        } else {
+                imageViewCheck.setVisibility(View.VISIBLE);
+                return true;
 
-            imageViewCheck.setVisibility(View.GONE);
+            } else {
+
+                imageViewCheck.setVisibility(View.GONE);
+                return false;
 
 
+            }
+        }else {
+
+            if ((text1Changed || text2Changed || switchChanged || dateChanged || hourChanged || repeaterChanged) &&
+                    !editTextTitulo.getText().toString().equals("") && !editTextDesc.getText().toString().equals("")) {
+
+                imageViewCheck.setVisibility(View.VISIBLE);
+                return true;
+
+            } else {
+
+                imageViewCheck.setVisibility(View.GONE);
+                return false;
+
+
+            }
         }
+
     }
 
     private boolean isSameDay(Calendar cal1, Calendar cal2) {
@@ -620,5 +644,21 @@ public void attDados(View view) {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
         return calendar;
+    }
+    public void cancelarAtt() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity_item_selected_agenda_test.this);
+        builder.setTitle("Cancelar");
+        builder.setMessage("Deseja cancelar as alterações e sair? ");
+        builder.setNegativeButton("Não", (dialog, which) -> {
+
+        });
+        builder.setPositiveButton("Sim", (dialog, which) -> {
+            // Ação para o botão OK
+            finish();
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

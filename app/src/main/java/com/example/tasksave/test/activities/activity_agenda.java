@@ -628,10 +628,6 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
             textView.setVisibility(View.VISIBLE);
             imageView.setVisibility(View.GONE);
 
-            imageViewBalao.setVisibility(View.VISIBLE);
-            Animation breathAnimation = AnimationUtils.loadAnimation(this, R.anim.respiracao_anim);
-            imageViewBalao.startAnimation(breathAnimation);
-
 
         } else if (cursor.getCount() >= 1 && cursor2.getCount() == 0) {
             Log.d("IF ", "AQUI IF2");
@@ -647,16 +643,11 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
             textView.setVisibility(View.VISIBLE);
             textView.setTextSize(15);
 
-            imageViewBalao.setVisibility(View.VISIBLE);
-            Animation breathAnimation = AnimationUtils.loadAnimation(this, R.anim.respiracao_anim);
-            imageViewBalao.startAnimation(breathAnimation);
-
         } else if (cursor.getCount() >= 1 && cursor2.getCount() >= 1) {
             Log.d("IF ", "AQUI IF4");
             textView.setVisibility(View.GONE);
             imageView.setVisibility(View.VISIBLE);
-            imageViewBalao.setVisibility(View.GONE);
-            imageViewBalao.clearAnimation();
+
         }
         {
 

@@ -48,9 +48,6 @@ public class activity_welcome extends AppCompatActivity{
         buttonCadastrar = findViewById(R.id.buttonCadastrar);
         progressBar = findViewById(R.id.progressBar);
 
-        buttonEntrar.setClickable(false);
-        buttonCadastrar.setClickable(false);
-
         String versaoAtual = obterVersaoAtual();
         servicosATT = new ServicosATT(this, versaoAtual);
 
@@ -68,6 +65,7 @@ public class activity_welcome extends AppCompatActivity{
         buttonEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(activity_welcome.this, activity_login.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
