@@ -78,17 +78,17 @@ public class activity_main extends AppCompatActivity {
 
 
         String versaoAtual = obterVersaoAtual();
-        servicosATT = new ServicosATT(this, versaoAtual);
-
-        if(!arquivoATT) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                if (Environment.isExternalStorageManager()) {
-                    verificarPermissoes();
-                }
-            } else {
-                verificarPermissoes();
-            }
-        }
+//        servicosATT = new ServicosATT(this, versaoAtual);
+//
+//        if(!arquivoATT) {
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//                if (Environment.isExternalStorageManager()) {
+//                    verificarPermissoes();
+//                }
+//            } else {
+//                verificarPermissoes();
+//            }
+//        }
 
 
         imageViewMenuConfig.setOnClickListener(new View.OnClickListener() {
@@ -138,18 +138,18 @@ public class activity_main extends AppCompatActivity {
         }
     });
 }
-    private void verificarPermissoes() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            servicosATT.verificarAtt(new ServicosATT.VerificarAttCallback() {
-                @Override
-                public void onResult(boolean isNewVersionAvailable) {
-                    if (!isNewVersionAvailable) {
-                    }
-                }
-            });
-        }
-    }
+//    private void verificarPermissoes() {
+//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED ||
+//                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+//            servicosATT.verificarAtt(new ServicosATT.VerificarAttCallback() {
+//                @Override
+//                public void onResult(boolean isNewVersionAvailable) {
+//                    if (!isNewVersionAvailable) {
+//                    }
+//                }
+//            });
+//        }
+//    }
     public String obterVersaoAtual() {
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
