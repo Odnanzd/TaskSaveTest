@@ -13,6 +13,8 @@ import android.app.UiModeManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -34,6 +36,7 @@ import com.example.tasksave.test.conexaoMYSQL.ConnectionClass;
 import com.example.tasksave.test.dao.usuarioDAOMYsql;
 import com.example.tasksave.test.objetos.User;
 import com.example.tasksave.R;
+import com.example.tasksave.test.servicos.ServicosATT;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -52,6 +55,7 @@ public class activity_splash_screen extends AppCompatActivity {
     String str, str2;
     TextView textViewInfo;
     Button buttonTenta;
+    private ServicosATT servicosATT;
 
     private class ConsultaBancoDados extends AsyncTask<Void, Void, Void> {
         ProgressBar progressBar;
@@ -123,6 +127,34 @@ public class activity_splash_screen extends AppCompatActivity {
 
                         usuarioDAOMYsql usuarioDAOMYsql = new usuarioDAOMYsql();
                         ResultSet resultSet = usuarioDAOMYsql.autenticaUsuarioAWS(user);
+
+
+                        SharedPreferences sharedPrefs5 = getApplicationContext().getSharedPreferences("ArquivoATT", Context.MODE_PRIVATE);
+                        boolean arquivoATT = sharedPrefs5.getBoolean("NaoATT", false);
+
+                        Log.d("TESTE BOOLEAN", "TESTE"+arquivoATT);
+
+                        if(!arquivoATT) {
+
+                            String versaoAtual = obterVersaoAtual();
+                            double versaoDBApp = usuarioDAOMYsql.getVersionAPP();
+                            String versaoDBAppString = String.valueOf(versaoDBApp);
+                            servicosATT = new ServicosATT(activity_splash_screen.this, versaoAtual, versaoDBAppString);
+                            boolean attDisponivel = servicosATT.verificaAtt();
+
+                            if(attDisponivel) {
+
+                                SharedPreferences prefs3 = getSharedPreferences("ArquivoAttDisp", MODE_PRIVATE);
+                                SharedPreferences.Editor editor3 = prefs3.edit();
+                                editor3.putBoolean("Atualizacao", true);
+                                editor3.commit();
+                            }else {
+                                SharedPreferences prefs3 = getSharedPreferences("ArquivoAttDisp", MODE_PRIVATE);
+                                SharedPreferences.Editor editor3 = prefs3.edit();
+                                editor3.putBoolean("Atualizacao", false);
+                                editor3.commit();
+                            }
+                        }
 
                         if (resultSet.next()) {
                             // Sucesso na autenticação
@@ -361,6 +393,15 @@ public class activity_splash_screen extends AppCompatActivity {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
         return calendar;
+    }
+    public String obterVersaoAtual() {
+        try {
+            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            return pInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

@@ -50,65 +50,25 @@ public class ServicosATT {
         this.context = context;
         this.urlVersao = "https://raw.githubusercontent.com/Odnanzd/TaskSaveAPK/main/versao.txt";
     }
-//    public interface VerificarAttCallback {
-//        void onResult(boolean isNewVersionAvailable);
-//    }
-//
-//    public void verificarAtt(final VerificarAttCallback callback) {
-//        OkHttpClient client = new OkHttpClient();
-//        Request request = new Request.Builder().url(urlVersao).build();
-//
-//        client.newCall(request).enqueue(new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//                e.printStackTrace();
-//                ((Activity) context).runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        callback.onResult(false); // Chame o callback com 'false' em caso de falha
-//                    }
-//                });
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//                if (!response.isSuccessful()) {
-//                    throw new IOException("Unexpected code " + response);
-//                }
-//
-//                String versaoMaisRecente = response.body().string().trim();
-//                if (versaoMaisRecente.compareTo(versaoTeste) > 0) {
-//                    ((Activity) context).runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            dialogAtt();
-//                            callback.onResult(true); // Chame o callback com 'true' se houver uma nova versão
-//                        }
-//                    });
-//                } else {
-//                    ((Activity) context).runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            callback.onResult(false); // Chame o callback com 'false' se não houver uma nova versão
-//                        }
-//                    });
-//                }
-//            }
-//        });
-//    }
-public void verificaAtt() {
+
+public boolean verificaAtt() {
+
     if (versaoAtual == null || versaoDB == null) {
         Log.e("VerificaAtt", "versaoAtual ou versaoDB são nulos");
-        return; // Saia do método se algum valor for nulo
+//        return; // Saia do método se algum valor for nulo
     }
 
-    if (versaoAtual.compareTo(versaoDB) > 0) {
+    if (versaoDB.compareTo(versaoAtual) > 0) {
+        Log.d("TESTE BOOBLEAN", "TESTE");
         ((Activity) context).runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 dialogAtt();
             }
         });
+        return true;
+    }else {
+        return false;
     }
 }
 

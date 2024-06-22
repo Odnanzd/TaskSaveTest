@@ -1,6 +1,5 @@
 package com.example.tasksave.test.activities;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
@@ -12,11 +11,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,13 +21,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.Manifest;
 
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricManager;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.tasksave.test.conexaoSQLite.Conexao;
@@ -69,6 +66,7 @@ public class activity_main extends AppCompatActivity {
         imageViewMenuConfig = findViewById(R.id.image_view_circle_config);
         imageViewMenuCalendar = findViewById(R.id.image_view_circle_calendar);
 
+
         ExibirUsername();
         VerificarAtrasos();
         ChecarBiometria();
@@ -76,19 +74,15 @@ public class activity_main extends AppCompatActivity {
         SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("ArquivoATT", Context.MODE_PRIVATE);
         boolean arquivoATT = sharedPrefs2.getBoolean("NaoATT", false);
 
-
-        String versaoAtual = obterVersaoAtual();
-//        servicosATT = new ServicosATT(this, versaoAtual);
-//
-//        if(!arquivoATT) {
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-//                if (Environment.isExternalStorageManager()) {
-//                    verificarPermissoes();
-//                }
-//            } else {
-//                verificarPermissoes();
-//            }
-//        }
+        if(!arquivoATT) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                if (Environment.isExternalStorageManager()) {
+                    verificarPermissoes();
+                }
+            } else {
+                verificarPermissoes();
+            }
+        }
 
 
         imageViewMenuConfig.setOnClickListener(new View.OnClickListener() {
@@ -138,25 +132,10 @@ public class activity_main extends AppCompatActivity {
         }
     });
 }
-//    private void verificarPermissoes() {
-//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED ||
-//                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-//            servicosATT.verificarAtt(new ServicosATT.VerificarAttCallback() {
-//                @Override
-//                public void onResult(boolean isNewVersionAvailable) {
-//                    if (!isNewVersionAvailable) {
-//                    }
-//                }
-//            });
-//        }
-//    }
-    public String obterVersaoAtual() {
-        try {
-            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            return pInfo.versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-            return null;
+    private void verificarPermissoes() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            dialogAtt();
         }
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -333,6 +312,15 @@ public class activity_main extends AppCompatActivity {
                 dialogFingerprint();
                 break;
 
+        }
+    }
+    public void dialogAtt() {
+
+        SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("ArquivoAttDisp", Context.MODE_PRIVATE);
+
+        if(sharedPrefs2.getBoolean("Atualizacao", false)) {
+            servicosATT = new ServicosATT(activity_main.this, "1", "100");
+            boolean sucesso = servicosATT.verificaAtt();
         }
     }
 
