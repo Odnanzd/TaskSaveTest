@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/BackgroundTheme"
+    tools:context=".test.activities.activity_cadastro">
+
+
+
+            <ImageView
+                android:id="@+id/tasksavelogo"
+                style="@style/LogoCadastro"
+                android:layout_width="265dp"
+                android:layout_height="60dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toTopOf="@+id/imageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.505"
+
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                style="@style/ImageViewCadastro"
+                android:layout_width="230dp"
+                android:layout_height="230dp"
+                android:layout_marginBottom="4dp"
+                app:layout_constraintBottom_toTopOf="@+id/textView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/ptsans_bold"
+                android:text="@string/text_view_cadastro"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="80dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <EditText
+            android:id="@+id/editTextUsuarioCadastro"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8dp"
+            android:autofillHints="name"
+            android:background="@drawable/edittext_background"
+            android:ems="10"
+            android:fontFamily="@font/ptsans_regular"
+            android:hint="@string/edit_text_hint_usuario"
+            android:inputType="textPersonName"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:textColor="@color/grey6"
+            android:textColorHint="@color/grey3" />
+
+        <EditText
+            android:id="@+id/editTextEmailCadastro"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8dp"
+            android:autofillHints="emailAddress"
+            android:background="@drawable/edittext_background"
+            android:ems="10"
+            android:fontFamily="@font/ptsans_regular"
+            android:hint="@string/edit_text_hint_email"
+            android:inputType="textEmailAddress"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:textColor="#464646"
+            android:textColorHint="@color/grey3" />
+
+        <EditText
+            android:id="@+id/editTextSenhaCadastro"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8dp"
+            android:autofillHints="password"
+            android:background="@drawable/edittext_background"
+            android:ems="10"
+            android:fontFamily="@font/ptsans_regular"
+            android:hint="@string/edit_text_hint_senha"
+            android:inputType="textPassword"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:textColor="#464646"
+            android:textColorHint="@color/grey3" />
+
+        <EditText
+            android:id="@+id/editTextSenhaCadastro2"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8dp"
+            android:autofillHints="password"
+            android:background="@drawable/edittext_background"
+            android:ems="10"
+            android:fontFamily="@font/ptsans_regular"
+            android:hint="@string/edit_text_hint_senha2"
+            android:inputType="textPassword"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:textColor="#464646"
+            android:textColorHint="@color/grey3" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/ptsans_bold"
+            android:text="@string/text_view_senha_forte"
+            android:textSize="15sp" />
+
+        <FrameLayout
+            android:id="@+id/framelayout1"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/button_colors_light"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground">
+
+            <TextView
+                android:id="@+id/textviewbutton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/ptsans_bold"
+                android:gravity="center"
+                android:text="@string/button_cadastrar"
+                android:textColor="@color/white"
+                android:textSize="22sp" />
+
+            <ProgressBar
+                android:id="@+id/progressbar1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminateTint="@color/white"
+                android:visibility="gone"
+
+                />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <TextView
+                android:id="@+id/textViewLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="60dp"
+                android:clickable="true"
+                android:fontFamily="@font/ptsans_bold"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="@string/text_view_login_cadastro"
+                android:textSize="15sp"
+                android:focusable="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    style="@style/BackgroundTheme"
+    android:layout_height="match_parent"
+    tools:context=".test.activities.activity_login">
+
+
+            <ImageView
+                android:id="@+id/tassavegif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                style="@style/LogoCadastro"
+                app:layout_constraintBottom_toTopOf="@+id/imageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.529"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="300dp"
+                android:layout_height="250dp"
+                android:layout_marginBottom="4dp"
+                app:layout_constraintBottom_toTopOf="@+id/textView7"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.481"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/business_report" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ptsans_bold"
+                android:text="@string/text_view_login_login"
+                app:layout_constraintBottom_toTopOf="@+id/liner"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.272"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/liner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <EditText
+                    android:id="@+id/editTextEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/edittext_background"
+                    android:ems="10"
+                    android:fontFamily="@font/ptsans_regular"
+                    android:hint="@string/edit_text_hint_email_login"
+                    android:autofillHints="emailAddress"
+                    android:inputType="textEmailAddress"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/grey3" />
+
+                <EditText
+                    android:id="@+id/editTextSenha"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/edittext_background"
+                    android:ems="10"
+                    android:fontFamily="@font/ptsans_regular"
+                    android:autofillHints="password"
+                    android:hint="@string/edit_text_hint_senha_login"
+                    android:inputType="textPassword"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/grey3" />
+
+
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="37dp"
+                android:layout_marginBottom="4dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/framelayout1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.529"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="MissingConstraints">
+
+                <CheckBox
+                    android:id="@+id/checkBox2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/ptsans_bold"
+                    android:text="@string/checkbox_lembrar"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toStartOf="@+id/textView2"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/ptsans_bold"
+                    android:text="@string/text_view_esquecer_senha"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <FrameLayout
+                android:id="@+id/framelayout1"
+                android:background="@drawable/button_colors_light"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="12dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintBottom_toTopOf="@+id/buttonLogin2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent" >
+
+                <TextView
+                    android:id="@+id/textviewbutton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/button_continuar_login"
+                    android:gravity="center"
+                    android:textSize="22sp"
+                    android:fontFamily="@font/ptsans_bold"
+                    android:textColor="@color/white"
+                    />
+                <ProgressBar
+                    android:id="@+id/progressbar1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_gravity="center"
+                    android:indeterminateTint="@color/white"
+
+                    />
+
+            </FrameLayout>
+
+            <Button
+                android:id="@+id/buttonLogin2"
+                style="@style/ButtonSelector2"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="72dp"
+                android:fontFamily="@font/ptsans_bold"
+                android:text="@string/button_cadastrar_login"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
