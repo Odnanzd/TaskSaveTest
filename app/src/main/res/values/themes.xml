@@ -8,10 +8,43 @@
     <style name="Theme.TaskSave" parent="Base.Theme.TaskSave" />
     
     <style name="BackgroundTheme">
-        <item name="android:background">@color/white</item>
+        <item name="android:background">@color/blue17</item>
+    </style>
+    <style name="BackgroundThemeMenu2">
+        <item name="android:background">@drawable/bottom_background_main</item>
     </style>
     <style name="BackgroundThemeMenu">
         <item name="android:background">@drawable/background_main_menu_itens</item>
+    </style>
+    <style name="BackgroundThemePendente">
+        <item name="android:background">@drawable/banner_background</item>
+    </style>
+    <style name="Menu_Main_Item_2">
+        <item name="android:background">@drawable/button_menu_background</item>
+    </style>
+    <style name="IconAgenda">
+        <item name="android:src">@drawable/icon_agenda</item>
+    </style>
+    <style name="IconCalendar">
+        <item name="android:src">@drawable/icon_calendar</item>
+    </style>
+    <style name="IconPassword">
+        <item name="android:src">@drawable/icon_password</item>
+    </style>
+    <style name="IconEngre">
+        <item name="android:src">@drawable/icon_engre</item>
+    </style>
+    <style name="IconLogout">
+        <item name="android:src">@drawable/icon_logout</item>
+    </style>
+    <style name="IconFile">
+        <item name="android:src">@drawable/icon_file2</item>
+    </style>
+    <style name="TextDarkMain">
+        <item name="android:textColor">@color/blue19</item>
+    </style>
+    <style name="Text2DarkMain">
+        <item name="android:textColor">@color/black</item>
     </style>
     <style name="BackgroundThemeAddAgendaDialog">
         <item name="android:background">@drawable/background_add_agenda_dialog_claro</item>

@@ -170,7 +170,7 @@ public class activity_splash_screen extends AppCompatActivity {
 
                             } else if (sharedPrefs4.getBoolean("SalvarSenha", false) && !sharedPrefs3.getBoolean("AcessoFingerPrint", false)) {
 
-                                Intent intent = new Intent(activity_splash_screen.this, activity_main.class);
+                                Intent intent = new Intent(activity_splash_screen.this, activity_main_test.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
 
@@ -275,7 +275,7 @@ public class activity_splash_screen extends AppCompatActivity {
                 super.onAuthenticationSucceeded(result);
                 Toast.makeText(activity_splash_screen.this, "Sucesso", Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(activity_splash_screen.this, activity_main.class);
+                Intent intent = new Intent(activity_splash_screen.this, activity_main_test.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }

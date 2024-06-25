@@ -7,10 +7,16 @@
     </style>
 
     <style name="BackgroundTheme">
-        <item name="android:background">@drawable/background_main_theme_gradient</item>
+        <item name="android:background">@color/blue10</item>
     </style>
     <style name="BackgroundThemeMenu">
         <item name="android:background">@drawable/background_white_contraist</item>
+    </style>
+    <style name="BackgroundThemeMenu2">
+        <item name="android:background">@drawable/bottom_background_main_night</item>
+    </style>
+    <style name="BackgroundThemePendente">
+        <item name="android:background">@drawable/banner_background_night</item>
     </style>
     <style name="BackgroundThemeAddAgenda">
         <item name="android:background">@drawable/background_add_agenda_dialog</item>
@@ -93,6 +99,33 @@
     </style>
     <style name="Menu_Main_Item">
         <item name="android:src">@drawable/teste_quadrado</item>
+    </style>
+    <style name="Menu_Main_Item_2">
+        <item name="android:background">@drawable/button_menu_background_night</item>
+    </style>
+    <style name="IconAgenda">
+        <item name="android:src">@drawable/icon_agenda_night</item>
+    </style>
+    <style name="IconCalendar">
+        <item name="android:src">@drawable/icon_calendar_night</item>
+    </style>
+    <style name="IconPassword">
+        <item name="android:src">@drawable/icon_password_night</item>
+    </style>
+    <style name="IconEngre">
+        <item name="android:src">@drawable/icon_engre_night</item>
+    </style>
+    <style name="IconLogout">
+        <item name="android:src">@drawable/icon_logout_night</item>
+    </style>
+    <style name="IconFile">
+        <item name="android:src">@drawable/icon_file_night</item>
+    </style>
+    <style name="TextDarkMain">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="Text2DarkMain">
+        <item name="android:textColor">@color/grey2</item>
     </style>
     <style name="Logo_Menu_Main_Item_She">
         <item name="android:src">@drawable/she_button</item>

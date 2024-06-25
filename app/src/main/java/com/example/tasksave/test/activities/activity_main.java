@@ -67,7 +67,7 @@ public class activity_main extends AppCompatActivity {
 
 
         ExibirUsername();
-        VerificarAtrasos();
+//        VerificarAtrasos();
         ChecarBiometria();
 
         SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("ArquivoATT", Context.MODE_PRIVATE);
