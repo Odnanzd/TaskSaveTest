@@ -105,12 +105,12 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
         textViewData = findViewById(R.id.textView5);
         textViewHora = findViewById(R.id.textView6);
         textViewRepetir = findViewById(R.id.textView12);
-        linearLayoutData = findViewById(R.id.linearLayout5);
-        linearLayoutHora = findViewById(R.id.linearLayout7);
-        linearLayoutRepetir = findViewById(R.id.linearLayout9);
+        linearLayoutData = findViewById(R.id.linearLayout4);
+        linearLayoutHora = findViewById(R.id.linearLayout6);
+        linearLayoutRepetir = findViewById(R.id.linearLayout8);
         imageViewBack = findViewById(R.id.imageView4);
         imageViewCheck = findViewById(R.id.imageViewCheck);
-        linearLayoutDefinirLembrete = findViewById(R.id.linearLayout2);
+        linearLayoutDefinirLembrete = findViewById(R.id.linearLayout3);
         imageViewSalvar  = findViewById(R.id.imageViewCheck);
 
 

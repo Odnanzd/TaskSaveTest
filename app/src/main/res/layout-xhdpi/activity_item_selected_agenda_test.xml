@@ -11,7 +11,7 @@
     <EditText
         android:id="@+id/titulo_text_view"
         style="@style/TextViewColor"
-        android:layout_width="300dp"
+        android:layout_width="250dp"
         android:layout_height="48dp"
         android:layout_marginTop="24dp"
         android:backgroundTint="@color/grey"
@@ -29,22 +29,22 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <ImageView
+        style="@style/IconDescImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        style="@style/IconDescImage"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="22dp"
         app:layout_constraintEnd_toStartOf="@+id/descricao_text_view"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titulo_text_view" />
 
     <EditText
         android:id="@+id/descricao_text_view"
         style="@style/TextViewColor"
-        android:layout_width="300dp"
+        android:layout_width="250dp"
         android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="56dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="52dp"
         android:backgroundTint="@color/grey"
         android:fontFamily="@font/ptsans_bold"
         android:gravity="center"

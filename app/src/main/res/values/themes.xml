@@ -10,6 +10,9 @@
     <style name="BackgroundTheme">
         <item name="android:background">@color/blue17</item>
     </style>
+    <style name="BackgroundTheme2">
+        <item name="android:background">@color/white</item>
+    </style>
     <style name="BackgroundThemeMenu2">
         <item name="android:background">@drawable/bottom_background_main</item>
     </style>
@@ -21,6 +24,9 @@
     </style>
     <style name="Menu_Main_Item_2">
         <item name="android:background">@drawable/button_menu_background</item>
+    </style>
+    <style name="BackGroundButtonItemSelected">
+        <item name="android:background">@drawable/backgroung_button_item_selected</item>
     </style>
     <style name="IconAgenda">
         <item name="android:src">@drawable/icon_agenda</item>
@@ -209,7 +215,7 @@
         <item name="android:src">@drawable/icon_back</item>
     </style>
     <style name="BackGroundTintThemeItens">
-        <item name="android:backgroundTint">@color/blue9</item>
+        <item name="android:backgroundTint">@color/blue17</item>
     </style>
     <style name="BackgroundThemeAddAgenda">
         <item name="android:background">@drawable/background_add_agenda_dialog_claro</item>

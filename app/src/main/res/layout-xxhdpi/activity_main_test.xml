@@ -192,6 +192,9 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
                         style="@style/Menu_Main_Item_2"
                         android:orientation="vertical">
 
@@ -218,6 +221,9 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
                         style="@style/Menu_Main_Item_2"
                         android:orientation="vertical">
 
@@ -250,6 +256,9 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
                         style="@style/Menu_Main_Item_2"
                         android:orientation="vertical">
 
@@ -276,6 +285,9 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
                         style="@style/Menu_Main_Item_2"
                         android:orientation="vertical">
 
@@ -302,6 +314,9 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
                         style="@style/Menu_Main_Item_2"
                         android:orientation="vertical">
 

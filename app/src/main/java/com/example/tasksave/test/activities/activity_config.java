@@ -17,7 +17,7 @@ public class activity_config extends AppCompatActivity {
     @SuppressLint("MissingSuperCall")
     public void onBackPressed() {
 
-        Intent intent = new Intent(activity_config.this, activity_main.class);
+        Intent intent = new Intent(activity_config.this, activity_main_test.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
@@ -34,7 +34,7 @@ public class activity_config extends AppCompatActivity {
         imageViewBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent(activity_config.this, activity_main.class);
+                Intent intent2 = new Intent(activity_config.this, activity_main_test.class);
                 intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent2);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);

@@ -53,7 +53,7 @@ public class activity_main_test extends AppCompatActivity {
     public ImageView imageViewMenuCalendar;
 
 
-    LinearLayout linearLayoutAgenda, linearLayoutCalendar, linearLayoutSenha, linearLayoutArquivo, linearLayoutConfig, linearLayoutLogout;
+    private LinearLayout linearLayoutAgenda, linearLayoutCalendar, linearLayoutSenha, linearLayoutArquivo, linearLayoutConfig, linearLayoutLogout;
 
     @SuppressLint({"MissingInflatedId", "SetTextI18n"})
     @Override

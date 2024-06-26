@@ -9,6 +9,9 @@
     <style name="BackgroundTheme">
         <item name="android:background">@color/blue10</item>
     </style>
+    <style name="BackgroundTheme2">
+        <item name="android:background">@color/blue10</item>
+    </style>
     <style name="BackgroundThemeMenu">
         <item name="android:background">@drawable/background_white_contraist</item>
     </style>
@@ -30,6 +33,9 @@
 
     <style name="BackGroundTintThemeButton">
         <item name="android:backgroundTint">@color/blue4</item>
+    </style>
+    <style name="BackGroundButtonItemSelected">
+        <item name="android:background">@drawable/background_button_item_selected_night</item>
     </style>
 
     <style name="TextColorTheme">
@@ -187,7 +193,7 @@
         <item name="android:src">@drawable/baseline_arrow_back_24</item>
     </style>
     <style name="BackGroundTintThemeItens">
-        <item name="android:backgroundTint">@color/blue1</item>
+        <item name="android:backgroundTint">@color/grey9</item>
     </style>
     <style name="IconPlus">
         <item name="android:background">@drawable/plus_icon_fill</item>
