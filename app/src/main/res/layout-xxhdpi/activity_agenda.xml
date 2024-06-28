@@ -103,6 +103,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.018"
         app:layout_constraintStart_toStartOf="parent"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
@@ -115,7 +118,7 @@
         android:elevation="10dp"
         app:cardBackgroundColor="@color/brancoGelo"
         android:layout_marginTop="15dp"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="50dp"
         android:foreground="?android:attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
@@ -127,6 +130,7 @@
             android:textSize="20sp"
             android:paddingStart="7dp"
             android:paddingEnd="7dp"
+            android:paddingBottom="3dp"
             android:fontFamily="@font/ptsans_bold"
 
             android:text="Todos"/>
@@ -156,6 +160,7 @@
             android:textSize="20sp"
             android:paddingStart="7dp"
             android:paddingEnd="7dp"
+            android:paddingBottom="3dp"
             android:fontFamily="@font/ptsans_bold"
             android:text="Pendentes"
 
@@ -186,6 +191,7 @@
             android:textSize="20sp"
             android:paddingStart="7dp"
             android:paddingEnd="7dp"
+            android:paddingBottom="3dp"
             android:fontFamily="@font/ptsans_bold"
 
             android:text="Atrasados"/>

@@ -59,57 +59,14 @@
         <item name="android:background">@drawable/background_dialog_repeat_reminder_light</item>
     </style>
 
-
-    <style name="BackGroundTintThemeButton">
-        <item name="android:backgroundTint">@color/black1</item>
-    </style>
-
-    <style name="TextColorTheme">
-        <item name="android:textColor">@color/blue1</item>
-    </style>
     <style name="TextColorAddAgenda">
         <item name="android:textColor">@color/black</item>
-    </style>
-
-    <style name="BackGroundTintThemeButton2">
-        <item name="android:backgroundTint">@color/red1</item>
-    </style>
-    <style name="TextColorTheme2">
-        <item name="android:textColor">@color/white</item>
-    </style>
-
-    <style name="BackgroundFingerPrint">
-        <item name="android:tint">@color/blue9</item>
     </style>
 
     <style name="TextColorTheme3">
         <item name="android:textColor">@color/grey5</item>
     </style>
 
-    <style name="BackgroundThemeItens">
-        <item name="android:color">@color/blue5</item>
-    </style>
-    <style name="BackGroundMainMenu">
-        <item name="android:background">@drawable/background_add_agenda</item>
-    </style>
-    <style name="ButtonColorTheme">
-        <item name="backgroundTint">@color/rosa</item>
-        <item name="android:textColor">@color/black</item>
-    </style>
-    <style name="ButtonColorTheme2">
-        <item name="backgroundTint">@color/rosa2</item>
-        <item name="android:textColor">@color/black</item>
-    </style>
-    <style name="ButtonColorTheme3">
-        <item name="backgroundTint">@color/rosa3</item>
-        <item name="android:textColor">@color/black</item>
-    </style>
-
-    <color name="textColorLight">@android:color/black</color>
-
-    <style name="ListViewText.Light" parent="android:TextAppearance">
-        <item name="android:textColor">@color/black</item>
-    </style>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light">
 
@@ -119,33 +76,7 @@
         <!-- Defina outras propriedades do tema para o modo noturno aqui -->
         <item name="android:textColor">@color/white</item>
     </style>
-    <style name="AppTheme3" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- ... outras definições de estilo ... -->
-        <item name="colorAccent">@color/rosa2</item>
-    </style>
 
-    <style name="AppTheme.FabStyle" parent="Widget.MaterialComponents.FloatingActionButton">
-        <item name="backgroundTint">@color/rosa2</item>
-    </style>
-    <style name="AppTheme4" parent="Theme.AppCompat">
-        <!-- ... outras definições de estilo ... -->
-        <item name="colorAccent">@color/rosa2</item>
-    </style>
-
-    <style name="AppTheme.FabStyle2" parent="Widget.MaterialComponents.FloatingActionButton">
-        <item name="backgroundTint">@color/rosa</item>
-    </style>
-
-    <style name="InputButton">
-        <item name="android:background">@drawable/input_button</item>
-    </style>
-
-    <style name="IconLogin">
-        <item name="android:src">@drawable/baseline_person_24_night</item>
-    </style>
-    <style name="LogoTipo">
-        <item name="android:src">@drawable/logotiporosa3</item>
-    </style>
     <style name="Menu_Main_Item">
         <item name="android:src">@drawable/teste_quadrado_claro</item>
     </style>
@@ -170,21 +101,7 @@
     <style name="ImageProfileMain">
         <item name="android:src">@drawable/profile2</item>
     </style>
-    <style name="Background_add_agenda_data">
-        <item name="android:background">@drawable/background_add_agenda_data</item>
-    </style>
-    <style name="CalendarTheme">
 
-        <!-- Cor dos dias no mês no CalendarView -->
-        <item name="android:dateTextAppearance">@style/CalendarDateText</item>
-    </style>
-    <style name="CalendarDateText">
-        <!-- Cor dos dias no mês -->
-        <item name="android:textColor">@color/white</item>
-    </style>
-    <style name="BackgroundThemeHora">
-        <item name="android:background">@drawable/backgroud_add_agenda_hora</item>
-    </style>
 
     <style name="ButtonSelector">
         <item name="android:background">@drawable/button_colors_light</item>
@@ -193,24 +110,11 @@
         <item name="android:background">@drawable/button_colors_light_2</item>
     </style>
 
-    <style name="TimePickerTheme">
-        <!-- Outros atributos de estilo que você deseja definir -->
 
-        <!-- Cor de fundo do TimePicker -->
-        <item name="android:background">@color/rosa2</item>
-
-        <!-- Cor dos números e marcadores no TimePicker -->
-        <item name="android:numbersTextColor">@color/white</item>
-    </style>
-    <style name="UpdateDetailsItem">
-        <item name="android:background">@drawable/update_details_item</item>
-    </style>
     <style name="IconTaskFinalizadas">
         <item name="android:background">@drawable/baseline_task_24_pink</item>
     </style>
-    <style name="Back_Button_Item">
-        <item name="android:src">@drawable/baseline_arrow_back_ios_new_24</item>
-    </style>
+
     <style name="Back_Button_Item2">
         <item name="android:src">@drawable/icon_back</item>
     </style>
@@ -280,9 +184,7 @@
     <style name="ImageViewConfigBell">
         <item name="android:src">@drawable/bell_icon_svg</item>
     </style>
-    <style name="ImageViewConfigLinha">
-        <item name="android:src">@drawable/linha_horizontal</item>
-    </style>
+
     <style name="ImageViewIconEmail">
         <item name="android:src">@drawable/mail_icon_svg</item>
     </style>

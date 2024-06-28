@@ -13,12 +13,12 @@
         android:layout_width="match_parent"
         android:layout_height="800dp"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:layout_marginRight="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6">
+        app:layout_constraintTop_toBottomOf="@+id/cardViewPendentes">
 
         <ListView
             android:id="@+id/list_view_agenda"
@@ -102,6 +102,96 @@
         app:layout_constraintHorizontal_bias="0.018"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewTodos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:cardCornerRadius="8dp"
+        android:elevation="10dp"
+        app:cardBackgroundColor="@color/brancoGelo"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="20dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:paddingStart="7dp"
+            android:paddingEnd="7dp"
+            android:paddingBottom="3dp"
+            android:fontFamily="@font/ptsans_bold"
+
+            android:text="Todos"/>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewPendentes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/cardViewTodos"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:cardCornerRadius="8dp"
+        android:elevation="10dp"
+        app:cardBackgroundColor="@color/brancoGelo"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="30dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:paddingStart="7dp"
+            android:paddingEnd="7dp"
+            android:paddingBottom="3dp"
+            android:fontFamily="@font/ptsans_bold"
+            android:text="Pendentes"
+
+            />
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewAtrasados"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/cardViewPendentes"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:cardCornerRadius="8dp"
+        android:elevation="10dp"
+        android:backgroundTint="@color/brancoGelo"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="30dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:paddingStart="7dp"
+            android:paddingEnd="7dp"
+            android:paddingBottom="3dp"
+            android:fontFamily="@font/ptsans_bold"
+
+            android:text="Atrasados"/>
+
+
+    </androidx.cardview.widget.CardView>
 
     <CheckBox
         android:id="@+id/checkBox"

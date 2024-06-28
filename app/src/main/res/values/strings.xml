@@ -51,7 +51,7 @@
     <string name="text_view_sair">Sair</string>
 
     <!---Strings activity_agenda-->
-    <string name="text_view_tarefas">Tarefas Pendentes</string>
+    <string name="text_view_tarefas">Tarefas</string>
 
     <!---Strings activity_add_agenda-->
     <string name="text_view_add_agenda">Criar nova tarefa:</string>
