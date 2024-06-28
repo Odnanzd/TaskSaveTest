@@ -247,11 +247,15 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
         aswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+
                 if (isChecked) {
+
                     textViewHora.setVisibility(View.VISIBLE);
                     textViewData.setVisibility(View.VISIBLE);
                     checkForChanges();
+
                 } else {
+
                     textViewHora.setVisibility(View.GONE);
                     textViewData.setVisibility(View.GONE);
                     checkForChanges();
@@ -323,6 +327,7 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
                     && localdataEscolhida != null && hourTarefa != 0 && minuteTarefa != 0 &&
                     !editTextTitulo.getText().toString().equals("") && !editTextDesc.getText().toString().equals("")) {
 
+
                 imageViewCheck.setVisibility(View.VISIBLE);
                 return true;
 
@@ -335,7 +340,7 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
             }
         }else {
 
-            if ((text1Changed || text2Changed || switchChanged || dateChanged || hourChanged || repeaterChanged) &&
+            if ((text1Changed || text2Changed ) &&
                     !editTextTitulo.getText().toString().equals("") && !editTextDesc.getText().toString().equals("")) {
 
                 imageViewCheck.setVisibility(View.VISIBLE);

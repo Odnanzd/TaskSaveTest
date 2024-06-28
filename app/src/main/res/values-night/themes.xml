@@ -198,4 +198,7 @@
     <style name="IconCheckImage">
         <item name="android:src">@drawable/icon_check</item>
     </style>
+    <style name="BackgroundCardViewAgenda">
+        <item name="cardBackgroundColor">@color/brancoGelo</item>
+    </style>
 </resources>

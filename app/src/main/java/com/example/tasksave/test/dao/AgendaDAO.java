@@ -6,9 +6,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.tasksave.test.activities.activity_agenda;
 import com.example.tasksave.test.conexaoSQLite.Conexao;
 import com.example.tasksave.test.objetos.Agenda;
 
@@ -209,9 +211,15 @@ public class AgendaDAO {
 
         return rowsUpdated > 0;
     }
+    public String verificaTarefaPendente() {
 
+        Cursor cursor = db.rawQuery("SELECT agendaAtraso FROM agenda WHERE agendaAtraso = 1;", null);
 
+        String contador = String.valueOf(cursor.getCount());
 
+        return contador;
+
+    }
 
 
 

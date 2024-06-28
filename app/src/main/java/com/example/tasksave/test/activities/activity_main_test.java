@@ -32,6 +32,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.tasksave.test.conexaoSQLite.Conexao;
 import com.example.tasksave.R;
+import com.example.tasksave.test.dao.AgendaDAO;
 import com.example.tasksave.test.servicos.ServicosATT;
 
 public class activity_main_test extends AppCompatActivity {
@@ -51,6 +52,7 @@ public class activity_main_test extends AppCompatActivity {
     private SQLiteDatabase db;
     public ImageView imageViewMenuConfig;
     public ImageView imageViewMenuCalendar;
+    private TextView textViewPendente;
 
 
     private LinearLayout linearLayoutAgenda, linearLayoutCalendar, linearLayoutSenha, linearLayoutArquivo, linearLayoutConfig, linearLayoutLogout;
@@ -70,9 +72,12 @@ public class activity_main_test extends AppCompatActivity {
         linearLayoutConfig = findViewById(R.id.linearLayoutConfig);
         linearLayoutLogout = findViewById(R.id.linearLayoutLogot);
 
+        textViewPendente = findViewById(R.id.textViewContador);
+
 
         ExibirUsername();
 //        VerificarAtrasos();
+        attContadorPendente();
         ChecarBiometria();
 
         SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("ArquivoATT", Context.MODE_PRIVATE);
@@ -326,6 +331,15 @@ public class activity_main_test extends AppCompatActivity {
             servicosATT = new ServicosATT(activity_main_test.this, "1", "100");
             boolean sucesso = servicosATT.verificaAtt();
         }
+    }
+    public void attContadorPendente() {
+
+        AgendaDAO agendaDAO = new AgendaDAO(this);
+
+        String contador = agendaDAO.verificaTarefaPendente();
+
+        textViewPendente.setText(contador);
+
     }
 
 

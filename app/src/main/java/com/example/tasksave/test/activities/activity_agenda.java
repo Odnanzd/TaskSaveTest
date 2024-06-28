@@ -80,7 +80,8 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
     ArrayList<Long> listaIDs = new ArrayList<>();
     ArrayList<Integer> repetirModoLembrete2 = new ArrayList<>();
 
-    CardView cardViewPendents;
+    CardView cardViewPendents, cardViewTodos, cardViewAtrasados;
+    private boolean clickTodos, clickPendentes, clickAtradasados;
 
     private SwipeRefreshLayout swipeRefreshLayout;
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -109,12 +110,16 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         imageViewBalao = findViewById(R.id.imageViewBalaoFala);
 
         cardViewPendents = findViewById(R.id.cardViewPendentes);
+        cardViewTodos = findViewById(R.id.cardViewTodos);
+        cardViewAtrasados = findViewById(R.id.cardViewAtrasados);
 
-        final int originalColor = getResources().getColor(R.color.brancoGelo);
-        final int clickedColor = getResources().getColor(R.color.grey3);
+        clickTodos = true;
+        clickPendentes = false;
+        clickAtradasados = false;
 
         VerificaLista();
-        ListarAgenda();
+//        ListarAgenda();
+        checkChanges();
 //        VerificaAgendaComLembretes();
 
 
@@ -148,25 +153,70 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
             }
         });
 
-        cardViewPendents.setOnClickListener(new View.OnClickListener() {
+        cardViewTodos.setOnClickListener(new View.OnClickListener() {
 
-
-            private boolean isClicked = true;
             @Override
             public void onClick(View view) {
 
+                clickTodos=true;
+                clickPendentes=false;
+                clickAtradasados=false;
+                checkChanges();
+            }
+        });
 
-                if (isClicked) {
-                    listarAgendaPendentes();
-                    cardViewPendents.setCardBackgroundColor(getResources().getColor(R.color.grey3));
-                } else {
-                    cardViewPendents.setCardBackgroundColor(getResources().getColor(R.color.brancoGelo));
-                    ListarAgenda();
-                }
-                isClicked = !isClicked;
+        cardViewPendents.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                clickPendentes=true;
+                clickTodos=false;
+                clickAtradasados=false;
+                checkChanges();
 
             }
         });
+
+        cardViewAtrasados.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickAtradasados=true;
+                clickPendentes=false;
+                clickTodos=false;
+                checkChanges();
+            }
+        });
+
+
+
+    }
+
+    @SuppressLint("NewApi")
+    public void checkChanges() {
+
+        if(clickTodos) {
+
+            cardViewTodos.setCardBackgroundColor(getResources().getColor(R.color.blue16));
+            cardViewPendents.setCardBackgroundColor(getResources().getColor(R.color.brancoGelo));
+            cardViewAtrasados.setCardBackgroundColor(getResources().getColor(R.color.brancoGelo));
+            ListarAgenda();
+
+        }else if(clickPendentes) {
+
+            cardViewPendents.setCardBackgroundColor(getResources().getColor(R.color.blue16));
+            cardViewTodos.setCardBackgroundColor(getResources().getColor(R.color.brancoGelo));
+            cardViewAtrasados.setCardBackgroundColor(getResources().getColor(R.color.brancoGelo));
+            listarAgendaPendentes();
+
+        }else if(clickAtradasados) {
+
+            cardViewAtrasados.setCardBackgroundColor(getResources().getColor(R.color.blue16));
+            cardViewTodos.setCardBackgroundColor(getResources().getColor(R.color.brancoGelo));
+            cardViewPendents.setCardBackgroundColor(getResources().getColor(R.color.brancoGelo));
+            Log.d("TESTE ELSE IF", "TESTE CLICK ATRASADOS");
+
+        }
 
 
 

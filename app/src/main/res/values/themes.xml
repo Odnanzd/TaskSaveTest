@@ -16,6 +16,11 @@
     <style name="BackgroundThemeMenu2">
         <item name="android:background">@drawable/bottom_background_main</item>
     </style>
+
+    <style name="BackgroundCardViewAgenda">
+        <item name="cardBackgroundColor">@color/brancoGelo</item>
+    </style>
+
     <style name="BackgroundThemeMenu">
         <item name="android:background">@drawable/background_main_menu_itens</item>
     </style>
