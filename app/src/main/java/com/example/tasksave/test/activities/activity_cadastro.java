@@ -158,7 +158,7 @@ public class activity_cadastro extends AppCompatActivity {
 
 
             escondeTeclado();
-            CadastrarUserMYSQL(usuarioCadastro, emailCadastro, senhaCadastro);
+            CadastrarUserMYSQL(usuarioCadastro, emailCadastro, senhaCadastro, view);
 
 
         } else {
@@ -184,7 +184,7 @@ public class activity_cadastro extends AppCompatActivity {
         }
     }
 
-    public void CadastrarUserMYSQL(String usuarioCadastro, String emailCadastro, String senhaCadastro) {
+    public void CadastrarUserMYSQL(String usuarioCadastro, String emailCadastro, String senhaCadastro, View view) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(() -> {
             usuarioDAOMYsql usuarioDAOMysql = new usuarioDAOMYsql();
@@ -206,7 +206,7 @@ public class activity_cadastro extends AppCompatActivity {
                         editTextSenha.setTextColor(getResources().getColor(R.color.grey6));
                         editTextSenha2.setTextColor(getResources().getColor(R.color.grey6));
 
-                        Snackbar snackbar = Snackbar.make(this.getCurrentFocus(), str2, Snackbar.LENGTH_SHORT);
+                        Snackbar snackbar = Snackbar.make(view, str2, Snackbar.LENGTH_SHORT);
                         snackbar.setBackgroundTint(Color.WHITE);
                         snackbar.setTextColor(Color.BLACK);
                         snackbar.show();

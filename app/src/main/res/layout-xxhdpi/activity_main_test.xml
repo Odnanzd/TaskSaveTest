@@ -22,9 +22,9 @@
                 style="@style/ImageProfileMain"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginTop="56dp"
+                android:layout_marginTop="60dp"
                 android:layout_marginEnd="32dp"
-                android:layout_marginBottom="48dp"
+                android:layout_marginBottom="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -39,6 +39,7 @@
                 android:textColor="@color/white"
                 android:textSize="23sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+                app:layout_constraintEnd_toStartOf="@+id/imageView10"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/imageView10" />
 
@@ -73,8 +74,7 @@
                         android:layout_width="300dp"
                         android:layout_height="170dp"
                         android:elevation="5dp"
-
-                        android:layout_marginTop="32dp"
+                        android:layout_marginTop="40dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginBottom="32dp"
                         style="@style/BackgroundThemePendente"
@@ -136,7 +136,7 @@
                             android:layout_height="170dp"
                             android:elevation="5dp"
                             android:layout_marginStart="20dp"
-                            android:layout_marginTop="32dp"
+                            android:layout_marginTop="40dp"
                             android:layout_marginBottom="32dp"
                             style="@style/BackgroundThemePendente"
 
@@ -204,6 +204,7 @@
                     android:background="@drawable/edit_text_main"
                     android:layout_marginEnd="32dp"
                     android:layout_marginStart="32dp"
+                    android:layout_marginTop="20dp"
                     android:padding="8dp"
                     android:layout_marginBottom="7dp"
                     android:elevation="3dp"
