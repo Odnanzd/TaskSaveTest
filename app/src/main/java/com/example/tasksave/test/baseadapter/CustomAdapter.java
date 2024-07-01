@@ -713,13 +713,12 @@ public class CustomAdapter extends BaseAdapter {
                         text_view_hr_agenda.setCompoundDrawablesWithIntrinsicBounds(DrawableClock, null, null, null);
                         imageViewBarra.setImageResource(R.drawable.removeorange);
 
-                        boolean statusAgenda = agendaDAO.AtualizarStatusAtraso(idTarefa, 1);
-
-                        if(statusAgenda) {
-                            notifyDataSetChanged();
-                        }
+                        boolean statusAgenda = agendaDAO.atualizarTarefaPendente(idTarefa, 1);
 
                     } else if (LocaldatedataAtual.isAfter(LocaldatedataCombinada) && !repetirLembreteBL) {
+
+                        AgendaDAO agendaDAO = new AgendaDAO(context);
+                        long idTarefa = AgendaID.get(position);
 
                         String formattedDate = targetFormat.format(date);
                         text_view_dat_agenda.setText(formattedDate);
@@ -728,6 +727,8 @@ public class CustomAdapter extends BaseAdapter {
                         Drawable seuDrawable1 = ContextCompat.getDrawable(context, R.drawable.baseline_schedule_24_red2);
                         text_view_hr_agenda.setCompoundDrawablesWithIntrinsicBounds(seuDrawable1, null, null, null);
                         imageViewBarra.setImageResource(R.drawable.removered);
+
+                        boolean statusAgenda = agendaDAO.atualizarTarefaPendente(idTarefa, 2);
 
                     } else if (LocaldatedataAtual.isEqual(LocaldatedataCombinada) || LocaldatedataAtual.isBefore(LocaldatedataCombinada)) {
 

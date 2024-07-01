@@ -104,7 +104,6 @@ public class activity_agenda_concluido extends AppCompatActivity {
                 int minutoAgendaInsert = cursor.getInt(cursor.getColumnIndex("minutoAgendaInsert"));
                 @SuppressLint("Range")
                 int agendaAtrasoDB = cursor.getInt(cursor.getColumnIndex("agendaAtraso"));
-                boolean agendaAtraso = (agendaAtrasoDB != 0);
                 @SuppressLint("Range")
                 int repetirLembreteDB = cursor.getInt(cursor.getColumnIndex("repetirLembrete"));
                 boolean repetirLembrete = (repetirLembreteDB != 0);
@@ -122,7 +121,7 @@ public class activity_agenda_concluido extends AppCompatActivity {
 
                 listaagenda.add(new Agenda(ID, titulo, descricao, localdataagenda, horaagenda, minutoagenda,
                         lembrete, finalizado, localdataagendaFim, horaAgendaFim, minutoAgendaFim, localdataagendaInsert,
-                        horaAgendaInsert, minutoAgendaInsert, agendaAtraso, repetirLembrete, repetirLembreteModo, notificouTarefa));
+                        horaAgendaInsert, minutoAgendaInsert, agendaAtrasoDB, repetirLembrete, repetirLembreteModo, notificouTarefa));
                 listaIDs.add(ID);
 
             } while (cursor.moveToNext());

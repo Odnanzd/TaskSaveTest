@@ -241,7 +241,11 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
         imageViewBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                if(checkForChanges()) {
+                    cancelarAtt();
+                }else {
+                    finish();
+                }
             }
         });
         aswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -324,7 +328,7 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
         if(aswitch.isChecked()) {
 
             if ((text1Changed || text2Changed || switchChanged || dateChanged || hourChanged || repeaterChanged)
-                    && localdataEscolhida != null && hourTarefa != 0 && minuteTarefa != 0 &&
+                    && localdataEscolhida != null && hourTarefa != 0 &&
                     !editTextTitulo.getText().toString().equals("") && !editTextDesc.getText().toString().equals("")) {
 
 
@@ -340,7 +344,7 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
             }
         }else {
 
-            if ((text1Changed || text2Changed ) &&
+            if ((text1Changed || text2Changed || switchChanged ) &&
                     !editTextTitulo.getText().toString().equals("") && !editTextDesc.getText().toString().equals("")) {
 
                 imageViewCheck.setVisibility(View.VISIBLE);
@@ -450,6 +454,8 @@ public class activity_item_selected_agenda_test extends AppCompatActivity {
 
                 hourTarefa = hourOfDay;
                 minuteTarefa = minute;
+
+                Log.d("TESTE HORA", "MINUTO: "+minuteTarefa);
 
                 isHourPickerShown = false;
 
@@ -598,7 +604,7 @@ public void attDados(View view) {
                     Calendar calendar2 = convertToCalendar(localdataEscolhida, hourTarefa, minuteTarefa);
 
                     agendaDAO.atualizarAll(idTarefa, textViewTitAtt, textViewDescAtt, localdataEscolhida, hourTarefa, minuteTarefa,
-                            1, 0, 0);
+                            1, 0, 0, 0);
                     AlarmScheduler.cancelAlarm(getApplicationContext(), idTarefa);
 
                     AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2.getTimeInMillis(), textViewTitAtt,
@@ -611,14 +617,13 @@ public void attDados(View view) {
                     Calendar calendar2 = convertToCalendar(localdataEscolhida, hourTarefa, minuteTarefa);
 
                     agendaDAO.atualizarAll(idTarefa, textViewTitAtt, textViewDescAtt, localdataEscolhida, hourTarefa, minuteTarefa,
-                            1, 1, repetirModoLembrete);
+                            1, 1, repetirModoLembrete, 0);
 
                     AlarmScheduler.cancelAlarm(getApplicationContext(), idTarefa);
 
                     AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2.getTimeInMillis(), textViewTitAtt,
                             textViewDescAtt, repetirModoLembrete, idTarefa, localdataEscolhida);
 
-                    Log.d("Repetir modo", "REPETIR MODO LEMBRETE: " + repetirModoLembrete);
 
                     finish();
                 }
