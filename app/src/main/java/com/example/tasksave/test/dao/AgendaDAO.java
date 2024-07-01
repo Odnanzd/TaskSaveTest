@@ -342,6 +342,7 @@ public class AgendaDAO {
 
     }
 
+    //LISTAR AGENDA ATRASO
     public void listarAgendaAtraso(ArrayList<Long> listaIDs, ArrayList<Integer> repetirModoLembrete2, Context context, ListView listView) {
 
 
@@ -444,7 +445,16 @@ public class AgendaDAO {
 
     }
 
+    public boolean hasTwoOrMoreTasks(){
 
+        Cursor cursor = db.rawQuery("SELECT * FROM agenda WHERE finalizado = 0;", null);
+        if(cursor.getCount()>1) {
+            return true;
+        }else {
+            return false;
+        }
+
+    }
 
     }
 

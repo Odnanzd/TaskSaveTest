@@ -26,9 +26,9 @@
                     style="@style/ImageProfileMain"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_marginTop="56dp"
+                    android:layout_marginTop="50dp"
                     android:layout_marginEnd="32dp"
-                    android:layout_marginBottom="48dp"
+                    android:layout_marginBottom="30dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -62,65 +62,146 @@
                     android:orientation="vertical"
                     >
 
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <HorizontalScrollView
                         android:layout_width="match_parent"
-                        android:layout_height="170dp"
-                        android:layout_margin="32dp"
-                        style="@style/BackgroundThemePendente"
-
+                        android:layout_height="wrap_content"
+                        android:fillViewport="true"
+                        android:scrollbars="none"
                         >
 
-                        <ImageView
-                            android:id="@+id/imageView11"
-                            android:layout_width="150dp"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/circle_white"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-                        <ImageView
-                            android:layout_width="150dp"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/logo_banner2"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                        <TextView
-                            android:id="@+id/textView19"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="24dp"
-                            android:layout_marginTop="30dp"
-                            android:text="25 de Junho de 2024"
-                            android:textColor="@color/white"
-                            android:textSize="18sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                        <TextView
-                            android:id="@+id/textView20"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="300dp"
+                            android:layout_height="170dp"
+                            android:elevation="5dp"
+                            android:layout_marginTop="50dp"
                             android:layout_marginStart="20dp"
-                            android:fontFamily="@font/ptsans_bold"
-                            android:text="0"
-                            android:textColor="#fedd06"
-                            android:textSize="40sp"
-                            app:layout_constraintStart_toStartOf="@+id/textView19"
-                            app:layout_constraintTop_toBottomOf="@+id/textView19" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/ptsans_bold"
-                            android:text="Tarefas Pendentes"
-                            android:textColor="@color/white"
-                            android:layout_marginStart="24dp"
-                            android:textSize="18sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView20" />
+                            android:layout_marginBottom="32dp"
+                            style="@style/BackgroundThemePendente"
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                            >
+
+                            <ImageView
+                                android:id="@+id/imageView11"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/circle_white"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/logo_banner2"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                            <TextView
+                                android:id="@+id/textView19"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="24dp"
+                                android:layout_marginTop="30dp"
+                                android:text="25 de Junho de 2024"
+                                android:textColor="@color/white"
+                                android:textSize="18sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                            <TextView
+                                android:id="@+id/textViewContador"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="40dp"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/ptsans_bold"
+                                android:text="0"
+                                android:textColor="#fedd06"
+                                android:textSize="40sp"
+                                app:layout_constraintStart_toStartOf="@+id/textView19"
+                                app:layout_constraintTop_toBottomOf="@+id/textView19" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/ptsans_bold"
+                                android:text="Tarefas Pendentes"
+                                android:textColor="@color/white"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginStart="24dp"
+                                android:textSize="18sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textViewContador" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="300dp"
+                            android:layout_height="170dp"
+                            android:elevation="5dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="50dp"
+                            android:layout_marginBottom="32dp"
+                            style="@style/BackgroundThemePendente"
+
+                            >
+
+                            <ImageView
+                                android:id="@+id/imageView12"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/circle_white"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/logo_banner2"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/textView20"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="24dp"
+                                android:layout_marginTop="30dp"
+                                android:text="25 de Junho de 2024"
+                                android:textColor="@color/white"
+                                android:textSize="18sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                            <TextView
+                                android:id="@+id/textViewContador1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="20dp"
+                                android:fontFamily="@font/ptsans_bold"
+                                android:text="0"
+                                android:textColor="#fedd06"
+                                android:textSize="40sp"
+                                app:layout_constraintStart_toStartOf="@+id/textView20"
+                                app:layout_constraintTop_toBottomOf="@+id/textView20" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/ptsans_bold"
+                                android:text="Tarefas Pendentes"
+                                android:textColor="@color/white"
+                                android:layout_marginStart="24dp"
+                                android:textSize="18sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textViewContador1" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+                    </HorizontalScrollView>
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="50dp"

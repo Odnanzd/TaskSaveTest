@@ -201,4 +201,8 @@
     <style name="BackgroundCardViewAgenda">
         <item name="cardBackgroundColor">@color/brancoGelo</item>
     </style>
+    <style name="IconDelete">
+        <item name="android:src">@drawable/icon_delete_night</item>
+    </style>
+
 </resources>

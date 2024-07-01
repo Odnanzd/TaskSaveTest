@@ -75,7 +75,6 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
     ImageView imageView;
     ImageView imageView2;
     ImageView imageView3;
-    ImageView imageViewFundoLista;
     ImageView imageViewBalao;
     ArrayList<Long> listaIDs = new ArrayList<>();
     ArrayList<Integer> repetirModoLembrete2 = new ArrayList<>();
@@ -106,7 +105,6 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         imageView = findViewById(R.id.icon_concluido);
         imageView2 = findViewById(R.id.imageView4);
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
-        imageViewFundoLista = findViewById(R.id.imageViewLista);
         imageViewBalao = findViewById(R.id.imageViewBalaoFala);
 
         cardViewPendents = findViewById(R.id.cardViewPendentes);
@@ -897,10 +895,14 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
 
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 // Atualize a exibição dos checkboxes em todos os itens da lista
                 Log.d("Verificação On item", "Teste");
+                AgendaDAO agendaDAO = new AgendaDAO(activity_agenda.this);
+
 
                 customAdapter.setShowCheckboxes(!customAdapter.isShowCheckboxes());
                 listView.clearChoices(); // Limpa as seleções anteriores
@@ -908,54 +910,57 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
 
                 if(customAdapter.isShowCheckboxes()) {
 
-                    CheckBox checkBox2 = findViewById(R.id.checkBox);
-                    checkBox2.setVisibility(View.VISIBLE);
+                    if (agendaDAO.hasTwoOrMoreTasks()) {
 
-                    checkBox2.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            boolean isChecked = checkBox2.isChecked();
-                            customAdapter.selectAllItems(isChecked);
-                        }
-                    });
+                        CheckBox checkBox2 = findViewById(R.id.checkBox);
+                        checkBox2.setVisibility(View.VISIBLE);
 
-
-                    checkBox2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                            // Percorre todos os itens na lista e define o estado da checkbox para cada um deles
-                            if (isChecked) {
-
-                                for (int i = 0; i < listView.getAdapter().getCount(); i++) {
-                                    View itemView = listView.getChildAt(i);
-                                    CheckBox checkBoxItem = itemView.findViewById(R.id.checkbox1);
-                                    checkBoxItem.setChecked(isChecked);
-                                }
-
-                                // Notifica o adaptador sobre as mudanças
-                                ((CustomAdapter) listView.getAdapter()).setShowCheckboxes(isChecked);
-                                ((CustomAdapter) listView.getAdapter()).notifyDataSetChanged();
-
-                            } else {
-
-                                for (int i = 0; i < listView.getAdapter().getCount(); i++) {
-                                    View itemView = listView.getChildAt(i);
-                                    CheckBox checkBoxItem = itemView.findViewById(R.id.checkbox1);
-                                    checkBoxItem.setChecked(false);
-                                }
-
-                                // Notifica o adaptador sobre as mudanças
-                                ((CustomAdapter) listView.getAdapter()).setShowCheckboxes(true);
-                                ((CustomAdapter) listView.getAdapter()).notifyDataSetChanged();
+                        checkBox2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                boolean isChecked = checkBox2.isChecked();
+                                customAdapter.selectAllItems(isChecked);
                             }
-                        }
-                    });
+                        });
+                        checkBox2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                // Percorre todos os itens na lista e define o estado da checkbox para cada um deles
+                                if (isChecked) {
 
-                } else {
-                    CheckBox checkBox2 = findViewById(R.id.checkBox);
-                    checkBox2.setVisibility(View.GONE);
-                    checkBox2.setChecked(false);
-                }
+                                    for (int i = 0; i < listView.getAdapter().getCount(); i++) {
+                                        View itemView = listView.getChildAt(i);
+                                        CheckBox checkBoxItem = itemView.findViewById(R.id.checkbox1);
+                                        checkBoxItem.setChecked(isChecked);
+                                    }
+
+                                    // Notifica o adaptador sobre as mudanças
+                                    ((CustomAdapter) listView.getAdapter()).setShowCheckboxes(isChecked);
+                                    ((CustomAdapter) listView.getAdapter()).notifyDataSetChanged();
+
+                                } else {
+
+                                    for (int i = 0; i < listView.getAdapter().getCount(); i++) {
+                                        View itemView = listView.getChildAt(i);
+                                        CheckBox checkBoxItem = itemView.findViewById(R.id.checkbox1);
+                                        checkBoxItem.setChecked(false);
+                                    }
+
+                                    // Notifica o adaptador sobre as mudanças
+                                    ((CustomAdapter) listView.getAdapter()).setShowCheckboxes(true);
+                                    ((CustomAdapter) listView.getAdapter()).notifyDataSetChanged();
+                                }
+                            }
+                        });
+
+                    }
+                }else {
+                        CheckBox checkBox2 = findViewById(R.id.checkBox);
+                        checkBox2.setVisibility(View.GONE);
+                        checkBox2.setChecked(false);
+                    }
+
+
                 return true; // Indica que o evento de clique longo foi tratado
 
             }

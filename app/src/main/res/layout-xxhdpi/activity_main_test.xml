@@ -113,7 +113,8 @@
                             android:id="@+id/textViewContador"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
+                            android:layout_marginStart="40dp"
+                            android:layout_marginTop="10dp"
                             android:fontFamily="@font/ptsans_bold"
                             android:text="0"
                             android:textColor="#fedd06"
@@ -126,6 +127,7 @@
                             android:fontFamily="@font/ptsans_bold"
                             android:text="Tarefas Pendentes"
                             android:textColor="@color/white"
+                            android:layout_marginTop="5dp"
                             android:layout_marginStart="24dp"
                             android:textSize="18sp"
                             app:layout_constraintStart_toStartOf="parent"
@@ -159,6 +161,7 @@
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
+
                             <TextView
                                 android:id="@+id/textView20"
                                 android:layout_width="wrap_content"

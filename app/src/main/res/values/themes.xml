@@ -206,4 +206,7 @@
     <style name="DialogAnimation">
         <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
     </style>
+    <style name="IconDelete">
+        <item name="android:src">@drawable/icon_delete</item>
+    </style>
 </resources>
