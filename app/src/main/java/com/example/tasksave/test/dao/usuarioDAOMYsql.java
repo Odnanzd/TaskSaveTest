@@ -171,6 +171,110 @@ public class usuarioDAOMYsql {
 
         return versaoAppDB;
     }
+    public String getTextoVersaoAPP() {
+
+        String textoVersaoAPP = "";
+
+        ConnectionClass connectionClass = new ConnectionClass();
+        conn = connectionClass.CONN();
+
+        try {
+
+            String query = "SELECT texto_versao FROM versaoapp WHERE id = 1";
+            PreparedStatement statement = conn.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                textoVersaoAPP = resultSet.getString("texto_versao");
+            }
+
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return textoVersaoAPP;
+    }
+    public String getTexto1APP() {
+
+        String texto1 = "";
+
+        ConnectionClass connectionClass = new ConnectionClass();
+        conn = connectionClass.CONN();
+
+        try {
+
+            String query = "SELECT texto_1 FROM versaoapp WHERE id = 1";
+            PreparedStatement statement = conn.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                texto1 = resultSet.getString("texto_1");
+            }
+
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return texto1;
+    }
+    public String getTexto2APP() {
+
+        String texto2 = "";
+
+        ConnectionClass connectionClass = new ConnectionClass();
+        conn = connectionClass.CONN();
+
+        try {
+
+            String query = "SELECT texto_2 FROM versaoapp WHERE id = 1";
+            PreparedStatement statement = conn.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                texto2 = resultSet.getString("texto_2");
+            }
+
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return texto2;
+    }
+    public String getTexto3APP() {
+
+        String texto3 = "";
+
+        ConnectionClass connectionClass = new ConnectionClass();
+        conn = connectionClass.CONN();
+
+        try {
+
+            String query = "SELECT texto_3 FROM versaoapp WHERE id = 1";
+            PreparedStatement statement = conn.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                texto3 = resultSet.getString("texto_3");
+            }
+
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return texto3;
+    }
+
 }
 
 

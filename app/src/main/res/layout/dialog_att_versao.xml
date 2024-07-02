@@ -15,13 +15,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="84dp"
         android:src="@drawable/icon_system_update"
-        app:layout_constraintEnd_toStartOf="@+id/textView13"
+        app:layout_constraintEnd_toStartOf="@+id/textViewTexto3"
         app:layout_constraintHorizontal_bias="0.296"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/textViewTextoVersao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/ptsans_bold"
@@ -43,44 +43,41 @@
         android:fontFamily="@font/ptsans_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewTextoVersao" />
 
     <TextView
-        android:id="@+id/textView16"
+        android:id="@+id/textViewTexto2"
+        style="@style/TextColorAddAgenda"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/ptsans_bold"
         android:text="-Melhorias nas notificações"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.457"
-        style="@style/TextColorAddAgenda"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewTexto1" />
 
     <TextView
+        android:id="@+id/textViewTexto3"
+        style="@style/TextColorAddAgenda"
         android:layout_width="wrap_content"
-        android:id="@+id/textView3"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/ptsans_bold"
         android:text="-Mudanças na edição das tarefas"
-        style="@style/TextColorAddAgenda"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.527"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewTexto2" />
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/textViewTexto1"
+        style="@style/TextColorAddAgenda"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/ptsans_bold"
         android:text="-Melhorias no layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        style="@style/TextColorAddAgenda"
-        app:layout_constraintHorizontal_bias="0.39"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
@@ -95,7 +92,7 @@
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3">
+        app:layout_constraintTop_toBottomOf="@+id/textViewTexto3">
 
         <TextView
             android:id="@+id/textviewbutton"
@@ -130,7 +127,7 @@
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3">
+        app:layout_constraintTop_toBottomOf="@+id/textViewTexto3">
 
         <TextView
             android:id="@+id/textviewbutton2"

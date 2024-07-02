@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
@@ -60,19 +61,17 @@ public boolean verificaAtt() {
 
     if (versaoDB.compareTo(versaoAtual) > 0) {
         Log.d("TESTE BOOBLEAN", "TESTE");
-        ((Activity) context).runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                dialogAtt();
-            }
-        });
+
         return true;
     }else {
         return false;
     }
 }
 
-    void dialogAtt() {
+    public void dialogAtt(String textoVers, String texto01, String texto02, String texto03) {
+        ((Activity) context).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
 
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetTheme);
         View sheetview= LayoutInflater.from(context).inflate(R.layout.dialog_att_versao,null);
@@ -82,6 +81,16 @@ public boolean verificaAtt() {
 
         FrameLayout frameLayout = bottomSheetDialog.findViewById(R.id.framelayout1);
         FrameLayout frameLayoutNao = bottomSheetDialog.findViewById(R.id.framelayout2);
+
+        TextView textViewTextoVersao = bottomSheetDialog.findViewById(R.id.textViewTextoVersao);
+        TextView textViewTexto1 = bottomSheetDialog.findViewById(R.id.textViewTexto1);
+        TextView textViewTexto2 = bottomSheetDialog.findViewById(R.id.textViewTexto2);
+        TextView textViewTexto3 = bottomSheetDialog.findViewById(R.id.textViewTexto3);
+
+        textViewTextoVersao.setText(textoVers);
+        textViewTexto1.setText(texto01);
+        textViewTexto2.setText(texto02);
+        textViewTexto3.setText(texto03);
 
         frameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +112,9 @@ public boolean verificaAtt() {
         });
 
         bottomSheetDialog.show();
+
+            }
+        });
     }
     public void baixarAtualizacao() {
 

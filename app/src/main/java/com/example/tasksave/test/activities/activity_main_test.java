@@ -35,6 +35,11 @@ import com.example.tasksave.R;
 import com.example.tasksave.test.dao.AgendaDAO;
 import com.example.tasksave.test.servicos.ServicosATT;
 
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 public class activity_main_test extends AppCompatActivity {
     private ServicosATT servicosATT;
 
@@ -53,6 +58,7 @@ public class activity_main_test extends AppCompatActivity {
     public ImageView imageViewMenuConfig;
     public ImageView imageViewMenuCalendar;
     private TextView textViewPendente;
+    private TextView textViewData;
 
 
     private LinearLayout linearLayoutAgenda, linearLayoutCalendar, linearLayoutSenha,
@@ -74,6 +80,9 @@ public class activity_main_test extends AppCompatActivity {
         linearLayoutLogout = findViewById(R.id.linearLayoutLogot);
 
         textViewPendente = findViewById(R.id.textViewContador);
+        textViewData = findViewById(R.id.textView19);
+
+        dataAtualFormatada();
 
 
         ExibirUsername();
@@ -195,60 +204,6 @@ public class activity_main_test extends AppCompatActivity {
         }
         pressedTime = System.currentTimeMillis();
     }
-//    public void VerificarAtrasos() {
-//
-//        con = new Conexao(this);
-//        db = con.getWritableDatabase();
-//        Cursor cursor = db.rawQuery("SELECT * FROM agenda WHERE agendaAtraso = 1 AND finalizado = 0", null);
-//
-//        if (cursor.getCount() == 0) {
-//
-//            numeroIcon.setVisibility(View.GONE);
-//
-//        } else if (cursor.getCount() == 1) {
-//
-//            numeroIcon.setVisibility(View.VISIBLE);
-//
-//        } else if (cursor.getCount() == 2) {
-//
-//            numeroIcon.setImageResource(R.drawable.numero2icon);
-//            numeroIcon.setVisibility(View.VISIBLE);
-//
-//        } else if (cursor.getCount() == 3) {
-//
-//            numeroIcon.setImageResource(R.drawable.numero3icon);
-//            numeroIcon.setVisibility(View.VISIBLE);
-//
-//        } else if (cursor.getCount() == 4) {
-//
-//            numeroIcon.setImageResource(R.drawable.numero4icon);
-//            numeroIcon.setVisibility(View.VISIBLE);
-//        } else if (cursor.getCount() == 5) {
-//
-//            numeroIcon.setImageResource(R.drawable.numero5icon);
-//            numeroIcon.setVisibility(View.VISIBLE);
-//        } else if (cursor.getCount() == 6) {
-//
-//            numeroIcon.setImageResource(R.drawable.numero6icon);
-//            numeroIcon.setVisibility(View.VISIBLE);
-//
-//        } else if (cursor.getCount() == 7) {
-//
-//            numeroIcon.setImageResource(R.drawable.numero7icon);
-//            numeroIcon.setVisibility(View.VISIBLE);
-//
-//        } else if (cursor.getCount() == 8) {
-//
-//            numeroIcon.setImageResource(R.drawable.numero8icon);
-//            numeroIcon.setVisibility(View.VISIBLE);
-//        } else if (cursor.getCount() >= 9) {
-//
-//            numeroIcon.setImageResource(R.drawable.numero9icon);
-//            numeroIcon.setVisibility(View.VISIBLE);
-//
-//        }
-//
-//    }
 
     public void dialogFingerprint() {
 
@@ -328,9 +283,20 @@ public class activity_main_test extends AppCompatActivity {
 
         SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("ArquivoAttDisp", Context.MODE_PRIVATE);
 
+        SharedPreferences sharedPrefs3 = getApplicationContext().getSharedPreferences("ArquivoTextoAPP", Context.MODE_PRIVATE);
+        SharedPreferences sharedPrefs4 = getApplicationContext().getSharedPreferences("ArquivoTexto1", Context.MODE_PRIVATE);
+        SharedPreferences sharedPrefs5 = getApplicationContext().getSharedPreferences("ArquivoTexto2", Context.MODE_PRIVATE);
+        SharedPreferences sharedPrefs6 = getApplicationContext().getSharedPreferences("ArquivoTexto3", Context.MODE_PRIVATE);
+
+        String versaoTextoAPP = sharedPrefs3.getString("ATT", "");
+        String versaoTexto1 = sharedPrefs4.getString("ATT", "");
+        String versaoTexto2 = sharedPrefs5.getString("ATT", "");
+        String versaoTexto3 = sharedPrefs6.getString("ATT", "");
+
+
         if(sharedPrefs2.getBoolean("Atualizacao", false)) {
             servicosATT = new ServicosATT(activity_main_test.this, "1", "100");
-            boolean sucesso = servicosATT.verificaAtt();
+            servicosATT.dialogAtt(versaoTextoAPP, versaoTexto1, versaoTexto2, versaoTexto3);
         }
     }
     public void attContadorPendente() {
@@ -341,6 +307,19 @@ public class activity_main_test extends AppCompatActivity {
 
         textViewPendente.setText(contador);
 
+    }
+    public void dataAtualFormatada() {
+        Date currentDate = Calendar.getInstance().getTime();
+
+        // Obtenha a locale atual do dispositivo
+        Locale currentLocale = Locale.getDefault();
+
+        // Formate a data conforme o idioma do telefone
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG, currentLocale);
+        String formattedDate = dateFormat.format(currentDate);
+
+        // Mostre a data formatada em um TextView (opcional)
+        textViewData.setText(formattedDate);
     }
 
 

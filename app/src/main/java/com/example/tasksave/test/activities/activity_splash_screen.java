@@ -36,6 +36,7 @@ import com.example.tasksave.test.conexaoMYSQL.ConnectionClass;
 import com.example.tasksave.test.dao.usuarioDAOMYsql;
 import com.example.tasksave.test.objetos.User;
 import com.example.tasksave.R;
+import com.example.tasksave.test.objetos.VersaoAPP;
 import com.example.tasksave.test.servicos.ServicosATT;
 
 import java.sql.Connection;
@@ -144,10 +145,45 @@ public class activity_splash_screen extends AppCompatActivity {
 
                             if(attDisponivel) {
 
+                                SharedPreferences prefs0 = getSharedPreferences("ArquivoTextoAPP", MODE_PRIVATE);
+                                SharedPreferences prefs1 = getSharedPreferences("ArquivoTexto1", MODE_PRIVATE);
+                                SharedPreferences prefs2 = getSharedPreferences("ArquivoTexto2", MODE_PRIVATE);
+                                SharedPreferences prefs03 = getSharedPreferences("ArquivoTexto3", MODE_PRIVATE);
+
+                                SharedPreferences.Editor editor0 = prefs0.edit();
+                                SharedPreferences.Editor editor1 = prefs1.edit();
+                                SharedPreferences.Editor editor2 = prefs2.edit();
+                                SharedPreferences.Editor editor03 = prefs03.edit();
+
+                                try {
+
+                                    String versaoTextoAPP = usuarioDAOMYsql.getTextoVersaoAPP();
+                                    String versaoTexto1 = usuarioDAOMYsql.getTexto1APP();
+                                    String versaoTexto2 = usuarioDAOMYsql.getTexto2APP();
+                                    String versaoTexto3 = usuarioDAOMYsql.getTexto3APP();
+
+                                    editor0.putString("ATT", versaoTextoAPP);
+                                    editor0.commit();
+                                    editor1.putString("ATT", versaoTexto1);
+                                    editor1.commit();
+                                    editor2.putString("ATT", versaoTexto2);
+                                    editor2.commit();
+                                    editor03.putString("ATT", versaoTexto3);
+                                    editor03.commit();
+
+
+                                } catch (Exception e) {
+
+                                    Log.d("ERRO SQL AUT", "ERRO SQL" + e);
+
+                                    // Retorne valores padrão em caso de erro
+                                }
+
                                 SharedPreferences prefs3 = getSharedPreferences("ArquivoAttDisp", MODE_PRIVATE);
                                 SharedPreferences.Editor editor3 = prefs3.edit();
                                 editor3.putBoolean("Atualizacao", true);
                                 editor3.commit();
+
                             }else {
                                 SharedPreferences prefs3 = getSharedPreferences("ArquivoAttDisp", MODE_PRIVATE);
                                 SharedPreferences.Editor editor3 = prefs3.edit();

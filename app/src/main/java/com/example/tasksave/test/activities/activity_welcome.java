@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import com.example.tasksave.R;
 import com.example.tasksave.test.dao.usuarioDAOMYsql;
+import com.example.tasksave.test.objetos.VersaoAPP;
 import com.example.tasksave.test.servicos.ServicosATT;
 
 import android.Manifest;
@@ -88,7 +89,7 @@ public class activity_welcome extends AppCompatActivity{
         });
 
     }
-    private class VerificaVersaoTask extends AsyncTask<Void, Void, String> {
+    private class VerificaVersaoTask extends AsyncTask<Void, Void, VersaoAPP> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -100,14 +101,14 @@ public class activity_welcome extends AppCompatActivity{
         }
 
         @Override
-        protected String doInBackground(Void... voids) {
+        protected VersaoAPP doInBackground(Void... voids) {
             // Consulta ao banco de dados em segundo plano
-            return versaoDB();
+            return getVersionInfo();
         }
 
         @Override
-        protected void onPostExecute(String versaoDB) {
-            super.onPostExecute(versaoDB);
+        protected void onPostExecute(VersaoAPP versaoAPP) {
+            super.onPostExecute(versaoAPP);
             // Oculta a barra de progresso após a conclusão da tarefa
             loadingOverlay.setVisibility(View.GONE);
             buttonEntrar.setVisibility(View.VISIBLE);
@@ -115,20 +116,36 @@ public class activity_welcome extends AppCompatActivity{
 
             // Configura o ServicosATT com a versão obtida
             String versaoAtual = obterVersaoAtual();
-            servicosATT = new ServicosATT(activity_welcome.this, versaoAtual, versaoDB);
+
+            servicosATT = new ServicosATT(activity_welcome.this, versaoAtual, versaoAPP.getVersionDB());
+
             boolean sucesso = servicosATT.verificaAtt();
+
+            if(sucesso) {
+
+                servicosATT.dialogAtt(versaoAPP.getVersionTextApp(), versaoAPP.getVersionText1(), versaoAPP.getVersionText2(), versaoAPP.getVersionText3());
+
+            }
             Log.d("TESTE BOLEAN", "TESTE"+sucesso);
         }
     }
 
-    public String versaoDB() {
+    public VersaoAPP getVersionInfo() {
         try {
             usuarioDAOMYsql usuarioDAOMYsql = new usuarioDAOMYsql();
-            double versaoDBApp = usuarioDAOMYsql.getVersionAPP();
-            return String.valueOf(versaoDBApp);
+            String versaoDBApp = String.valueOf(usuarioDAOMYsql.getVersionAPP());
+            String versaoTextoAPP = usuarioDAOMYsql.getTextoVersaoAPP();
+            String versaoTexto1 = usuarioDAOMYsql.getTexto1APP();
+            String versaoTexto2 = usuarioDAOMYsql.getTexto2APP();
+            String versaoTexto3 = usuarioDAOMYsql.getTexto3APP();
+
+            return new VersaoAPP(versaoDBApp, versaoTextoAPP, versaoTexto1, versaoTexto2, versaoTexto3);
+
         } catch (Exception e) {
+
             Log.d("ERRO SQL AUT", "ERRO SQL" + e);
-            return "0.0"; // Retorne uma versão padrão em caso de erro
+            return new VersaoAPP("0.0", "Erro", "Erro", "Erro", "Erro");
+            // Retorne valores padrão em caso de erro
         }
     }
 
