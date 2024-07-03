@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tasksave.R;
-import com.example.tasksave.test.dao.usuarioDAOMYsql;
+import com.example.tasksave.test.dao.UsuarioDAOMYsql;
 import com.example.tasksave.test.objetos.User;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -90,7 +90,7 @@ public class activity_cadastro extends AppCompatActivity {
         String senhaCadastro = editTextSenha.getText().toString();
         String senhaCadastro2 = editTextSenha2.getText().toString();
 
-        usuarioDAOMYsql usuarioDAOMYsql = new usuarioDAOMYsql();
+        UsuarioDAOMYsql usuarioDAOMYsql = new UsuarioDAOMYsql();
 
 
         if (usuarioCadastro.isEmpty() || emailCadastro.isEmpty() || senhaCadastro.isEmpty() || senhaCadastro2.isEmpty()) {
@@ -187,7 +187,7 @@ public class activity_cadastro extends AppCompatActivity {
     public void CadastrarUserMYSQL(String usuarioCadastro, String emailCadastro, String senhaCadastro, View view) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(() -> {
-            usuarioDAOMYsql usuarioDAOMysql = new usuarioDAOMYsql();
+            UsuarioDAOMYsql usuarioDAOMysql = new UsuarioDAOMYsql();
             try (ResultSet resultSet = usuarioDAOMysql.emailJaCadastradoAWS(emailCadastro)) {
 
                 if (resultSet.next()) {

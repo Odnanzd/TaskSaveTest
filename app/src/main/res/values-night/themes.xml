@@ -204,5 +204,14 @@
     <style name="IconDelete">
         <item name="android:src">@drawable/icon_delete_night</item>
     </style>
+    <style name="IconSecFingerprint">
+        <item name="android:src">@drawable/icon_fingerprint_sec_night</item>
+    </style>
+    <style name="IconSecPassword">
+        <item name="android:src">@drawable/icon_sec_password_night</item>
+    </style>
+    <style name="IconSecPermission">
+        <item name="android:src">@drawable/icon_permissao_night</item>
+    </style>
 
 </resources>

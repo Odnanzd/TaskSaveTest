@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.tasksave.R;
-import com.example.tasksave.test.dao.usuarioDAOMYsql;
+import com.example.tasksave.test.dao.UsuarioDAOMYsql;
 import com.example.tasksave.test.objetos.User;
 import com.google.android.material.snackbar.Snackbar;
 import java.sql.ResultSet;
@@ -122,7 +122,7 @@ public class activity_login extends AppCompatActivity {
                 user.setEmail_usuario(emailUser);
                 user.setSenha_usuario(senhaUser);
 
-                usuarioDAOMYsql usuarioDAOMYsql = new usuarioDAOMYsql();
+                UsuarioDAOMYsql usuarioDAOMYsql = new UsuarioDAOMYsql();
                 ResultSet resultSet = usuarioDAOMYsql.autenticaUsuarioAWS(user);
 
                 String userShared = usuarioDAOMYsql.usuarioCadastrado(emailUser, senhaUser);
@@ -171,7 +171,7 @@ public class activity_login extends AppCompatActivity {
                         editor4.putBoolean("PrimeiroAcesso", true);
                         editor4.apply();
                         Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(activity_login.this, activity_main_test.class);
+                        Intent intent = new Intent(activity_login.this, activity_main.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                     });

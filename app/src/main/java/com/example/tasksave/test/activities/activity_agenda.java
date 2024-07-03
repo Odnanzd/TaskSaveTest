@@ -22,8 +22,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
@@ -88,7 +86,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
     @Override
     public void onBackPressed() {
 
-        Intent intent = new Intent(activity_agenda.this, activity_main_test.class);
+        Intent intent = new Intent(activity_agenda.this, activity_main.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
@@ -124,7 +122,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         imageView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity_agenda.this, activity_main_test.class);
+                Intent intent = new Intent(activity_agenda.this, activity_main.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);

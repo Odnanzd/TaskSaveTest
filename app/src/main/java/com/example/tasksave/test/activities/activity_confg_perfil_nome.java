@@ -19,7 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tasksave.R;
-import com.example.tasksave.test.dao.usuarioDAOMYsql;
+import com.example.tasksave.test.dao.UsuarioDAOMYsql;
 import com.example.tasksave.test.objetos.User;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -110,7 +110,7 @@ public class activity_confg_perfil_nome extends AppCompatActivity {
                 SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("arquivoSalvarLoginEmail", Context.MODE_PRIVATE);
                 String valorEmail = sharedPrefs2.getString("arquivo_Email", "");
 
-                usuarioDAOMYsql usuarioDAOMYsql = new usuarioDAOMYsql();
+                UsuarioDAOMYsql usuarioDAOMYsql = new UsuarioDAOMYsql();
 
                 int id_usuario = usuarioDAOMYsql.idUsarioAWS(valorEmail);
 

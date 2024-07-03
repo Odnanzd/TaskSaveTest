@@ -33,10 +33,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.tasksave.test.conexaoMYSQL.ConnectionClass;
-import com.example.tasksave.test.dao.usuarioDAOMYsql;
+import com.example.tasksave.test.dao.UsuarioDAOMYsql;
 import com.example.tasksave.test.objetos.User;
 import com.example.tasksave.R;
-import com.example.tasksave.test.objetos.VersaoAPP;
 import com.example.tasksave.test.servicos.ServicosATT;
 
 import java.sql.Connection;
@@ -126,7 +125,7 @@ public class activity_splash_screen extends AppCompatActivity {
                         user.setEmail_usuario(valorEmail);
                         user.setSenha_usuario(valorsenha);
 
-                        usuarioDAOMYsql usuarioDAOMYsql = new usuarioDAOMYsql();
+                        UsuarioDAOMYsql usuarioDAOMYsql = new UsuarioDAOMYsql();
                         ResultSet resultSet = usuarioDAOMYsql.autenticaUsuarioAWS(user);
 
 
@@ -206,7 +205,7 @@ public class activity_splash_screen extends AppCompatActivity {
 
                             } else if (sharedPrefs4.getBoolean("SalvarSenha", false) && !sharedPrefs3.getBoolean("AcessoFingerPrint", false)) {
 
-                                Intent intent = new Intent(activity_splash_screen.this, activity_main_test.class);
+                                Intent intent = new Intent(activity_splash_screen.this, activity_main.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
 
@@ -311,7 +310,7 @@ public class activity_splash_screen extends AppCompatActivity {
                 super.onAuthenticationSucceeded(result);
                 Toast.makeText(activity_splash_screen.this, "Sucesso", Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(activity_splash_screen.this, activity_main_test.class);
+                Intent intent = new Intent(activity_splash_screen.this, activity_main.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }

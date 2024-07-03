@@ -15,7 +15,7 @@ import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import com.example.tasksave.R;
-import com.example.tasksave.test.dao.usuarioDAOMYsql;
+import com.example.tasksave.test.dao.UsuarioDAOMYsql;
 import com.example.tasksave.test.objetos.VersaoAPP;
 import com.example.tasksave.test.servicos.ServicosATT;
 
@@ -132,7 +132,7 @@ public class activity_welcome extends AppCompatActivity{
 
     public VersaoAPP getVersionInfo() {
         try {
-            usuarioDAOMYsql usuarioDAOMYsql = new usuarioDAOMYsql();
+            UsuarioDAOMYsql usuarioDAOMYsql = new UsuarioDAOMYsql();
             String versaoDBApp = String.valueOf(usuarioDAOMYsql.getVersionAPP());
             String versaoTextoAPP = usuarioDAOMYsql.getTextoVersaoAPP();
             String versaoTexto1 = usuarioDAOMYsql.getTexto1APP();

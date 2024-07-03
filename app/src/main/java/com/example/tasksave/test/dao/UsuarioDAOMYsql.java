@@ -6,12 +6,11 @@ import com.example.tasksave.test.conexaoMYSQL.ConnectionClass;
 import com.example.tasksave.test.objetos.User;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class usuarioDAOMYsql {
+public class UsuarioDAOMYsql {
 
     Connection conn;
 

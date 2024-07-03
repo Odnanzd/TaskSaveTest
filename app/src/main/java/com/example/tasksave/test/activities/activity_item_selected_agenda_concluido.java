@@ -60,9 +60,6 @@ public class activity_item_selected_agenda_concluido extends AppCompatActivity {
         long idTarefa = getIntent().getLongExtra("idTarefa", -1);
 
 
-        Log.d("Verificação intents: ", "Titulo: "+titulo+", descricao: "+descricao+" datainsert:" +
-                " "+dataInsert+", id: "+idTarefa+", horaInsert: "+horaInsert+", dataFim: "+dataFim+", HoraFim: "+horaFim);
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM");
         LocalDate localdataInsert = LocalDate.parse(dataInsert);
         String dataInsertFormatada = localdataInsert.format(formatter);

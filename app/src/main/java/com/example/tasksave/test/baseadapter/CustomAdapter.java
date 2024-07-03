@@ -1,14 +1,9 @@
 package com.example.tasksave.test.baseadapter;
 
-import android.animation.AnimatorInflater;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.BlurMaskFilter;
-import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,7 +18,7 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 
 import com.example.tasksave.R;
-import com.example.tasksave.test.activities.activity_item_selected_agenda_test;
+import com.example.tasksave.test.activities.activity_item_selected_agenda;
 import com.example.tasksave.test.dao.AgendaDAO;
 
 import java.text.ParseException;
@@ -292,7 +287,7 @@ public class CustomAdapter extends BaseAdapter {
                         boolean repetirLembrete = getRepetirLembrete(position);
                         int repetirModoLembrete = getRepetirModoLembrete(position);
 
-                        Intent intent = new Intent(context, activity_item_selected_agenda_test.class);
+                        Intent intent = new Intent(context, activity_item_selected_agenda.class);
                         intent.putExtra("idTarefa", idTarefa);
                         intent.putExtra("tituloIntent", titulo);
                         intent.putExtra("descIntent", descricao);
