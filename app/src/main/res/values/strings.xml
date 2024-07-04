@@ -135,4 +135,13 @@
     <string name="text_view_sec_biometria">Biometria</string>
     <string name="text_view_sec_permissao">Permissões</string>
 
+    <!---Strings activity_sec_fingerprint -->
+    <string name="text_view_sec_fing">Biometria</string>
+    <string name="text_view_sec_fing_biome">Solicitar impressão digital ao abrir o aplicativo</string>
+
+    <!---Strings activity_sec_permissao -->
+    <string name="text_view_sec_perm">Permissões</string>
+    <string name="text_view_sec_perm_permi">Acesso a fotos e mídias</string>
+    <string name="text_view_sec_perm_permi2">Acesso total a todos os arquivos</string>
+
 </resources>

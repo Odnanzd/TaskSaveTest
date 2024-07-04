@@ -86,11 +86,6 @@ public class activity_splash_screen extends AppCompatActivity {
             String valorsenha = sharedPrefs.getString("arquivo_Senha", "");
 
 
-            Log.d("teste bollean", "teste salvar senha: " +sharedPrefs4.getBoolean("SalvarSenha", false));
-
-            Log.d("teste bollean", "teste fingerprint: " +sharedPrefs4.getBoolean("AcessoFingerPrint", false));
-
-
             if (!isNetworkConnected(activity_splash_screen.this)) {
                 runOnUiThread(new Runnable() {
                     @Override

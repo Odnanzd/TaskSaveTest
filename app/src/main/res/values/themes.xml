@@ -218,4 +218,10 @@
     <style name="IconSecPermission">
         <item name="android:src">@drawable/icon_permissao</item>
     </style>
+    <style name="IconSecPermissionPhoto">
+        <item name="android:src">@drawable/icon_permission_sec</item>
+    </style>
+    <style name="IconSecPermissionTotal">
+        <item name="android:src">@drawable/icon_total_manage</item>
+    </style>
 </resources>

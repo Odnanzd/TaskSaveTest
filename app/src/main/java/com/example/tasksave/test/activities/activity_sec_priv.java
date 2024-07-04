@@ -1,9 +1,11 @@
 package com.example.tasksave.test.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,9 +15,12 @@ public class activity_sec_priv extends AppCompatActivity {
 
 
     private ImageView imageViewBack;
+    private LinearLayout linearLayoutBiometria, linearLayoutSenha, linearLayoutPermissao;
 
+    @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
+
         Intent intent = new Intent(activity_sec_priv.this, activity_config.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
@@ -28,6 +33,8 @@ public class activity_sec_priv extends AppCompatActivity {
         setContentView(R.layout.activity_sec_priv);
 
         imageViewBack = findViewById(R.id.imageViewBack);
+        linearLayoutBiometria = findViewById(R.id.linearLayoutSeg);
+        linearLayoutPermissao = findViewById(R.id.linearLayoutNot);
 
         imageViewBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,6 +43,22 @@ public class activity_sec_priv extends AppCompatActivity {
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+            }
+        });
+        linearLayoutBiometria.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(activity_sec_priv.this, activity_sec_fingerprint.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            }
+        });
+        linearLayoutPermissao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(activity_sec_priv.this, activity_sec_permissao.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
         });
     }

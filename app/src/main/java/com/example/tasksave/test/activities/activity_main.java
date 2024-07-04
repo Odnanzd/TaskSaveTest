@@ -272,7 +272,6 @@ public class activity_main extends AppCompatActivity {
         switch (manager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_WEAK |
                 BiometricManager.Authenticators.BIOMETRIC_STRONG)) {
             case BiometricManager.BIOMETRIC_SUCCESS:
-                Log.d("Verificar Biometreia", "Sucesso");
                 dialogFingerprint();
                 break;
 
