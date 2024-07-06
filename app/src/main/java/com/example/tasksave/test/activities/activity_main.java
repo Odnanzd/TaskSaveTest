@@ -23,10 +23,12 @@ import android.widget.Toast;
 import android.Manifest;
 
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricManager;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.tasksave.test.conexaoSQLite.Conexao;
@@ -62,6 +64,8 @@ public class activity_main extends AppCompatActivity {
 
     private LinearLayout linearLayoutAgenda, linearLayoutCalendar, linearLayoutSenha,
             linearLayoutArquivo, linearLayoutConfig, linearLayoutLogout;
+
+    private static final int PERMISSION_REQUEST_CODE = 1;
 
     @SuppressLint({"MissingInflatedId", "SetTextI18n"})
     @Override
@@ -101,6 +105,7 @@ public class activity_main extends AppCompatActivity {
                 verificarPermissoes();
             }
         }
+        verificarPermissaoNotifica();
 
 
         linearLayoutConfig.setOnClickListener(new View.OnClickListener() {
@@ -318,6 +323,24 @@ public class activity_main extends AppCompatActivity {
 
         // Mostre a data formatada em um TextView (opcional)
         textViewData.setText(formattedDate);
+    }
+    public void verificarPermissaoNotifica() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, PERMISSION_REQUEST_CODE);
+            }
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permissão concedida, você pode enviar notificações
+            } else {
+                // Permissão negada, trate o caso adequadamente
+            }
+        }
     }
 
 

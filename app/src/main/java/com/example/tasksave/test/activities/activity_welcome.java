@@ -126,7 +126,6 @@ public class activity_welcome extends AppCompatActivity{
                 servicosATT.dialogAtt(versaoAPP.getVersionTextApp(), versaoAPP.getVersionText1(), versaoAPP.getVersionText2(), versaoAPP.getVersionText3());
 
             }
-            Log.d("TESTE BOLEAN", "TESTE"+sucesso);
         }
     }
 
@@ -150,11 +149,19 @@ public class activity_welcome extends AppCompatActivity{
     }
 
     private void verificarPermissoes() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+                    ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+            } else {
+                new VerificaVersaoTask().execute();
+            }
         } else {
-            new VerificaVersaoTask().execute();
+            if (Environment.isExternalStorageManager()) {
+                new VerificaVersaoTask().execute();
+            } else {
+                Toast.makeText(this, "Permissão de acesso total ao armazenamento não concedida.", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -165,7 +172,7 @@ public class activity_welcome extends AppCompatActivity{
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 new VerificaVersaoTask().execute();
             } else {
-                Log.e(TAG, "Permissão negada para escrever no armazenamento externo.");
+                Log.e("Permissão", "Permissão negada para escrever no armazenamento externo.");
                 Toast.makeText(this, "Permissão negada para escrever no armazenamento externo.", Toast.LENGTH_SHORT).show();
             }
         }

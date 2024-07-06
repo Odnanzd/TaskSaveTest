@@ -430,6 +430,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
                         imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0);
 
                     }
+
                 }, hour, minute, true);
 
                 // Mostrar o diálogo

@@ -5,17 +5,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/BackgroundThemeAddAgenda2"
     android:layout_width="match_parent"
-    android:layout_height="250dp"
+    android:layout_height="260dp"
     android:orientation="vertical">
+
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/grey2"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <EditText
         android:id="@+id/editTextText"
-        android:layout_width="330dp"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@drawable/edittext_background"
         android:ems="10"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginStart="20dp"
         android:focusable="true"
         android:fontFamily="@font/ptsans_regular"
         android:hint="@string/edit_text_nome_add_agenda"
@@ -33,9 +45,11 @@
 
     <EditText
         android:id="@+id/editTextText2"
-        android:layout_width="330dp"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginStart="20dp"
         android:background="@drawable/edittext_background"
         android:ems="10"
         android:fontFamily="@font/ptsans_regular"
@@ -58,67 +72,37 @@
         android:id="@+id/button_login"
         android:layout_width="40dp"
         android:layout_height="50dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginTop="53dp"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:src="@drawable/button_send_svg"
         app:fabCustomSize="56dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.789"
-        app:layout_constraintStart_toEndOf="@+id/editTextText"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView4"
-        style="@style/TextColorAddAgenda"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:fontFamily="@font/ptsans_regular"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:text="@string/text_view_horario"
-        android:textSize="20sp"
-        app:drawableStartCompat="@drawable/baseline_schedule_24"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/LinearLayout"
-        tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/textView5"
-        style="@style/TextColorAddAgenda"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayoutLembretes"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="20dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:fontFamily="@font/ptsans_regular"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:text="@string/text_view_data"
-        android:textSize="20sp"
-        app:drawableLeftCompat="@drawable/baseline_calendar_month_24"
+        app:layout_constraintTop_toBottomOf="@id/editTextText2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LinearLayout"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+
+        >
+
 
     <LinearLayout
         android:id="@+id/LinearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.091"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText2"
+        android:orientation="horizontal"
         >
 
         <Switch
@@ -129,13 +113,32 @@
             tools:ignore="UseSwitchCompatOrMaterialXml" /> <!-- Defina checked conforme necessário -->
 
         <TextView
+            style="@style/TextColorAddAgenda"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            style="@style/TextColorAddAgenda"
-            android:text="@string/switch_button"
+            android:layout_gravity="center_vertical"
             android:fontFamily="@font/ptsans_bold"
-            android:layout_gravity="center_vertical" />
+            android:text="@string/switch_button"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+        <TextView
+            android:id="@+id/textViewRepetirLembrete"
+            style="@style/TextColorAddAgenda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:drawablePadding="2dp"
+            android:layout_marginStart="20dp"
+            android:focusable="true"
+            android:fontFamily="@font/ptsans_bold"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="@string/text_view_repetir"
+            android:textSize="18sp"
+            app:drawableLeftCompat="@drawable/refresh_icon"
+            app:drawableRightCompat="@drawable/down_icon"
+             />
+
 
     </LinearLayout>
 
@@ -165,25 +168,49 @@
         app:layout_constraintStart_toStartOf="@+id/editTextText2"
         app:layout_constraintTop_toTopOf="@+id/editTextText2" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/linearLayoutLembretes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="15dp"
+        android:gravity="center_horizontal"
+
+        >
+
+        <TextView
+            android:id="@+id/textView5"
+            style="@style/TextColorAddAgenda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/ptsans_regular"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="@string/text_view_data"
+            android:textSize="22sp"
+            app:drawableLeftCompat="@drawable/baseline_calendar_month_24"
+            tools:ignore="MissingConstraints" />
+
+
     <TextView
-        android:id="@+id/textViewRepetirLembrete"
+        android:id="@+id/textView4"
         style="@style/TextColorAddAgenda"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="24dp"
         android:clickable="true"
-        android:drawablePadding="2dp"
         android:focusable="true"
-        android:fontFamily="@font/ptsans_bold"
+        android:layout_marginStart="30dp"
+        android:fontFamily="@font/ptsans_regular"
         android:foreground="?android:attr/selectableItemBackground"
-        android:text="@string/text_view_repetir"
-        android:textSize="16sp"
-        app:drawableLeftCompat="@drawable/refresh_icon"
-        app:drawableRightCompat="@drawable/down_icon"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/LinearLayout"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText2" />
+        android:text="@string/text_view_horario"
+        android:textSize="22sp"
+        app:drawableStartCompat="@drawable/baseline_schedule_24"
+        tools:ignore="MissingConstraints" />
+
+    </LinearLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
