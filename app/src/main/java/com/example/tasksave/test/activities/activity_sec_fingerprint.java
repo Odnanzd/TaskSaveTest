@@ -37,7 +37,7 @@ public class activity_sec_fingerprint extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sec_fingerprint);
 
-        imageViewBack = findViewById(R.id.imageViewBack);
+        imageViewBack = findViewById(R.id.imageView4);
         aSwitch = findViewById(R.id.switch1);
         linearLayoutFingerprint = findViewById(R.id.linearLayout2);
 

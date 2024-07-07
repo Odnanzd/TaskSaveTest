@@ -40,7 +40,7 @@ public class activity_confg_perfil extends AppCompatActivity {
         setContentView(R.layout.activity_confg_perfil);
         linearLayout = findViewById(R.id.linearLayout2);
         textView = findViewById(R.id.TextViewNomeCompleto);
-        imageViewback = findViewById(R.id.imageViewBack);
+        imageViewback = findViewById(R.id.imageView4);
 
         nomeExibicao();
         linearLayout.setOnClickListener(new View.OnClickListener() {

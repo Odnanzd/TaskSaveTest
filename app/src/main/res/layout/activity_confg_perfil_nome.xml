@@ -7,41 +7,41 @@
     style="@style/BackgroundTheme2"
     tools:context=".test.activities.activity_confg_perfil_nome">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
-        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
 
         <ImageView
-            android:id="@+id/imageViewBack"
+            android:id="@+id/imageView4"
             style="@style/Back_Button_Item2"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginStart="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.018"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="16dp" /> <!-- Margem opcional -->
 
         <TextView
-            android:id="@+id/textViewPerfil"
+            android:id="@+id/textView6"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="90dp"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/ptsans_bold"
             android:text="@string/text_view_nome_completo2"
             android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5" /> <!-- Centraliza horizontalmente -->
 
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/textViewPerfil2"
@@ -55,43 +55,35 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.581"
         app:layout_constraintStart_toStartOf="parent"
-
         app:layout_constraintTop_toBottomOf="@+id/textViewPerfil2">
 
         <EditText
             android:id="@+id/editTextNomeCompleto"
-            android:layout_width="330dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/edittext_background"
             android:fontFamily="@font/ptsans_bold"
             android:hint="@string/text_view_nome_completo"
             android:maxLines="1"
             android:paddingStart="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="40dp"
             android:textColor="@color/black"
             android:paddingEnd="20dp"
             android:textColorHint="@color/grey3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             android:inputType="textPersonName"
             android:autofillHints="name" />
-
-        <ImageView
-            style="@style/ImageViewIconPencil"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp" />
 
     </LinearLayout>
 

@@ -32,7 +32,7 @@ public class activity_sec_priv extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sec_priv);
 
-        imageViewBack = findViewById(R.id.imageViewBack);
+        imageViewBack = findViewById(R.id.imageView4);
         linearLayoutBiometria = findViewById(R.id.linearLayoutSeg);
         linearLayoutPermissao = findViewById(R.id.linearLayoutNot);
 

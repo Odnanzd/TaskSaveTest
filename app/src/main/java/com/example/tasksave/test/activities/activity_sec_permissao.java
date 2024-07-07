@@ -39,7 +39,7 @@ public class activity_sec_permissao extends AppCompatActivity {
 
         imageViewMidia = findViewById(R.id.imageViewCheck);
         imageViewTotal = findViewById(R.id.imageViewSeta2);
-        imageViewBack = findViewById(R.id.imageViewBack);
+        imageViewBack = findViewById(R.id.imageView4);
 
         linearLayoutMidia = findViewById(R.id.linearLayout2);
         linearLayoutTotal = findViewById(R.id.linearLayoutSeg);

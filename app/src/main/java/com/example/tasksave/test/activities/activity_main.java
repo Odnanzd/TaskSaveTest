@@ -96,13 +96,17 @@ public class activity_main extends AppCompatActivity {
         SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("ArquivoATT", Context.MODE_PRIVATE);
         boolean arquivoATT = sharedPrefs2.getBoolean("NaoATT", false);
 
+        Log.d("TESTE ARQUIVO", "TESTE ARQUIVO"+arquivoATT);
+
         if(!arquivoATT) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 if (Environment.isExternalStorageManager()) {
-                    verificarPermissoes();
+                    dialogAtt();
+                    Log.d("TESTE IF 1", "TESTE IF 1");
                 }
             } else {
                 verificarPermissoes();
+                Log.d("TESTE IF 2", "TESTE IF 2");
             }
         }
         verificarPermissaoNotifica();
@@ -156,8 +160,11 @@ public class activity_main extends AppCompatActivity {
 //        });
     }
     private void verificarPermissoes() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            Log.d("TESTE VERIFICAR PERMI", "PERMISSAO");
+
+        }else {
             dialogAtt();
         }
     }
@@ -295,6 +302,8 @@ public class activity_main extends AppCompatActivity {
         String versaoTexto1 = sharedPrefs4.getString("ATT", "");
         String versaoTexto2 = sharedPrefs5.getString("ATT", "");
         String versaoTexto3 = sharedPrefs6.getString("ATT", "");
+
+        Log.d("teste boolean","teste att"+sharedPrefs2.getBoolean("Atualizacao", false));
 
 
         if(sharedPrefs2.getBoolean("Atualizacao", false)) {

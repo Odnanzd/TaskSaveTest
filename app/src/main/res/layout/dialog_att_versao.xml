@@ -81,53 +81,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
-    <FrameLayout
-        android:id="@+id/framelayout1"
-        android:layout_width="90dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="230dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_marginTop="20dp"
-        android:background="@drawable/button_colors_light"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
+        android:gravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTexto3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTexto3">
+        app:layout_constraintEnd_toEndOf="parent"
 
-        <TextView
-            android:id="@+id/textviewbutton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/ptsans_bold"
-            android:gravity="center"
-            android:text="Instalar"
-            android:textColor="@color/white"
-            android:textSize="13sp" />
+        >
 
-        <ProgressBar
-            android:id="@+id/progressbar1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:indeterminateTint="@color/white"
-            android:visibility="gone"
-
-            />
-
-    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/framelayout2"
         android:layout_width="90dp"
         android:layout_height="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="90dp"
         style="@style/ButtonSelector2"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTexto3">
+        >
 
         <TextView
             android:id="@+id/textviewbutton2"
@@ -150,6 +125,39 @@
             />
 
     </FrameLayout>
+        <FrameLayout
+            android:id="@+id/framelayout1"
+            android:layout_width="90dp"
+            android:layout_height="30dp"
+            android:background="@drawable/button_colors_light"
+            android:layout_marginStart="40dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            >
+
+            <TextView
+                android:id="@+id/textviewbutton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/ptsans_bold"
+                android:gravity="center"
+                android:text="Instalar"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+
+            <ProgressBar
+                android:id="@+id/progressbar1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminateTint="@color/white"
+                android:visibility="gone"
+
+                />
+
+        </FrameLayout>
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

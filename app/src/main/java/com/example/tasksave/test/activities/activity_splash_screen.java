@@ -136,6 +136,7 @@ public class activity_splash_screen extends AppCompatActivity {
                             String versaoDBAppString = String.valueOf(versaoDBApp);
                             servicosATT = new ServicosATT(activity_splash_screen.this, versaoAtual, versaoDBAppString);
                             boolean attDisponivel = servicosATT.verificaAtt();
+                            Log.d("ATT DIS", "ATT"+attDisponivel);
 
                             if(attDisponivel) {
 

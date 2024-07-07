@@ -56,7 +56,7 @@ public class activity_confg_perfil_nome extends AppCompatActivity {
         textView = findViewById(R.id.textviewbutton);
 
         textView2 = findViewById(R.id.textViewPerfil2);
-        imageViewback = findViewById(R.id.imageViewBack);
+        imageViewback = findViewById(R.id.imageView4);
 
         SharedPreferences sharedPrefs = getApplicationContext().getSharedPreferences("arquivoSalvarUser", Context.MODE_PRIVATE);
         String sharedPrd = sharedPrefs.getString("userString", "");
