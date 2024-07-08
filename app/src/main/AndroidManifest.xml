@@ -90,10 +90,6 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".test.activities.activity_item_selected_agenda"
-            android:exported="false"
-            android:screenOrientation="portrait" /> <!-- Definir a SplashActivity como a atividade principal -->
-        <activity
             android:name=".test.activities.activity_splash_screen"
             android:exported="true"
             android:screenOrientation="portrait"
@@ -115,10 +111,6 @@
             android:screenOrientation="portrait"
             android:windowFullscreen="true"
             android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".test.activities.activity_main"
-            android:exported="false"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".test.activities.activity_cadastro"
             android:exported="false"

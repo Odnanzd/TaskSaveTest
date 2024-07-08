@@ -17,28 +17,28 @@
         app:layout_constraintTop_toBottomOf="@+id/icon_fingerprint"
         >
 
+
+        <Button
+            android:id="@+id/button_login2"
+            android:background="@drawable/edittext_background"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/button_nao"
+            android:backgroundTint="@color/red3"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            />
     <Button
         android:id="@+id/button_login"
         style="@style/ButtonSelector"
         android:textAllCaps="false"
         android:layout_width="150dp"
+        android:layout_marginStart="20dp"
         android:layout_height="wrap_content"
-
         android:text="@string/button_ativar"
         android:textColor="@color/white"
          />
 
-    <Button
-        android:id="@+id/button_login2"
-        android:background="@drawable/edittext_background"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:text="@string/button_nao"
-        android:backgroundTint="@color/red3"
-        android:textColor="@color/white"
-        android:textAllCaps="false"
-         />
     </LinearLayout>
 
     <TextView
