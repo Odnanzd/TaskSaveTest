@@ -144,4 +144,9 @@
     <string name="text_view_sec_perm_permi">Acesso a fotos e mídias</string>
     <string name="text_view_sec_perm_permi2">Acesso total a todos os arquivos</string>
 
+    <!---Strings activity_confg_sobre -->
+    <string name="text_view_confg_sobre">Sobre</string>
+    <string name="text_view_confg_sobre_att">Verificar por atualizações</string>
+    <string name="text_view_confg_sobre_versao">Versão</string>
+
 </resources>

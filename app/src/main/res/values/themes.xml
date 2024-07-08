@@ -227,4 +227,12 @@
     <style name="IconTaskAgenda">
         <item name="android:src">@drawable/icon_task_agenda</item>
     </style>
+    <style name="IconConfgSobreAtt">
+        <item name="android:src">@drawable/icon_att_app3</item>
+    </style>
+    <style name="IconConfgSobreVersao">
+        <item name="android:src">@drawable/icon_versao_app</item>
+    </style>
+
+
 </resources>

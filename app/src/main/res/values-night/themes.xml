@@ -222,5 +222,11 @@
     <style name="IconTaskAgenda">
         <item name="android:src">@drawable/icon_task_agenda_night</item>
     </style>
+    <style name="IconConfgSobreAtt">
+        <item name="android:src">@drawable/icon_att_app3_night</item>
+    </style>
+    <style name="IconConfgSobreVersao">
+        <item name="android:src">@drawable/icon_versao_app_night</item>
+    </style>
 
 </resources>

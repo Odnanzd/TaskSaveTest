@@ -53,7 +53,7 @@ public class activity_welcome extends AppCompatActivity{
         buttonEntrar = findViewById(R.id.buttonEntrar);
         buttonCadastrar = findViewById(R.id.buttonCadastrar);
         progressBar = findViewById(R.id.progressBar);
-        loadingOverlay = findViewById(R.id.loadingOverlay);
+
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {

@@ -102,11 +102,9 @@ public class activity_main extends AppCompatActivity {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 if (Environment.isExternalStorageManager()) {
                     dialogAtt();
-                    Log.d("TESTE IF 1", "TESTE IF 1");
                 }
             } else {
                 verificarPermissoes();
-                Log.d("TESTE IF 2", "TESTE IF 2");
             }
         }
         verificarPermissaoNotifica();
