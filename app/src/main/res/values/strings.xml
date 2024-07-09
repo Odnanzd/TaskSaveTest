@@ -148,5 +148,9 @@
     <string name="text_view_confg_sobre">Sobre</string>
     <string name="text_view_confg_sobre_att">Verificar por atualizações</string>
     <string name="text_view_confg_sobre_versao">Versão</string>
+    <string name="text_view_confg_sobre_att_auto">Atualizar automaticamente</string>
 
+    <!---Strings activity_confg_notificacao -->
+    <string name="text_view_confg_not_tit">Notificações</string>
+    <string name="text_view_confg_not_silenc">Silenciar notificações</string>
 </resources>

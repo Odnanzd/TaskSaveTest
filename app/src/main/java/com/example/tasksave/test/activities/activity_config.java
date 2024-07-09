@@ -13,7 +13,7 @@ import com.example.tasksave.R;
 
 public class activity_config extends AppCompatActivity {
     private ImageView imageViewBack;
-    private LinearLayout linearLayout, linearLayoutSecPriv, linearLayoutSobre;
+    private LinearLayout linearLayout, linearLayoutSecPriv, linearLayoutSobre, linearLayoutNotifica;
     @SuppressLint("MissingSuperCall")
     public void onBackPressed() {
 
@@ -32,6 +32,7 @@ public class activity_config extends AppCompatActivity {
         linearLayout = findViewById(R.id.linearLayout2);
         linearLayoutSecPriv = findViewById(R.id.linearLayoutSeg);
         linearLayoutSobre = findViewById(R.id.linearLayoutSobre);
+        linearLayoutNotifica = findViewById(R.id.linearLayoutNot);
 
         imageViewBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +65,14 @@ public class activity_config extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(activity_config.this, activity_confg_sobre.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            }
+        });
+        linearLayoutNotifica.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(activity_config.this, activity_confg_notificacao.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }

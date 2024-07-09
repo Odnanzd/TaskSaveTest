@@ -49,7 +49,7 @@
         <item name="android:src">@drawable/icon_logout</item>
     </style>
     <style name="IconFile">
-        <item name="android:src">@drawable/icon_file2</item>
+        <item name="android:src">@drawable/icon_folder</item>
     </style>
     <style name="TextDarkMain">
         <item name="android:textColor">@color/blue19</item>
@@ -178,16 +178,16 @@
         <item name="android:src">@drawable/logotipo_welcome_svg</item>
     </style>
     <style name="ImageViewConfigUser">
-        <item name="android:src">@drawable/user_icon2</item>
+        <item name="android:src">@drawable/icon_profile_confg</item>
     </style>
     <style name="ImageViewConfigLock">
-        <item name="android:src">@drawable/lock_icon_2</item>
+        <item name="android:src">@drawable/icon_security</item>
     </style>
     <style name="ImageViewConfigNext">
         <item name="android:src">@drawable/button_next_dark</item>
     </style>
     <style name="ImageViewConfigBell">
-        <item name="android:src">@drawable/bell_icon_svg</item>
+        <item name="android:src">@drawable/icon_bell_confg</item>
     </style>
 
     <style name="ImageViewIconEmail">
@@ -197,7 +197,7 @@
         <item name="android:src">@drawable/logout_icon</item>
     </style>
     <style name="ImageViewIconBook">
-        <item name="android:src">@drawable/book_icon_svg</item>
+        <item name="android:src">@drawable/icon_sobre</item>
     </style>
     <style name="ImageViewIconPencil">
         <item name="android:src">@drawable/pencil_icon_svg</item>
@@ -213,7 +213,7 @@
         <item name="android:src">@drawable/icon_fingerprint_sec</item>
     </style>
     <style name="IconSecPassword">
-        <item name="android:src">@drawable/icon_sec_password</item>
+        <item name="android:src">@drawable/icon_lock</item>
     </style>
     <style name="IconSecPermission">
         <item name="android:src">@drawable/icon_permissao</item>
@@ -232,6 +232,15 @@
     </style>
     <style name="IconConfgSobreVersao">
         <item name="android:src">@drawable/icon_versao_app</item>
+    </style>
+    <style name="IconConfgSobreAttAuto">
+        <item name="android:src">@drawable/icon_att_auto</item>
+    </style>
+    <style name="ProgressBarColor">
+        <item name="android:indeterminateTint">@color/blue18</item>
+    </style>
+    <style name="IconConfgNot">
+        <item name="android:src">@drawable/icon_bell_silen</item>
     </style>
 
 

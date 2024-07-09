@@ -5,6 +5,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import java.time.LocalDate;
@@ -33,7 +34,12 @@ public class AlarmScheduler {
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
         );
 
-        if (alarmManager != null) {
+
+        SharedPreferences sharedPrefs3 = context.getSharedPreferences("ArquivoNotifica", Context.MODE_PRIVATE);
+        boolean notifica = sharedPrefs3.getBoolean("NaoNotifica", false);
+
+
+        if (alarmManager != null && !notifica) {
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent);
             Log.d("AlarmScheduler", "Intent" + triggerAtMillis);
         }

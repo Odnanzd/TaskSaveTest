@@ -25,8 +25,17 @@ import com.example.tasksave.R;
 
 public class activity_sec_permissao extends AppCompatActivity {
 
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(activity_sec_permissao.this, activity_sec_priv.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+    }
+
     private ImageView imageViewMidia, imageViewTotal, imageViewBack;
-    private LinearLayout linearLayoutMidia, linearLayoutTotal;
+    private LinearLayout linearLayoutMidia, linearLayoutTotal, linearLayoutTotal2;
     private static final int PERMISSION_REQUEST_CODE = 1;
     private static final int MANAGE_STORAGE_PERMISSION_REQUEST_CODE = 2;
     private static final String TAG = "AtualizacaoApp";
@@ -43,6 +52,7 @@ public class activity_sec_permissao extends AppCompatActivity {
 
         linearLayoutMidia = findViewById(R.id.linearLayout2);
         linearLayoutTotal = findViewById(R.id.linearLayoutSeg);
+        linearLayoutTotal2 = findViewById(R.id.linearLayout4);
 
         verificarPermissaoLerEscrever();
         verificarPermissaoAcessoTotal();
@@ -94,7 +104,9 @@ public class activity_sec_permissao extends AppCompatActivity {
                 imageViewTotal.setImageResource(R.drawable.icon_negative_2);
             }
         } else {
-            imageViewTotal.setImageResource(R.drawable.icon_negative_2);
+
+            linearLayoutTotal2.setVisibility(View.GONE);
+
         }
     }
 
