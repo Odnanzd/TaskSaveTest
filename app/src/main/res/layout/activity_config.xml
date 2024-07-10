@@ -107,13 +107,141 @@
             android:layout_marginTop="8dp"
             />
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayoutAparencia2"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        >
 
+        <LinearLayout
+            android:id="@+id/linearLayoutAparencia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+
+            >
+
+            <ImageView
+                style="@style/IconConfgAparencia"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                tools:layout_editor_absoluteX="14dp"
+                tools:layout_editor_absoluteY="112dp" />
+
+            <TextView
+                android:id="@+id/textViewAparencia"
+                style="@style/TextViewMain"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="9dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/ptsans_bold"
+                android:gravity="start"
+                android:text="@string/text_view_liner_aparencia"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp" />
+
+            <ImageView
+                android:id="@+id/imageViewSeta"
+                style="@style/ImageViewConfigNext"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageViewPalito5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/linha_horizontal"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="8dp"
+            />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutAparencia2"
+
+
+        >
+
+        <LinearLayout
+            android:id="@+id/linearLayoutNot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+
+            >
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                style="@style/ImageViewConfigBell"
+                tools:layout_editor_absoluteX="14dp"
+                tools:layout_editor_absoluteY="112dp" />
+
+            <TextView
+                android:id="@+id/textViewNot"
+                style="@style/TextViewMain"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="9dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/ptsans_bold"
+                android:gravity="start"
+                android:text="@string/text_view_linear_not"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp" />
+
+            <ImageView
+                android:id="@+id/imageViewSeta3"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                style="@style/ImageViewConfigNext"
+                />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageViewPalito3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/linha_horizontal"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="8dp"
+            />
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
 
 
         >
@@ -174,76 +302,11 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout5"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-
-
-        >
-
-        <LinearLayout
-            android:id="@+id/linearLayoutNot"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:orientation="horizontal"
-
-            >
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="8dp"
-                style="@style/ImageViewConfigBell"
-                tools:layout_editor_absoluteX="14dp"
-                tools:layout_editor_absoluteY="112dp" />
-
-            <TextView
-                android:id="@+id/textViewNot"
-                style="@style/TextViewMain"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="9dp"
-                android:layout_weight="1"
-                android:fontFamily="@font/ptsans_bold"
-                android:gravity="start"
-                android:text="@string/text_view_linear_not"
-                android:textSize="18sp"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="0dp" />
-
-            <ImageView
-                android:id="@+id/imageViewSeta3"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="5dp"
-                style="@style/ImageViewConfigNext"
-                />
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/imageViewPalito3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/linha_horizontal"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="8dp"
-            />
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/linearLayout6"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
 
 
         >

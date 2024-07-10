@@ -82,6 +82,11 @@
     <string name="text_view_mes">Todo mês</string>
     <string name="text_view_ano">Todo ano</string>
 
+    <!---Strings dialog_theme-->
+    <string name="text_view_theme_automatico">Automático</string>
+    <string name="text_view_theme_light">Claro</string>
+    <string name="text_view_theme_dark">Escuro</string>
+
     <!---Strings activity_config-->
     <string name="text_view_config_act">Configurações</string>
 
@@ -116,6 +121,8 @@
     <string name="text_view_linear_segura">Segurança e Privacidade</string>
     <string name="text_view_linear_not">Notificações</string>
     <string name="text_view_liner_sobre">Sobre</string>
+    <string name="text_view_liner_aparencia">Aparência</string>
+
 
     <!---Strings activity_config_perfil -->
     <string name="text_view_nome_completo">Fernando Macoache Rabelo Trindade</string>
@@ -153,4 +160,8 @@
     <!---Strings activity_confg_notificacao -->
     <string name="text_view_confg_not_tit">Notificações</string>
     <string name="text_view_confg_not_silenc">Silenciar notificações</string>
+
+    <!---Strings activity_confg_aparencia -->
+    <string name="text_view_confg_aparencia">Aparência</string>
+    <string name="text_view_confg_aparencia_alternar">Tema</string>
 </resources>

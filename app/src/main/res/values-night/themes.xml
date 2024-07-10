@@ -237,5 +237,10 @@
     <style name="IconConfgNot">
         <item name="android:src">@drawable/icon_bell_silen_night</item>
     </style>
-
+    <style name="IconConfgAparencia">
+        <item name="android:src">@drawable/icon_aparencia_night</item>
+    </style>
+    <style name="IconConfgAparenciaAlternar">
+        <item name="android:src">@drawable/icon_aparencia_alternar_night</item>
+    </style>
 </resources>

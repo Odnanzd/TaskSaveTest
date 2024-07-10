@@ -3,6 +3,7 @@ package com.example.tasksave.test.activities;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
@@ -237,6 +238,7 @@ public class activity_splash_screen extends AppCompatActivity {
         textViewInfo = findViewById(R.id.textViewInfo);
         buttonTenta = findViewById(R.id.button_fing_tenta);
 
+        carregaTema();
         gifThemeMode();
 
 
@@ -389,7 +391,11 @@ public class activity_splash_screen extends AppCompatActivity {
 
         UiModeManager uiModeManager = (UiModeManager) getSystemService(Context.UI_MODE_SERVICE);
         int mode = uiModeManager.getNightMode();
-        if (mode == UiModeManager.MODE_NIGHT_YES) {
+
+        SharedPreferences sharedPreferences = getSharedPreferences("ArquivoTema", MODE_PRIVATE);
+        String temaCarregado = sharedPreferences.getString("ArqTemaString", "Automático");
+
+        if (temaCarregado.equals("Escuro")) {
             // Modo escuro ativado
             Glide.with(this)
                     .load(R.raw.tasksavegid) // Substitua gif_escuro pelo nome do seu GIF escuro na pasta res/raw
@@ -397,6 +403,27 @@ public class activity_splash_screen extends AppCompatActivity {
                     .skipMemoryCache(true)
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(imageView);
+
+            Log.d("TEMA ESCOLHIDO", "IF 1"+temaCarregado);
+        } else if(temaCarregado.equals("Claro")) {
+            // Modo escuro não ativado
+            Glide.with(this)
+                    .load(R.raw.tasksavelight) // Substitua gif_claro pelo nome do seu GIF claro na pasta res/raw
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .into(imageView);
+            Log.d("TEMA ESCOLHIDO", "IF 2"+temaCarregado);
+
+        }else if (mode == UiModeManager.MODE_NIGHT_YES) {
+            // Modo escuro ativado
+            Glide.with(this)
+                    .load(R.raw.tasksavegid) // Substitua gif_escuro pelo nome do seu GIF escuro na pasta res/raw
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .into(imageView);
+            Log.d("TEMA ESCOLHIDO", "IF 3"+temaCarregado);
         } else {
             // Modo escuro não ativado
             Glide.with(this)
@@ -405,6 +432,26 @@ public class activity_splash_screen extends AppCompatActivity {
                     .skipMemoryCache(true)
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(imageView);
+            Log.d("TEMA ESCOLHIDO", "IF 4"+temaCarregado);
+        }
+    }
+
+    public void carregaTema() {
+
+        SharedPreferences sharedPreferences = getSharedPreferences("ArquivoTema", MODE_PRIVATE);
+        String temaCarregado = sharedPreferences.getString("ArqTemaString", "Automático");
+
+        switch (temaCarregado) {
+
+            case "Automático":
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                break;
+            case "Escuro":
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                break;
+            case "Claro":
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                break;
         }
     }
     public static boolean isNetworkConnected(Context context) {
@@ -414,16 +461,6 @@ public class activity_splash_screen extends AppCompatActivity {
             return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
         }
         return false;
-    }
-    @SuppressLint("NewApi")
-    private Calendar convertToCalendar(LocalDate date, int hour, int minute) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(java.util.Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        calendar.set(Calendar.HOUR_OF_DAY, hour);
-        calendar.set(Calendar.MINUTE, minute);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        return calendar;
     }
     public String obterVersaoAtual() {
         try {
