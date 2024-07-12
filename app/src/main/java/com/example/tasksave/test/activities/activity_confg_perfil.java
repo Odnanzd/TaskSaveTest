@@ -1,5 +1,6 @@
 package com.example.tasksave.test.activities;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tasksave.R;
 
@@ -29,7 +31,7 @@ public class activity_confg_perfil extends AppCompatActivity {
         nomeExibicao();
     }
 
-    LinearLayout linearLayout;
+    LinearLayout linearLayout, linearLayoutSair;
     TextView textView;
     ImageView imageViewback;
 
@@ -39,6 +41,8 @@ public class activity_confg_perfil extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confg_perfil);
         linearLayout = findViewById(R.id.linearLayout2);
+        linearLayoutSair = findViewById(R.id.linearLayoutSair);
+
         textView = findViewById(R.id.TextViewNomeCompleto);
         imageViewback = findViewById(R.id.imageView4);
 
@@ -61,6 +65,12 @@ public class activity_confg_perfil extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
+        linearLayoutSair.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
     public void nomeExibicao() {
 
@@ -69,5 +79,28 @@ public class activity_confg_perfil extends AppCompatActivity {
 
         textView.setText(valorNome);
 
+    }
+    public void attFingerprintPositivo() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity_confg_perfil.this);
+        builder.setTitle("Confirmar");
+        builder.setCancelable(false);
+        builder.setMessage("Deseja confirmar as alterações e sair? ");
+        builder.setNegativeButton("Não", (dialog, which) -> {
+
+        });
+        builder.setPositiveButton("Sim", (dialog, which) -> {
+
+            SharedPreferences sharedPreferences1 = getSharedPreferences("ArquivoTextoAPP", MODE_PRIVATE);
+            SharedPreferences.Editor editor1 = sharedPreferences1.edit();
+            editor1.clear();
+            editor1.apply();
+
+
+
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

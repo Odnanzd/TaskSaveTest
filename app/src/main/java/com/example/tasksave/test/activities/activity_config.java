@@ -3,18 +3,22 @@ package com.example.tasksave.test.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.tasksave.R;
+import com.example.tasksave.test.sharedPreferences.SharedPreferencesUsuario;
 
 public class activity_config extends AppCompatActivity {
     private ImageView imageViewBack;
     private LinearLayout linearLayout, linearLayoutSecPriv, linearLayoutSobre, linearLayoutNotifica,
-            linearLayoutAparencia;
+            linearLayoutAparencia, linearLayoutPainelADMTodo, linearLayoutPainelADM;
     @SuppressLint("MissingSuperCall")
     public void onBackPressed() {
 
@@ -24,6 +28,7 @@ public class activity_config extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +40,10 @@ public class activity_config extends AppCompatActivity {
         linearLayoutSobre = findViewById(R.id.linearLayoutSobre);
         linearLayoutNotifica = findViewById(R.id.linearLayoutNot);
         linearLayoutAparencia = findViewById(R.id.linearLayoutAparencia);
+        linearLayoutPainelADM = findViewById(R.id.linearLayoutPainelADM);
+        linearLayoutPainelADMTodo = findViewById(R.id.linearLayoutPainelADMTodo);
+
+        permissaoUsuario();
 
         imageViewBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,5 +96,19 @@ public class activity_config extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
         });
+
+    }
+    public void permissaoUsuario() {
+
+        SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(activity_config.this);
+
+
+
+        SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("ArquivoIDCargoUsuario", Context.MODE_PRIVATE);
+        int arquivoIDUsuario = sharedPrefs2.getInt("idCargoUsuario", -1);
+
+        if (sharedPreferencesUsuario.getUsuarioCargo()==2) {
+            linearLayoutPainelADMTodo.setVisibility(View.VISIBLE);
+        }
     }
 }

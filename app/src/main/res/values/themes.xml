@@ -248,6 +248,9 @@
     <style name="IconConfgAparenciaAlternar">
         <item name="android:src">@drawable/icon_aparencia_alternar</item>
     </style>
+    <style name="IconPainelADM">
+        <item name="android:src">@drawable/icon_painel</item>
+    </style>
 
 
 </resources>

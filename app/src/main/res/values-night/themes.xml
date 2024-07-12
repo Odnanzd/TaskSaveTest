@@ -243,4 +243,7 @@
     <style name="IconConfgAparenciaAlternar">
         <item name="android:src">@drawable/icon_aparencia_alternar_night</item>
     </style>
+    <style name="IconPainelADM">
+        <item name="android:src">@drawable/icon_paine_night</item>
+    </style>
 </resources>

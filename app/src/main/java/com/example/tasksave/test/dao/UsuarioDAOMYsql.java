@@ -147,6 +147,33 @@ public class UsuarioDAOMYsql {
             return false;
         }
     }
+    public int cargoUsuarioAWS(String email) {
+
+        ConnectionClass connectionClass = new ConnectionClass();
+        conn = connectionClass.CONN();
+
+        try {
+            String sql = "SELECT id FROM cargo_usuario cu JOIN usuario u ON u.cargo_id = cu.id WHERE u.email_usuario = ?;";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                // Se houver pelo menos uma linha no resultado
+                return resultSet.getInt("id"); // Recupere o nome do usuário da coluna "nome_usuario"
+            } else {
+                // Se não houver linha correspondente aos parâmetros fornecidos
+                return 0; // Ou outra indicação de que nenhum usuário foi encontrado
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+
+
+
     public double getVersionAPP() {
         double versaoAppDB = 0.0;
         ConnectionClass connectionClass = new ConnectionClass();

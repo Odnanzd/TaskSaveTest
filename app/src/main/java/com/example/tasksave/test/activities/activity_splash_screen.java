@@ -38,13 +38,11 @@ import com.example.tasksave.test.dao.UsuarioDAOMYsql;
 import com.example.tasksave.test.objetos.User;
 import com.example.tasksave.R;
 import com.example.tasksave.test.servicos.ServicosATT;
+import com.example.tasksave.test.sharedPreferences.SharedPreferencesUsuario;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Executor;
@@ -78,14 +76,8 @@ public class activity_splash_screen extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
 
-            SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("arquivoSalvarLoginEmail", Context.MODE_PRIVATE);
-            SharedPreferences sharedPrefs = getApplicationContext().getSharedPreferences("arquivoSalvarLoginSenha", Context.MODE_PRIVATE);
-            SharedPreferences sharedPrefs3 = getApplicationContext().getSharedPreferences("ArquivoFingerPrint", Context.MODE_PRIVATE);
-            SharedPreferences sharedPrefs4 = getApplicationContext().getSharedPreferences("arquivoSalvarSenha", Context.MODE_PRIVATE);
 
-            String valorEmail = sharedPrefs2.getString("arquivo_Email", "");
-            String valorsenha = sharedPrefs.getString("arquivo_Senha", "");
-
+            SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(activity_splash_screen.this);
 
             if (!isNetworkConnected(activity_splash_screen.this)) {
                 runOnUiThread(new Runnable() {
@@ -118,8 +110,8 @@ public class activity_splash_screen extends AppCompatActivity {
                     } else {
 
                         User user = new User();
-                        user.setEmail_usuario(valorEmail);
-                        user.setSenha_usuario(valorsenha);
+                        user.setEmail_usuario(sharedPreferencesUsuario.getEmailLogin());
+                        user.setSenha_usuario(sharedPreferencesUsuario.getSenhaLogin());
 
                         UsuarioDAOMYsql usuarioDAOMYsql = new UsuarioDAOMYsql();
                         ResultSet resultSet = usuarioDAOMYsql.autenticaUsuarioAWS(user);
@@ -127,8 +119,6 @@ public class activity_splash_screen extends AppCompatActivity {
 
                         SharedPreferences sharedPrefs5 = getApplicationContext().getSharedPreferences("ArquivoATT", Context.MODE_PRIVATE);
                         boolean arquivoATT = sharedPrefs5.getBoolean("NaoATT", false);
-
-                        Log.d("TESTE BOOLEAN", "TESTE"+arquivoATT);
 
                         if(!arquivoATT) {
 
@@ -191,7 +181,7 @@ public class activity_splash_screen extends AppCompatActivity {
                         if (resultSet.next()) {
                             // Sucesso na autenticação
                             str = "Sucesso";
-                            if (sharedPrefs4.getBoolean("SalvarSenha", false) && sharedPrefs3.getBoolean("AcessoFingerPrint", false)) {
+                            if (sharedPreferencesUsuario.getSalvarSenha() && sharedPreferencesUsuario.getBiometriaUsuario()) {
 
                                 runOnUiThread(new Runnable() {
                                     @Override
@@ -200,7 +190,7 @@ public class activity_splash_screen extends AppCompatActivity {
                                     }
                                 });
 
-                            } else if (sharedPrefs4.getBoolean("SalvarSenha", false) && !sharedPrefs3.getBoolean("AcessoFingerPrint", false)) {
+                            } else if (sharedPreferencesUsuario.getSalvarSenha() && !sharedPreferencesUsuario.getBiometriaUsuario()) {
 
                                 Intent intent = new Intent(activity_splash_screen.this, activity_main.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -262,16 +252,15 @@ public class activity_splash_screen extends AppCompatActivity {
             @Override
             public void run() {
 
-                SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("ArquivoPrimeiroAcesso", Context.MODE_PRIVATE);
-                SharedPreferences sharedPrefs = getApplicationContext().getSharedPreferences("arquivoSalvarSenha", Context.MODE_PRIVATE);
+                SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(activity_splash_screen.this);
 
-                if (!sharedPrefs2.getBoolean("PrimeiroAcesso", false)) {
+                if (!sharedPreferencesUsuario.getPrimeiroAcesso()) {
 
                     Intent intent = new Intent(activity_splash_screen.this, activity_welcome.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
 
-                } else if (!sharedPrefs.getBoolean("SalvarSenha", false)) {
+                } else if (!sharedPreferencesUsuario.getSalvarSenha()) {
 
                     Intent intent = new Intent(activity_splash_screen.this, activity_login.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

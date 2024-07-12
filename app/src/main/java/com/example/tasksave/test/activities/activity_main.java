@@ -35,6 +35,7 @@ import com.example.tasksave.test.conexaoSQLite.Conexao;
 import com.example.tasksave.R;
 import com.example.tasksave.test.dao.AgendaDAO;
 import com.example.tasksave.test.servicos.ServicosATT;
+import com.example.tasksave.test.sharedPreferences.SharedPreferencesUsuario;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -216,11 +217,9 @@ public class activity_main extends AppCompatActivity {
 
     public void dialogFingerprint() {
 
+        SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(activity_main.this);
 
-        SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("ArquivoPrimeiroAcessoFingerPrint", Context.MODE_PRIVATE);
-        SharedPreferences sharedPrefs3 = getApplicationContext().getSharedPreferences("arquivoSalvarSenha", Context.MODE_PRIVATE);
-
-        if(!sharedPrefs2.getBoolean("PrimeiroAcessoFingerPrint", false) && sharedPrefs3.getBoolean("SalvarSenha", false)){
+        if(!sharedPreferencesUsuario.getPrimeiroAcessoBiometriaUsuario() && sharedPreferencesUsuario.getSalvarSenha()){
 
             Dialog dialog = new Dialog(activity_main.this, R.style.DialogAboveKeyboard);
             dialog.setContentView(R.layout.dialog_fingerprint); // Defina o layout do diálogo
@@ -234,15 +233,9 @@ public class activity_main extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    SharedPreferences prefs = getSharedPreferences("ArquivoFingerPrint", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putBoolean("AcessoFingerPrint", true);
-                    editor.commit();
+                    sharedPreferencesUsuario.armazenaBiometria(true);
 
-                    SharedPreferences prefs2 = getSharedPreferences("ArquivoPrimeiroAcessoFingerPrint", MODE_PRIVATE);
-                    SharedPreferences.Editor editor2 = prefs2.edit();
-                    editor2.putBoolean("PrimeiroAcessoFingerPrint", true);
-                    editor2.commit();
+                    sharedPreferencesUsuario.armazenaPrimeiroAcessoFingerprint(true);
 
                     dialog.dismiss();
                 }
@@ -252,15 +245,10 @@ public class activity_main extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    SharedPreferences prefs = getSharedPreferences("ArquivoFingerPrint", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putBoolean("AcessoFingerPrint", false);
-                    editor.commit();
+                    sharedPreferencesUsuario.armazenaBiometria(false);
 
-                    SharedPreferences prefs2 = getSharedPreferences("ArquivoPrimeiroAcessoFingerPrint", MODE_PRIVATE);
-                    SharedPreferences.Editor editor2 = prefs2.edit();
-                    editor2.putBoolean("PrimeiroAcessoFingerPrint", true);
-                    editor2.commit();
+                    sharedPreferencesUsuario.armazenaPrimeiroAcessoFingerprint(true);
+
 
                     dialog.dismiss();
                 }

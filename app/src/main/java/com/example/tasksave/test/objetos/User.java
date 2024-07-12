@@ -7,6 +7,7 @@ public class User {
     private String email_usuario;
 
     private String senha_usuario;
+    private int cargo_usuario;
 
     public int getId_usuario() {
         return id_usuario;
@@ -38,5 +39,13 @@ public class User {
 
     public void setSenha_usuario(String senha_usuario) {
         this.senha_usuario = senha_usuario;
+    }
+
+    public int getCargo_usuario() {
+        return cargo_usuario;
+    }
+
+    public void setCargo_usuario(int cargo_usuario) {
+        this.cargo_usuario = cargo_usuario;
     }
 }
