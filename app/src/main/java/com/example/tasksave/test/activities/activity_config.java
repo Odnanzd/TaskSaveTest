@@ -102,11 +102,6 @@ public class activity_config extends AppCompatActivity {
 
         SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(activity_config.this);
 
-
-
-        SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("ArquivoIDCargoUsuario", Context.MODE_PRIVATE);
-        int arquivoIDUsuario = sharedPrefs2.getInt("idCargoUsuario", -1);
-
         if (sharedPreferencesUsuario.getUsuarioCargo()==2) {
             linearLayoutPainelADMTodo.setVisibility(View.VISIBLE);
         }

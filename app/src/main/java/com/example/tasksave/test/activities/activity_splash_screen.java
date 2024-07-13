@@ -38,6 +38,7 @@ import com.example.tasksave.test.dao.UsuarioDAOMYsql;
 import com.example.tasksave.test.objetos.User;
 import com.example.tasksave.R;
 import com.example.tasksave.test.servicos.ServicosATT;
+import com.example.tasksave.test.sharedPreferences.SharedPreferencesConfg;
 import com.example.tasksave.test.sharedPreferences.SharedPreferencesUsuario;
 
 import java.sql.Connection;
@@ -116,9 +117,8 @@ public class activity_splash_screen extends AppCompatActivity {
                         UsuarioDAOMYsql usuarioDAOMYsql = new UsuarioDAOMYsql();
                         ResultSet resultSet = usuarioDAOMYsql.autenticaUsuarioAWS(user);
 
-
-                        SharedPreferences sharedPrefs5 = getApplicationContext().getSharedPreferences("ArquivoATT", Context.MODE_PRIVATE);
-                        boolean arquivoATT = sharedPrefs5.getBoolean("NaoATT", false);
+                        SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(activity_splash_screen.this);
+                        boolean arquivoATT = sharedPreferencesConfg.getAtualiza();
 
                         if(!arquivoATT) {
 
@@ -127,19 +127,9 @@ public class activity_splash_screen extends AppCompatActivity {
                             String versaoDBAppString = String.valueOf(versaoDBApp);
                             servicosATT = new ServicosATT(activity_splash_screen.this, versaoAtual, versaoDBAppString);
                             boolean attDisponivel = servicosATT.verificaAtt();
-                            Log.d("ATT DIS", "ATT"+attDisponivel);
+
 
                             if(attDisponivel) {
-
-                                SharedPreferences prefs0 = getSharedPreferences("ArquivoTextoAPP", MODE_PRIVATE);
-                                SharedPreferences prefs1 = getSharedPreferences("ArquivoTexto1", MODE_PRIVATE);
-                                SharedPreferences prefs2 = getSharedPreferences("ArquivoTexto2", MODE_PRIVATE);
-                                SharedPreferences prefs03 = getSharedPreferences("ArquivoTexto3", MODE_PRIVATE);
-
-                                SharedPreferences.Editor editor0 = prefs0.edit();
-                                SharedPreferences.Editor editor1 = prefs1.edit();
-                                SharedPreferences.Editor editor2 = prefs2.edit();
-                                SharedPreferences.Editor editor03 = prefs03.edit();
 
                                 try {
 
@@ -148,14 +138,11 @@ public class activity_splash_screen extends AppCompatActivity {
                                     String versaoTexto2 = usuarioDAOMYsql.getTexto2APP();
                                     String versaoTexto3 = usuarioDAOMYsql.getTexto3APP();
 
-                                    editor0.putString("ATT", versaoTextoAPP);
-                                    editor0.commit();
-                                    editor1.putString("ATT", versaoTexto1);
-                                    editor1.commit();
-                                    editor2.putString("ATT", versaoTexto2);
-                                    editor2.commit();
-                                    editor03.putString("ATT", versaoTexto3);
-                                    editor03.commit();
+
+                                    sharedPreferencesConfg.armazenaTextoAPP(versaoTextoAPP);
+                                    sharedPreferencesConfg.armazenaTexto1(versaoTexto1);
+                                    sharedPreferencesConfg.armazenaTexto2(versaoTexto2);
+                                    sharedPreferencesConfg.armazenaTexto3(versaoTexto3);
 
 
                                 } catch (Exception e) {
@@ -165,16 +152,13 @@ public class activity_splash_screen extends AppCompatActivity {
                                     // Retorne valores padrão em caso de erro
                                 }
 
-                                SharedPreferences prefs3 = getSharedPreferences("ArquivoAttDisp", MODE_PRIVATE);
-                                SharedPreferences.Editor editor3 = prefs3.edit();
-                                editor3.putBoolean("Atualizacao", true);
-                                editor3.commit();
+                                sharedPreferencesConfg.armazenaAtualizaDisponivel(true);
+
 
                             }else {
-                                SharedPreferences prefs3 = getSharedPreferences("ArquivoAttDisp", MODE_PRIVATE);
-                                SharedPreferences.Editor editor3 = prefs3.edit();
-                                editor3.putBoolean("Atualizacao", false);
-                                editor3.commit();
+
+                                sharedPreferencesConfg.armazenaAtualizaDisponivel(false);
+
                             }
                         }
 
@@ -381,8 +365,8 @@ public class activity_splash_screen extends AppCompatActivity {
         UiModeManager uiModeManager = (UiModeManager) getSystemService(Context.UI_MODE_SERVICE);
         int mode = uiModeManager.getNightMode();
 
-        SharedPreferences sharedPreferences = getSharedPreferences("ArquivoTema", MODE_PRIVATE);
-        String temaCarregado = sharedPreferences.getString("ArqTemaString", "Automático");
+        SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(activity_splash_screen.this);
+        String temaCarregado = sharedPreferencesConfg.getTema();
 
         if (temaCarregado.equals("Escuro")) {
             // Modo escuro ativado
@@ -393,7 +377,6 @@ public class activity_splash_screen extends AppCompatActivity {
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(imageView);
 
-            Log.d("TEMA ESCOLHIDO", "IF 1"+temaCarregado);
         } else if(temaCarregado.equals("Claro")) {
             // Modo escuro não ativado
             Glide.with(this)
@@ -402,7 +385,6 @@ public class activity_splash_screen extends AppCompatActivity {
                     .skipMemoryCache(true)
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(imageView);
-            Log.d("TEMA ESCOLHIDO", "IF 2"+temaCarregado);
 
         }else if (mode == UiModeManager.MODE_NIGHT_YES) {
             // Modo escuro ativado
@@ -412,7 +394,7 @@ public class activity_splash_screen extends AppCompatActivity {
                     .skipMemoryCache(true)
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(imageView);
-            Log.d("TEMA ESCOLHIDO", "IF 3"+temaCarregado);
+
         } else {
             // Modo escuro não ativado
             Glide.with(this)
@@ -421,14 +403,14 @@ public class activity_splash_screen extends AppCompatActivity {
                     .skipMemoryCache(true)
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(imageView);
-            Log.d("TEMA ESCOLHIDO", "IF 4"+temaCarregado);
+
         }
     }
 
     public void carregaTema() {
 
-        SharedPreferences sharedPreferences = getSharedPreferences("ArquivoTema", MODE_PRIVATE);
-        String temaCarregado = sharedPreferences.getString("ArqTemaString", "Automático");
+        SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(activity_splash_screen.this);
+        String temaCarregado = sharedPreferencesConfg.getTema();
 
         switch (temaCarregado) {
 

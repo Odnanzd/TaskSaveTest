@@ -16,6 +16,7 @@ import com.example.tasksave.R;
 import com.example.tasksave.test.dao.AgendaDAO;
 import com.example.tasksave.test.objetos.Agenda;
 import com.example.tasksave.test.servicesreceiver.AlarmScheduler;
+import com.example.tasksave.test.sharedPreferences.SharedPreferencesConfg;
 
 import java.util.List;
 
@@ -65,19 +66,17 @@ public class activity_confg_notificacao extends AppCompatActivity {
                 if(aSwitch.isChecked()) {
 
                     removerLembreteTarefa();
-                    SharedPreferences prefs0 = getSharedPreferences("ArquivoNotifica", MODE_PRIVATE);
-                    SharedPreferences.Editor editor0 = prefs0.edit();
-                    editor0.putBoolean("NaoNotifica", true);
-                    editor0.commit();
+                    SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(activity_confg_notificacao.this);
+                    sharedPreferencesConfg.armazenaNotifica(true);
+
                     Toast.makeText(getBaseContext(), "Notificações silenciadas", Toast.LENGTH_LONG).show();
 
                 } else {
 
-                    SharedPreferences prefs0 = getSharedPreferences("ArquivoNotifica", MODE_PRIVATE);
-                    SharedPreferences.Editor editor0 = prefs0.edit();
-                    editor0.putBoolean("NaoNotifica", false);
-                    editor0.commit();
+                    SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(activity_confg_notificacao.this);
+                    sharedPreferencesConfg.armazenaNotifica(false);
                     reagendaLembreteTarefa(activity_confg_notificacao.this);
+
                     Toast.makeText(getBaseContext(), "Notificações ativadas", Toast.LENGTH_LONG).show();
                 }
             }
@@ -86,8 +85,9 @@ public class activity_confg_notificacao extends AppCompatActivity {
     }
     public void verificaNotifica() {
 
-        SharedPreferences sharedPrefs3 = getApplicationContext().getSharedPreferences("ArquivoNotifica", Context.MODE_PRIVATE);
-        boolean notifica = sharedPrefs3.getBoolean("NaoNotifica", false);
+
+        SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(activity_confg_notificacao.this);
+        boolean notifica = sharedPreferencesConfg.getNotifica();
 
         if(!notifica) {
             aSwitch.setChecked(false);

@@ -29,6 +29,7 @@ import com.example.tasksave.R;
 import com.example.tasksave.test.dao.UsuarioDAOMYsql;
 import com.example.tasksave.test.objetos.VersaoAPP;
 import com.example.tasksave.test.servicos.ServicosATT;
+import com.example.tasksave.test.sharedPreferences.SharedPreferencesConfg;
 
 import org.w3c.dom.Text;
 
@@ -207,8 +208,8 @@ public class activity_confg_sobre extends AppCompatActivity {
     }
     public void attAutoSwitch() {
 
-        SharedPreferences sharedPrefs3 = getApplicationContext().getSharedPreferences("ArquivoATT", Context.MODE_PRIVATE);
-        boolean attAuto = sharedPrefs3.getBoolean("NaoATT", false);
+        SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(activity_confg_sobre.this);
+        boolean attAuto = sharedPreferencesConfg.getAtualiza();
 
         if (!attAuto) {
             aSwitch.setChecked(true);
@@ -228,10 +229,10 @@ public class activity_confg_sobre extends AppCompatActivity {
         });
         builder.setPositiveButton("Sim", (dialog, which) -> {
             // Ação para o botão OK
-            SharedPreferences prefs = getSharedPreferences("ArquivoATT", MODE_PRIVATE);
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean("NaoATT", false);
-            editor.commit();
+
+            SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(activity_confg_sobre.this);
+            sharedPreferencesConfg.armazenaAtualiza(false);
+
             finish();
             Toast.makeText(getBaseContext(), "Atualização automática ativada", Toast.LENGTH_SHORT).show();
 
@@ -252,10 +253,9 @@ public class activity_confg_sobre extends AppCompatActivity {
         });
         builder.setPositiveButton("Sim", (dialog, which) -> {
             // Ação para o botão OK
-            SharedPreferences prefs = getSharedPreferences("ArquivoATT", MODE_PRIVATE);
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean("NaoATT", true);
-            editor.commit();
+            SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(activity_confg_sobre.this);
+            sharedPreferencesConfg.armazenaAtualiza(true);
+
             finish();
             Toast.makeText(getBaseContext(), "Atualização automática desativada", Toast.LENGTH_SHORT).show();
 

@@ -24,6 +24,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.example.tasksave.R;
+import com.example.tasksave.test.sharedPreferences.SharedPreferencesConfg;
+import com.example.tasksave.test.sharedPreferences.SharedPreferencesUsuario;
 
 public class activity_confg_aparencia extends AppCompatActivity {
 
@@ -73,6 +75,8 @@ public class activity_confg_aparencia extends AppCompatActivity {
     }
     void dialogRepeater(String textoRepeater) {
 
+        SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(activity_confg_aparencia.this);
+
         Dialog dialog2 = new Dialog(activity_confg_aparencia.this, R.style.DialogTheme2);
         dialog2.setContentView(R.layout.dialog_theme); // Defina o layout do diálogo
         dialog2.setCancelable(true); // Permita que o usuário toque fora do diálogo para fechá-lo
@@ -115,29 +119,19 @@ public class activity_confg_aparencia extends AppCompatActivity {
 
                 if(modoSelecionado.equals("Automático")) {
 
-                    SharedPreferences prefs0 = getSharedPreferences("ArquivoTema", MODE_PRIVATE);
-                    SharedPreferences.Editor editor0 = prefs0.edit();
-                    editor0.putString("ArqTemaString", "Automático");
-                    editor0.commit();
+                    sharedPreferencesConfg.armazenaTema("Automático");
 
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
 
                 }else if(modoSelecionado.equals("Escuro")) {
 
-                    SharedPreferences prefs0 = getSharedPreferences("ArquivoTema", MODE_PRIVATE);
-                    SharedPreferences.Editor editor0 = prefs0.edit();
-                    editor0.putString("ArqTemaString", "Escuro");
-                    editor0.commit();
+                    sharedPreferencesConfg.armazenaTema("Escuro");
 
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
                 }else if(modoSelecionado.equals("Claro")) {
 
-                    SharedPreferences prefs0 = getSharedPreferences("ArquivoTema", MODE_PRIVATE);
-                    SharedPreferences.Editor editor0 = prefs0.edit();
-                    editor0.putString("ArqTemaString", "Claro");
-                    editor0.commit();
-
+                    sharedPreferencesConfg.armazenaTema("Claro");
 
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 }
@@ -154,8 +148,8 @@ public class activity_confg_aparencia extends AppCompatActivity {
     }
     public String carregaTema() {
 
-        SharedPreferences sharedPreferences = getSharedPreferences("ArquivoTema", MODE_PRIVATE);
-        String temaCarregado = sharedPreferences.getString("ArqTemaString", "Automático");
+        SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(activity_confg_aparencia.this);
+        String temaCarregado = sharedPreferencesConfg.getTema();
 
         return temaCarregado;
 

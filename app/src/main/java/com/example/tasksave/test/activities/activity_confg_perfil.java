@@ -3,6 +3,7 @@ package com.example.tasksave.test.activities;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,9 +15,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tasksave.R;
+import com.example.tasksave.test.sharedPreferences.SharedPreferencesConfg;
+import com.example.tasksave.test.sharedPreferences.SharedPreferencesUsuario;
 
 public class activity_confg_perfil extends AppCompatActivity {
 
+    @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(activity_confg_perfil.this, activity_config.class);
@@ -68,14 +72,14 @@ public class activity_confg_perfil extends AppCompatActivity {
         linearLayoutSair.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                attFingerprintPositivo();
             }
         });
     }
     public void nomeExibicao() {
 
-        SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("arquivoSalvarUser", Context.MODE_PRIVATE);
-        String valorNome = sharedPrefs2.getString("userString", "");
+        SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(activity_confg_perfil.this);
+        String valorNome = sharedPreferencesUsuario.getUsuarioLogin();
 
         textView.setText(valorNome);
 
@@ -91,12 +95,12 @@ public class activity_confg_perfil extends AppCompatActivity {
         });
         builder.setPositiveButton("Sim", (dialog, which) -> {
 
-            SharedPreferences sharedPreferences1 = getSharedPreferences("ArquivoTextoAPP", MODE_PRIVATE);
-            SharedPreferences.Editor editor1 = sharedPreferences1.edit();
-            editor1.clear();
-            editor1.apply();
+            SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(activity_confg_perfil.this);
+            sharedPreferencesConfg.clearShareds();
 
-
+            Intent intent = new Intent(activity_confg_perfil.this, activity_login.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
 
         });
 

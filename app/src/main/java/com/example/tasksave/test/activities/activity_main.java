@@ -35,6 +35,7 @@ import com.example.tasksave.test.conexaoSQLite.Conexao;
 import com.example.tasksave.R;
 import com.example.tasksave.test.dao.AgendaDAO;
 import com.example.tasksave.test.servicos.ServicosATT;
+import com.example.tasksave.test.sharedPreferences.SharedPreferencesConfg;
 import com.example.tasksave.test.sharedPreferences.SharedPreferencesUsuario;
 
 import java.text.DateFormat;
@@ -188,8 +189,8 @@ public class activity_main extends AppCompatActivity {
 
     public void ExibirUsername() {
 
-        SharedPreferences sharedPrefs = getApplicationContext().getSharedPreferences("arquivoSalvarUser", Context.MODE_PRIVATE);
-        String sharedPrd = sharedPrefs.getString("userString", "");
+        SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(activity_main.this);
+        String sharedPrd = sharedPreferencesUsuario.getUsuarioLogin();
 
         String[] Nomes = sharedPrd.split(" ");
         if (Nomes.length > 0) {
@@ -277,22 +278,15 @@ public class activity_main extends AppCompatActivity {
     }
     public void dialogAtt() {
 
-        SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("ArquivoAttDisp", Context.MODE_PRIVATE);
+        SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(activity_main.this);
+        boolean attDisp = sharedPreferencesConfg.getAtualizaDisponivel();
 
-        SharedPreferences sharedPrefs3 = getApplicationContext().getSharedPreferences("ArquivoTextoAPP", Context.MODE_PRIVATE);
-        SharedPreferences sharedPrefs4 = getApplicationContext().getSharedPreferences("ArquivoTexto1", Context.MODE_PRIVATE);
-        SharedPreferences sharedPrefs5 = getApplicationContext().getSharedPreferences("ArquivoTexto2", Context.MODE_PRIVATE);
-        SharedPreferences sharedPrefs6 = getApplicationContext().getSharedPreferences("ArquivoTexto3", Context.MODE_PRIVATE);
+        String versaoTextoAPP = sharedPreferencesConfg.getTextoAPP();
+        String versaoTexto1 = sharedPreferencesConfg.getTexto1();
+        String versaoTexto2 = sharedPreferencesConfg.getTexto2();
+        String versaoTexto3 = sharedPreferencesConfg.getTexto3();
 
-        String versaoTextoAPP = sharedPrefs3.getString("ATT", "");
-        String versaoTexto1 = sharedPrefs4.getString("ATT", "");
-        String versaoTexto2 = sharedPrefs5.getString("ATT", "");
-        String versaoTexto3 = sharedPrefs6.getString("ATT", "");
-
-        Log.d("teste boolean","teste att"+sharedPrefs2.getBoolean("Atualizacao", false));
-
-
-        if(sharedPrefs2.getBoolean("Atualizacao", false)) {
+        if(attDisp) {
             servicosATT = new ServicosATT(activity_main.this, "1", "100");
             servicosATT.dialogAtt(versaoTextoAPP, versaoTexto1, versaoTexto2, versaoTexto3);
         }
