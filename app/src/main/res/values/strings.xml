@@ -165,4 +165,14 @@
     <!---Strings activity_confg_aparencia -->
     <string name="text_view_confg_aparencia">Aparência</string>
     <string name="text_view_confg_aparencia_alternar">Tema</string>
+
+    <!---Strings activity_confg_perfil_email-->
+    <string name="text_view_confg_perfil_mail">E-mail</string>
+
+    <!---Strings activity_confg_sec_senha-->
+    <string name="text_view_confg_sec_senha">Alterar Senha</string>
+    <string name="text_view_confg_sec_senha2">Senha Antiga</string>
+    <string name="text_view_confg_sec_senha3">Senha Nova</string>
+    <string name="text_view_confg_sec_senha4">Repetir Nova Senha</string>
+
 </resources>

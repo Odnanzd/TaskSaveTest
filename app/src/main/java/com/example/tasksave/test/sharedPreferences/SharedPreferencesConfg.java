@@ -146,7 +146,7 @@ public class SharedPreferencesConfg {
     //Sair CONFG
     public void clearShareds(){
 
-        String[] sharedPreferencesNames = {"ArquivoTema", "ArquivoNotifica", "ArquivoATT", "ArquivoTextoAPP","ArquivoTexto1",
+        String[] sharedPreferencesNames = {"ArquivoNotifica", "ArquivoATT", "ArquivoTextoAPP","ArquivoTexto1",
                 "ArquivoTexto2","ArquivoTexto3", "ArquivoAttDisp", "arquivoSalvarSenha", "ArquivoPrimeiroAcesso",
                 "arquivoSalvarLoginEmail", "arquivoSalvarLoginSenha", "arquivoSalvarUser", "ArquivoIDCargoUsuario",
                 "ArquivoFingerPrint", "ArquivoPrimeiroAcessoFingerPrint"};
@@ -157,10 +157,6 @@ public class SharedPreferencesConfg {
             editor.clear();
             editor.apply(); // ou editor.commit();
         }
-
-        SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(context);
-        Log.d("TESTE CLEAR", "TESTE"+sharedPreferencesUsuario.getUsuarioLogin());
-        Log.d("TESTE CLEAR", "TESTE"+sharedPreferencesUsuario.getEmailLogin());
 
     }
 }

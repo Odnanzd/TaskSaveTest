@@ -33,6 +33,12 @@
         android:theme="@style/Theme.TaskSave"
         tools:targetApi="31">
         <activity
+            android:name=".test.activities.activity_confg_sec_senha"
+            android:exported="false" />
+        <activity
+            android:name=".test.activities.activity_confg_perfil_email"
+            android:exported="false" />
+        <activity
             android:name=".test.activities.activity_confg_aparencia"
             android:exported="false" />
         <activity

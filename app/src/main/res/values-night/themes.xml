@@ -246,4 +246,5 @@
     <style name="IconPainelADM">
         <item name="android:src">@drawable/icon_paine_night</item>
     </style>
+
 </resources>

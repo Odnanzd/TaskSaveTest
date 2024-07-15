@@ -35,6 +35,7 @@ public class activity_sec_priv extends AppCompatActivity {
         imageViewBack = findViewById(R.id.imageView4);
         linearLayoutBiometria = findViewById(R.id.linearLayoutSeg);
         linearLayoutPermissao = findViewById(R.id.linearLayoutNot);
+        linearLayoutSenha = findViewById(R.id.linearLayout2);
 
         imageViewBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +60,17 @@ public class activity_sec_priv extends AppCompatActivity {
                 Intent intent = new Intent(activity_sec_priv.this, activity_sec_permissao.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            }
+        });
+
+        linearLayoutSenha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(activity_sec_priv.this, activity_confg_sec_senha.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+
             }
         });
     }

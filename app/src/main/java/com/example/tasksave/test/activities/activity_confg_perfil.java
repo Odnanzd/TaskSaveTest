@@ -35,7 +35,7 @@ public class activity_confg_perfil extends AppCompatActivity {
         nomeExibicao();
     }
 
-    LinearLayout linearLayout, linearLayoutSair;
+    LinearLayout linearLayout, linearLayoutSair, linearLayoutMail;
     TextView textView;
     ImageView imageViewback;
 
@@ -46,6 +46,7 @@ public class activity_confg_perfil extends AppCompatActivity {
         setContentView(R.layout.activity_confg_perfil);
         linearLayout = findViewById(R.id.linearLayout2);
         linearLayoutSair = findViewById(R.id.linearLayoutSair);
+        linearLayoutMail = findViewById(R.id.linearLayoutEmail);
 
         textView = findViewById(R.id.TextViewNomeCompleto);
         imageViewback = findViewById(R.id.imageView4);
@@ -73,6 +74,15 @@ public class activity_confg_perfil extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 attFingerprintPositivo();
+            }
+        });
+
+        linearLayoutMail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(activity_confg_perfil.this, activity_confg_perfil_email.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
         });
     }

@@ -171,6 +171,51 @@ public class UsuarioDAOMYsql {
         }
     }
 
+    public boolean atualizarSenhaAWS(User user) {
+
+        ConnectionClass connectionClass = new ConnectionClass();
+        conn = connectionClass.CONN();
+
+        try {
+            String sql = "UPDATE usuario SET senha_usuario = ? WHERE id_usuario = ?";
+
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setString(1, user.getSenha_usuario());
+            pstm.setInt(2, user.getId_usuario());
+
+            pstm.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Log.d("Usuario cadastro", "ERRO AO CADASTRAR" + e);
+            return false;
+        }
+    }
+    public String senhaUsuarioAWS(String email) {
+
+        ConnectionClass connectionClass = new ConnectionClass();
+        conn = connectionClass.CONN();
+
+        try {
+            String sql = "SELECT senha_usuario FROM usuario WHERE email_usuario = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                // Se houver pelo menos uma linha no resultado
+                return resultSet.getString("senha_usuario"); // Recupere o nome do usuário da coluna "nome_usuario"
+            } else {
+                // Se não houver linha correspondente aos parâmetros fornecidos
+                return null; // Ou outra indicação de que nenhum usuário foi encontrado
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
 
 
