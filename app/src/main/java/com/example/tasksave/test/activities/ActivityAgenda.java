@@ -63,7 +63,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class activity_agenda extends AppCompatActivity implements CustomAdapter.OnItemSelectionChangedListener, CustomAdapter.OnItemActionListener  {
+public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.OnItemSelectionChangedListener, CustomAdapter.OnItemActionListener  {
 
     private Conexao con;
     private SQLiteDatabase db;
@@ -86,7 +86,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
     @Override
     public void onBackPressed() {
 
-        Intent intent = new Intent(activity_agenda.this, activity_main.class);
+        Intent intent = new Intent(ActivityAgenda.this, ActivityMain.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
@@ -122,7 +122,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         imageView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity_agenda.this, activity_main.class);
+                Intent intent = new Intent(ActivityAgenda.this, ActivityMain.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
@@ -132,7 +132,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent(activity_agenda.this, activity_agenda_concluido.class);
+                Intent intent2 = new Intent(ActivityAgenda.this, ActivityAgendaConcluido.class);
                 startActivity(intent2);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
@@ -157,7 +157,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
                 clickTodos=true;
                 clickPendentes=false;
                 clickAtradasados=false;
-                checkChanges(listaIDs, repetirModoLembrete2, activity_agenda.this, listView);
+                checkChanges(listaIDs, repetirModoLembrete2, ActivityAgenda.this, listView);
             }
         });
 
@@ -169,7 +169,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
                 clickPendentes=true;
                 clickTodos=false;
                 clickAtradasados=false;
-                checkChanges(listaIDs, repetirModoLembrete2, activity_agenda.this, listView);
+                checkChanges(listaIDs, repetirModoLembrete2, ActivityAgenda.this, listView);
 
             }
         });
@@ -180,7 +180,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
                 clickAtradasados=true;
                 clickPendentes=false;
                 clickTodos=false;
-                checkChanges(listaIDs, repetirModoLembrete2, activity_agenda.this, listView);
+                checkChanges(listaIDs, repetirModoLembrete2, ActivityAgenda.this, listView);
             }
         });
 
@@ -191,7 +191,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
     @SuppressLint("NewApi")
     public void checkChanges(ArrayList<Long> listaIDs2, ArrayList<Integer> repetirModoLembrete3, Context context2, ListView listView1) {
 
-        AgendaDAO agendaDAO = new AgendaDAO(activity_agenda.this);
+        AgendaDAO agendaDAO = new AgendaDAO(ActivityAgenda.this);
 
         if(clickTodos) {
 
@@ -232,7 +232,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         prefsEditor2.clear();
         prefsEditor2.commit();
 
-        Dialog dialog = new Dialog(activity_agenda.this, R.style.DialogAboveKeyboard);
+        Dialog dialog = new Dialog(ActivityAgenda.this, R.style.DialogAboveKeyboard);
         dialog.setContentView(R.layout.dialog_add_agenda); // Defina o layout do diálogo
         dialog.setCancelable(true); // Permita que o usuário toque fora do diálogo para fechá-lo
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
@@ -268,7 +268,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
                     textViewRepeat.setClickable(false);
 
                     // Exibir o diálogo
-                    Dialog dialog2 = new Dialog(activity_agenda.this, R.style.DialogTheme2);
+                    Dialog dialog2 = new Dialog(ActivityAgenda.this, R.style.DialogTheme2);
                     dialog2.setContentView(R.layout.dialog_repeat_reminder); // Defina o layout do diálogo
                     dialog2.setCancelable(true); // Permita que o usuário toque fora do diálogo para fechá-lo
                     dialog2.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
@@ -361,7 +361,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
                 int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
                 // Criar o DatePickerDialog com a data atual
-                DatePickerDialog dialog = new DatePickerDialog(activity_agenda.this, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog dialog = new DatePickerDialog(ActivityAgenda.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
@@ -401,7 +401,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
                 int minute = calendar.get(java.util.Calendar.MINUTE);
 
                 // Crie o TimePickerDialog com a hora atual definida
-                TimePickerDialog timePickerDialog = new TimePickerDialog(activity_agenda.this, new TimePickerDialog.OnTimeSetListener() {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(ActivityAgenda.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
@@ -586,7 +586,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
                             prefsEditor2.commit();
 
                             dialog.dismiss();
-                            Toast.makeText(activity_agenda.this, "Tarefa Salva. Nº " + idAgenda, Toast.LENGTH_LONG).show();
+                            Toast.makeText(ActivityAgenda.this, "Tarefa Salva. Nº " + idAgenda, Toast.LENGTH_LONG).show();
                             refreshData();
 
 
@@ -611,9 +611,9 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
 
                             long idAgenda = agenda.getId();
 
-                            Toast.makeText(activity_agenda.this, "Tarefa Salva. Nº " + idAgenda, Toast.LENGTH_LONG).show();
+                            Toast.makeText(ActivityAgenda.this, "Tarefa Salva. Nº " + idAgenda, Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(activity_agenda.this, "Erro", Toast.LENGTH_LONG).show();
+                            Toast.makeText(ActivityAgenda.this, "Erro", Toast.LENGTH_LONG).show();
                         }
 
                         SharedPreferences save = getApplicationContext().getSharedPreferences("arquivoSalvar2", Context.MODE_PRIVATE);
@@ -689,7 +689,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
     protected void onResume() {
         super.onResume();
         VerificaLista();
-        ListarAgenda();
+        checkChanges(listaIDs, repetirModoLembrete2, ActivityAgenda.this, listView);
     }
 
     public void VerificaLista() {
@@ -834,7 +834,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
         }
 
         // Configurando o CustomAdapter para a ListView
-        CustomAdapter customAdapter = new CustomAdapter(activity_agenda.this, listaIDs, titulos, descricoes, datas, horas,
+        CustomAdapter customAdapter = new CustomAdapter(ActivityAgenda.this, listaIDs, titulos, descricoes, datas, horas,
                 lembretes, repetirLembrete, repetirModoLembrete2, notificouTarefa);
         listView.setAdapter(customAdapter);
         customAdapter.setOnItemSelectionChangedListener(this);
@@ -860,7 +860,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
                 ArrayList<Long> selectedIds = customAdapter.getSelectedIds();
                 if (!selectedIds.isEmpty()) {
 
-                    AlertDialog.Builder msgbox = new AlertDialog.Builder(activity_agenda.this);
+                    AlertDialog.Builder msgbox = new AlertDialog.Builder(ActivityAgenda.this);
                     msgbox.setTitle("Excluir");
                     msgbox.setIcon(android.R.drawable.ic_menu_delete);
                     msgbox.setMessage("Você realmente deseja excluir a(s) tarefa(s)?");
@@ -886,7 +886,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
 
                 } else {
                     // Se nenhum item estiver selecionado, você pode mostrar uma mensagem para o usuário
-                    Toast.makeText(activity_agenda.this, "Nenhum item selecionado", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityAgenda.this, "Nenhum item selecionado", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -900,7 +900,7 @@ public class activity_agenda extends AppCompatActivity implements CustomAdapter.
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 // Atualize a exibição dos checkboxes em todos os itens da lista
                 Log.d("Verificação On item", "Teste");
-                AgendaDAO agendaDAO = new AgendaDAO(activity_agenda.this);
+                AgendaDAO agendaDAO = new AgendaDAO(ActivityAgenda.this);
 
 
                 customAdapter.setShowCheckboxes(!customAdapter.isShowCheckboxes());

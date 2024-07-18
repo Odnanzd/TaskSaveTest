@@ -19,7 +19,7 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class activity_calendar extends AppCompatActivity implements CalendarAdapter.OnItemListener {
+public class ActivityCalendar extends AppCompatActivity implements CalendarAdapter.OnItemListener {
 
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;

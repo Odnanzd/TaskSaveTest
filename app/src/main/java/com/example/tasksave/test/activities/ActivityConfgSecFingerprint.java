@@ -1,9 +1,7 @@
 package com.example.tasksave.test.activities;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,7 +16,7 @@ import androidx.biometric.BiometricManager;
 import com.example.tasksave.R;
 import com.example.tasksave.test.sharedPreferences.SharedPreferencesUsuario;
 
-public class activity_sec_fingerprint extends AppCompatActivity {
+public class ActivityConfgSecFingerprint extends AppCompatActivity {
 
     private ImageView imageViewBack;
     private LinearLayout linearLayoutFingerprint;
@@ -27,7 +25,7 @@ public class activity_sec_fingerprint extends AppCompatActivity {
     @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(activity_sec_fingerprint.this, activity_sec_priv.class);
+        Intent intent = new Intent(ActivityConfgSecFingerprint.this, ActivitySecPriv.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
@@ -55,7 +53,7 @@ public class activity_sec_fingerprint extends AppCompatActivity {
         imageViewBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(activity_sec_fingerprint.this, activity_sec_priv.class);
+                Intent intent = new Intent(ActivityConfgSecFingerprint.this, ActivitySecPriv.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
@@ -75,7 +73,7 @@ public class activity_sec_fingerprint extends AppCompatActivity {
     }
     public void fingerprintSwitch() {
 
-        SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(activity_sec_fingerprint.this);
+        SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(ActivityConfgSecFingerprint.this);
         boolean fingerprint = sharedPreferencesUsuario.getBiometriaUsuario();
 
         if (fingerprint) {
@@ -86,9 +84,9 @@ public class activity_sec_fingerprint extends AppCompatActivity {
     }
     public void attFingerprintPositivo() {
 
-        SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(activity_sec_fingerprint.this);
+        SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(ActivityConfgSecFingerprint.this);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity_sec_fingerprint.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityConfgSecFingerprint.this);
         builder.setTitle("Confirmar");
         builder.setCancelable(false);
         builder.setMessage("Deseja confirmar as alterações e sair? ");
@@ -109,9 +107,9 @@ public class activity_sec_fingerprint extends AppCompatActivity {
     }
     public void attFingerprintNegativo() {
 
-        SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(activity_sec_fingerprint.this);
+        SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(ActivityConfgSecFingerprint.this);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity_sec_fingerprint.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityConfgSecFingerprint.this);
         builder.setTitle("Confirmar");
         builder.setCancelable(false);
         builder.setMessage("Deseja confirmar as alterações e sair? ");

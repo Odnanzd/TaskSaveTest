@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     style="@style/BackgroundTheme2"
-    tools:context=".test.activities.activity_cadastro">
+    tools:context=".test.activities.ActivityCadastro">
 
     <ImageView
         android:id="@+id/tasksavelogo"

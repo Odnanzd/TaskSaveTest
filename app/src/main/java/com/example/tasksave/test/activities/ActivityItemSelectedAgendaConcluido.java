@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,7 +16,7 @@ import com.example.tasksave.R;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class activity_item_selected_agenda_concluido extends AppCompatActivity {
+public class ActivityItemSelectedAgendaConcluido extends AppCompatActivity {
     TextView textView;
     EditText editTextTitulo;
     EditText editTextDescricao;

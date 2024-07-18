@@ -2,9 +2,7 @@ package com.example.tasksave.test.activities;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
@@ -16,7 +14,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,9 +28,7 @@ import com.example.tasksave.test.objetos.VersaoAPP;
 import com.example.tasksave.test.servicos.ServicosATT;
 import com.example.tasksave.test.sharedPreferences.SharedPreferencesConfg;
 
-import org.w3c.dom.Text;
-
-public class activity_confg_sobre extends AppCompatActivity {
+public class ActivityConfgSobre extends AppCompatActivity {
     @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
@@ -43,7 +38,7 @@ public class activity_confg_sobre extends AppCompatActivity {
             Toast.makeText(getBaseContext(), "Por favor, aguarde.", Toast.LENGTH_LONG).show();
 
         }else {
-            Intent intent = new Intent(activity_confg_sobre.this, activity_config.class);
+            Intent intent = new Intent(ActivityConfgSobre.this, ActivityConfg.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
@@ -81,7 +76,7 @@ public class activity_confg_sobre extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent2 = new Intent(activity_confg_sobre.this, activity_config.class);
+                Intent intent2 = new Intent(ActivityConfgSobre.this, ActivityConfg.class);
                 intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent2);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
@@ -147,7 +142,7 @@ public class activity_confg_sobre extends AppCompatActivity {
             // Configura o ServicosATT com a versão obtida
             String versaoAtual = obterVersaoAtual();
 
-            servicosATT = new ServicosATT(activity_confg_sobre.this, versaoAtual, versaoAPP.getVersionDB());
+            servicosATT = new ServicosATT(ActivityConfgSobre.this, versaoAtual, versaoAPP.getVersionDB());
 
             boolean sucesso = servicosATT.verificaAtt();
 
@@ -208,7 +203,7 @@ public class activity_confg_sobre extends AppCompatActivity {
     }
     public void attAutoSwitch() {
 
-        SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(activity_confg_sobre.this);
+        SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(ActivityConfgSobre.this);
         boolean attAuto = sharedPreferencesConfg.getAtualiza();
 
         if (!attAuto) {
@@ -220,7 +215,7 @@ public class activity_confg_sobre extends AppCompatActivity {
 
     public void attAutoPositivo() {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity_confg_sobre.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityConfgSobre.this);
         builder.setTitle("Confirmar");
         builder.setCancelable(false);
         builder.setMessage("Deseja confirmar as alterações e sair? ");
@@ -230,7 +225,7 @@ public class activity_confg_sobre extends AppCompatActivity {
         builder.setPositiveButton("Sim", (dialog, which) -> {
             // Ação para o botão OK
 
-            SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(activity_confg_sobre.this);
+            SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(ActivityConfgSobre.this);
             sharedPreferencesConfg.armazenaAtualiza(false);
 
             finish();
@@ -243,7 +238,7 @@ public class activity_confg_sobre extends AppCompatActivity {
     }
     public void attAutoNegativo() {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity_confg_sobre.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityConfgSobre.this);
         builder.setTitle("Confirmar");
         builder.setCancelable(false);
         builder.setMessage("Deseja confirmar as alterações e sair? ");
@@ -253,7 +248,7 @@ public class activity_confg_sobre extends AppCompatActivity {
         });
         builder.setPositiveButton("Sim", (dialog, which) -> {
             // Ação para o botão OK
-            SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(activity_confg_sobre.this);
+            SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(ActivityConfgSobre.this);
             sharedPreferencesConfg.armazenaAtualiza(true);
 
             finish();

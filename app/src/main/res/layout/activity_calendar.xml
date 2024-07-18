@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     style="@style/BackgroundTheme2"
-    tools:context=".test.activities.activity_calendar">
+    tools:context=".test.activities.ActivityCalendar">
 
     <LinearLayout
         android:layout_width="match_parent"

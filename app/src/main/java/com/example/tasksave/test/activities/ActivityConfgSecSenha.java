@@ -25,7 +25,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class activity_confg_sec_senha extends AppCompatActivity {
+public class ActivityConfgSecSenha extends AppCompatActivity {
 
     private EditText editTextSenhaAntiga, editTextSenhaNova1, editTextSenhaNova2;
     private FrameLayout frameLayout;
@@ -38,12 +38,12 @@ public class activity_confg_sec_senha extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if(!processoAtualiza) {
-            Intent intent = new Intent(activity_confg_sec_senha.this, activity_sec_priv.class);
+            Intent intent = new Intent(ActivityConfgSecSenha.this, ActivitySecPriv.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
         }else {
-            Toast.makeText(activity_confg_sec_senha.this, "Por favor, aguarde.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ActivityConfgSecSenha.this, "Por favor, aguarde.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -117,12 +117,12 @@ public class activity_confg_sec_senha extends AppCompatActivity {
             public void onClick(View view) {
 
                 if(!processoAtualiza) {
-                    Intent intent = new Intent(activity_confg_sec_senha.this, activity_sec_priv.class);
+                    Intent intent = new Intent(ActivityConfgSecSenha.this, ActivitySecPriv.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                 }else {
-                    Toast.makeText(activity_confg_sec_senha.this, "Por favor, aguarde.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityConfgSecSenha.this, "Por favor, aguarde.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -146,7 +146,7 @@ public class activity_confg_sec_senha extends AppCompatActivity {
 
                 processoAtualiza = true;
 
-                SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(activity_confg_sec_senha.this);
+                SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(ActivityConfgSecSenha.this);
                 String valorEmail = sharedPreferencesUsuario.getEmailLogin();
 
                 UsuarioDAOMYsql usuarioDAOMYsql = new UsuarioDAOMYsql();

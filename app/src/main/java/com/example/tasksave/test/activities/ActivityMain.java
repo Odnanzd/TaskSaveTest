@@ -43,7 +43,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class activity_main extends AppCompatActivity {
+public class ActivityMain extends AppCompatActivity {
     private ServicosATT servicosATT;
 
 
@@ -115,7 +115,7 @@ public class activity_main extends AppCompatActivity {
         linearLayoutConfig.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentConfig = new Intent(activity_main.this, activity_config.class);
+                Intent intentConfig = new Intent(ActivityMain.this, ActivityConfg.class);
                 intentConfig.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intentConfig);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
@@ -125,7 +125,7 @@ public class activity_main extends AppCompatActivity {
         linearLayoutLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(activity_main.this, "Saindo...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActivityMain.this, "Saindo...", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
@@ -133,7 +133,7 @@ public class activity_main extends AppCompatActivity {
         linearLayoutAgenda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent2 = new Intent(activity_main.this, activity_agenda.class);
+                Intent intent2 = new Intent(ActivityMain.this, ActivityAgenda.class);
                 intent2.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                 startActivity(intent2);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
@@ -144,7 +144,7 @@ public class activity_main extends AppCompatActivity {
         linearLayoutCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent(activity_main.this, activity_calendar.class);
+                Intent intent2 = new Intent(ActivityMain.this, ActivityCalendar.class);
                 startActivity(intent2);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
@@ -189,7 +189,7 @@ public class activity_main extends AppCompatActivity {
 
     public void ExibirUsername() {
 
-        SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(activity_main.this);
+        SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(ActivityMain.this);
         String sharedPrd = sharedPreferencesUsuario.getUsuarioLogin();
 
         String[] Nomes = sharedPrd.split(" ");
@@ -218,11 +218,11 @@ public class activity_main extends AppCompatActivity {
 
     public void dialogFingerprint() {
 
-        SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(activity_main.this);
+        SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(ActivityMain.this);
 
         if(!sharedPreferencesUsuario.getPrimeiroAcessoBiometriaUsuario() && sharedPreferencesUsuario.getSalvarSenha()){
 
-            Dialog dialog = new Dialog(activity_main.this, R.style.DialogAboveKeyboard);
+            Dialog dialog = new Dialog(ActivityMain.this, R.style.DialogAboveKeyboard);
             dialog.setContentView(R.layout.dialog_fingerprint); // Defina o layout do diálogo
             dialog.setCancelable(true); // Permita que o usuário toque fora do diálogo para fechá-lo
             dialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
@@ -278,7 +278,7 @@ public class activity_main extends AppCompatActivity {
     }
     public void dialogAtt() {
 
-        SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(activity_main.this);
+        SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(ActivityMain.this);
         boolean attDisp = sharedPreferencesConfg.getAtualizaDisponivel();
 
         String versaoTextoAPP = sharedPreferencesConfg.getTextoAPP();
@@ -287,7 +287,7 @@ public class activity_main extends AppCompatActivity {
         String versaoTexto3 = sharedPreferencesConfg.getTexto3();
 
         if(attDisp) {
-            servicosATT = new ServicosATT(activity_main.this, "1", "100");
+            servicosATT = new ServicosATT(ActivityMain.this, "1", "100");
             servicosATT.dialogAtt(versaoTextoAPP, versaoTexto1, versaoTexto2, versaoTexto3);
         }
     }

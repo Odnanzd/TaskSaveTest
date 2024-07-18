@@ -11,7 +11,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.example.tasksave.R;
-import com.example.tasksave.test.activities.activity_main;
+import com.example.tasksave.test.activities.ActivityMain;
 import com.example.tasksave.test.dao.AgendaDAO;
 
 import java.time.LocalDate;
@@ -116,7 +116,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     @SuppressLint("MissingPermission")
     private void showNotification(Context context, String titulo, String descricao, PendingIntent pendingIntentConcluir, int notificationId,
                                   PendingIntent pendingIntentOk) {
-        Intent intent = new Intent(context, activity_main.class);
+        Intent intent = new Intent(context, ActivityMain.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE);
 

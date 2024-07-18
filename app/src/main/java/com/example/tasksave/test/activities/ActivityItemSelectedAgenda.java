@@ -42,7 +42,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
-public class activity_item_selected_agenda extends AppCompatActivity {
+public class ActivityItemSelectedAgenda extends AppCompatActivity {
 
     EditText editTextTitulo;
     EditText editTextDesc;
@@ -294,6 +294,7 @@ public class activity_item_selected_agenda extends AppCompatActivity {
 
     }
 
+
     private CompoundButton.OnCheckedChangeListener switchListener = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -391,7 +392,7 @@ public class activity_item_selected_agenda extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH);
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog dialog = new DatePickerDialog(activity_item_selected_agenda.this, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog dialog = new DatePickerDialog(ActivityItemSelectedAgenda.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
@@ -434,7 +435,7 @@ public class activity_item_selected_agenda extends AppCompatActivity {
         int hour = calendar.get(java.util.Calendar.HOUR_OF_DAY);
         int minute = calendar.get(java.util.Calendar.MINUTE);
 
-        TimePickerDialog timePickerDialog = new TimePickerDialog(activity_item_selected_agenda.this, new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog timePickerDialog = new TimePickerDialog(ActivityItemSelectedAgenda.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
@@ -480,7 +481,7 @@ public class activity_item_selected_agenda extends AppCompatActivity {
 
     void dialogRepeater(String textoRepeater) {
 
-        Dialog dialog2 = new Dialog(activity_item_selected_agenda.this, R.style.DialogTheme2);
+        Dialog dialog2 = new Dialog(ActivityItemSelectedAgenda.this, R.style.DialogTheme2);
         dialog2.setContentView(R.layout.dialog_repeat_reminder); // Defina o layout do diálogo
         dialog2.setCancelable(true); // Permita que o usuário toque fora do diálogo para fechá-lo
         dialog2.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
@@ -567,7 +568,7 @@ public class activity_item_selected_agenda extends AppCompatActivity {
 @SuppressLint("NewApi")
 public void attDados(View view) {
 
-    AgendaDAO agendaDAO = new AgendaDAO(activity_item_selected_agenda.this);
+    AgendaDAO agendaDAO = new AgendaDAO(ActivityItemSelectedAgenda.this);
 
     String textViewTitAtt = editTextTitulo.getText().toString();
     String textViewDescAtt = editTextDesc.getText().toString();
@@ -657,7 +658,7 @@ public void attDados(View view) {
     }
     public void cancelarAtt() {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity_item_selected_agenda.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityItemSelectedAgenda.this);
         builder.setTitle("Cancelar");
         builder.setMessage("Deseja cancelar as alterações e sair? ");
         builder.setNegativeButton("Não", (dialog, which) -> {

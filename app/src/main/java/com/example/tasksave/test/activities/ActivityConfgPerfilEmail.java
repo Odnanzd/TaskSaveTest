@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.tasksave.R;
 import com.example.tasksave.test.sharedPreferences.SharedPreferencesUsuario;
 
-public class activity_confg_perfil_email extends AppCompatActivity {
+public class ActivityConfgPerfilEmail extends AppCompatActivity {
 
     private ImageView imageViewBack;
     private TextView textViewMail;
@@ -30,7 +30,7 @@ public class activity_confg_perfil_email extends AppCompatActivity {
         imageViewBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(activity_confg_perfil_email.this, activity_confg_perfil.class);
+                Intent intent = new Intent(ActivityConfgPerfilEmail.this, ActivityConfgPerfil.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
@@ -40,7 +40,7 @@ public class activity_confg_perfil_email extends AppCompatActivity {
     }
     public void selecionaEmail() {
 
-        SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(activity_confg_perfil_email.this);
+        SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(ActivityConfgPerfilEmail.this);
 
         textViewMail.setText(sharedPreferencesUsuario.getEmailLogin());
 

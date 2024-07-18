@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,7 +26,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class activity_confg_perfil_nome extends AppCompatActivity {
+public class ActivityConfgPerfilNome extends AppCompatActivity {
 
 
     FrameLayout frameLayout;
@@ -39,7 +38,7 @@ public class activity_confg_perfil_nome extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        Intent intent = new Intent(activity_confg_perfil_nome.this, activity_confg_perfil.class);
+        Intent intent = new Intent(ActivityConfgPerfilNome.this, ActivityConfgPerfil.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
@@ -89,7 +88,7 @@ public class activity_confg_perfil_nome extends AppCompatActivity {
         imageViewback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity_confg_perfil_nome.this, activity_confg_perfil.class);
+                Intent intent = new Intent(ActivityConfgPerfilNome.this, ActivityConfgPerfil.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
@@ -106,7 +105,7 @@ public class activity_confg_perfil_nome extends AppCompatActivity {
 
             try {
 
-                SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(activity_confg_perfil_nome.this);
+                SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(ActivityConfgPerfilNome.this);
                 String valorEmail = sharedPreferencesUsuario.getEmailLogin();
 
                 UsuarioDAOMYsql usuarioDAOMYsql = new UsuarioDAOMYsql();
@@ -151,7 +150,7 @@ public class activity_confg_perfil_nome extends AppCompatActivity {
     }
     public void usuarioNomeAtual() {
 
-        SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(activity_confg_perfil_nome.this);
+        SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(ActivityConfgPerfilNome.this);
         String sharedPrd = sharedPreferencesUsuario.getUsuarioLogin();
 
         editTextNomeCompleto.setHint(sharedPrd);

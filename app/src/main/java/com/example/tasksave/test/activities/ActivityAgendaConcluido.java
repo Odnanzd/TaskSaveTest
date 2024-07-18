@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class activity_agenda_concluido extends AppCompatActivity {
+public class ActivityAgendaConcluido extends AppCompatActivity {
 
     ListView listView;
     ArrayList<Long> listaIDs = new ArrayList<>();
@@ -186,7 +186,7 @@ public class activity_agenda_concluido extends AppCompatActivity {
                 String horaItemFim = customAdapter.getItemHoraFim(position).toString();
                 Boolean lembreteItem = customAdapter.getItemLembrete(position);
 
-                Dialog dialog = new Dialog(activity_agenda_concluido.this, R.style.DialogAboveKeyboard2);
+                Dialog dialog = new Dialog(ActivityAgendaConcluido.this, R.style.DialogAboveKeyboard2);
                 dialog.setContentView(R.layout.activity_item_selected_agenda_concluido); // Defina o layout do diálogo
                 dialog.setCancelable(true); // Permita que o usuário toque fora do diálogo para fechá-lo
                 dialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;

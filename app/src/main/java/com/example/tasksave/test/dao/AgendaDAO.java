@@ -6,12 +6,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
-import android.util.Log;
 import android.widget.ListView;
 
 import androidx.annotation.RequiresApi;
 
-import com.example.tasksave.test.activities.activity_agenda;
 import com.example.tasksave.test.baseadapter.CustomAdapter;
 import com.example.tasksave.test.conexaoSQLite.Conexao;
 import com.example.tasksave.test.objetos.Agenda;

@@ -29,7 +29,7 @@ import java.sql.SQLException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class activity_login extends AppCompatActivity {
+public class ActivityLogin extends AppCompatActivity {
     public EditText input_Nome;
     public EditText input_Password;
     CheckBox checkBox;
@@ -92,7 +92,7 @@ public class activity_login extends AppCompatActivity {
                     frameLayout.setClickable(false);
                     button_cadastro.setClickable(false);
                     escondeTeclado();
-                    Autentica(activity_login.this);
+                    Autentica(ActivityLogin.this);
 
                 }
 
@@ -103,7 +103,7 @@ public class activity_login extends AppCompatActivity {
         button_cadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity_login.this, activity_cadastro.class);
+                Intent intent = new Intent(ActivityLogin.this, ActivityCadastro.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
@@ -164,7 +164,7 @@ public class activity_login extends AppCompatActivity {
                         sharedPreferencesUsuario.armazenaPrimeiroAcesso(true);
 
                         Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(activity_login.this, activity_main.class);
+                        Intent intent = new Intent(ActivityLogin.this, ActivityMain.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                     });

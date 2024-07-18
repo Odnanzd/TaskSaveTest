@@ -18,7 +18,7 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 
 import com.example.tasksave.R;
-import com.example.tasksave.test.activities.activity_item_selected_agenda;
+import com.example.tasksave.test.activities.ActivityItemSelectedAgenda;
 import com.example.tasksave.test.dao.AgendaDAO;
 
 import java.text.ParseException;
@@ -287,7 +287,7 @@ public class CustomAdapter extends BaseAdapter {
                         boolean repetirLembrete = getRepetirLembrete(position);
                         int repetirModoLembrete = getRepetirModoLembrete(position);
 
-                        Intent intent = new Intent(context, activity_item_selected_agenda.class);
+                        Intent intent = new Intent(context, ActivityItemSelectedAgenda.class);
                         intent.putExtra("idTarefa", idTarefa);
                         intent.putExtra("tituloIntent", titulo);
                         intent.putExtra("descIntent", descricao);

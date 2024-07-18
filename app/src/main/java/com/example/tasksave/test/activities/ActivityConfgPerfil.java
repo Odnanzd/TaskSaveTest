@@ -4,26 +4,23 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.tasksave.R;
 import com.example.tasksave.test.sharedPreferences.SharedPreferencesConfg;
 import com.example.tasksave.test.sharedPreferences.SharedPreferencesUsuario;
 
-public class activity_confg_perfil extends AppCompatActivity {
+public class ActivityConfgPerfil extends AppCompatActivity {
 
     @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(activity_confg_perfil.this, activity_config.class);
+        Intent intent = new Intent(ActivityConfgPerfil.this, ActivityConfg.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
@@ -55,7 +52,7 @@ public class activity_confg_perfil extends AppCompatActivity {
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity_confg_perfil.this, activity_confg_perfil_nome.class);
+                Intent intent = new Intent(ActivityConfgPerfil.this, ActivityConfgPerfilNome.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
@@ -64,7 +61,7 @@ public class activity_confg_perfil extends AppCompatActivity {
         imageViewback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity_confg_perfil.this, activity_config.class);
+                Intent intent = new Intent(ActivityConfgPerfil.this, ActivityConfg.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
@@ -80,7 +77,7 @@ public class activity_confg_perfil extends AppCompatActivity {
         linearLayoutMail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(activity_confg_perfil.this, activity_confg_perfil_email.class);
+                Intent intent = new Intent(ActivityConfgPerfil.this, ActivityConfgPerfilEmail.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
@@ -88,7 +85,7 @@ public class activity_confg_perfil extends AppCompatActivity {
     }
     public void nomeExibicao() {
 
-        SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(activity_confg_perfil.this);
+        SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(ActivityConfgPerfil.this);
         String valorNome = sharedPreferencesUsuario.getUsuarioLogin();
 
         textView.setText(valorNome);
@@ -96,7 +93,7 @@ public class activity_confg_perfil extends AppCompatActivity {
     }
     public void attFingerprintPositivo() {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity_confg_perfil.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityConfgPerfil.this);
         builder.setTitle("Confirmar");
         builder.setCancelable(false);
         builder.setMessage("Deseja confirmar as alterações e sair? ");
@@ -105,10 +102,10 @@ public class activity_confg_perfil extends AppCompatActivity {
         });
         builder.setPositiveButton("Sim", (dialog, which) -> {
 
-            SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(activity_confg_perfil.this);
+            SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(ActivityConfgPerfil.this);
             sharedPreferencesConfg.clearShareds();
 
-            Intent intent = new Intent(activity_confg_perfil.this, activity_login.class);
+            Intent intent = new Intent(ActivityConfgPerfil.this, ActivityLogin.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
 

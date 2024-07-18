@@ -26,7 +26,7 @@ import java.sql.ResultSet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class activity_cadastro extends AppCompatActivity {
+public class ActivityCadastro extends AppCompatActivity {
 
     EditText editTextUsuario;
     EditText editTextEmail;
@@ -75,7 +75,7 @@ public class activity_cadastro extends AppCompatActivity {
         textViewLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity_cadastro.this, activity_login.class);
+                Intent intent = new Intent(ActivityCadastro.this, ActivityLogin.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
@@ -225,7 +225,7 @@ public class activity_cadastro extends AppCompatActivity {
 
                             if (sucesso) {
                                 Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(activity_cadastro.this, activity_login.class);
+                                Intent intent = new Intent(ActivityCadastro.this, ActivityLogin.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
                             } else {

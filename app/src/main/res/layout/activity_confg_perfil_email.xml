@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     style="@style/BackgroundTheme2"
-    tools:context=".test.activities.activity_confg_perfil_email">
+    tools:context=".test.activities.ActivityConfgPerfilEmail">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"

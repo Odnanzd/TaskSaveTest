@@ -3,11 +3,8 @@ package com.example.tasksave.test.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,14 +12,14 @@ import android.widget.LinearLayout;
 import com.example.tasksave.R;
 import com.example.tasksave.test.sharedPreferences.SharedPreferencesUsuario;
 
-public class activity_config extends AppCompatActivity {
+public class ActivityConfg extends AppCompatActivity {
     private ImageView imageViewBack;
     private LinearLayout linearLayout, linearLayoutSecPriv, linearLayoutSobre, linearLayoutNotifica,
             linearLayoutAparencia, linearLayoutPainelADMTodo, linearLayoutPainelADM;
     @SuppressLint("MissingSuperCall")
     public void onBackPressed() {
 
-        Intent intent = new Intent(activity_config.this, activity_main.class);
+        Intent intent = new Intent(ActivityConfg.this, ActivityMain.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
@@ -48,7 +45,7 @@ public class activity_config extends AppCompatActivity {
         imageViewBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent(activity_config.this, activity_main.class);
+                Intent intent2 = new Intent(ActivityConfg.this, ActivityMain.class);
                 intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent2);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
@@ -57,7 +54,7 @@ public class activity_config extends AppCompatActivity {
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity_config.this, activity_confg_perfil.class);
+                Intent intent = new Intent(ActivityConfg.this, ActivityConfgPerfil.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
@@ -66,7 +63,7 @@ public class activity_config extends AppCompatActivity {
         linearLayoutSecPriv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(activity_config.this, activity_sec_priv.class);
+                Intent intent = new Intent(ActivityConfg.this, ActivitySecPriv.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
@@ -75,7 +72,7 @@ public class activity_config extends AppCompatActivity {
         linearLayoutSobre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(activity_config.this, activity_confg_sobre.class);
+                Intent intent = new Intent(ActivityConfg.this, ActivityConfgSobre.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
@@ -83,7 +80,7 @@ public class activity_config extends AppCompatActivity {
         linearLayoutNotifica.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(activity_config.this, activity_confg_notificacao.class);
+                Intent intent = new Intent(ActivityConfg.this, ActivityConfgNotificacao.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
@@ -91,7 +88,7 @@ public class activity_config extends AppCompatActivity {
         linearLayoutAparencia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(activity_config.this, activity_confg_aparencia.class);
+                Intent intent = new Intent(ActivityConfg.this, ActivityConfgAparencia.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
@@ -100,7 +97,7 @@ public class activity_config extends AppCompatActivity {
     }
     public void permissaoUsuario() {
 
-        SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(activity_config.this);
+        SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(ActivityConfg.this);
 
         if (sharedPreferencesUsuario.getUsuarioCargo()==2) {
             linearLayoutPainelADMTodo.setVisibility(View.VISIBLE);

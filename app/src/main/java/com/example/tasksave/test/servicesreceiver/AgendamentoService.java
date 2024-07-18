@@ -18,7 +18,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.example.tasksave.R;
-import com.example.tasksave.test.activities.activity_agenda;
+import com.example.tasksave.test.activities.ActivityAgenda;
 import com.example.tasksave.test.dao.AgendaDAO;
 import com.example.tasksave.test.objetos.Agenda;
 
@@ -217,7 +217,7 @@ public class AgendamentoService extends JobIntentService {
                 .addAction(R.drawable.ic_launcher_background, "Concluir", pendingIntentConcluir);
 
         // Intent para abrir a atividade ao tocar na notificação (ajuste conforme sua necessidade)
-        Intent intent = new Intent(context, activity_agenda.class);
+        Intent intent = new Intent(context, ActivityAgenda.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         builder.setContentIntent(pendingIntent);
 

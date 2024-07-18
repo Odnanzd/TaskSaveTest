@@ -6,7 +6,7 @@
     style="@style/BackgroundTheme2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".test.activities.activity_sec_fingerprint">
+    tools:context=".test.activities.ActivityConfgSecFingerprint">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

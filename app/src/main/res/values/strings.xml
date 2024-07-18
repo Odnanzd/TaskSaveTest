@@ -4,11 +4,11 @@
 
     <string name="app_name">TaskSaveAppTest</string>
 
-    <!---Strings activity_welcome-->
+    <!---Strings ActivityWelcome-->
     <string name="welcome_entrar_button">Entrar</string>
     <string name="welcome_cadastrar_button">Cadastrar</string>
 
-    <!---Strings activity_cadastro-->
+    <!---Strings ActivityCadastro-->
     <string name="text_view_cadastro">Faça o cadastro para continuar</string>
     <string name="edit_text_hint_usuario">Nome Completo</string>
     <string name="edit_text_hint_email">E-mail</string>
@@ -18,7 +18,7 @@
     <string name="button_cadastrar">Cadastrar</string>
     <string name="text_view_login_cadastro">Já tenho uma conta</string>
 
-    <!---Strings activity_login-->
+    <!---Strings ActivityLogin-->
     <string name="text_view_login_login">Faça o login para continuar no app:</string>
     <string name="edit_text_hint_email_login">Email</string>
     <string name="edit_text_hint_senha_login">Senha</string>
@@ -33,14 +33,14 @@
     <string name="button_fing">Tentar usando outro método</string>
     <string name="button_fing2">Entrar com Impressão Digital</string>
 
-    <!---Strings activity_login-->
+    <!---Strings ActivityLogin-->
 
     <string name="edit_nome">Usuário</string>
     <string name="edit_text">Entrar</string>
     <string name="text_view_login">Login</string>
     <string name="edit_senha">Senha</string>
 
-    <!---Strings activity_main-->
+    <!---Strings ActivityMain-->
 
     <string name="text_view">Olá, Usuário</string>
     <string name="text_view_agenda">Agenda</string>
@@ -50,7 +50,7 @@
     <string name="text_view_config">Config.</string>
     <string name="text_view_sair">Sair</string>
 
-    <!---Strings activity_agenda-->
+    <!---Strings ActivityAgenda-->
     <string name="text_view_tarefas">Tarefas</string>
 
     <!---Strings activity_add_agenda-->
@@ -67,7 +67,7 @@
     <string name="text_view_repetir">Não repetir</string>
     <string name="text_view_contador_titulo">0/14</string>
 
-    <!---Strings activity_agenda_concluido-->
+    <!---Strings ActivityAgendaConcluido-->
     <string name="text_view_concluido">Tarefas concluídas</string>
 
     <!---Strings dialog_fingerprint-->
@@ -87,7 +87,7 @@
     <string name="text_view_theme_light">Claro</string>
     <string name="text_view_theme_dark">Escuro</string>
 
-    <!---Strings activity_config-->
+    <!---Strings ActivityConfg-->
     <string name="text_view_config_act">Configurações</string>
 
     <!---Strings layout_agenda_concluido-->
@@ -95,7 +95,7 @@
     <string name="text_view_desc">Descricao</string>
     <string name="text_view_hor">teste</string>
 
-    <!---Strings activity_item_selected_agenda-->
+    <!---Strings ActivityItemSelectedAgenda-->
     <string name="button_excluir">Excluir</string>
     <string name="button_att">Atualizar</string>
     <string name="checkbox_conc">Marcar como concluída</string>
@@ -110,13 +110,13 @@
     <string name="edit_text_tit">Titulo</string>
 
 
-    <!---Strings activity_item_selected_agenda_concluido -->
+    <!---Strings ActivityItemSelectedAgendaConcluido -->
     <string name="text_view_conc">Tarefa concluída nº</string>
     <string name="edit_text_desco">Descrição</string>
     <string name="text_view_criado">Criado em:</string>
     <string name="text_view_conc2">Concluído em:</string>
 
-    <!---Strings activity_config -->
+    <!---Strings ActivityConfg -->
     <string name="text_view_linear_perfil">Meu Perfil</string>
     <string name="text_view_linear_segura">Segurança e Privacidade</string>
     <string name="text_view_linear_not">Notificações</string>
@@ -137,39 +137,39 @@
     <string name="default_notification_channel_id">channel_id</string>
     <string name="default_notification_channel_name">Notifications</string>
 
-    <!---Strings activity_sec_priv -->
+    <!---Strings ActivitySecPriv -->
     <string name="text_view_sec">Privacidade e Segurança</string>
     <string name="text_view_sec_senha">Senha</string>
     <string name="text_view_sec_biometria">Biometria</string>
     <string name="text_view_sec_permissao">Permissões</string>
 
-    <!---Strings activity_sec_fingerprint -->
+    <!---Strings ActivityConfgSecFingerprint -->
     <string name="text_view_sec_fing">Biometria</string>
     <string name="text_view_sec_fing_biome">Solicitar impressão digital ao abrir o aplicativo</string>
 
-    <!---Strings activity_sec_permissao -->
+    <!---Strings ActivityConfgSecPermissao -->
     <string name="text_view_sec_perm">Permissões</string>
     <string name="text_view_sec_perm_permi">Acesso a fotos e mídias</string>
     <string name="text_view_sec_perm_permi2">Acesso total a todos os arquivos</string>
 
-    <!---Strings activity_confg_sobre -->
+    <!---Strings ActivityConfgSobre -->
     <string name="text_view_confg_sobre">Sobre</string>
     <string name="text_view_confg_sobre_att">Verificar por atualizações</string>
     <string name="text_view_confg_sobre_versao">Versão</string>
     <string name="text_view_confg_sobre_att_auto">Atualizar automaticamente</string>
 
-    <!---Strings activity_confg_notificacao -->
+    <!---Strings ActivityConfgNotificacao -->
     <string name="text_view_confg_not_tit">Notificações</string>
     <string name="text_view_confg_not_silenc">Silenciar notificações</string>
 
-    <!---Strings activity_confg_aparencia -->
+    <!---Strings ActivityConfgAparencia -->
     <string name="text_view_confg_aparencia">Aparência</string>
     <string name="text_view_confg_aparencia_alternar">Tema</string>
 
-    <!---Strings activity_confg_perfil_email-->
+    <!---Strings ActivityConfgPerfilEmail-->
     <string name="text_view_confg_perfil_mail">E-mail</string>
 
-    <!---Strings activity_confg_sec_senha-->
+    <!---Strings ActivityConfgSecSenha-->
     <string name="text_view_confg_sec_senha">Alterar Senha</string>
     <string name="text_view_confg_sec_senha2">Senha Antiga</string>
     <string name="text_view_confg_sec_senha3">Senha Nova</string>

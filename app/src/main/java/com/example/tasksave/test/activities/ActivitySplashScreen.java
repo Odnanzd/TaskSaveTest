@@ -13,7 +13,6 @@ import android.app.NotificationManager;
 import android.app.UiModeManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
@@ -48,7 +47,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Executor;
 
-public class activity_splash_screen extends AppCompatActivity {
+public class ActivitySplashScreen extends AppCompatActivity {
     private static final int SPLASH_TIME_OUT = 1500;
     ImageView imageView;
     Connection con;
@@ -78,9 +77,9 @@ public class activity_splash_screen extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
 
 
-            SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(activity_splash_screen.this);
+            SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(ActivitySplashScreen.this);
 
-            if (!isNetworkConnected(activity_splash_screen.this)) {
+            if (!isNetworkConnected(ActivitySplashScreen.this)) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -117,7 +116,7 @@ public class activity_splash_screen extends AppCompatActivity {
                         UsuarioDAOMYsql usuarioDAOMYsql = new UsuarioDAOMYsql();
                         ResultSet resultSet = usuarioDAOMYsql.autenticaUsuarioAWS(user);
 
-                        SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(activity_splash_screen.this);
+                        SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(ActivitySplashScreen.this);
                         boolean arquivoATT = sharedPreferencesConfg.getAtualiza();
 
                         if(!arquivoATT) {
@@ -125,7 +124,7 @@ public class activity_splash_screen extends AppCompatActivity {
                             String versaoAtual = obterVersaoAtual();
                             double versaoDBApp = usuarioDAOMYsql.getVersionAPP();
                             String versaoDBAppString = String.valueOf(versaoDBApp);
-                            servicosATT = new ServicosATT(activity_splash_screen.this, versaoAtual, versaoDBAppString);
+                            servicosATT = new ServicosATT(ActivitySplashScreen.this, versaoAtual, versaoDBAppString);
                             boolean attDisponivel = servicosATT.verificaAtt();
 
 
@@ -176,7 +175,7 @@ public class activity_splash_screen extends AppCompatActivity {
 
                             } else if (sharedPreferencesUsuario.getSalvarSenha() && !sharedPreferencesUsuario.getBiometriaUsuario()) {
 
-                                Intent intent = new Intent(activity_splash_screen.this, activity_main.class);
+                                Intent intent = new Intent(ActivitySplashScreen.this, ActivityMain.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
 
@@ -236,17 +235,17 @@ public class activity_splash_screen extends AppCompatActivity {
             @Override
             public void run() {
 
-                SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(activity_splash_screen.this);
+                SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(ActivitySplashScreen.this);
 
                 if (!sharedPreferencesUsuario.getPrimeiroAcesso()) {
 
-                    Intent intent = new Intent(activity_splash_screen.this, activity_welcome.class);
+                    Intent intent = new Intent(ActivitySplashScreen.this, ActivityWelcome.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
 
                 } else if (!sharedPreferencesUsuario.getSalvarSenha()) {
 
-                    Intent intent = new Intent(activity_splash_screen.this, activity_login.class);
+                    Intent intent = new Intent(ActivitySplashScreen.this, ActivityLogin.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
 
@@ -267,21 +266,21 @@ public class activity_splash_screen extends AppCompatActivity {
         ChecarBiometria();
 
         Executor executor = ContextCompat.getMainExecutor(this);
-        BiometricPrompt biometricPrompt = new BiometricPrompt(activity_splash_screen.this,
+        BiometricPrompt biometricPrompt = new BiometricPrompt(ActivitySplashScreen.this,
                 executor, new BiometricPrompt.AuthenticationCallback() {
             @Override
             public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
                 buttonTenta.setVisibility(View.VISIBLE);
-                Toast.makeText(activity_splash_screen.this, "Erro de autenticação " + errString, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActivitySplashScreen.this, "Erro de autenticação " + errString, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
-                Toast.makeText(activity_splash_screen.this, "Sucesso", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActivitySplashScreen.this, "Sucesso", Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(activity_splash_screen.this, activity_main.class);
+                Intent intent = new Intent(ActivitySplashScreen.this, ActivityMain.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
@@ -290,7 +289,7 @@ public class activity_splash_screen extends AppCompatActivity {
             public void onAuthenticationFailed() {
                 super.onAuthenticationFailed();
                 buttonTenta.setVisibility(View.VISIBLE);
-                Toast.makeText(activity_splash_screen.this, "Erro", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActivitySplashScreen.this, "Erro", Toast.LENGTH_SHORT).show();
             }
         });
         BiometricPrompt.PromptInfo.Builder promptInfo = CaixaDialogo();
@@ -365,7 +364,7 @@ public class activity_splash_screen extends AppCompatActivity {
         UiModeManager uiModeManager = (UiModeManager) getSystemService(Context.UI_MODE_SERVICE);
         int mode = uiModeManager.getNightMode();
 
-        SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(activity_splash_screen.this);
+        SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(ActivitySplashScreen.this);
         String temaCarregado = sharedPreferencesConfg.getTema();
 
         if (temaCarregado.equals("Escuro")) {
@@ -409,7 +408,7 @@ public class activity_splash_screen extends AppCompatActivity {
 
     public void carregaTema() {
 
-        SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(activity_splash_screen.this);
+        SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(ActivitySplashScreen.this);
         String temaCarregado = sharedPreferencesConfg.getTema();
 
         switch (temaCarregado) {

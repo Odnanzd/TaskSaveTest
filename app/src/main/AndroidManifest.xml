@@ -33,31 +33,39 @@
         android:theme="@style/Theme.TaskSave"
         tools:targetApi="31">
         <activity
-            android:name=".test.activities.activity_confg_sec_senha"
-            android:exported="false" />
+            android:name=".test.activities.ActivityConfgSecSenha"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".test.activities.activity_confg_perfil_email"
-            android:exported="false" />
+            android:name=".test.activities.ActivityConfgPerfilEmail"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".test.activities.activity_confg_aparencia"
-            android:exported="false" />
+            android:name=".test.activities.ActivityConfgAparencia"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".test.activities.activity_confg_notificacao"
-            android:exported="false" />
+            android:name=".test.activities.ActivityConfgNotificacao"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".test.activities.activity_confg_sobre"
-            android:exported="false" />
+            android:name=".test.activities.ActivityConfgSobre"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".test.activities.activity_sec_permissao"
-            android:exported="false" />
+            android:name=".test.activities.ActivityConfgSecPermissao"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".test.activities.activity_sec_fingerprint"
-            android:exported="false" />
+            android:name=".test.activities.ActivityConfgSecFingerprint"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".test.activities.activity_sec_priv"
-            android:exported="false" />
+            android:name=".test.activities.ActivitySecPriv"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".test.activities.activity_main"
+            android:name=".test.activities.ActivityMain"
             android:exported="false"
             android:screenOrientation="portrait" />
 
@@ -72,40 +80,40 @@
         </provider>
 
         <activity
-            android:name=".test.activities.activity_item_selected_agenda"
+            android:name=".test.activities.ActivityItemSelectedAgenda"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".test.activities.activity_calendar"
+            android:name=".test.activities.ActivityCalendar"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".test.activities.activity_confg_perfil_nome"
+            android:name=".test.activities.ActivityConfgPerfilNome"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".test.activities.activity_confg_perfil"
+            android:name=".test.activities.ActivityConfgPerfil"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".test.activities.activity_config"
+            android:name=".test.activities.ActivityConfg"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".test.activities.activity_welcome"
+            android:name=".test.activities.ActivityWelcome"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".test.activities.activity_item_selected_agenda_concluido"
+            android:name=".test.activities.ActivityItemSelectedAgendaConcluido"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".test.activities.activity_agenda_concluido"
+            android:name=".test.activities.ActivityAgendaConcluido"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".test.activities.activity_splash_screen"
+            android:name=".test.activities.ActivitySplashScreen"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.TaskSave"> <!-- Restante das atividades -->
@@ -116,18 +124,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".test.activities.activity_agenda"
+            android:name=".test.activities.ActivityAgenda"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".test.activities.activity_login"
+            android:name=".test.activities.ActivityLogin"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowFullscreen="true"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".test.activities.activity_cadastro"
+            android:name=".test.activities.ActivityCadastro"
             android:exported="false"
             android:screenOrientation="portrait" />
 

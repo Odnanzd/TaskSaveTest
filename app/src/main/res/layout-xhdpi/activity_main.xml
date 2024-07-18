@@ -6,7 +6,7 @@
     style="@style/BackgroundTheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".test.activities.activity_main">
+    tools:context=".test.activities.ActivityMain">
 
     <ScrollView
         android:layout_width="match_parent"

@@ -30,7 +30,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-public class activity_welcome extends AppCompatActivity{
+public class ActivityWelcome extends AppCompatActivity{
     private ServicosATT servicosATT;
 
     private static final int PERMISSION_REQUEST_CODE = 1;
@@ -73,7 +73,7 @@ public class activity_welcome extends AppCompatActivity{
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(activity_welcome.this, activity_login.class);
+                Intent intent = new Intent(ActivityWelcome.this, ActivityLogin.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
@@ -82,7 +82,7 @@ public class activity_welcome extends AppCompatActivity{
         buttonCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity_welcome.this, activity_cadastro.class);
+                Intent intent = new Intent(ActivityWelcome.this, ActivityCadastro.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
@@ -118,7 +118,7 @@ public class activity_welcome extends AppCompatActivity{
             // Configura o ServicosATT com a versão obtida
             String versaoAtual = obterVersaoAtual();
 
-            servicosATT = new ServicosATT(activity_welcome.this, versaoAtual, versaoAPP.getVersionDB());
+            servicosATT = new ServicosATT(ActivityWelcome.this, versaoAtual, versaoAPP.getVersionDB());
 
             boolean sucesso = servicosATT.verificaAtt();
 
