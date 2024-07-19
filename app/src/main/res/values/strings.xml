@@ -137,7 +137,7 @@
     <string name="default_notification_channel_id">channel_id</string>
     <string name="default_notification_channel_name">Notifications</string>
 
-    <!---Strings ActivitySecPriv -->
+    <!---Strings ActivityConfgSecPriv -->
     <string name="text_view_sec">Privacidade e Segurança</string>
     <string name="text_view_sec_senha">Senha</string>
     <string name="text_view_sec_biometria">Biometria</string>

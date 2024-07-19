@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     style="@style/BackgroundTheme2"
-    tools:context=".test.activities.ActivitySecPriv">
+    tools:context=".test.activities.ActivityConfgSecPriv">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"

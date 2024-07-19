@@ -63,7 +63,7 @@ public class ActivityConfg extends AppCompatActivity {
         linearLayoutSecPriv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ActivityConfg.this, ActivitySecPriv.class);
+                Intent intent = new Intent(ActivityConfg.this, ActivityConfgSecPriv.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }

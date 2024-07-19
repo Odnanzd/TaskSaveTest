@@ -28,7 +28,7 @@ public class ActivityConfgSecPermissao extends AppCompatActivity {
     @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(ActivityConfgSecPermissao.this, ActivitySecPriv.class);
+        Intent intent = new Intent(ActivityConfgSecPermissao.this, ActivityConfgSecPriv.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
@@ -77,7 +77,7 @@ public class ActivityConfgSecPermissao extends AppCompatActivity {
         imageViewBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ActivityConfgSecPermissao.this, ActivitySecPriv.class);
+                Intent intent = new Intent(ActivityConfgSecPermissao.this, ActivityConfgSecPriv.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
