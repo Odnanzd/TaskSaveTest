@@ -579,42 +579,65 @@ public void attDados(View view) {
 
     int horaCompleta = horasInsert * 100 + minutosInsert;
 
-    int horaCompletaEscolhida = hourTarefa * 100 +minuteTarefa;
+    int horaCompletaEscolhida = hourTarefa * 100 + minuteTarefa;
 
     LocalDate dataAtual = LocalDate.now();
 
-        if(!aswitch.isChecked()) {
+    if (!aswitch.isChecked()) {
 
-            agendaDAO.atualizarTitDesc(idTarefa, textViewTitAtt, textViewDescAtt);
-            AlarmScheduler.cancelAlarm(getApplicationContext(), idTarefa);
-            finish();
+        agendaDAO.atualizarTitDesc(idTarefa, textViewTitAtt, textViewDescAtt);
+        AlarmScheduler.cancelAlarm(getApplicationContext(), idTarefa);
+        finish();
 
-        }else {
+    } else {
 
-            if (localdataEscolhida.isEqual(dataAtual) && horaCompletaEscolhida < horaCompleta) {
+        if (localdataEscolhida.isEqual(dataAtual) && horaCompletaEscolhida < horaCompleta) {
 
-                Snackbar snackbar = Snackbar.make(view, "O horário definido não pode ser menor que o horário atual.", Snackbar.LENGTH_SHORT);
-                snackbar.setBackgroundTint(Color.WHITE);
-                snackbar.setTextColor(Color.BLACK);
-                snackbar.show();
+            Snackbar snackbar = Snackbar.make(view, "O horário definido não pode ser menor que o horário atual.", Snackbar.LENGTH_SHORT);
+            snackbar.setBackgroundTint(Color.WHITE);
+            snackbar.setTextColor(Color.BLACK);
+            snackbar.show();
 
-            } else {
+        } else {
 
-                if (aswitch.isChecked() && !repetirLembrete) {
+            if (aswitch.isChecked() && !repetirLembrete) {
 
-                    Calendar calendar2 = convertToCalendar(localdataEscolhida, hourTarefa, minuteTarefa);
+                Calendar calendar2 = convertToCalendar(localdataEscolhida, hourTarefa, minuteTarefa);
 
-                    agendaDAO.atualizarAll(idTarefa, textViewTitAtt, textViewDescAtt, localdataEscolhida, hourTarefa, minuteTarefa,
-                            1, 0, 0, 0);
-                    AlarmScheduler.cancelAlarm(getApplicationContext(), idTarefa);
+                agendaDAO.atualizarAll(idTarefa, textViewTitAtt, textViewDescAtt, localdataEscolhida, hourTarefa, minuteTarefa,
+                        1, 0, 0, 0);
+                AlarmScheduler.cancelAlarm(getApplicationContext(), idTarefa);
 
-                    AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2.getTimeInMillis(), textViewTitAtt,
-                            textViewDescAtt, 0, idTarefa, localdataEscolhida);
+                AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2.getTimeInMillis(), textViewTitAtt,
+                        textViewDescAtt, 0, idTarefa, localdataEscolhida);
 
-                    finish();
+                finish();
 
-                } else if (aswitch.isChecked() && repetirLembrete) {
+            } else if (aswitch.isChecked() && repetirLembrete) {
 
+                LocalDate dataAlterada = LocalDate.now();
+
+
+                if (repetirModoLembrete == 1) {
+                    while (dataAlterada.isAfter(localdataEscolhida)) {
+                        localdataEscolhida = localdataEscolhida.plusDays(1);
+                    }
+                } else if (repetirModoLembrete == 2) {
+                    while (dataAlterada.isAfter(localdataEscolhida)) {
+                        localdataEscolhida = localdataEscolhida.plusWeeks(1);
+                    }
+                } else if (repetirModoLembrete == 3) {
+                    while (dataAlterada.isAfter(localdataEscolhida)) {
+                        localdataEscolhida = localdataEscolhida.plusMonths(1);
+                    }
+                } else if (repetirModoLembrete == 4) {
+                    while (dataAlterada.isAfter(localdataEscolhida)) {
+                        localdataEscolhida = localdataEscolhida.plusYears(1);
+                    }
+                }
+
+
+                if (dataAtual.isAfter(localdataEscolhida)) {
                     Calendar calendar2 = convertToCalendar(localdataEscolhida, hourTarefa, minuteTarefa);
 
                     agendaDAO.atualizarAll(idTarefa, textViewTitAtt, textViewDescAtt, localdataEscolhida, hourTarefa, minuteTarefa,
@@ -625,13 +648,38 @@ public void attDados(View view) {
                     AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2.getTimeInMillis(), textViewTitAtt,
                             textViewDescAtt, repetirModoLembrete, idTarefa, localdataEscolhida);
 
+                    finish();
+
+                } else if (localdataEscolhida.isEqual(dataAtual) && horaCompletaEscolhida > horaCompleta) {
+                    Calendar calendar2 = convertToCalendar(localdataEscolhida, hourTarefa, minuteTarefa);
+
+                    agendaDAO.atualizarAll(idTarefa, textViewTitAtt, textViewDescAtt, localdataEscolhida, hourTarefa, minuteTarefa,
+                            1, 1, repetirModoLembrete, 0);
+
+                    AlarmScheduler.cancelAlarm(getApplicationContext(), idTarefa);
+
+                    AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2.getTimeInMillis(), textViewTitAtt,
+                            textViewDescAtt, repetirModoLembrete, idTarefa, localdataEscolhida);
 
                     finish();
+
+                } else {
+                    Calendar calendar2 = convertToCalendar(localdataEscolhida, hourTarefa, minuteTarefa);
+
+                    agendaDAO.atualizarAll(idTarefa, textViewTitAtt, textViewDescAtt, localdataEscolhida, hourTarefa, minuteTarefa,
+                            1, 1, repetirModoLembrete, 0);
+
+                    AlarmScheduler.cancelAlarm(getApplicationContext(), idTarefa);
+
+                    AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2.getTimeInMillis(), textViewTitAtt,
+                            textViewDescAtt, repetirModoLembrete, idTarefa, localdataEscolhida);
+
+                    finish();
+
                 }
             }
         }
-
-
+    }
 }
     @SuppressLint("NewApi")
     public static LocalDate convertCalendarToLocalDate(Calendar calendar) {

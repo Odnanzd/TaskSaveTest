@@ -43,6 +43,8 @@ import com.example.tasksave.test.sharedPreferences.SharedPreferencesUsuario;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Executor;
@@ -184,6 +186,19 @@ public class ActivitySplashScreen extends AppCompatActivity {
                                 str2 = "ERRO";
                                 Toast.makeText(getBaseContext(), "ERRO", Toast.LENGTH_SHORT).show();
                             }
+                        }else {
+
+                            sharedPreferencesConfg.clearShareds();
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    str2 = "ERRO";
+                                    Toast.makeText(getBaseContext(), "Dados inválidos, realizar login novamente.", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(ActivitySplashScreen.this, ActivityLogin.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                }
+                            });
                         }
                     }
                 } catch(SQLException e){

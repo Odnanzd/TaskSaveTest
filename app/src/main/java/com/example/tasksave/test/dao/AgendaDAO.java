@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
+import android.util.Log;
 import android.widget.ListView;
 
 import androidx.annotation.RequiresApi;
@@ -224,7 +225,11 @@ public class AgendaDAO {
 
         int rowsUpdated = db.update("agenda", contentValues, whereClause, whereArgs);
 
-        return rowsUpdated > 0;
+
+        if (rowsUpdated>0) {
+            return true;
+        }
+        return false;
     }
     public String verificaTarefaPendente() {
 
