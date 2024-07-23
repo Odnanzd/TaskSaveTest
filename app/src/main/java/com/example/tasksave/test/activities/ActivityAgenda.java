@@ -28,8 +28,10 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
@@ -48,8 +50,12 @@ import com.example.tasksave.test.conexaoSQLite.Conexao;
 import com.example.tasksave.test.baseadapter.CustomAdapter;
 import com.example.tasksave.R;
 import com.example.tasksave.test.dao.AgendaDAO;
+import com.example.tasksave.test.dao.AgendaDAOMYsql;
+import com.example.tasksave.test.dao.UsuarioDAOMYsql;
 import com.example.tasksave.test.objetos.Agenda;
+import com.example.tasksave.test.objetos.AgendaAWS;
 import com.example.tasksave.test.servicesreceiver.AlarmScheduler;
+import com.example.tasksave.test.sharedPreferences.SharedPreferencesUsuario;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
@@ -62,8 +68,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.OnItemSelectionChangedListener, CustomAdapter.OnItemActionListener  {
+public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.OnItemSelectionChangedListener, CustomAdapter.OnItemActionListener {
 
     private Conexao con;
     private SQLiteDatabase db;
@@ -81,6 +89,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
     private boolean clickTodos, clickPendentes, clickAtradasados;
 
     private SwipeRefreshLayout swipeRefreshLayout;
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint({"MissingInflatedId", "MissingSuperCall"})
     @Override
@@ -154,9 +163,9 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
             @Override
             public void onClick(View view) {
 
-                clickTodos=true;
-                clickPendentes=false;
-                clickAtradasados=false;
+                clickTodos = true;
+                clickPendentes = false;
+                clickAtradasados = false;
                 checkChanges(listaIDs, repetirModoLembrete2, ActivityAgenda.this, listView);
             }
         });
@@ -166,9 +175,9 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
             @Override
             public void onClick(View view) {
 
-                clickPendentes=true;
-                clickTodos=false;
-                clickAtradasados=false;
+                clickPendentes = true;
+                clickTodos = false;
+                clickAtradasados = false;
                 checkChanges(listaIDs, repetirModoLembrete2, ActivityAgenda.this, listView);
 
             }
@@ -177,13 +186,12 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
         cardViewAtrasados.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                clickAtradasados=true;
-                clickPendentes=false;
-                clickTodos=false;
+                clickAtradasados = true;
+                clickPendentes = false;
+                clickTodos = false;
                 checkChanges(listaIDs, repetirModoLembrete2, ActivityAgenda.this, listView);
             }
         });
-
 
 
     }
@@ -193,14 +201,14 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
 
         AgendaDAO agendaDAO = new AgendaDAO(ActivityAgenda.this);
 
-        if(clickTodos) {
+        if (clickTodos) {
 
             cardViewTodos.setCardBackgroundColor(getResources().getColor(R.color.blue16));
             cardViewPendents.setCardBackgroundColor(getResources().getColor(R.color.brancoGelo));
             cardViewAtrasados.setCardBackgroundColor(getResources().getColor(R.color.brancoGelo));
             ListarAgenda();
 
-        }else if(clickPendentes) {
+        } else if (clickPendentes) {
 
             cardViewPendents.setCardBackgroundColor(getResources().getColor(R.color.blue16));
             cardViewTodos.setCardBackgroundColor(getResources().getColor(R.color.brancoGelo));
@@ -208,7 +216,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
 
             agendaDAO.listarAgendaPendentes(listaIDs2, repetirModoLembrete3, context2, listView1);
 
-        }else if(clickAtradasados) {
+        } else if (clickAtradasados) {
 
             cardViewAtrasados.setCardBackgroundColor(getResources().getColor(R.color.blue16));
             cardViewTodos.setCardBackgroundColor(getResources().getColor(R.color.brancoGelo));
@@ -217,7 +225,6 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
             agendaDAO.listarAgendaAtraso(listaIDs2, repetirModoLembrete3, context2, listView1);
 
         }
-
 
 
     }
@@ -241,12 +248,15 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
 
         EditText editNome = dialog.findViewById(R.id.editTextText);
         EditText editDescricao = dialog.findViewById(R.id.editTextText2);
-        ImageView buttonSalvar = dialog.findViewById(R.id.button_login);
+        FrameLayout buttonSalvar = dialog.findViewById(R.id.framelayoutTarefa);
+        ImageView imageViewInserir = dialog.findViewById(R.id.button_login);
+
         TextView textView = dialog.findViewById(R.id.textView5);
         TextView textView1 = dialog.findViewById(R.id.textView4);
         TextView charCountTextView = dialog.findViewById(R.id.text_view_contador);
         TextView charCountTextView2 = dialog.findViewById(R.id.textView8);
         TextView textViewRepeat = dialog.findViewById(R.id.textViewRepetirLembrete);
+        ProgressBar progressBarCircular = dialog.findViewById(R.id.progressBarCircularTarefa);
         editNome.requestFocus();
 
 
@@ -258,6 +268,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
         textViewRepeat.setOnClickListener(new View.OnClickListener() {
             private boolean dialogDisplayed = false;
             private String textoSelecionado;
+
             @Override
             public void onClick(View v) {
 
@@ -335,7 +346,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                     });
 
                     dialog2.show();
-                    dialog2.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT , ViewGroup.LayoutParams.WRAP_CONTENT);
+                    dialog2.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                     dialog2.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 }
             }
@@ -385,7 +396,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
 
                         textView.setText(selectedDate);
 
-                        Log.d("Verificação Data", "Data:" +selectedDate2);
+                        Log.d("Verificação Data", "Data:" + selectedDate2);
                     }
                 }, year, month, dayOfMonth);
                 dialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
@@ -396,9 +407,9 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
             @Override
             public void onClick(View v) {
 
-                final java.util.Calendar calendar = java.util.Calendar.getInstance();
-                int hour = calendar.get(java.util.Calendar.HOUR_OF_DAY);
-                int minute = calendar.get(java.util.Calendar.MINUTE);
+                final Calendar calendar = Calendar.getInstance();
+                int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                int minute = calendar.get(Calendar.MINUTE);
 
                 // Crie o TimePickerDialog com a hora atual definida
                 TimePickerDialog timePickerDialog = new TimePickerDialog(ActivityAgenda.this, new TimePickerDialog.OnTimeSetListener() {
@@ -415,7 +426,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                         String minuto_Formatado = minuteFormat.format(time);
 
                         // Lidar com a hora selecionada pelo usuário
-                        textView1.setText(hora_formatada+":"+minuto_Formatado);
+                        textView1.setText(hora_formatada + ":" + minuto_Formatado);
 
                         int horadefinida = hourOfDay;
                         int minutodefinido = minute;
@@ -446,6 +457,10 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
             @Override
             public void onClick(View view) {
 
+                progressBarCircular.setVisibility(View.VISIBLE);
+                imageViewInserir.setVisibility(View.GONE);
+                buttonSalvar.setClickable(false);
+
                 if (editNome.getText().toString().equals("") || editDescricao.getText().toString().equals("")) {
 
                     Context context = dialog.getContext();
@@ -460,6 +475,10 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                         Log.d("MSG ", "TESTE" + view2);
 
                     }
+                    progressBarCircular.setVisibility(View.GONE);
+                    imageViewInserir.setVisibility(View.VISIBLE);
+                    buttonSalvar.setClickable(true);
+
                     Snackbar snackbar = Snackbar.make(view, msg_error, Snackbar.LENGTH_SHORT);
                     snackbar.setBackgroundTint(Color.WHITE);
                     snackbar.setTextColor(Color.BLACK);
@@ -496,38 +515,38 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                         int repetirLembreteModoDB = 0;
                         boolean repetirLembreteDB = true;
 
-                        if(!textoTextViewRepetir.equals("Não repetir")) {
+                        if (!textoTextViewRepetir.equals("Não repetir")) {
 
                             switch (textoTextViewRepetir) {
 
                                 case "Todo dia":
-                                    repetirLembreteModoDB=1;
-                                break;
+                                    repetirLembreteModoDB = 1;
+                                    break;
                                 case "Toda semana":
-                                    repetirLembreteModoDB=2;
-                                break;
+                                    repetirLembreteModoDB = 2;
+                                    break;
                                 case "Todo mês":
-                                    repetirLembreteModoDB=3;
-                                break;
+                                    repetirLembreteModoDB = 3;
+                                    break;
                                 case "Todo ano":
-                                    repetirLembreteModoDB=4;
-                                break;
+                                    repetirLembreteModoDB = 4;
+                                    break;
 
                             }
                         } else {
 
-                            repetirLembreteDB=false;
-                            repetirLembreteModoDB=0;
+                            repetirLembreteDB = false;
+                            repetirLembreteModoDB = 0;
 
                         }
 
 
                         Agenda agenda = new Agenda(-1, editNome.getText().toString(), editDescricao.getText().toString(),
                                 localdataEscolhida, horaEscolhida, minutoEscolhido, true, false, dataAtual,
-                                -1, -1, dataAtual,horasInsert ,minutosInsert, 0,
+                                -1, -1, dataAtual, horasInsert, minutosInsert, 0,
                                 repetirLembreteDB, repetirLembreteModoDB, false);
 
-                        if (localdataEscolhida.isEqual(dataAtual) && horaCompletaEscolhida<horaCompleta) {
+                        if (localdataEscolhida.isEqual(dataAtual) && horaCompletaEscolhida < horaCompleta) {
 
                             InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                             if (imm != null) {
@@ -536,6 +555,10 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                                     imm.hideSoftInputFromWindow(currentFocus.getWindowToken(), 0);
                                 }
                             }
+                            progressBarCircular.setVisibility(View.GONE);
+                            imageViewInserir.setVisibility(View.VISIBLE);
+                            buttonSalvar.setClickable(true);
+
                             Snackbar snackbar = Snackbar.make(view, "O horário definido não pode ser menor que o horário atual.", Snackbar.LENGTH_SHORT);
                             snackbar.setBackgroundTint(Color.WHITE);
                             snackbar.setTextColor(Color.BLACK);
@@ -551,11 +574,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                             String titulointent = editNome.getText().toString();
                             String descintent = editDescricao.getText().toString();
 
-
-                            Log.d("INTENT ", "Titulo: "+titulointent+ "Descricao: "+descintent);
-
                             Calendar calendar2 = convertToCalendar(localdataEscolhida, horaEscolhida, minutoEscolhido);
-                            Log.d("CALENDAR", "calendar"+calendar);
 
                             int repeatMode = 0; // Não repetir por padrão
 
@@ -585,9 +604,10 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                             prefsEditor2.clear();
                             prefsEditor2.commit();
 
-                            dialog.dismiss();
-                            Toast.makeText(ActivityAgenda.this, "Tarefa Salva. Nº " + idAgenda, Toast.LENGTH_LONG).show();
-                            refreshData();
+                            inserirTarefaBD(editNome.getText().toString(), editDescricao.getText().toString(),
+                                    true, repetirLembreteDB, repetirLembreteModoDB, localdataEscolhida,
+                                    horaEscolhida, minutoEscolhido, null, -1, -1,
+                                    dataAtual, horasInsert, minutosInsert, 0, false, false, dialog);
 
 
                         }
@@ -605,30 +625,22 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
 
                         long idSequencial = agendaDAO.inserir(agenda);
 
-                        if (idSequencial > 0) {
-
-                            agenda.setId(idSequencial);
-
-                            long idAgenda = agenda.getId();
-
-                            Toast.makeText(ActivityAgenda.this, "Tarefa Salva. Nº " + idAgenda, Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(ActivityAgenda.this, "Erro", Toast.LENGTH_LONG).show();
-                        }
-
                         SharedPreferences save = getApplicationContext().getSharedPreferences("arquivoSalvar2", Context.MODE_PRIVATE);
                         SharedPreferences.Editor saveEdit = save.edit();
                         saveEdit.clear();
                         saveEdit.commit();
-                        refreshData();
 
-                        dialog.dismiss();
+                        inserirTarefaBD(editNome.getText().toString(), editDescricao.getText().toString(),
+                                false, false, 0, null,
+                                -1, -1, null, -1, -1,
+                                dataAtual, horasInsert, minutosInsert, 0, false, false, dialog);
+
                     }
 
 
                 }
             }
-            });
+        });
 
         editNome.addTextChangedListener(new TextWatcher() {
             @Override
@@ -672,13 +684,13 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
         boolean teste = editNome.hasFocus();
         Log.d("MSG", "MSG FOCUS" + teste);
 
-        if(editNome.hasFocus()) {
+        if (editNome.hasFocus()) {
 
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0);
         }
 
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT , ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
 
@@ -700,7 +712,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
 
         Cursor cursor = db.rawQuery("SELECT * FROM agenda WHERE finalizado = 0;", null);
         Cursor cursor2 = db.rawQuery("SELECT * FROM agenda WHERE finalizado = 1;", null);
-        Log.d("Aqui","Aqui"+cursor.getCount()+"-"+cursor2.getCount());
+        Log.d("Aqui", "Aqui" + cursor.getCount() + "-" + cursor2.getCount());
 
         if (cursor.getCount() == 0 && cursor2.getCount() == 0) {
 
@@ -851,7 +863,6 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
         });
 
 
-
         ImageView imageViewLixeira = findViewById(R.id.lixeira);
         imageViewLixeira.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -892,7 +903,6 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
         });
 
 
-
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
 
@@ -907,7 +917,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                 listView.clearChoices(); // Limpa as seleções anteriores
                 customAdapter.notifyDataSetChanged();
 
-                if(customAdapter.isShowCheckboxes()) {
+                if (customAdapter.isShowCheckboxes()) {
 
                     if (agendaDAO.hasTwoOrMoreTasks()) {
 
@@ -953,11 +963,11 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                         });
 
                     }
-                }else {
-                        CheckBox checkBox2 = findViewById(R.id.checkBox);
-                        checkBox2.setVisibility(View.GONE);
-                        checkBox2.setChecked(false);
-                    }
+                } else {
+                    CheckBox checkBox2 = findViewById(R.id.checkBox);
+                    checkBox2.setVisibility(View.GONE);
+                    checkBox2.setChecked(false);
+                }
 
 
                 return true; // Indica que o evento de clique longo foi tratado
@@ -985,17 +995,20 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
         // Feche a conexão com o banco de dados
         db.close();
     }
+
     @SuppressLint("NewApi")
     private void atualizarLista() {
         // Restaure a lista de itens
         VerificaLista();
         ListarAgenda();
     }
+
     @SuppressLint("NewApi")
     private void refreshData() {
         VerificaLista();
         ListarAgenda();
     }
+
     @SuppressLint("NewApi")
     @Override
     public void onItemDeleted(int position) {
@@ -1009,16 +1022,82 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
         ListarAgenda();
         VerificaLista();
     }
+
     @SuppressLint("NewApi")
     private Calendar convertToCalendar(LocalDate date, int hour, int minute) {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(java.util.Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        calendar.setTime(Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant()));
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
         return calendar;
     }
+
+    public void inserirTarefaBD(String nomeTarefa, String descTarefa, boolean lembreteTarefa,
+                               boolean repetirLembrete, int repetirModoLembrete, LocalDate dataTarefa,
+                               int horaTarefa, int minutoTarefa, LocalDate dataTarefaFim,
+                               int horaTarefaFim, int minutoTarefaFim, LocalDate dataTarefaInsert,
+                               int horaTarefaInsert, int minutoTarefaInsert, int atrasoTarefa, boolean finalizadoTarefa,
+                               boolean notificouTarefa, Dialog dialog) {
+
+
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(() -> {
+
+            AgendaDAOMYsql agendaDAOMYsql = new AgendaDAOMYsql();
+
+            try {
+
+                SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(ActivityAgenda.this);
+                String emailShared = sharedPreferencesUsuario.getEmailLogin();
+
+                UsuarioDAOMYsql usuarioDAOMYsql = new UsuarioDAOMYsql();
+                int id_usuario = usuarioDAOMYsql.idUsarioAWS(emailShared);
+
+                AgendaAWS agendaAWS = new AgendaAWS();
+                agendaAWS.setNome_tarefa(nomeTarefa);
+                agendaAWS.setDescricao_tarefa(descTarefa);
+                agendaAWS.setLembrete_tarefa(lembreteTarefa);
+                agendaAWS.setRepetir_tarefa(repetirLembrete);
+                agendaAWS.setRepetir_modo_tarefa(repetirModoLembrete);
+                agendaAWS.setData_tarefa(dataTarefa);
+                agendaAWS.setHora_tarefa(horaTarefa);
+                agendaAWS.setMinuto_tarefa(minutoTarefa);
+                agendaAWS.setData_tarefa_fim(dataTarefaFim);
+                agendaAWS.setHora_tarefa_fim(horaTarefaFim);
+                agendaAWS.setMinuto_tarefa_fim(minutoTarefaFim);
+                agendaAWS.setData_tarefa_insert(dataTarefaInsert);
+                agendaAWS.setHora_tarefa_insert(horaTarefaInsert);
+                agendaAWS.setMinuto_tarefa_insert(minutoTarefaInsert);
+                agendaAWS.setAtraso_tarefa(atrasoTarefa);
+                agendaAWS.setFinalizado_tarefa(finalizadoTarefa);
+                agendaAWS.setNotificou_tarefa(notificouTarefa);
+                agendaAWS.setUsuario_id(id_usuario);
+
+                int tarefaID = agendaDAOMYsql.salvaTarefaAWS(agendaAWS);
+
+                runOnUiThread(() -> {
+
+                    if (tarefaID != 1) {
+                        Toast.makeText(getApplicationContext(), "Sucesso ao inseir Tarefa: "+tarefaID, Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                        refreshData();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Erro.", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+
+                });
+
+            } catch (Exception e) {
+                Log.d("ERRO SQL CADASTRO", "Erro ao cadastrar usuário: " + e);
+            }
+
+        });
+
+    }
+
 }
 
 

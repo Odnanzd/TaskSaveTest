@@ -52,16 +52,7 @@ public class ActivityMain extends AppCompatActivity {
     public ImageView imageView;
     public TextView text_view_main;
     private long pressedTime;
-
-    public ImageView imageView1;
-
-    public ImageView imageView2;
-    public ImageView numeroIcon;
     private static final int GALLERY_REQUEST_CODE = 1001;
-    private Conexao con;
-    private SQLiteDatabase db;
-    public ImageView imageViewMenuConfig;
-    public ImageView imageViewMenuCalendar;
     private TextView textViewPendente;
     private TextView textViewData;
 
