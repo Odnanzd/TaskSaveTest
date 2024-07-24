@@ -75,9 +75,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="53dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
         >
 
 
@@ -94,6 +91,7 @@
          android:layout_width="40dp"
          android:layout_height="50dp"
          android:visibility="gone"
+         android:indeterminateTint="@color/blue4"
          />
 
     </FrameLayout>

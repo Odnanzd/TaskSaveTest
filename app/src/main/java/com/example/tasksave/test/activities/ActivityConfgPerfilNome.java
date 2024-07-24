@@ -35,6 +35,7 @@ public class ActivityConfgPerfilNome extends AppCompatActivity {
     TextView textView, textView2;
     ImageView imageViewback;
 
+    @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
 

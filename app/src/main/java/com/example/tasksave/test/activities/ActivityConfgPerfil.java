@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.tasksave.R;
+import com.example.tasksave.test.dao.AgendaDAO;
 import com.example.tasksave.test.sharedPreferences.SharedPreferencesConfg;
 import com.example.tasksave.test.sharedPreferences.SharedPreferencesUsuario;
 
@@ -104,6 +105,9 @@ public class ActivityConfgPerfil extends AppCompatActivity {
 
             SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(ActivityConfgPerfil.this);
             sharedPreferencesConfg.clearShareds();
+
+            AgendaDAO agendaDAO = new AgendaDAO(ActivityConfgPerfil.this);
+            agendaDAO.excluiTabelaAgenda();
 
             Intent intent = new Intent(ActivityConfgPerfil.this, ActivityLogin.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

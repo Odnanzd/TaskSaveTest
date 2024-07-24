@@ -15,6 +15,7 @@ import com.example.tasksave.test.baseadapter.CustomAdapter;
 import com.example.tasksave.test.conexaoSQLite.Conexao;
 import com.example.tasksave.test.objetos.Agenda;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -55,6 +56,7 @@ public class AgendaDAO {
         contentValues.put("repetirLembrete", agenda.getRepetirLembrete());
         contentValues.put("repetirModo", agenda.getRepetirModo());
         contentValues.put("notificouTarefa", agenda.isNotificado());
+        contentValues.put("id", agenda.getId());
 
         return db.insert("agenda", null, contentValues);
 
@@ -457,6 +459,16 @@ public class AgendaDAO {
             return false;
         }
 
+    }
+    public void excluiTabelaAgenda() {
+
+        try {
+            String sql = "DELETE FROM agenda";
+            db.execSQL(sql);
+            Log.d("DatabaseHelper", "Tabela " + "agenda" + " excluída com sucesso.");
+        } finally {
+            db.close();
+        }
     }
 
     }

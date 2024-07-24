@@ -69,7 +69,9 @@ public class Agenda {
         if (dataAgenda != null) {
             return dataAgenda.toString();
         } else {
-            return null;
+            @SuppressLint({"NewApi", "LocalSuppress"})
+            LocalDate dataAgendaSQL = LocalDate.now();
+            return dataAgendaSQL.toString();
         }
     }
     public LocalDate getDate() {
@@ -130,7 +132,9 @@ public class Agenda {
         if (dataAgendaFim != null) {
             return dataAgendaFim.toString();
         } else {
-            return null;
+            @SuppressLint({"NewApi", "LocalSuppress"})
+            LocalDate dataAgendaFimSQL = LocalDate.now();
+            return dataAgendaFimSQL.toString();
         }
     }
     @SuppressLint("NewApi")

@@ -1,5 +1,7 @@
 package com.example.tasksave.test.dao;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.util.Log;
 
 import com.example.tasksave.test.conexaoMYSQL.ConnectionClass;
@@ -10,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class AgendaDAOMYsql {
 
@@ -91,6 +94,35 @@ public class AgendaDAOMYsql {
         }
 
         return generatedId;
+    }
+
+    public boolean deleteTasks(ArrayList<Long> taskIds, int idUsuario) {
+
+        String sql = "DELETE FROM tarefa_usuario WHERE id_tarefa = ?";
+
+        ConnectionClass connectionClass = new ConnectionClass();
+        conn = connectionClass.CONN();
+
+        if(taskIds.isEmpty()) {
+            Log.d("LISTA VAZIA", "LISTA VAZIA");
+        }else {
+            for(Long id : taskIds) {
+                Log.d(TAG, "Task ID: " + id);
+            }
+        }
+
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                for (Long id : taskIds) {
+//                    stmt.setInt(1, idUsuario);
+                    stmt.setLong(1, id);
+                    stmt.addBatch();
+                }
+                stmt.executeBatch();
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
     }
 
 }

@@ -1,5 +1,7 @@
 package com.example.tasksave.test.activities;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -457,6 +459,8 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
             @Override
             public void onClick(View view) {
 
+                dialog.setCancelable(false);
+
                 progressBarCircular.setVisibility(View.VISIBLE);
                 imageViewInserir.setVisibility(View.GONE);
                 buttonSalvar.setClickable(false);
@@ -540,12 +544,6 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
 
                         }
 
-
-                        Agenda agenda = new Agenda(-1, editNome.getText().toString(), editDescricao.getText().toString(),
-                                localdataEscolhida, horaEscolhida, minutoEscolhido, true, false, dataAtual,
-                                -1, -1, dataAtual, horasInsert, minutosInsert, 0,
-                                repetirLembreteDB, repetirLembreteModoDB, false);
-
                         if (localdataEscolhida.isEqual(dataAtual) && horaCompletaEscolhida < horaCompleta) {
 
                             InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
@@ -567,35 +565,6 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
 
                         } else {
 
-                            long idSequencial = agendaDAO.inserir(agenda);
-                            agenda.setId(idSequencial);
-                            long idAgenda = agenda.getId();
-
-                            String titulointent = editNome.getText().toString();
-                            String descintent = editDescricao.getText().toString();
-
-                            Calendar calendar2 = convertToCalendar(localdataEscolhida, horaEscolhida, minutoEscolhido);
-
-                            int repeatMode = 0; // Não repetir por padrão
-
-                            switch (textoTextViewRepetir) {
-                                case "Todo dia":
-                                    repeatMode = 1;
-                                    break;
-                                case "Toda semana":
-                                    repeatMode = 2;
-                                    break;
-                                case "Todo mês":
-                                    repeatMode = 3;
-                                    break;
-                                case "Todo ano":
-                                    repeatMode = 4;
-                                    break;
-                            }
-
-                            // Passe os parâmetros title, content e repeatMode ao método scheduleAlarm
-                            AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2.getTimeInMillis(), titulointent, descintent, repeatMode, idAgenda, localdataEscolhida);
-
                             SharedPreferences.Editor prefsEditor = getSharedPreferences("arquivoSalvar2", MODE_PRIVATE).edit();
                             prefsEditor.clear();
                             prefsEditor.commit();
@@ -616,14 +585,6 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                         Calendar calendar = Calendar.getInstance();
                         int horasInsert = calendar.get(Calendar.HOUR_OF_DAY);
                         int minutosInsert = calendar.get(Calendar.MINUTE);
-                        LocalDate dataAtual = LocalDate.now();
-
-                        Agenda agenda = new Agenda(-1, editNome.getText().toString(), editDescricao.getText().toString(),
-                                dataAtual, -1, -1, false, false, dataAtual,
-                                -1, -1, dataAtual, horasInsert, minutosInsert, 0, false, 0,
-                                false);
-
-                        long idSequencial = agendaDAO.inserir(agenda);
 
                         SharedPreferences save = getApplicationContext().getSharedPreferences("arquivoSalvar2", Context.MODE_PRIVATE);
                         SharedPreferences.Editor saveEdit = save.edit();
@@ -634,6 +595,8 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                                 false, false, 0, null,
                                 -1, -1, null, -1, -1,
                                 dataAtual, horasInsert, minutosInsert, 0, false, false, dialog);
+
+
 
                     }
 
@@ -869,6 +832,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
             public void onClick(View v) {
                 // Obtém os IDs dos itens selecionados
                 ArrayList<Long> selectedIds = customAdapter.getSelectedIds();
+
                 if (!selectedIds.isEmpty()) {
 
                     AlertDialog.Builder msgbox = new AlertDialog.Builder(ActivityAgenda.this);
@@ -880,8 +844,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                         public void onClick(DialogInterface dialog, int which) {
 
                             excluirItensDoBanco(selectedIds);
-                            atualizarLista();
-                            customAdapter.clearSelectedIds();
+                            excluiItensAWS(selectedIds, 12, customAdapter);
                             imageViewLixeira.setVisibility(View.GONE);
                             CheckBox checkBox = findViewById(R.id.checkBox);
                             checkBox.setVisibility(View.GONE);
@@ -995,6 +958,33 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
         // Feche a conexão com o banco de dados
         db.close();
     }
+    public void excluiItensAWS(ArrayList<Long> ids, int id, CustomAdapter customAdapter) {
+
+
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(() -> {
+
+            AgendaDAOMYsql agendaDAOMYsql = new AgendaDAOMYsql();
+            boolean sucesso = agendaDAOMYsql.deleteTasks(ids, id);
+
+            if (sucesso) {
+
+                Log.d("SUCESSO", "SUCESSO AO EXCLUIR");
+                runOnUiThread(() -> {
+                atualizarLista();
+                customAdapter.clearSelectedIds();
+                Toast.makeText(getApplicationContext(), "Tarefas excluídas", Toast.LENGTH_LONG).show();
+                });
+
+
+            } else {
+                Log.d("ERRO", "ERRO AO EXCLUIR");
+                Toast.makeText(getApplicationContext(), "Erro ao processar ação", Toast.LENGTH_LONG).show();
+            }
+
+        });
+
+    }
 
     @SuppressLint("NewApi")
     private void atualizarLista() {
@@ -1079,10 +1069,17 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
 
                 runOnUiThread(() -> {
 
-                    if (tarefaID != 1) {
-                        Toast.makeText(getApplicationContext(), "Sucesso ao inseir Tarefa: "+tarefaID, Toast.LENGTH_SHORT).show();
+                    if (tarefaID != -1) {
+                        Toast.makeText(getApplicationContext(), "Sucesso ao inserir Tarefa: "+tarefaID, Toast.LENGTH_SHORT).show();
+
+                        salvaTarefaSQLite(tarefaID, nomeTarefa, descTarefa, dataTarefa,
+                                horaTarefa, minutoTarefa, lembreteTarefa, finalizadoTarefa, dataTarefaFim,
+                                horaTarefaFim, minutoTarefaFim, dataTarefaInsert, horaTarefaInsert,
+                                minutoTarefaInsert, atrasoTarefa, repetirLembrete, repetirModoLembrete, notificouTarefa);
+
                         dialog.dismiss();
                         refreshData();
+
                     } else {
                         Toast.makeText(getApplicationContext(), "Erro.", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
@@ -1095,6 +1092,30 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
             }
 
         });
+
+    }
+    public void salvaTarefaSQLite(int tarefaID, String nomeTarefa, String descTarefa, LocalDate dataTarefa,
+                                  int horaTarefa, int minutoTarefa, boolean lembreteTarefa, boolean finalizadoTarefa,
+                                  LocalDate dataTarefaFim, int horaTarefaFim, int minutoTarefaFim, LocalDate dataTarefaInsert,
+                                  int horaTarefaInsert, int minutoTarefaInsert, int atrasoTarefa, boolean repetirLembrete,
+                                  int repetirModoLembrete, boolean notificouTarefa) {
+
+        AgendaDAO agendaDAO = new AgendaDAO(ActivityAgenda.this);
+
+        Agenda agenda = new Agenda(tarefaID, nomeTarefa, descTarefa, dataTarefa, horaTarefa, minutoTarefa, lembreteTarefa, finalizadoTarefa,
+                dataTarefaFim, horaTarefaFim, minutoTarefaFim, dataTarefaInsert, horaTarefaInsert, minutoTarefaInsert, atrasoTarefa, repetirLembrete,
+                repetirModoLembrete, notificouTarefa);
+
+        agendaDAO.inserir(agenda);
+
+        if(lembreteTarefa) {
+
+            Calendar calendar2 = convertToCalendar(dataTarefa, horaTarefa, minutoTarefa);
+
+            AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2.getTimeInMillis(), nomeTarefa, descTarefa,
+                    repetirModoLembrete, tarefaID, dataTarefa);
+
+        }
 
     }
 
