@@ -835,28 +835,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
 
                 if (!selectedIds.isEmpty()) {
 
-                    AlertDialog.Builder msgbox = new AlertDialog.Builder(ActivityAgenda.this);
-                    msgbox.setTitle("Excluir");
-                    msgbox.setIcon(android.R.drawable.ic_menu_delete);
-                    msgbox.setMessage("Você realmente deseja excluir a(s) tarefa(s)?");
-                    msgbox.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                            excluirItensDoBanco(selectedIds);
-                            excluiItensAWS(selectedIds, 12, customAdapter);
-                            imageViewLixeira.setVisibility(View.GONE);
-                            CheckBox checkBox = findViewById(R.id.checkBox);
-                            checkBox.setVisibility(View.GONE);
-                        }
-                    });
-                    msgbox.setNegativeButton("Não", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
-                    msgbox.show();
+                    dialogDeletaTarefa(selectedIds, customAdapter);
 
                 } else {
                     // Se nenhum item estiver selecionado, você pode mostrar uma mensagem para o usuário
@@ -954,32 +933,51 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
         // Exclua os itens com os IDs fornecidos
         for (long id : ids) {
             db.delete("agenda", "id = ?", new String[]{String.valueOf(id)});
+            AlarmScheduler.cancelAlarm(ActivityAgenda.this, id);
         }
         // Feche a conexão com o banco de dados
         db.close();
     }
-    public void excluiItensAWS(ArrayList<Long> ids, int id, CustomAdapter customAdapter) {
-
+    public void excluiItensAWS(ArrayList<Long> ids, CustomAdapter customAdapter, Dialog dialog) {
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(() -> {
 
-            AgendaDAOMYsql agendaDAOMYsql = new AgendaDAOMYsql();
-            boolean sucesso = agendaDAOMYsql.deleteTasks(ids, id);
+            try {
 
-            if (sucesso) {
-
-                Log.d("SUCESSO", "SUCESSO AO EXCLUIR");
+                ProgressBar progressBar = dialog.findViewById(R.id.progressBarSim);
+                TextView textViewSim = dialog.findViewById(R.id.textViewSim);
                 runOnUiThread(() -> {
-                atualizarLista();
-                customAdapter.clearSelectedIds();
-                Toast.makeText(getApplicationContext(), "Tarefas excluídas", Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.VISIBLE);
+                    textViewSim.setVisibility(View.GONE);
                 });
 
+                SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(ActivityAgenda.this);
+                String emailShared = sharedPreferencesUsuario.getEmailLogin();
 
-            } else {
-                Log.d("ERRO", "ERRO AO EXCLUIR");
-                Toast.makeText(getApplicationContext(), "Erro ao processar ação", Toast.LENGTH_LONG).show();
+                UsuarioDAOMYsql usuarioDAOMYsql = new UsuarioDAOMYsql();
+                int idUsuario = usuarioDAOMYsql.idUsarioAWS(emailShared);
+
+                AgendaDAOMYsql agendaDAOMYsql = new AgendaDAOMYsql();
+                boolean sucesso = agendaDAOMYsql.deleteTasks(ids, idUsuario);
+
+                if (sucesso) {
+
+                    Log.d("SUCESSO", "SUCESSO AO EXCLUIR");
+                    runOnUiThread(() -> {
+                        atualizarLista();
+                        customAdapter.clearSelectedIds();
+                        Toast.makeText(getApplicationContext(), "Tarefas excluídas", Toast.LENGTH_LONG).show();
+                        dialog.dismiss();
+                    });
+
+                } else {
+                    Log.d("ERRO", "ERRO AO EXCLUIR");
+                    Toast.makeText(getApplicationContext(), "Erro ao processar ação", Toast.LENGTH_LONG).show();
+                }
+
+            }catch (Exception e) {
+                e.printStackTrace();
             }
 
         });
@@ -1116,6 +1114,53 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                     repetirModoLembrete, tarefaID, dataTarefa);
 
         }
+
+    }
+    public void dialogDeletaTarefa(ArrayList<Long> ids, CustomAdapter customAdapter) {
+
+        ImageView imageViewLixeira = findViewById(R.id.lixeira);
+        CheckBox checkBox = findViewById(R.id.checkBox);
+
+        Dialog dialogDeleta = new Dialog(ActivityAgenda.this, R.style.DialogTheme2);
+        dialogDeleta.setContentView(R.layout.dialog_delete_tarefa); // Defina o layout do diálogo
+        dialogDeleta.setCancelable(false); // Permita que o usuário toque fora do diálogo para fechá-lo
+        dialogDeleta.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
+
+        Window window = dialogDeleta.getWindow();
+        WindowManager.LayoutParams layoutParams = window.getAttributes();
+        layoutParams.gravity = Gravity.CENTER;
+        window.setAttributes(layoutParams);
+
+        FrameLayout frameLayoutNão  = dialogDeleta.findViewById(R.id.frameLayoutNao);
+        FrameLayout frameLayoutSim = dialogDeleta.findViewById(R.id.frameLayoutSim);
+
+        frameLayoutNão.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogDeleta.dismiss();
+            }
+        });
+
+        frameLayoutSim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                runOnUiThread(() -> {
+
+                excluirItensDoBanco(ids);
+                excluiItensAWS(ids, customAdapter, dialogDeleta);
+                imageViewLixeira.setVisibility(View.GONE);
+                checkBox.setVisibility(View.GONE);
+
+                });
+            }
+        });
+
+        dialogDeleta.show();
+        dialogDeleta.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialogDeleta.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+
 
     }
 

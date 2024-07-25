@@ -98,23 +98,15 @@ public class AgendaDAOMYsql {
 
     public boolean deleteTasks(ArrayList<Long> taskIds, int idUsuario) {
 
-        String sql = "DELETE FROM tarefa_usuario WHERE id_tarefa = ?";
+        String sql = "DELETE FROM tarefa_usuario WHERE id_tarefa = ? AND usuario_id = ?";
 
         ConnectionClass connectionClass = new ConnectionClass();
         conn = connectionClass.CONN();
 
-        if(taskIds.isEmpty()) {
-            Log.d("LISTA VAZIA", "LISTA VAZIA");
-        }else {
-            for(Long id : taskIds) {
-                Log.d(TAG, "Task ID: " + id);
-            }
-        }
-
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 for (Long id : taskIds) {
-//                    stmt.setInt(1, idUsuario);
                     stmt.setLong(1, id);
+                    stmt.setInt(2, idUsuario);
                     stmt.addBatch();
                 }
                 stmt.executeBatch();

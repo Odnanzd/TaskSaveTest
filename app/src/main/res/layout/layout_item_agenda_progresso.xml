@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:id="@+id/CardView"
+    android:layout_marginStart="12dp"
+    android:layout_marginEnd="12dp"
+    android:layout_marginVertical="10dp"
+    android:layout_marginHorizontal="10dp"
+    app:cardCornerRadius="20dp"
+    style="@style/BackGroundTintThemeItensProgress"
+    app:cardElevation="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+
+        <View
+            android:id="@+id/imageView5"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.958"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+        </View>
+
+
+        <View
+            android:id="@+id/text_view_titulo_agenda"
+            android:layout_width="160dp"
+            android:layout_height="20dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="22dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/text_view_data_agenda"
+            android:layout_width="110dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="22dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginEnd="50dp"
+            android:drawablePadding="7sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:drawableLeftCompat="@drawable/baseline_calendar_month_24" />
+
+        <View
+            android:id="@+id/text_view_descricao_agenda"
+            android:layout_width="160dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="8dp"
+            android:paddingLeft="10sp"
+            android:background="@android:color/darker_gray"
+            android:paddingRight="10sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_titulo_agenda" />
+
+        <View
+            android:id="@+id/text_view_hora_agenda"
+            android:layout_width="110dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginEnd="50dp"
+            android:drawablePadding="7sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_data_agenda"
+             />
+
+
+        <View
+            android:id="@+id/imageViewpalito"
+            android:layout_width="32dp"
+            android:layout_height="48dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.423" />
+
+        <View
+            android:id="@+id/your_view"
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:background="@android:color/white"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.489"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="-16dp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

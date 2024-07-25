@@ -167,6 +167,30 @@ public class AgendaDAO {
         return tarefasComLembrete;
     }
 
+    public ArrayList<Long> idTarefasLembrete() {
+
+        ArrayList<Long> ids = new ArrayList<>();
+
+        String[] colunas = {"id", "lembretedefinido"};
+
+        String whereClause = "lembretedefinido = ?";
+        String[] whereArgs = {"1"}; // Lembrete ativado
+
+        Cursor cursor = db.query("agenda", colunas, whereClause, whereArgs, null, null, null);
+
+
+        if (cursor.moveToFirst()) {
+            do {
+                @SuppressLint("Range")
+                long id = cursor.getLong(cursor.getColumnIndex("id"));
+                ids.add(id);
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        return ids;
+    }
+
     public boolean AtualizarStatusNotificacao(long id, int Status) {
         ContentValues contentValues = new ContentValues();
         contentValues.put("notificouTarefa", Status);

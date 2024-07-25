@@ -13,8 +13,11 @@ import android.widget.TextView;
 
 import com.example.tasksave.R;
 import com.example.tasksave.test.dao.AgendaDAO;
+import com.example.tasksave.test.servicesreceiver.AlarmScheduler;
 import com.example.tasksave.test.sharedPreferences.SharedPreferencesConfg;
 import com.example.tasksave.test.sharedPreferences.SharedPreferencesUsuario;
+
+import java.util.ArrayList;
 
 public class ActivityConfgPerfil extends AppCompatActivity {
 
@@ -107,6 +110,11 @@ public class ActivityConfgPerfil extends AppCompatActivity {
             sharedPreferencesConfg.clearShareds();
 
             AgendaDAO agendaDAO = new AgendaDAO(ActivityConfgPerfil.this);
+            ArrayList<Long> ids = agendaDAO.idTarefasLembrete();
+
+            for(long id : ids) {
+                AlarmScheduler.cancelAlarm(ActivityConfgPerfil.this, id);
+            }
             agendaDAO.excluiTabelaAgenda();
 
             Intent intent = new Intent(ActivityConfgPerfil.this, ActivityLogin.class);

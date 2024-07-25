@@ -126,6 +126,9 @@
     <style name="BackGroundTintThemeItens">
         <item name="android:backgroundTint">@color/blue17</item>
     </style>
+    <style name="BackGroundTintThemeItensProgress">
+        <item name="android:backgroundTint">@color/grey3</item>
+    </style>
     <style name="BackgroundThemeAddAgenda">
         <item name="android:background">@drawable/background_add_agenda_dialog_claro</item>
     </style>
@@ -250,6 +253,9 @@
     </style>
     <style name="IconPainelADM">
         <item name="android:src">@drawable/icon_painel</item>
+    </style>
+    <style name="TextColorThemeDelete">
+        <item name="android:textColor">@color/black</item>
     </style>
 
 
