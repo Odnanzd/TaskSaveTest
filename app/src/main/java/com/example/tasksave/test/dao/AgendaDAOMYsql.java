@@ -5,6 +5,7 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import android.util.Log;
 
 import com.example.tasksave.test.conexaoMYSQL.ConnectionClass;
+import com.example.tasksave.test.objetos.Agenda;
 import com.example.tasksave.test.objetos.AgendaAWS;
 
 import java.sql.Connection;
@@ -12,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class AgendaDAOMYsql {
@@ -116,5 +118,48 @@ public class AgendaDAOMYsql {
                 return false;
             }
     }
+//    public Agenda tarefasUsuario(int idUsuario, int atraso) {
+//
+//        String sql = "SELECT * FROM tarefa_usuario WHERE usuario_id = ? AND finalizado_tarefa = 0 AND atraso_tarefa = ? ";
+//
+//        ConnectionClass connectionClass = new ConnectionClass();
+//        conn = connectionClass.CONN();
+//
+//        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+//
+//                stmt.setInt(1, idUsuario);
+//                stmt.setInt(2, atraso);
+//
+//                try(ResultSet rs = stmt.executeQuery()) {
+//                    while (rs.next()) {
+////                        Agenda agendaTarefa = new Agenda(rs.getInt("usuario_id"),
+////                        rs.getString("nome_tarefa"),rs.getString("descricao_tarefa"),
+////                        rs.getString("data_tarefa"), rs.getInt("hora_tarefa"),
+////                        rs.getInt("minuto_tarefa"), rs.getBoolean("lembrete_tarefa"),
+////                        rs.getBoolean("finalizado_tarefa"), rs.getDate("data_farefa_fim"),
+////                        rs.getInt("hora_tarefa_fim"), rs.getInt("minuto_tarefa_fim"),
+////                        rs.getDate("data_tarefa_insert"),
+////                        rs.getInt("hora_tarefa_insert"), rs.getInt("minuto_tarefa_insert"),
+////                        rs.getInt("atraso_tarefa"), rs.getBoolean("repetir_tarefa"),
+////                        rs.getInt("repetir_modo_tarefa"), rs.getBoolean("notificou_tarefa")))));
+//                    }
+//                }
+//
+//
+//        } catch (SQLException e) {
+//           e.printStackTrace();
+//        }
+//
+//    }
+//    (long id, String nomeAgenda, String descriçãoAgenda, LocalDate dataAgenda,
+//    int horaAgenda, int minutoAgenda, boolean lembrete, boolean finalizado,
+//    java.time.LocalDate dataAgendaFim, int horaAgendaFim, int minutoAgendaFim,
+//    LocalDate dataAgendaInsert, int horaAgendaInsert, int minutoAgendaInsert, int agendaAtraso, boolean repetirLembrete,
+//    int repetirModo, boolean notificouTarefa)
 
+    String sql = "INSERT INTO tarefa_usuario (nome_tarefa, descricao_tarefa, lembrete_tarefa," +
+            " repetir_tarefa, repetir_modo_tarefa, data_tarefa, hora_tarefa, minuto_tarefa, " +
+            "data_farefa_fim, hora_tarefa_fim, minuto_tarefa_fim, data_tarefa_insert, hora_tarefa_insert," +
+            " minuto_tarefa_insert, atraso_tarefa, finalizado_tarefa, notificou_tarefa, usuario_id) VALUES" +
+            " (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 }
