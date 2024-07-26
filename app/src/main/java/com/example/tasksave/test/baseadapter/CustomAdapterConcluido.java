@@ -28,11 +28,11 @@ public class CustomAdapterConcluido extends BaseAdapter {
     String AgendaHorasFim[];
     String AgendaDatasInsert[];
     String AgendaHorasInsert[];
-    private ArrayList<Long> AgendaID;
+    private ArrayList<Integer> AgendaID;
     boolean[] isReminderSet;
     LayoutInflater inflater;
 
-    public CustomAdapterConcluido(Context context,ArrayList<Long> IDAgenda, String[] TituloAgenda,
+    public CustomAdapterConcluido(Context context,ArrayList<Integer> IDAgenda, String[] TituloAgenda,
     String[] DescricaoAgenda, String[] DataAgenda, String[] HoraAgenda, boolean[] isReminderSet,
     String[] DatasAgendaFim, String[] HorasAgendaFim, String[] DatasAgendaInsert, String[] HorasAgendaInsert ) {
         this.context = context;

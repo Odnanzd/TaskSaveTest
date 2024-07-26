@@ -33,10 +33,11 @@ import java.util.Locale;
 public class ActivityAgendaConcluido extends AppCompatActivity {
 
     ListView listView;
-    ArrayList<Long> listaIDs = new ArrayList<>();
+    ArrayList<Integer> listaIDs = new ArrayList<>();
     private Conexao con;
     private SQLiteDatabase db;
     ImageView imageView;
+    @SuppressLint("MissingSuperCall")
     public void onBackPressed() {
         finish();
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
@@ -73,7 +74,7 @@ public class ActivityAgendaConcluido extends AppCompatActivity {
         if (cursor.moveToFirst()) {
             do {
                 @SuppressLint("Range")
-                long ID = cursor.getLong(cursor.getColumnIndex("id"));
+                int ID = cursor.getInt(cursor.getColumnIndex("id"));
                 @SuppressLint("Range")
                 String titulo = cursor.getString(cursor.getColumnIndex("nomeTarefa"));
                 @SuppressLint("Range")
@@ -135,7 +136,7 @@ public class ActivityAgendaConcluido extends AppCompatActivity {
         String[] datas = new String[listaagenda.size()];
         String[] horas = new String[listaagenda.size()];
         boolean[] lembretes = new boolean[listaagenda.size()];
-        long[] ids = new long[listaagenda.size()];
+        int[] ids = new int[listaagenda.size()];
         String[] datasAgendaFim = new String[listaagenda.size()];
         String[] horasAgendaFim = new String[listaagenda.size()];
 

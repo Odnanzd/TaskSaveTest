@@ -13,7 +13,6 @@
     android:layout_marginHorizontal="10dp"
     app:cardCornerRadius="20dp"
     style="@style/BackGroundTintThemeItensProgress"
-    app:cardElevation="15dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -36,7 +36,7 @@ public class CustomAdapter extends BaseAdapter {
     String AgendaDescricao[];
     String AgendaData[];
     String AgendaHora[];
-    private ArrayList<Long> AgendaID;
+    private ArrayList<Integer> AgendaID;
     boolean[] isReminderSet;
 
     boolean[] RepetirLembrete;
@@ -59,7 +59,7 @@ public class CustomAdapter extends BaseAdapter {
     }
 
 
-    public CustomAdapter(Context context,ArrayList<Long> IDAgenda, String[] TituloAgenda,
+    public CustomAdapter(Context context,ArrayList<Integer> IDAgenda, String[] TituloAgenda,
                          String[] DescricaoAgenda, String[] DataAgenda, String[] HoraAgenda,
                          boolean[] isReminderSet, boolean[] RepetirLembrete, ArrayList<Integer> RepetirLembreteModo, boolean[] notificouTarefa ) {
         this.context = context;

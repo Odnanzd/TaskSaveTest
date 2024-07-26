@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.Calendar;
 
 public class Agenda {
-    static long id;
+    private int id;
     private String nomeAgenda;
     private String descriçãoAgenda;
     private LocalDate dataAgenda;
@@ -30,7 +30,7 @@ public class Agenda {
     private boolean notificouTarefa;
 
 
-    public Agenda(long id, String nomeAgenda, String descriçãoAgenda, LocalDate dataAgenda,
+    public Agenda(int id, String nomeAgenda, String descriçãoAgenda, LocalDate dataAgenda,
                   int horaAgenda, int minutoAgenda, boolean lembrete, boolean finalizado,
                   LocalDate dataAgendaFim, int horaAgendaFim, int minutoAgendaFim,
                   LocalDate dataAgendaInsert, int horaAgendaInsert, int minutoAgendaInsert, int agendaAtraso, boolean repetirLembrete,
@@ -115,13 +115,14 @@ public class Agenda {
         return lembrete;
     }
 
-    public static long getId() {
+    public int getId() {
         return id;
     }
 
-    public static void setId(long id) {
-        Agenda.id = id;
+    public void setId(int id) {
+        this.id = id;
     }
+
     public boolean getFinalizado() {
         return finalizado;
     }

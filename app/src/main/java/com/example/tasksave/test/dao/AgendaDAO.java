@@ -37,6 +37,12 @@ public class AgendaDAO {
 
     public long inserir(Agenda agenda) {
 
+        String[] columns = {"id"};
+        String selection = "id = ?";
+        String[] selectionArgs = {String.valueOf(agenda.getId())};
+
+        Cursor cursor = db.query("agenda", columns, selection, selectionArgs, null, null, null);
+
         ContentValues contentValues = new ContentValues();
 
         contentValues.put("nomeTarefa", agenda.getNomeAgenda());
@@ -58,8 +64,17 @@ public class AgendaDAO {
         contentValues.put("notificouTarefa", agenda.isNotificado());
         contentValues.put("id", agenda.getId());
 
-        return db.insert("agenda", null, contentValues);
+        long result;
+        if (cursor.moveToFirst()) {
+            // Registro já existe, então atualize
+            result = db.update("agenda", contentValues, selection, selectionArgs);
+        } else {
+            // Registro não existe, então insira
+            result = db.insert("agenda", null, contentValues);
+        }
 
+        cursor.close();
+        return result;
     }
 
     public boolean atualizarTitDesc(long id, String novoTitulo, String novaDescricao) {
@@ -130,7 +145,7 @@ public class AgendaDAO {
         if (cursor.moveToFirst()) {
             do {
                 @SuppressLint("Range")
-                long id = cursor.getLong(cursor.getColumnIndex("id"));
+                int id = cursor.getInt(cursor.getColumnIndex("id"));
                 @SuppressLint("Range")
                 String titulo = cursor.getString(cursor.getColumnIndex("nomeTarefa"));
                 @SuppressLint("Range")
@@ -269,7 +284,7 @@ public class AgendaDAO {
 
     //LISTAR AGENDA PENDENTE
 
-    public void listarAgendaPendentes(ArrayList<Long> listaIDs, ArrayList<Integer> repetirModoLembrete2, Context context, ListView listView) {
+    public void listarAgendaPendentes(ArrayList<Integer> listaIDs, ArrayList<Integer> repetirModoLembrete2, Context context, ListView listView) {
 
 
         List<Agenda> listaagenda = new ArrayList<Agenda>();
@@ -281,7 +296,7 @@ public class AgendaDAO {
         if (cursor.moveToFirst()) {
             do {
                 @SuppressLint("Range")
-                long ID = cursor.getLong(cursor.getColumnIndex("id"));
+                int ID = cursor.getInt(cursor.getColumnIndex("id"));
                 @SuppressLint("Range")
                 String titulo = cursor.getString(cursor.getColumnIndex("nomeTarefa"));
                 @SuppressLint("Range")
@@ -343,7 +358,7 @@ public class AgendaDAO {
         String[] datas = new String[listaagenda.size()];
         String[] horas = new String[listaagenda.size()];
         boolean[] lembretes = new boolean[listaagenda.size()];
-        long[] ids = new long[listaagenda.size()];
+        int[] ids = new int[listaagenda.size()];
         boolean[] repetirLembrete = new boolean[listaagenda.size()];
         int[] repetirModoLembrete = new int[listaagenda.size()];
         boolean[] notificouTarefa = new boolean[listaagenda.size()];
@@ -372,7 +387,7 @@ public class AgendaDAO {
     }
 
     //LISTAR AGENDA ATRASO
-    public void listarAgendaAtraso(ArrayList<Long> listaIDs, ArrayList<Integer> repetirModoLembrete2, Context context, ListView listView) {
+    public void listarAgendaAtraso(ArrayList<Integer> listaIDs, ArrayList<Integer> repetirModoLembrete2, Context context, ListView listView) {
 
 
         List<Agenda> listaagenda = new ArrayList<Agenda>();
@@ -384,7 +399,7 @@ public class AgendaDAO {
         if (cursor.moveToFirst()) {
             do {
                 @SuppressLint("Range")
-                long ID = cursor.getLong(cursor.getColumnIndex("id"));
+                int ID = cursor.getInt(cursor.getColumnIndex("id"));
                 @SuppressLint("Range")
                 String titulo = cursor.getString(cursor.getColumnIndex("nomeTarefa"));
                 @SuppressLint("Range")
@@ -446,7 +461,7 @@ public class AgendaDAO {
         String[] datas = new String[listaagenda.size()];
         String[] horas = new String[listaagenda.size()];
         boolean[] lembretes = new boolean[listaagenda.size()];
-        long[] ids = new long[listaagenda.size()];
+        int[] ids = new int[listaagenda.size()];
         boolean[] repetirLembrete = new boolean[listaagenda.size()];
         int[] repetirModoLembrete = new int[listaagenda.size()];
         boolean[] notificouTarefa = new boolean[listaagenda.size()];

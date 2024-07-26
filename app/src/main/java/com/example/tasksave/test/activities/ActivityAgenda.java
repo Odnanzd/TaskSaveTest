@@ -58,6 +58,7 @@ import com.example.tasksave.test.objetos.Agenda;
 import com.example.tasksave.test.objetos.AgendaAWS;
 import com.example.tasksave.test.servicesreceiver.AlarmScheduler;
 import com.example.tasksave.test.sharedPreferences.SharedPreferencesUsuario;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
@@ -84,13 +85,15 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
     ImageView imageView2;
     ImageView imageView3;
     ImageView imageViewBalao;
-    ArrayList<Long> listaIDs = new ArrayList<>();
+    ArrayList<Integer> listaIDs = new ArrayList<>();
     ArrayList<Integer> repetirModoLembrete2 = new ArrayList<>();
 
     CardView cardViewPendents, cardViewTodos, cardViewAtrasados;
     private boolean clickTodos, clickPendentes, clickAtradasados;
 
     private SwipeRefreshLayout swipeRefreshLayout;
+    private ShimmerFrameLayout shimmerFrameLayout;
+    ImageView imageViewLixeira;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint({"MissingInflatedId", "MissingSuperCall"})
@@ -114,20 +117,22 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
         imageView = findViewById(R.id.icon_concluido);
         imageView2 = findViewById(R.id.imageView4);
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+        imageViewLixeira = findViewById(R.id.lixeira);
         imageViewBalao = findViewById(R.id.imageViewBalaoFala);
 
         cardViewPendents = findViewById(R.id.cardViewPendentes);
         cardViewTodos = findViewById(R.id.cardViewTodos);
         cardViewAtrasados = findViewById(R.id.cardViewAtrasados);
 
+        shimmerFrameLayout = findViewById(R.id.shimmerface);
+
         clickTodos = true;
         clickPendentes = false;
         clickAtradasados = false;
 
-        VerificaLista();
-//        ListarAgenda();
+//        VerificaLista();
         checkChanges(listaIDs, repetirModoLembrete2, this, listView);
-//        VerificaAgendaComLembretes();
+
 
 
         imageView2.setOnClickListener(new View.OnClickListener() {
@@ -199,7 +204,9 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
     }
 
     @SuppressLint("NewApi")
-    public void checkChanges(ArrayList<Long> listaIDs2, ArrayList<Integer> repetirModoLembrete3, Context context2, ListView listView1) {
+    public void checkChanges(ArrayList<Integer> listaIDs2, ArrayList<Integer> repetirModoLembrete3, Context context2, ListView listView1) {
+
+        textView.setVisibility(View.GONE);
 
         AgendaDAO agendaDAO = new AgendaDAO(ActivityAgenda.this);
 
@@ -208,7 +215,11 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
             cardViewTodos.setCardBackgroundColor(getResources().getColor(R.color.blue16));
             cardViewPendents.setCardBackgroundColor(getResources().getColor(R.color.brancoGelo));
             cardViewAtrasados.setCardBackgroundColor(getResources().getColor(R.color.brancoGelo));
-            ListarAgenda();
+
+            shimmerFrameLayout.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.GONE);
+            shimmerFrameLayout.showShimmer(true);
+            tarefasSelect(0);
 
         } else if (clickPendentes) {
 
@@ -216,7 +227,11 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
             cardViewTodos.setCardBackgroundColor(getResources().getColor(R.color.brancoGelo));
             cardViewAtrasados.setCardBackgroundColor(getResources().getColor(R.color.brancoGelo));
 
-            agendaDAO.listarAgendaPendentes(listaIDs2, repetirModoLembrete3, context2, listView1);
+//            agendaDAO.listarAgendaPendentes(listaIDs2, repetirModoLembrete3, context2, listView1);
+            shimmerFrameLayout.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.GONE);
+            shimmerFrameLayout.showShimmer(true);
+            tarefasSelect(1);
 
         } else if (clickAtradasados) {
 
@@ -224,7 +239,11 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
             cardViewTodos.setCardBackgroundColor(getResources().getColor(R.color.brancoGelo));
             cardViewPendents.setCardBackgroundColor(getResources().getColor(R.color.brancoGelo));
             Log.d("TESTE ELSE IF", "TESTE CLICK ATRASADOS");
-            agendaDAO.listarAgendaAtraso(listaIDs2, repetirModoLembrete3, context2, listView1);
+//            agendaDAO.listarAgendaAtraso(listaIDs2, repetirModoLembrete3, context2, listView1);
+            shimmerFrameLayout.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.GONE);
+            shimmerFrameLayout.showShimmer(true);
+            tarefasSelect(2);
 
         }
 
@@ -663,7 +682,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
     @Override
     protected void onResume() {
         super.onResume();
-        VerificaLista();
+//        VerificaLista();
         checkChanges(listaIDs, repetirModoLembrete2, ActivityAgenda.this, listView);
     }
 
@@ -672,6 +691,8 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
 
         con = new Conexao(this);
         db = con.getWritableDatabase();
+
+//        String sql = "SELECT * FROM agenda WHERE finalizado ="+atraso;
 
         Cursor cursor = db.rawQuery("SELECT * FROM agenda WHERE finalizado = 0;", null);
         Cursor cursor2 = db.rawQuery("SELECT * FROM agenda WHERE finalizado = 1;", null);
@@ -689,8 +710,6 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
             Log.d("IF ", "AQUI IF2");
             textView.setVisibility(View.GONE);
             imageView.setVisibility(View.GONE);
-            imageViewBalao.setVisibility(View.GONE);
-            imageViewBalao.clearAnimation();
 
         } else if (cursor.getCount() == 0 && cursor2.getCount() >= 1) {
             Log.d("IF ", "AQUI IF3");
@@ -715,72 +734,95 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void ListarAgenda() {
+    public void ListarAgenda(int atraso) {
+
+        listView.setVisibility(View.VISIBLE);
 
         List<Agenda> listaagenda = new ArrayList<Agenda>();
         listaIDs.clear();
         repetirModoLembrete2.clear();
 
-        Cursor cursor = db.rawQuery("SELECT * FROM agenda WHERE finalizado = 0;", null);
+        String sql = "";
 
-        if (cursor.moveToFirst()) {
-            do {
-                @SuppressLint("Range")
-                long ID = cursor.getLong(cursor.getColumnIndex("id"));
-                @SuppressLint("Range")
-                String titulo = cursor.getString(cursor.getColumnIndex("nomeTarefa"));
-                @SuppressLint("Range")
-                String descricao = cursor.getString(cursor.getColumnIndex("descricaoTarefa"));
-                @SuppressLint("Range")
-                String dataagenda = cursor.getString(cursor.getColumnIndex("dataAgenda"));
-                @SuppressLint("Range")
-                int horaagenda = cursor.getInt(cursor.getColumnIndex("horaAgenda"));
-                @SuppressLint("Range")
-                int minutoagenda = cursor.getInt(cursor.getColumnIndex("minutoAgenda"));
-                @SuppressLint("Range")
-                int lembreteDB = cursor.getInt(cursor.getColumnIndex("lembretedefinido"));
-                boolean lembrete = (lembreteDB != 0);
-                @SuppressLint("Range")
-                int finalizadoDB = cursor.getInt(cursor.getColumnIndex("finalizado"));
-                boolean finalizado = (finalizadoDB != 0);
-                @SuppressLint("Range")
-                String dataagendaFim = cursor.getString(cursor.getColumnIndex("dataAgendaFim"));
-                @SuppressLint("Range")
-                int horaAgendaFim = cursor.getInt(cursor.getColumnIndex("horaAgendaFim"));
-                @SuppressLint("Range")
-                int minutoAgendaFim = cursor.getInt(cursor.getColumnIndex("minutoAgendaFim"));
-                @SuppressLint("Range")
-                String dataAgendaInsert = cursor.getString(cursor.getColumnIndex("dataAgendaInsert"));
-                @SuppressLint("Range")
-                int horaAgendaInsert = cursor.getInt(cursor.getColumnIndex("horaAgendaInsert"));
-                @SuppressLint("Range")
-                int minutoAgendaInsert = cursor.getInt(cursor.getColumnIndex("minutoAgendaInsert"));
-                @SuppressLint("Range")
-                int agendaAtrasoDB = cursor.getInt(cursor.getColumnIndex("agendaAtraso"));
-                @SuppressLint("Range")
-                int repetirLembreteDB = cursor.getInt(cursor.getColumnIndex("repetirLembrete"));
-                boolean repetirLembrete = (repetirLembreteDB != 0);
-                @SuppressLint("Range")
-                int repetirLembreteModo = cursor.getInt(cursor.getColumnIndex("repetirModo"));
-                @SuppressLint("Range")
-                int notificouTarefaDB = cursor.getInt(cursor.getColumnIndex("notificouTarefa"));
-                boolean notificouTarefa = (notificouTarefaDB != 0);
+        Cursor cursor = null;
 
-
-                LocalDate localdataagenda = LocalDate.parse(dataagenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                LocalDate localdataagendaFim = LocalDate.parse(dataagendaFim, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                LocalDate localdataagendaInsert = LocalDate.parse(dataAgendaInsert, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
-                listaagenda.add(new Agenda(ID, titulo, descricao, localdataagenda, horaagenda, minutoagenda,
-                        lembrete, finalizado, localdataagendaFim, horaAgendaFim, minutoAgendaFim, localdataagendaInsert,
-                        horaAgendaInsert, minutoAgendaInsert, agendaAtrasoDB, repetirLembrete, repetirLembreteModo, notificouTarefa));
-                listaIDs.add(ID);
-                repetirModoLembrete2.add(repetirLembreteModo);
-
-            } while (cursor.moveToNext());
+        if(atraso==0){
+            sql = "SELECT * FROM agenda WHERE finalizado = 0";
+        }else {
+            sql = "SELECT * FROM agenda WHERE finalizado = 0 AND agendaAtraso ="+atraso;
         }
 
-        cursor.close();
+        try {
+                cursor = db.rawQuery(sql, null);
+
+            if(cursor != null) {
+
+                if (cursor.moveToFirst()) {
+                    do {
+                        @SuppressLint("Range")
+                        int ID = cursor.getInt(cursor.getColumnIndex("id"));
+                        @SuppressLint("Range")
+                        String titulo = cursor.getString(cursor.getColumnIndex("nomeTarefa"));
+                        @SuppressLint("Range")
+                        String descricao = cursor.getString(cursor.getColumnIndex("descricaoTarefa"));
+                        @SuppressLint("Range")
+                        String dataagenda = cursor.getString(cursor.getColumnIndex("dataAgenda"));
+                        @SuppressLint("Range")
+                        int horaagenda = cursor.getInt(cursor.getColumnIndex("horaAgenda"));
+                        @SuppressLint("Range")
+                        int minutoagenda = cursor.getInt(cursor.getColumnIndex("minutoAgenda"));
+                        @SuppressLint("Range")
+                        int lembreteDB = cursor.getInt(cursor.getColumnIndex("lembretedefinido"));
+                        boolean lembrete = (lembreteDB != 0);
+                        @SuppressLint("Range")
+                        int finalizadoDB = cursor.getInt(cursor.getColumnIndex("finalizado"));
+                        boolean finalizado = (finalizadoDB != 0);
+                        @SuppressLint("Range")
+                        String dataagendaFim = cursor.getString(cursor.getColumnIndex("dataAgendaFim"));
+                        @SuppressLint("Range")
+                        int horaAgendaFim = cursor.getInt(cursor.getColumnIndex("horaAgendaFim"));
+                        @SuppressLint("Range")
+                        int minutoAgendaFim = cursor.getInt(cursor.getColumnIndex("minutoAgendaFim"));
+                        @SuppressLint("Range")
+                        String dataAgendaInsert = cursor.getString(cursor.getColumnIndex("dataAgendaInsert"));
+                        @SuppressLint("Range")
+                        int horaAgendaInsert = cursor.getInt(cursor.getColumnIndex("horaAgendaInsert"));
+                        @SuppressLint("Range")
+                        int minutoAgendaInsert = cursor.getInt(cursor.getColumnIndex("minutoAgendaInsert"));
+                        @SuppressLint("Range")
+                        int agendaAtrasoDB = cursor.getInt(cursor.getColumnIndex("agendaAtraso"));
+                        @SuppressLint("Range")
+                        int repetirLembreteDB = cursor.getInt(cursor.getColumnIndex("repetirLembrete"));
+                        boolean repetirLembrete = (repetirLembreteDB != 0);
+                        @SuppressLint("Range")
+                        int repetirLembreteModo = cursor.getInt(cursor.getColumnIndex("repetirModo"));
+                        @SuppressLint("Range")
+                        int notificouTarefaDB = cursor.getInt(cursor.getColumnIndex("notificouTarefa"));
+                        boolean notificouTarefa = (notificouTarefaDB != 0);
+
+
+                        LocalDate localdataagenda = LocalDate.parse(dataagenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                        LocalDate localdataagendaFim = LocalDate.parse(dataagendaFim, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                        LocalDate localdataagendaInsert = LocalDate.parse(dataAgendaInsert, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+                        listaagenda.add(new Agenda(ID, titulo, descricao, localdataagenda, horaagenda, minutoagenda,
+                                lembrete, finalizado, localdataagendaFim, horaAgendaFim, minutoAgendaFim, localdataagendaInsert,
+                                horaAgendaInsert, minutoAgendaInsert, agendaAtrasoDB, repetirLembrete, repetirLembreteModo, notificouTarefa));
+                        listaIDs.add(ID);
+                        repetirModoLembrete2.add(repetirLembreteModo);
+
+                    } while (cursor.moveToNext());
+                }
+
+                cursor.close();
+
+            }else {
+                Toast.makeText(ActivityAgenda.this, "ERRO AO CARREGAR TAREFAS", Toast.LENGTH_LONG).show();
+            }
+
+        }catch (Exception e ) {
+            e.printStackTrace();
+        }
 
         // Convertendo a lista de objetos Agenda em arrays separados para o CustomAdapter
         String[] titulos = new String[listaagenda.size()];
@@ -788,7 +830,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
         String[] datas = new String[listaagenda.size()];
         String[] horas = new String[listaagenda.size()];
         boolean[] lembretes = new boolean[listaagenda.size()];
-        long[] ids = new long[listaagenda.size()];
+        int[] ids = new int[listaagenda.size()];
         boolean[] repetirLembrete = new boolean[listaagenda.size()];
         int[] repetirModoLembrete = new int[listaagenda.size()];
         boolean[] notificouTarefa = new boolean[listaagenda.size()];
@@ -818,6 +860,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                imageViewLixeira.setVisibility(View.GONE);
                 customAdapter.notifyDataSetChanged();
                 refreshData();
                 swipeRefreshLayout.setRefreshing(false);
@@ -825,8 +868,6 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
 
         });
 
-
-        ImageView imageViewLixeira = findViewById(R.id.lixeira);
         imageViewLixeira.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -987,28 +1028,28 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
     @SuppressLint("NewApi")
     private void atualizarLista() {
         // Restaure a lista de itens
-        VerificaLista();
-        ListarAgenda();
+//        VerificaLista();
+        checkChanges(listaIDs, repetirModoLembrete2, ActivityAgenda.this, listView);
     }
 
     @SuppressLint("NewApi")
     private void refreshData() {
-        VerificaLista();
-        ListarAgenda();
+//        VerificaLista();
+        checkChanges(listaIDs, repetirModoLembrete2, ActivityAgenda.this, listView);
     }
 
     @SuppressLint("NewApi")
     @Override
     public void onItemDeleted(int position) {
-        VerificaLista();
-        ListarAgenda();
+//        VerificaLista();
+        checkChanges(listaIDs, repetirModoLembrete2, ActivityAgenda.this, listView);
     }
 
     @SuppressLint("NewApi")
     @Override
     public void onItemUpdated(int position) {
-        ListarAgenda();
-        VerificaLista();
+//        ListarAgenda();
+//        VerificaLista();
     }
 
     @SuppressLint("NewApi")
@@ -1028,7 +1069,6 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                                int horaTarefaFim, int minutoTarefaFim, LocalDate dataTarefaInsert,
                                int horaTarefaInsert, int minutoTarefaInsert, int atrasoTarefa, boolean finalizadoTarefa,
                                boolean notificouTarefa, Dialog dialog) {
-
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(() -> {
@@ -1147,6 +1187,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
 
                 runOnUiThread(() -> {
 
+                frameLayoutNão.setEnabled(false);
                 excluirItensDoBanco(ids);
                 excluiItensAWS(ids, customAdapter, dialogDeleta);
                 imageViewLixeira.setVisibility(View.GONE);
@@ -1162,6 +1203,58 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
 
 
 
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void tarefasSelect(int atraso) {
+
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(() -> {
+
+            try {
+
+
+                AgendaDAOMYsql agendaDAOMYsql = new AgendaDAOMYsql();
+                UsuarioDAOMYsql usuarioDAOMYsql = new UsuarioDAOMYsql();
+                AgendaDAO agendaDAO = new AgendaDAO(ActivityAgenda.this);
+                SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(ActivityAgenda.this);
+
+                String emailShared = sharedPreferencesUsuario.getEmailLogin();
+                int idUsuario = usuarioDAOMYsql.idUsarioAWS(emailShared);
+
+                List<Agenda> agendaTarefa = agendaDAOMYsql.tarefasUsuario(idUsuario, atraso);
+
+                if (agendaTarefa.isEmpty()) {
+                    Log.d(TAG, "Nenhuma tarefa encontrada para o usuário.");
+                    runOnUiThread(() -> {
+                        shimmerFrameLayout.setVisibility(View.GONE);
+                        shimmerFrameLayout.hideShimmer();
+                        shimmerFrameLayout.stopShimmer();
+                        VerificaLista();
+                        ListarAgenda(atraso);
+                            });
+                } else {
+                    for (Agenda agenda : agendaTarefa) {
+
+                        long result = agendaDAO.inserir(agenda);
+
+                    }
+                    runOnUiThread(()-> {
+
+                        shimmerFrameLayout.setVisibility(View.GONE);
+                        shimmerFrameLayout.hideShimmer();
+                        shimmerFrameLayout.stopShimmer();
+                        VerificaLista();
+                        ListarAgenda(atraso);
+
+                            });
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+
+        });
     }
 
 }
