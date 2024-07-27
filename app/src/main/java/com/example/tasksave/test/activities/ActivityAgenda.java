@@ -752,6 +752,8 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
             sql = "SELECT * FROM agenda WHERE finalizado = 0 AND agendaAtraso ="+atraso;
         }
 
+        Log.d("ATRASO", "ATRASO: "+sql+"INT ATRASO: "+atraso);
+
         try {
                 cursor = db.rawQuery(sql, null);
 

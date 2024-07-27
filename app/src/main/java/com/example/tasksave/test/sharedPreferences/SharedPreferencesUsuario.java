@@ -63,6 +63,14 @@ public class SharedPreferencesUsuario {
         editor.putBoolean("PrimeiroAcessoFingerPrint", primeiroacesso);
         editor.commit();
     }
+    public void armazenaPrimeiroAcessoAgenda(boolean primeiroAcessoAgenda) {
+
+        SharedPreferences prefs = context.getSharedPreferences("ArquivoPrimeiroAcessoAgenda", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("PrimeiroAcessoAgenda", primeiroAcessoAgenda);
+        editor.commit();
+
+    }
 
     // GETTERS
 
@@ -124,6 +132,14 @@ public class SharedPreferencesUsuario {
         boolean biometria = sharedPrefs2.getBoolean("PrimeiroAcessoFingerPrint", false);
 
         return biometria;
+    }
+    public boolean getPrimeiroAcessoAgenda() {
+
+        SharedPreferences sharedPrefs2 = context.getSharedPreferences("ArquivoPrimeiroAcessoAgenda", Context.MODE_PRIVATE);
+        boolean agenda = sharedPrefs2.getBoolean("PrimeiroAcessoAgenda", false);
+
+        return agenda;
+
     }
 
 

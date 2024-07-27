@@ -133,6 +133,7 @@ public class AgendaDAOMYsql {
         conn = connectionClass.CONN();
 
         List<Agenda> tarefasUsuario = new ArrayList<>();
+        Log.d("ATRASO: ", "ATRASO: "+atraso);
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 
