@@ -7,6 +7,7 @@
     style="@style/BackgroundTheme2"
     tools:context=".test.activities.ActivityWelcome" >
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

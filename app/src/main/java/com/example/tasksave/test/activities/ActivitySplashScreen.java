@@ -33,9 +33,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.tasksave.test.conexaoMYSQL.ConnectionClass;
+import com.example.tasksave.test.dao.AgendaDAO;
 import com.example.tasksave.test.dao.UsuarioDAOMYsql;
 import com.example.tasksave.test.objetos.User;
 import com.example.tasksave.R;
+import com.example.tasksave.test.servicesreceiver.AlarmScheduler;
 import com.example.tasksave.test.servicos.ServicosATT;
 import com.example.tasksave.test.sharedPreferences.SharedPreferencesConfg;
 import com.example.tasksave.test.sharedPreferences.SharedPreferencesUsuario;
@@ -44,6 +46,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -184,16 +187,25 @@ public class ActivitySplashScreen extends AppCompatActivity {
                             } else {
                                 // Falha na autenticação
                                 str2 = "ERRO";
-                                Toast.makeText(getBaseContext(), "ERRO", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ActivitySplashScreen.this, "ERRO", Toast.LENGTH_SHORT).show();
                             }
                         }else {
 
+
+                            AgendaDAO agendaDAO = new AgendaDAO(ActivitySplashScreen.this);
+                            ArrayList<Long> ids = agendaDAO.idTarefasLembrete();
+
+                            for(long id : ids) {
+                                AlarmScheduler.cancelAlarm(ActivitySplashScreen.this, id);
+                            }
+                            agendaDAO.excluiTabelaAgenda();
                             sharedPreferencesConfg.clearShareds();
+
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     str2 = "ERRO";
-                                    Toast.makeText(getBaseContext(), "Dados inválidos, realizar login novamente.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getBaseContext(), "Dados inválidos, realizar login novamente.", Toast.LENGTH_LONG).show();
                                     Intent intent = new Intent(ActivitySplashScreen.this, ActivityLogin.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
@@ -259,6 +271,18 @@ public class ActivitySplashScreen extends AppCompatActivity {
                     startActivity(intent);
 
                 } else if (!sharedPreferencesUsuario.getSalvarSenha()) {
+
+                    SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(ActivitySplashScreen.this);
+
+                    AgendaDAO agendaDAO = new AgendaDAO(ActivitySplashScreen.this);
+                    ArrayList<Long> ids = agendaDAO.idTarefasLembrete();
+
+                    for(long id : ids) {
+                        AlarmScheduler.cancelAlarm(ActivitySplashScreen.this, id);
+                    }
+                    agendaDAO.excluiTabelaAgenda();
+
+                    sharedPreferencesConfg.clearShareds();
 
                     Intent intent = new Intent(ActivitySplashScreen.this, ActivityLogin.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

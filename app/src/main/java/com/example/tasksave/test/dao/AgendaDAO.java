@@ -68,9 +68,11 @@ public class AgendaDAO {
         if (cursor.moveToFirst()) {
             // Registro já existe, então atualize
             result = db.update("agenda", contentValues, selection, selectionArgs);
+            Log.d("IF CURSOR MOVE TO FIRST IF 1", "IF 1");
         } else {
             // Registro não existe, então insira
             result = db.insert("agenda", null, contentValues);
+            Log.d("IF CURSOR MOVE TO FIRST IF 2", "IF 2");
         }
 
         cursor.close();

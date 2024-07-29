@@ -125,20 +125,20 @@ public class AgendaDAOMYsql {
             }
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public List<Agenda> tarefasUsuario(int idUsuario, int atraso) {
+    public List<Agenda> tarefasUsuario(int idUsuario) {
 
-        String sql = "SELECT * FROM tarefa_usuario WHERE usuario_id = ? AND finalizado_tarefa = 0 AND atraso_tarefa = ?";
+
+        String sql = "SELECT * FROM tarefa_usuario WHERE usuario_id = ? AND finalizado_tarefa = 0";
 
         ConnectionClass connectionClass = new ConnectionClass();
         conn = connectionClass.CONN();
 
         List<Agenda> tarefasUsuario = new ArrayList<>();
-        Log.d("ATRASO: ", "ATRASO: "+atraso);
+
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 
                 stmt.setInt(1, idUsuario);
-                stmt.setInt(2, atraso);
 
                 try(ResultSet rs = stmt.executeQuery()) {
                     while (rs.next()) {
@@ -188,6 +188,7 @@ public class AgendaDAOMYsql {
         } catch (SQLException e) {
            e.printStackTrace();
         }
+
         return tarefasUsuario;
     }
 //    (long id, String nomeAgenda, String descriçãoAgenda, LocalDate dataAgenda,
@@ -196,9 +197,4 @@ public class AgendaDAOMYsql {
 //    LocalDate dataAgendaInsert, int horaAgendaInsert, int minutoAgendaInsert, int agendaAtraso, boolean repetirLembrete,
 //    int repetirModo, boolean notificouTarefa)
 
-    String sql = "INSERT INTO tarefa_usuario (nome_tarefa, descricao_tarefa, lembrete_tarefa," +
-            " repetir_tarefa, repetir_modo_tarefa, data_tarefa, hora_tarefa, minuto_tarefa, " +
-            "data_farefa_fim, hora_tarefa_fim, minuto_tarefa_fim, data_tarefa_insert, hora_tarefa_insert," +
-            " minuto_tarefa_insert, atraso_tarefa, finalizado_tarefa, notificou_tarefa, usuario_id) VALUES" +
-            " (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 }

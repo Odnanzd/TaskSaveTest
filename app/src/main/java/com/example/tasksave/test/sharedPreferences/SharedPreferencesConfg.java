@@ -149,7 +149,7 @@ public class SharedPreferencesConfg {
         String[] sharedPreferencesNames = {"ArquivoNotifica", "ArquivoATT", "ArquivoTextoAPP","ArquivoTexto1",
                 "ArquivoTexto2","ArquivoTexto3", "ArquivoAttDisp", "arquivoSalvarSenha", "ArquivoPrimeiroAcesso",
                 "arquivoSalvarLoginEmail", "arquivoSalvarLoginSenha", "arquivoSalvarUser", "ArquivoIDCargoUsuario",
-                "ArquivoFingerPrint", "ArquivoPrimeiroAcessoFingerPrint"};
+                "ArquivoFingerPrint", "ArquivoPrimeiroAcessoFingerPrint", "ArquivoPrimeiroAcessoAgenda"};
 
         for (String name : sharedPreferencesNames) {
             SharedPreferences sharedPreferences = context.getSharedPreferences(name, Context.MODE_PRIVATE);

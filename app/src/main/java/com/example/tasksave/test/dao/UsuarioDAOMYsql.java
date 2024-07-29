@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.tasksave.test.conexaoMYSQL.ConnectionClass;
 import com.example.tasksave.test.objetos.User;
+import com.example.tasksave.test.servicos.ServicosSenhaCriptografia;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,26 +15,30 @@ public class UsuarioDAOMYsql {
 
     Connection conn;
 
-    public ResultSet autenticaUsuarioAWS(User user) {
-
+    public ResultSet autenticaUsuarioAWS(User user) throws SQLException {
         ConnectionClass connectionClass = new ConnectionClass();
         conn = connectionClass.CONN();
 
-        try {
-            String sql = "select * from usuario where email_usuario = ? and senha_usuario = ?";
+        String senhaCriptografa = senhaUsuarioAWS(user.getEmail_usuario());
 
-            PreparedStatement pstm = conn.prepareStatement(sql);
-            pstm.setString(1, user.getEmail_usuario());
-            pstm.setString(2, user.getSenha_usuario());
+        if (ServicosSenhaCriptografia.checkPassword(user.getSenha_usuario(), senhaCriptografa)) {
+            String sql = "SELECT * FROM usuario WHERE email_usuario = ? AND senha_usuario = ?";
 
+            try {
+                PreparedStatement pstm = conn.prepareStatement(sql);
+                pstm.setString(1, user.getEmail_usuario());
+                pstm.setString(2, senhaCriptografa);
 
-            ResultSet rs = pstm.executeQuery();
-            return rs;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            Log.d("Usuario autenticacao", "ERRO AO AUTENTICAR" + e);
-            return null;
+                ResultSet rs = pstm.executeQuery();
+                return rs;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                Log.d("Usuario autenticacao", "ERRO AO AUTENTICAR: " + e);
+                throw e; // Re-throwing the exception to handle it in the caller method
+            }
+        } else {
+            Log.d("Usuario autenticacao", "Senha incorreta");
+            return null; // Return null if password check fails
         }
     }
 
@@ -79,15 +84,14 @@ public class UsuarioDAOMYsql {
 
     }
 
-    public String usuarioCadastrado(String email, String senha) {
+    public String usuarioCadastrado(String email) {
         ConnectionClass connectionClass = new ConnectionClass();
         conn = connectionClass.CONN();
 
         try {
-            String sql = "SELECT nome_usuario FROM usuario WHERE email_usuario = ? AND senha_usuario = ?";
+            String sql = "SELECT nome_usuario FROM usuario WHERE email_usuario = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, email);
-            statement.setString(2, senha);
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {

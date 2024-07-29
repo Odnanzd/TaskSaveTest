@@ -88,7 +88,9 @@ public class ActivityItemSelectedAgenda extends AppCompatActivity {
         if(checkForChanges()) {
             cancelarAtt();
         }else {
-            finish();
+            Intent intent = new Intent(ActivityItemSelectedAgenda.this, ActivityAgenda.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
     }
 
@@ -244,7 +246,9 @@ public class ActivityItemSelectedAgenda extends AppCompatActivity {
                 if(checkForChanges()) {
                     cancelarAtt();
                 }else {
-                    finish();
+                    Intent intent = new Intent(ActivityItemSelectedAgenda.this, ActivityAgenda.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
                 }
             }
         });
@@ -587,7 +591,10 @@ public void attDados(View view) {
 
         agendaDAO.atualizarTitDesc(idTarefa, textViewTitAtt, textViewDescAtt);
         AlarmScheduler.cancelAlarm(getApplicationContext(), idTarefa);
-        finish();
+
+        Intent intent = new Intent(ActivityItemSelectedAgenda.this, ActivityAgenda.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
 
     } else {
 
@@ -611,7 +618,9 @@ public void attDados(View view) {
                 AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2.getTimeInMillis(), textViewTitAtt,
                         textViewDescAtt, 0, idTarefa, localdataEscolhida);
 
-                finish();
+                Intent intent = new Intent(ActivityItemSelectedAgenda.this, ActivityAgenda.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
 
             } else if (aswitch.isChecked() && repetirLembrete) {
 
@@ -648,7 +657,9 @@ public void attDados(View view) {
                     AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2.getTimeInMillis(), textViewTitAtt,
                             textViewDescAtt, repetirModoLembrete, idTarefa, localdataEscolhida);
 
-                    finish();
+                    Intent intent = new Intent(ActivityItemSelectedAgenda.this, ActivityAgenda.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
 
                 } else if (localdataEscolhida.isEqual(dataAtual) && horaCompletaEscolhida > horaCompleta) {
                     Calendar calendar2 = convertToCalendar(localdataEscolhida, hourTarefa, minuteTarefa);
@@ -661,7 +672,9 @@ public void attDados(View view) {
                     AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2.getTimeInMillis(), textViewTitAtt,
                             textViewDescAtt, repetirModoLembrete, idTarefa, localdataEscolhida);
 
-                    finish();
+                    Intent intent = new Intent(ActivityItemSelectedAgenda.this, ActivityAgenda.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
 
                 } else {
                     Calendar calendar2 = convertToCalendar(localdataEscolhida, hourTarefa, minuteTarefa);
@@ -674,7 +687,9 @@ public void attDados(View view) {
                     AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2.getTimeInMillis(), textViewTitAtt,
                             textViewDescAtt, repetirModoLembrete, idTarefa, localdataEscolhida);
 
-                    finish();
+                    Intent intent = new Intent(ActivityItemSelectedAgenda.this, ActivityAgenda.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
 
                 }
             }

@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.tasksave.R;
 import com.example.tasksave.test.dao.UsuarioDAOMYsql;
 import com.example.tasksave.test.objetos.User;
+import com.example.tasksave.test.servicos.ServicosSenhaCriptografia;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.sql.ResultSet;
@@ -215,10 +216,12 @@ public class ActivityCadastro extends AppCompatActivity {
                     // Falha na autenticação
                     str2 = "Erro no cadastro.";
                     str = "Faça o login para continuar.";
+
+                    String hashSenha = ServicosSenhaCriptografia.hashPassword(senhaCadastro);
                     User user = new User();
                     user.setNome_usuario(usuarioCadastro);
                     user.setEmail_usuario(emailCadastro);
-                    user.setSenha_usuario(senhaCadastro);
+                    user.setSenha_usuario(hashSenha);
                     boolean sucesso = usuarioDAOMysql.CadastraUsuarioAWS(user);
                     runOnUiThread(() -> {
                         try {

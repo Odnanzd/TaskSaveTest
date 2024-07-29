@@ -131,7 +131,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
         clickAtradasados = false;
 
 //        VerificaLista();
-        checkChanges(listaIDs, repetirModoLembrete2, this, listView);
+        checkChanges();
 
 
 
@@ -173,7 +173,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                 clickTodos = true;
                 clickPendentes = false;
                 clickAtradasados = false;
-                checkChanges(listaIDs, repetirModoLembrete2, ActivityAgenda.this, listView);
+                checkChanges();
             }
         });
 
@@ -185,7 +185,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                 clickPendentes = true;
                 clickTodos = false;
                 clickAtradasados = false;
-                checkChanges(listaIDs, repetirModoLembrete2, ActivityAgenda.this, listView);
+                checkChanges();
 
             }
         });
@@ -196,7 +196,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                 clickAtradasados = true;
                 clickPendentes = false;
                 clickTodos = false;
-                checkChanges(listaIDs, repetirModoLembrete2, ActivityAgenda.this, listView);
+                checkChanges();
             }
         });
 
@@ -204,7 +204,9 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
     }
 
     @SuppressLint("NewApi")
-    public void checkChanges(ArrayList<Integer> listaIDs2, ArrayList<Integer> repetirModoLembrete3, Context context2, ListView listView1) {
+    public void checkChanges() {
+
+        Log.d("TESTE CHECKCHAGNES", "CHECKGANDES");
 
         textView.setVisibility(View.GONE);
 
@@ -216,10 +218,30 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
             cardViewPendents.setCardBackgroundColor(getResources().getColor(R.color.brancoGelo));
             cardViewAtrasados.setCardBackgroundColor(getResources().getColor(R.color.brancoGelo));
 
-            shimmerFrameLayout.setVisibility(View.VISIBLE);
-            listView.setVisibility(View.GONE);
-            shimmerFrameLayout.showShimmer(true);
-            tarefasSelect(0);
+            SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(ActivityAgenda.this);
+
+            boolean primeiroAgenda = sharedPreferencesUsuario.getPrimeiroAcessoAgenda();
+
+            if(!primeiroAgenda) {
+
+                shimmerFrameLayout.setVisibility(View.VISIBLE);
+                listView.setVisibility(View.GONE);
+                shimmerFrameLayout.showShimmer(true);
+                cardViewPendents.setEnabled(false);
+                cardViewAtrasados.setEnabled(false);
+                tarefasSelect();
+
+            }else {
+
+                shimmerFrameLayout.setVisibility(View.GONE);
+                shimmerFrameLayout.hideShimmer();
+                shimmerFrameLayout.stopShimmer();
+                listView.setVisibility(View.VISIBLE);
+                VerificaLista(0);
+                ListarAgenda(0);
+
+            }
+
 
         } else if (clickPendentes) {
 
@@ -227,23 +249,18 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
             cardViewTodos.setCardBackgroundColor(getResources().getColor(R.color.brancoGelo));
             cardViewAtrasados.setCardBackgroundColor(getResources().getColor(R.color.brancoGelo));
 
-//            agendaDAO.listarAgendaPendentes(listaIDs2, repetirModoLembrete3, context2, listView1);
-            shimmerFrameLayout.setVisibility(View.VISIBLE);
-            listView.setVisibility(View.GONE);
-            shimmerFrameLayout.showShimmer(true);
-            tarefasSelect(1);
+
+            VerificaLista(1);
+            ListarAgenda(1);
 
         } else if (clickAtradasados) {
 
             cardViewAtrasados.setCardBackgroundColor(getResources().getColor(R.color.blue16));
             cardViewTodos.setCardBackgroundColor(getResources().getColor(R.color.brancoGelo));
             cardViewPendents.setCardBackgroundColor(getResources().getColor(R.color.brancoGelo));
-            Log.d("TESTE ELSE IF", "TESTE CLICK ATRASADOS");
-//            agendaDAO.listarAgendaAtraso(listaIDs2, repetirModoLembrete3, context2, listView1);
-            shimmerFrameLayout.setVisibility(View.VISIBLE);
-            listView.setVisibility(View.GONE);
-            shimmerFrameLayout.showShimmer(true);
-            tarefasSelect(2);
+
+            VerificaLista(2);
+            ListarAgenda(2);
 
         }
 
@@ -678,24 +695,27 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    @Override
-    protected void onResume() {
-        super.onResume();
-//        VerificaLista();
-        checkChanges(listaIDs, repetirModoLembrete2, ActivityAgenda.this, listView);
-    }
 
-    public void VerificaLista() {
+    public void VerificaLista(int atraso) {
 
 
         con = new Conexao(this);
         db = con.getWritableDatabase();
 
-//        String sql = "SELECT * FROM agenda WHERE finalizado ="+atraso;
+        String sql;
+        String sql2;
 
-        Cursor cursor = db.rawQuery("SELECT * FROM agenda WHERE finalizado = 0;", null);
-        Cursor cursor2 = db.rawQuery("SELECT * FROM agenda WHERE finalizado = 1;", null);
+        if(atraso==0) {
+            sql="SELECT * FROM agenda WHERE finalizado = 0";
+            sql2="SELECT * FROM agenda WHERE finalizado = 1";
+        }else {
+            sql="SELECT * FROM agenda WHERE finalizado = 0 AND agendaAtraso ="+atraso;
+            sql2="SELECT * FROM agenda WHERE finalizado = 1 AND agendaAtraso ="+atraso;
+
+        }
+
+        Cursor cursor = db.rawQuery(sql, null);
+        Cursor cursor2 = db.rawQuery(sql2, null);
         Log.d("Aqui", "Aqui" + cursor.getCount() + "-" + cursor2.getCount());
 
         if (cursor.getCount() == 0 && cursor2.getCount() == 0) {
@@ -736,6 +756,9 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void ListarAgenda(int atraso) {
 
+        con = new Conexao(this);
+        db = con.getWritableDatabase();
+
         listView.setVisibility(View.VISIBLE);
 
         List<Agenda> listaagenda = new ArrayList<Agenda>();
@@ -756,71 +779,66 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
 
         try {
                 cursor = db.rawQuery(sql, null);
+                Log.d("CURSOR SIZE", "CURSOR: "+cursor.getCount());
 
-            if(cursor != null) {
-
-                if (cursor.moveToFirst()) {
-                    do {
-                        @SuppressLint("Range")
-                        int ID = cursor.getInt(cursor.getColumnIndex("id"));
-                        @SuppressLint("Range")
-                        String titulo = cursor.getString(cursor.getColumnIndex("nomeTarefa"));
-                        @SuppressLint("Range")
-                        String descricao = cursor.getString(cursor.getColumnIndex("descricaoTarefa"));
-                        @SuppressLint("Range")
-                        String dataagenda = cursor.getString(cursor.getColumnIndex("dataAgenda"));
-                        @SuppressLint("Range")
-                        int horaagenda = cursor.getInt(cursor.getColumnIndex("horaAgenda"));
-                        @SuppressLint("Range")
-                        int minutoagenda = cursor.getInt(cursor.getColumnIndex("minutoAgenda"));
-                        @SuppressLint("Range")
-                        int lembreteDB = cursor.getInt(cursor.getColumnIndex("lembretedefinido"));
-                        boolean lembrete = (lembreteDB != 0);
-                        @SuppressLint("Range")
-                        int finalizadoDB = cursor.getInt(cursor.getColumnIndex("finalizado"));
-                        boolean finalizado = (finalizadoDB != 0);
-                        @SuppressLint("Range")
-                        String dataagendaFim = cursor.getString(cursor.getColumnIndex("dataAgendaFim"));
-                        @SuppressLint("Range")
-                        int horaAgendaFim = cursor.getInt(cursor.getColumnIndex("horaAgendaFim"));
-                        @SuppressLint("Range")
-                        int minutoAgendaFim = cursor.getInt(cursor.getColumnIndex("minutoAgendaFim"));
-                        @SuppressLint("Range")
-                        String dataAgendaInsert = cursor.getString(cursor.getColumnIndex("dataAgendaInsert"));
-                        @SuppressLint("Range")
-                        int horaAgendaInsert = cursor.getInt(cursor.getColumnIndex("horaAgendaInsert"));
-                        @SuppressLint("Range")
-                        int minutoAgendaInsert = cursor.getInt(cursor.getColumnIndex("minutoAgendaInsert"));
-                        @SuppressLint("Range")
-                        int agendaAtrasoDB = cursor.getInt(cursor.getColumnIndex("agendaAtraso"));
-                        @SuppressLint("Range")
-                        int repetirLembreteDB = cursor.getInt(cursor.getColumnIndex("repetirLembrete"));
-                        boolean repetirLembrete = (repetirLembreteDB != 0);
-                        @SuppressLint("Range")
-                        int repetirLembreteModo = cursor.getInt(cursor.getColumnIndex("repetirModo"));
-                        @SuppressLint("Range")
-                        int notificouTarefaDB = cursor.getInt(cursor.getColumnIndex("notificouTarefa"));
-                        boolean notificouTarefa = (notificouTarefaDB != 0);
+            if (cursor.moveToFirst()) {
+                do {
+                    @SuppressLint("Range")
+                    int ID = cursor.getInt(cursor.getColumnIndex("id"));
+                    @SuppressLint("Range")
+                    String titulo = cursor.getString(cursor.getColumnIndex("nomeTarefa"));
+                    @SuppressLint("Range")
+                    String descricao = cursor.getString(cursor.getColumnIndex("descricaoTarefa"));
+                    @SuppressLint("Range")
+                    String dataagenda = cursor.getString(cursor.getColumnIndex("dataAgenda"));
+                    @SuppressLint("Range")
+                    int horaagenda = cursor.getInt(cursor.getColumnIndex("horaAgenda"));
+                    @SuppressLint("Range")
+                    int minutoagenda = cursor.getInt(cursor.getColumnIndex("minutoAgenda"));
+                    @SuppressLint("Range")
+                    int lembreteDB = cursor.getInt(cursor.getColumnIndex("lembretedefinido"));
+                    boolean lembrete = (lembreteDB != 0);
+                    @SuppressLint("Range")
+                    int finalizadoDB = cursor.getInt(cursor.getColumnIndex("finalizado"));
+                    boolean finalizado = (finalizadoDB != 0);
+                    @SuppressLint("Range")
+                    String dataagendaFim = cursor.getString(cursor.getColumnIndex("dataAgendaFim"));
+                    @SuppressLint("Range")
+                    int horaAgendaFim = cursor.getInt(cursor.getColumnIndex("horaAgendaFim"));
+                    @SuppressLint("Range")
+                    int minutoAgendaFim = cursor.getInt(cursor.getColumnIndex("minutoAgendaFim"));
+                    @SuppressLint("Range")
+                    String dataAgendaInsert = cursor.getString(cursor.getColumnIndex("dataAgendaInsert"));
+                    @SuppressLint("Range")
+                    int horaAgendaInsert = cursor.getInt(cursor.getColumnIndex("horaAgendaInsert"));
+                    @SuppressLint("Range")
+                    int minutoAgendaInsert = cursor.getInt(cursor.getColumnIndex("minutoAgendaInsert"));
+                    @SuppressLint("Range")
+                    int agendaAtrasoDB = cursor.getInt(cursor.getColumnIndex("agendaAtraso"));
+                    @SuppressLint("Range")
+                    int repetirLembreteDB = cursor.getInt(cursor.getColumnIndex("repetirLembrete"));
+                    boolean repetirLembrete = (repetirLembreteDB != 0);
+                    @SuppressLint("Range")
+                    int repetirLembreteModo = cursor.getInt(cursor.getColumnIndex("repetirModo"));
+                    @SuppressLint("Range")
+                    int notificouTarefaDB = cursor.getInt(cursor.getColumnIndex("notificouTarefa"));
+                    boolean notificouTarefa = (notificouTarefaDB != 0);
 
 
-                        LocalDate localdataagenda = LocalDate.parse(dataagenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                        LocalDate localdataagendaFim = LocalDate.parse(dataagendaFim, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                        LocalDate localdataagendaInsert = LocalDate.parse(dataAgendaInsert, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    LocalDate localdataagenda = LocalDate.parse(dataagenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    LocalDate localdataagendaFim = LocalDate.parse(dataagendaFim, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    LocalDate localdataagendaInsert = LocalDate.parse(dataAgendaInsert, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-                        listaagenda.add(new Agenda(ID, titulo, descricao, localdataagenda, horaagenda, minutoagenda,
-                                lembrete, finalizado, localdataagendaFim, horaAgendaFim, minutoAgendaFim, localdataagendaInsert,
-                                horaAgendaInsert, minutoAgendaInsert, agendaAtrasoDB, repetirLembrete, repetirLembreteModo, notificouTarefa));
-                        listaIDs.add(ID);
-                        repetirModoLembrete2.add(repetirLembreteModo);
+                    listaagenda.add(new Agenda(ID, titulo, descricao, localdataagenda, horaagenda, minutoagenda,
+                            lembrete, finalizado, localdataagendaFim, horaAgendaFim, minutoAgendaFim, localdataagendaInsert,
+                            horaAgendaInsert, minutoAgendaInsert, agendaAtrasoDB, repetirLembrete, repetirLembreteModo, notificouTarefa));
+                    listaIDs.add(ID);
+                    repetirModoLembrete2.add(repetirLembreteModo);
 
-                    } while (cursor.moveToNext());
-                }
-
-                cursor.close();
-
-            }else {
-                Toast.makeText(ActivityAgenda.this, "ERRO AO CARREGAR TAREFAS", Toast.LENGTH_LONG).show();
+                } while (cursor.moveToNext());
             }
+
+            cursor.close();
 
         }catch (Exception e ) {
             e.printStackTrace();
@@ -894,7 +912,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 // Atualize a exibição dos checkboxes em todos os itens da lista
-                Log.d("Verificação On item", "Teste");
+
                 AgendaDAO agendaDAO = new AgendaDAO(ActivityAgenda.this);
 
 
@@ -1008,10 +1026,10 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
 
                     Log.d("SUCESSO", "SUCESSO AO EXCLUIR");
                     runOnUiThread(() -> {
-                        atualizarLista();
                         customAdapter.clearSelectedIds();
-                        Toast.makeText(getApplicationContext(), "Tarefas excluídas", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Tarefa(s) excluída(s)", Toast.LENGTH_LONG).show();
                         dialog.dismiss();
+                        atualizarLista();
                     });
 
                 } else {
@@ -1031,20 +1049,20 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
     private void atualizarLista() {
         // Restaure a lista de itens
 //        VerificaLista();
-        checkChanges(listaIDs, repetirModoLembrete2, ActivityAgenda.this, listView);
+        checkChanges();
     }
 
     @SuppressLint("NewApi")
     private void refreshData() {
 //        VerificaLista();
-        checkChanges(listaIDs, repetirModoLembrete2, ActivityAgenda.this, listView);
+        checkChanges();
     }
 
     @SuppressLint("NewApi")
     @Override
     public void onItemDeleted(int position) {
 //        VerificaLista();
-        checkChanges(listaIDs, repetirModoLembrete2, ActivityAgenda.this, listView);
+        checkChanges();
     }
 
     @SuppressLint("NewApi")
@@ -1208,7 +1226,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void tarefasSelect(int atraso) {
+    public void tarefasSelect() {
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(() -> {
@@ -1224,19 +1242,24 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                 String emailShared = sharedPreferencesUsuario.getEmailLogin();
                 int idUsuario = usuarioDAOMYsql.idUsarioAWS(emailShared);
 
-                List<Agenda> agendaTarefa = agendaDAOMYsql.tarefasUsuario(idUsuario, atraso);
+                List<Agenda> agendaTarefa = agendaDAOMYsql.tarefasUsuario(idUsuario);
 
                 if (agendaTarefa.isEmpty()) {
+                    sharedPreferencesUsuario.armazenaPrimeiroAcessoAgenda(true);
                     Log.d(TAG, "Nenhuma tarefa encontrada para o usuário.");
                     runOnUiThread(() -> {
                         shimmerFrameLayout.setVisibility(View.GONE);
                         shimmerFrameLayout.hideShimmer();
                         shimmerFrameLayout.stopShimmer();
-                        VerificaLista();
-                        ListarAgenda(atraso);
+                        VerificaLista(0);
+                        ListarAgenda(0);
+                        cardViewPendents.setEnabled(true);
+                        cardViewAtrasados.setEnabled(true);
                             });
                 } else {
                     for (Agenda agenda : agendaTarefa) {
+
+                        sharedPreferencesUsuario.armazenaPrimeiroAcessoAgenda(true);
 
                         long result = agendaDAO.inserir(agenda);
 
@@ -1246,8 +1269,10 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                         shimmerFrameLayout.setVisibility(View.GONE);
                         shimmerFrameLayout.hideShimmer();
                         shimmerFrameLayout.stopShimmer();
-                        VerificaLista();
-                        ListarAgenda(atraso);
+                        VerificaLista(0);
+                        ListarAgenda(0);
+                        cardViewPendents.setEnabled(true);
+                        cardViewAtrasados.setEnabled(true);
 
                             });
                 }

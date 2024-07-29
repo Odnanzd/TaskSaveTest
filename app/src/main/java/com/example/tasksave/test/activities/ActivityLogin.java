@@ -20,12 +20,16 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.tasksave.R;
+import com.example.tasksave.test.dao.AgendaDAO;
 import com.example.tasksave.test.dao.UsuarioDAOMYsql;
+import com.example.tasksave.test.objetos.Agenda;
 import com.example.tasksave.test.objetos.User;
+import com.example.tasksave.test.servicos.ServicosSenhaCriptografia;
 import com.example.tasksave.test.sharedPreferences.SharedPreferencesUsuario;
 import com.google.android.material.snackbar.Snackbar;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -45,7 +49,7 @@ public class ActivityLogin extends AppCompatActivity {
 
     }
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint({"MissingInflatedId", "NewApi"})
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -112,10 +116,10 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
     public void Autentica(Context context) {
-
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(() -> {
             try {
+                UsuarioDAOMYsql usuarioDAOMYsql = new UsuarioDAOMYsql();
                 String emailUser = input_Nome.getText().toString();
                 String senhaUser = input_Password.getText().toString();
 
@@ -123,70 +127,54 @@ public class ActivityLogin extends AppCompatActivity {
                 user.setEmail_usuario(emailUser);
                 user.setSenha_usuario(senhaUser);
 
-                UsuarioDAOMYsql usuarioDAOMYsql = new UsuarioDAOMYsql();
                 ResultSet resultSet = usuarioDAOMYsql.autenticaUsuarioAWS(user);
-
-
-                String userShared = usuarioDAOMYsql.usuarioCadastrado(emailUser, senhaUser);
-                int idcargoUsuario = usuarioDAOMYsql.cargoUsuarioAWS(emailUser);
-
 
                 SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(context);
 
-                if (resultSet.next()) {
+                if (resultSet != null && resultSet.next()) {
                     // Sucesso na autenticação
-                    str = "Sucesso";
+                    String userShared = usuarioDAOMYsql.usuarioCadastrado(emailUser);
+                    int idcargoUsuario = usuarioDAOMYsql.cargoUsuarioAWS(emailUser);
+
                     runOnUiThread(() -> {
-
-                        if(checkBox.isChecked()) {
-
+                        if (checkBox.isChecked()) {
                             sharedPreferencesUsuario.armazenaSalvarSenhaBL(true);
-
                             sharedPreferencesUsuario.armazenaPrimeiroAcesso(true);
-
                             sharedPreferencesUsuario.armazenaEmailLogin(emailUser);
-
                             sharedPreferencesUsuario.armazenaSenhaLogin(senhaUser);
-
                             sharedPreferencesUsuario.armazenaUsuarioLogin(userShared);
-
-                        }else {
-
+                        } else {
+                            sharedPreferencesUsuario.armazenaEmailLogin(emailUser);
                             sharedPreferencesUsuario.armazenaSalvarSenhaBL(false);
-
                             sharedPreferencesUsuario.armazenaUsuarioLogin(userShared);
-
-
                         }
 
                         sharedPreferencesUsuario.armazenaUsuarioCargo(idcargoUsuario);
-
                         sharedPreferencesUsuario.armazenaPrimeiroAcesso(true);
 
-                        Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Sucesso", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(ActivityLogin.this, ActivityMain.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                     });
                 } else {
                     // Falha na autenticação
-                    str2 = "Usuário ou senha incorreta.";
                     runOnUiThread(() -> {
                         textView.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);
                         frameLayout.setClickable(true);
                         button_cadastro.setClickable(true);
-                        Snackbar snackbar = Snackbar.make(this.getCurrentFocus(), str2, Snackbar.LENGTH_SHORT);
+                        Snackbar snackbar = Snackbar.make(this.getCurrentFocus(), "Usuário ou senha incorreta.", Snackbar.LENGTH_SHORT);
                         snackbar.setBackgroundTint(Color.WHITE);
                         snackbar.setTextColor(Color.BLACK);
                         snackbar.show();
                     });
                 }
             } catch (SQLException e) {
-                Log.d("ERRO SQL AUT", "ERRO SQL" + e);
+                Log.d("ERRO SQL AUT", "ERRO SQL: " + e);
             }
         });
-        }
+    }
     public void escondeTeclado() {
         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         if (imm != null) {
