@@ -171,6 +171,8 @@ public class ActivitySplashScreen extends AppCompatActivity {
                             str = "Sucesso";
                             if (sharedPreferencesUsuario.getSalvarSenha() && sharedPreferencesUsuario.getBiometriaUsuario()) {
 
+
+
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {

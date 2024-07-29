@@ -41,31 +41,56 @@ public class AgendaDAOMYsql {
                     " minuto_tarefa_insert, atraso_tarefa, finalizado_tarefa, notificou_tarefa, usuario_id) VALUES" +
                     " (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+
             PreparedStatement pstm = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            if(agendaAWS.getLembrete_tarefa()) {
+
+                pstm.setDate(6, java.sql.Date.valueOf(agendaAWS.getData_tarefaString()));
+                pstm.setInt(7, agendaAWS.getHora_tarefa());
+                pstm.setInt(8, agendaAWS.getMinuto_tarefa());
+
+                pstm.setDate(9, java.sql.Date.valueOf(agendaAWS.getData_tarefa_fimString()));
+                pstm.setInt(10, agendaAWS.getHora_tarefa_fim());
+                pstm.setInt(11, agendaAWS.getMinuto_tarefa_fim());
+
+            }else {
+
+                pstm.setNull(6, java.sql.Types.DATE);
+                pstm.setNull(7, java.sql.Types.INTEGER);
+                pstm.setNull(8, java.sql.Types.INTEGER);
+
+                pstm.setNull(9, java.sql.Types.DATE);
+                pstm.setNull(10, java.sql.Types.INTEGER);
+                pstm.setNull(11, java.sql.Types.INTEGER);
+
+            }
+
+
+
             pstm.setString(1, agendaAWS.getNome_tarefa());
             pstm.setString(2, agendaAWS.getDescricao_tarefa());
             pstm.setBoolean(3, agendaAWS.getLembrete_tarefa());
             pstm.setBoolean(4, agendaAWS.getRepetir_tarefa());
             pstm.setInt(5, agendaAWS.getRepetir_modo_tarefa());
 
-            if (agendaAWS.getData_tarefaString() != null) {
-                pstm.setDate(6, java.sql.Date.valueOf(agendaAWS.getData_tarefaString()));
-            } else {
-                pstm.setNull(6, java.sql.Types.DATE);
-            }
+//            if (agendaAWS.getData_tarefaString() != null) {
+//                pstm.setDate(6, java.sql.Date.valueOf(agendaAWS.getData_tarefaString()));
+//            } else {
+//                pstm.setNull(6, java.sql.Types.DATE);
+//            }
+//            pstm.setInt(7, agendaAWS.getHora_tarefa());
+//            pstm.setInt(8, agendaAWS.getMinuto_tarefa());
 
-            pstm.setInt(7, agendaAWS.getHora_tarefa());
-            pstm.setInt(8, agendaAWS.getMinuto_tarefa());
-
-            if (agendaAWS.getData_tarefa_fimString() != null) {
-                pstm.setDate(9, java.sql.Date.valueOf(agendaAWS.getData_tarefa_fimString()));
-            } else {
-                pstm.setNull(9, java.sql.Types.DATE);
-            }
+//            if (agendaAWS.getData_tarefa_fimString() != null) {
+//                pstm.setDate(9, java.sql.Date.valueOf(agendaAWS.getData_tarefa_fimString()));
+//            } else {
+//                pstm.setNull(9, java.sql.Types.DATE);
+//            }
 
 
-            pstm.setInt(10, agendaAWS.getHora_tarefa_fim());
-            pstm.setInt(11, agendaAWS.getMinuto_tarefa_fim());
+//            pstm.setInt(10, agendaAWS.getHora_tarefa_fim());
+//            pstm.setInt(11, agendaAWS.getMinuto_tarefa_fim());
 
             if (agendaAWS.getData_tarefa_insertString() != null) {
                 pstm.setDate(12, java.sql.Date.valueOf(agendaAWS.getData_tarefa_insertString()));
@@ -191,10 +216,5 @@ public class AgendaDAOMYsql {
 
         return tarefasUsuario;
     }
-//    (long id, String nomeAgenda, String descriçãoAgenda, LocalDate dataAgenda,
-//    int horaAgenda, int minutoAgenda, boolean lembrete, boolean finalizado,
-//    java.time.LocalDate dataAgendaFim, int horaAgendaFim, int minutoAgendaFim,
-//    LocalDate dataAgendaInsert, int horaAgendaInsert, int minutoAgendaInsert, int agendaAtraso, boolean repetirLembrete,
-//    int repetirModo, boolean notificouTarefa)
 
 }

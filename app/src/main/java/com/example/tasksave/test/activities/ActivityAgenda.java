@@ -768,6 +768,9 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
         String sql = "";
 
         Cursor cursor = null;
+        LocalDate localdataagenda=null;
+        LocalDate localdataagendaFim =null;
+
 
         if(atraso==0){
             sql = "SELECT * FROM agenda WHERE finalizado = 0";
@@ -791,6 +794,9 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                     String descricao = cursor.getString(cursor.getColumnIndex("descricaoTarefa"));
                     @SuppressLint("Range")
                     String dataagenda = cursor.getString(cursor.getColumnIndex("dataAgenda"));
+                    if (dataagenda!=null) {
+                        localdataagenda = LocalDate.parse(dataagenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    }
                     @SuppressLint("Range")
                     int horaagenda = cursor.getInt(cursor.getColumnIndex("horaAgenda"));
                     @SuppressLint("Range")
@@ -803,6 +809,9 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                     boolean finalizado = (finalizadoDB != 0);
                     @SuppressLint("Range")
                     String dataagendaFim = cursor.getString(cursor.getColumnIndex("dataAgendaFim"));
+                    if (dataagendaFim!=null) {
+                        localdataagendaFim = LocalDate.parse(dataagendaFim, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    }
                     @SuppressLint("Range")
                     int horaAgendaFim = cursor.getInt(cursor.getColumnIndex("horaAgendaFim"));
                     @SuppressLint("Range")
@@ -825,8 +834,8 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                     boolean notificouTarefa = (notificouTarefaDB != 0);
 
 
-                    LocalDate localdataagenda = LocalDate.parse(dataagenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                    LocalDate localdataagendaFim = LocalDate.parse(dataagendaFim, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+//                    LocalDate localdataagenda = LocalDate.parse(dataagenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+//                    LocalDate localdataagendaFim = LocalDate.parse(dataagendaFim, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                     LocalDate localdataagendaInsert = LocalDate.parse(dataAgendaInsert, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
                     listaagenda.add(new Agenda(ID, titulo, descricao, localdataagenda, horaagenda, minutoagenda,

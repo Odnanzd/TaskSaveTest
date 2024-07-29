@@ -45,16 +45,38 @@ public class AgendaDAO {
 
         ContentValues contentValues = new ContentValues();
 
+        if(agenda.getLembrete()) {
+
+            contentValues.put("dataAgenda", agenda.getDataAgendaString());
+            contentValues.put("horaAgenda", agenda.getHoraAgenda());
+            contentValues.put("minutoAgenda", agenda.getMinutoAgenda());
+
+            contentValues.put("dataAgendaFim", agenda.getDataAgendaFimString());
+            contentValues.put("horaAgendaFim", agenda.getHoraAgendaFim());
+            contentValues.put("minutoAgendaFim", agenda.getMinutoAgendaFim());
+
+        }else {
+
+            contentValues.putNull("dataAgenda");
+            contentValues.putNull("horaAgenda");
+            contentValues.putNull("minutoAgenda");
+
+            contentValues.putNull("dataAgendaFim");
+            contentValues.putNull("horaAgendaFim");
+            contentValues.putNull("minutoAgendaFim");
+
+        }
+
         contentValues.put("nomeTarefa", agenda.getNomeAgenda());
         contentValues.put("descricaoTarefa", agenda.getDescriçãoAgenda());
-        contentValues.put("dataAgenda", agenda.getDataAgendaString());
-        contentValues.put("horaAgenda", agenda.getHoraAgenda());
-        contentValues.put("minutoAgenda", agenda.getMinutoAgenda());
+//        contentValues.put("dataAgenda", agenda.getDataAgendaString());
+//        contentValues.put("horaAgenda", agenda.getHoraAgenda());
+//        contentValues.put("minutoAgenda", agenda.getMinutoAgenda());
         contentValues.put("lembretedefinido", agenda.getLembrete());
         contentValues.put("finalizado", agenda.getFinalizado());
-        contentValues.put("dataAgendaFim", agenda.getDataAgendaFimString());
-        contentValues.put("horaAgendaFim", agenda.getHoraAgendaFim());
-        contentValues.put("minutoAgendaFim", agenda.getMinutoAgendaFim());
+//        contentValues.put("dataAgendaFim", agenda.getDataAgendaFimString());
+//        contentValues.put("horaAgendaFim", agenda.getHoraAgendaFim());
+//        contentValues.put("minutoAgendaFim", agenda.getMinutoAgendaFim());
         contentValues.put("dataAgendaInsert", agenda.getDataAgendaInsertString());
         contentValues.put("horaAgendaInsert", agenda.getHoraAgendaInsert());
         contentValues.put("minutoAgendaInsert", agenda.getMinutoAgendaInsert());
@@ -68,11 +90,11 @@ public class AgendaDAO {
         if (cursor.moveToFirst()) {
             // Registro já existe, então atualize
             result = db.update("agenda", contentValues, selection, selectionArgs);
-            Log.d("IF CURSOR MOVE TO FIRST IF 1", "IF 1");
+
         } else {
             // Registro não existe, então insira
             result = db.insert("agenda", null, contentValues);
-            Log.d("IF CURSOR MOVE TO FIRST IF 2", "IF 2");
+
         }
 
         cursor.close();
@@ -305,6 +327,75 @@ public class AgendaDAO {
         } finally {
             db.close();
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public List<Agenda> tarefasAgenda() {
+
+        List<Agenda> tarefasComLembrete = new ArrayList<>();
+
+        String sql = "SELECT * FROM agenda WHERE finalizado = 0";
+
+
+        Cursor cursor = db.rawQuery(sql, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                    @SuppressLint("Range")
+                    int ID = cursor.getInt(cursor.getColumnIndex("id"));
+                    @SuppressLint("Range")
+                    String titulo = cursor.getString(cursor.getColumnIndex("nomeTarefa"));
+                    @SuppressLint("Range")
+                    String descricao = cursor.getString(cursor.getColumnIndex("descricaoTarefa"));
+                    @SuppressLint("Range")
+                    String dataagenda = cursor.getString(cursor.getColumnIndex("dataAgenda"));
+                    @SuppressLint("Range")
+                    int horaagenda = cursor.getInt(cursor.getColumnIndex("horaAgenda"));
+                    @SuppressLint("Range")
+                    int minutoagenda = cursor.getInt(cursor.getColumnIndex("minutoAgenda"));
+                    @SuppressLint("Range")
+                    int lembreteDB = cursor.getInt(cursor.getColumnIndex("lembretedefinido"));
+                    boolean lembrete = (lembreteDB != 0);
+                    @SuppressLint("Range")
+                    int finalizadoDB = cursor.getInt(cursor.getColumnIndex("finalizado"));
+                    boolean finalizado = (finalizadoDB != 0);
+                    @SuppressLint("Range")
+                    String dataagendaFim = cursor.getString(cursor.getColumnIndex("dataAgendaFim"));
+                    @SuppressLint("Range")
+                    int horaAgendaFim = cursor.getInt(cursor.getColumnIndex("horaAgendaFim"));
+                    @SuppressLint("Range")
+                    int minutoAgendaFim = cursor.getInt(cursor.getColumnIndex("minutoAgendaFim"));
+                    @SuppressLint("Range")
+                    String dataAgendaInsert = cursor.getString(cursor.getColumnIndex("dataAgendaInsert"));
+                    @SuppressLint("Range")
+                    int horaAgendaInsert = cursor.getInt(cursor.getColumnIndex("horaAgendaInsert"));
+                    @SuppressLint("Range")
+                    int minutoAgendaInsert = cursor.getInt(cursor.getColumnIndex("minutoAgendaInsert"));
+                    @SuppressLint("Range")
+                    int agendaAtrasoDB = cursor.getInt(cursor.getColumnIndex("agendaAtraso"));
+                    @SuppressLint("Range")
+                    int repetirLembreteDB = cursor.getInt(cursor.getColumnIndex("repetirLembrete"));
+                    boolean repetirLembrete = (repetirLembreteDB != 0);
+                    @SuppressLint("Range")
+                    int repetirLembreteModo = cursor.getInt(cursor.getColumnIndex("repetirModo"));
+                    @SuppressLint("Range")
+                    int notificouTarefaDB = cursor.getInt(cursor.getColumnIndex("notificouTarefa"));
+                    boolean notificouTarefa = (notificouTarefaDB != 0);
+
+
+                    LocalDate localdataagenda = LocalDate.parse(dataagenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    LocalDate localdataagendaFim = LocalDate.parse(dataagendaFim, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    LocalDate localdataagendaInsert = LocalDate.parse(dataAgendaInsert, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+                    tarefasComLembrete.add(new Agenda(ID, titulo, descricao, localdataagenda, horaagenda, minutoagenda,
+                            lembrete, finalizado, localdataagendaFim, horaAgendaFim, minutoAgendaFim, localdataagendaInsert,
+                            horaAgendaInsert, minutoAgendaInsert, agendaAtrasoDB, repetirLembrete, repetirLembreteModo, notificouTarefa));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+
+        return tarefasComLembrete;
     }
 
 
