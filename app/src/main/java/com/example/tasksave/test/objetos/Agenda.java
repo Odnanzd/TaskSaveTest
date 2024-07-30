@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 
 import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Objects;
 
 public class Agenda {
     private int id;
@@ -228,5 +229,33 @@ public class Agenda {
         calendar.set(Calendar.MILLISECOND, 0);
         return calendar.getTimeInMillis();
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Agenda agenda = (Agenda) o;
+        return horaAgenda == agenda.horaAgenda &&
+                minutoAgenda == agenda.minutoAgenda &&
+                lembrete == agenda.lembrete &&
+                finalizado == agenda.finalizado &&
+                horaAgendaFim == agenda.horaAgendaFim &&
+                minutoAgendaFim == agenda.minutoAgendaFim &&
+                horaAgendaInsert == agenda.horaAgendaInsert &&
+                minutoAgendaInsert == agenda.minutoAgendaInsert &&
+                agendaAtraso == agenda.agendaAtraso &&
+                repetirLembrete == agenda.repetirLembrete &&
+                repetirModo == agenda.repetirModo &&
+                notificouTarefa == agenda.isNotificado() &&
+                Objects.equals(nomeAgenda, agenda.nomeAgenda) &&
+                Objects.equals(descriçãoAgenda, agenda.descriçãoAgenda) &&
+                Objects.equals(dataAgenda, agenda.dataAgenda) &&
+                Objects.equals(dataAgendaFim, agenda.dataAgendaFim) &&
+                Objects.equals(dataAgendaInsert, agenda.dataAgendaInsert);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(nomeAgenda, descriçãoAgenda, dataAgenda, horaAgenda, minutoAgenda, lembrete, finalizado, dataAgendaFim, horaAgendaFim, minutoAgendaFim, dataAgendaInsert, horaAgendaInsert, minutoAgendaInsert, agendaAtraso, repetirLembrete, repetirModo, notificouTarefa);
+    }
 }
+

@@ -51,9 +51,9 @@ public class AgendaDAO {
             contentValues.put("horaAgenda", agenda.getHoraAgenda());
             contentValues.put("minutoAgenda", agenda.getMinutoAgenda());
 
-            contentValues.put("dataAgendaFim", agenda.getDataAgendaFimString());
-            contentValues.put("horaAgendaFim", agenda.getHoraAgendaFim());
-            contentValues.put("minutoAgendaFim", agenda.getMinutoAgendaFim());
+            contentValues.putNull("dataAgendaFim");
+            contentValues.putNull("horaAgendaFim");
+            contentValues.putNull("minutoAgendaFim");
 
         }else {
 
@@ -334,6 +334,9 @@ public class AgendaDAO {
 
         List<Agenda> tarefasComLembrete = new ArrayList<>();
 
+        LocalDate localdataagenda=null;
+        LocalDate localdataagendaFim =null;
+
         String sql = "SELECT * FROM agenda WHERE finalizado = 0";
 
 
@@ -349,6 +352,9 @@ public class AgendaDAO {
                     String descricao = cursor.getString(cursor.getColumnIndex("descricaoTarefa"));
                     @SuppressLint("Range")
                     String dataagenda = cursor.getString(cursor.getColumnIndex("dataAgenda"));
+                if (dataagenda!=null) {
+                    localdataagenda = LocalDate.parse(dataagenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                }
                     @SuppressLint("Range")
                     int horaagenda = cursor.getInt(cursor.getColumnIndex("horaAgenda"));
                     @SuppressLint("Range")
@@ -361,6 +367,9 @@ public class AgendaDAO {
                     boolean finalizado = (finalizadoDB != 0);
                     @SuppressLint("Range")
                     String dataagendaFim = cursor.getString(cursor.getColumnIndex("dataAgendaFim"));
+                if (dataagendaFim!=null) {
+                    localdataagendaFim = LocalDate.parse(dataagendaFim, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                }
                     @SuppressLint("Range")
                     int horaAgendaFim = cursor.getInt(cursor.getColumnIndex("horaAgendaFim"));
                     @SuppressLint("Range")
@@ -383,8 +392,8 @@ public class AgendaDAO {
                     boolean notificouTarefa = (notificouTarefaDB != 0);
 
 
-                    LocalDate localdataagenda = LocalDate.parse(dataagenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                    LocalDate localdataagendaFim = LocalDate.parse(dataagendaFim, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+//                    LocalDate localdataagenda = LocalDate.parse(dataagenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+//                    LocalDate localdataagendaFim = LocalDate.parse(dataagendaFim, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                     LocalDate localdataagendaInsert = LocalDate.parse(dataAgendaInsert, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
                     tarefasComLembrete.add(new Agenda(ID, titulo, descricao, localdataagenda, horaagenda, minutoagenda,

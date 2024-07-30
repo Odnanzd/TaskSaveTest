@@ -50,9 +50,9 @@ public class AgendaDAOMYsql {
                 pstm.setInt(7, agendaAWS.getHora_tarefa());
                 pstm.setInt(8, agendaAWS.getMinuto_tarefa());
 
-                pstm.setDate(9, java.sql.Date.valueOf(agendaAWS.getData_tarefa_fimString()));
-                pstm.setInt(10, agendaAWS.getHora_tarefa_fim());
-                pstm.setInt(11, agendaAWS.getMinuto_tarefa_fim());
+                pstm.setNull(9, java.sql.Types.DATE);
+                pstm.setNull(10, java.sql.Types.INTEGER);
+                pstm.setNull(11, java.sql.Types.INTEGER);
 
             }else {
 
@@ -168,9 +168,9 @@ public class AgendaDAOMYsql {
                 try(ResultSet rs = stmt.executeQuery()) {
                     while (rs.next()) {
 
-                        LocalDate localDateTarefanow = LocalDate.now();
-                        LocalDate localDateFimNow = LocalDate.now();
-                        LocalDate localDateInsertNow = LocalDate.now();
+                        LocalDate localDateTarefanow = null;
+                        LocalDate localDateFimNow = null;
+                        LocalDate localDateInsertNow = null;
 
 
                         Date dataTarefaDT = rs.getDate("data_tarefa");

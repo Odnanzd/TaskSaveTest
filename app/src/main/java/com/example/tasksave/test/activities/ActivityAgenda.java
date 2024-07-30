@@ -1269,6 +1269,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                     for (Agenda agenda : agendaTarefa) {
 
                         sharedPreferencesUsuario.armazenaPrimeiroAcessoAgenda(true);
+                        Log.d("AGENDA, ", "AGENDA: "+agenda.getDate());
 
                         long result = agendaDAO.inserir(agenda);
 
