@@ -36,10 +36,9 @@ public class AgendaDAOMYsql {
 
         try {
             String sql = "INSERT INTO tarefa_usuario (nome_tarefa, descricao_tarefa, lembrete_tarefa," +
-                    " repetir_tarefa, repetir_modo_tarefa, data_tarefa, hora_tarefa, minuto_tarefa, " +
-                    "data_farefa_fim, hora_tarefa_fim, minuto_tarefa_fim, data_tarefa_insert, hora_tarefa_insert," +
-                    " minuto_tarefa_insert, atraso_tarefa, finalizado_tarefa, notificou_tarefa, usuario_id) VALUES" +
-                    " (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    " repetir_tarefa, repetir_modo_tarefa, data_hora_tarefa, data_hora_tarefa_fim, data_hora_tarefa_insert," +
+                    " atraso_tarefa, finalizado_tarefa, notificou_tarefa, usuario_id) VALUES" +
+                    " (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 
             PreparedStatement pstm = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -47,22 +46,14 @@ public class AgendaDAOMYsql {
             if(agendaAWS.getLembrete_tarefa()) {
 
                 pstm.setDate(6, java.sql.Date.valueOf(agendaAWS.getData_tarefaString()));
-                pstm.setInt(7, agendaAWS.getHora_tarefa());
-                pstm.setInt(8, agendaAWS.getMinuto_tarefa());
 
-                pstm.setNull(9, java.sql.Types.DATE);
-                pstm.setNull(10, java.sql.Types.INTEGER);
-                pstm.setNull(11, java.sql.Types.INTEGER);
+                pstm.setNull(7, java.sql.Types.DATE);
 
             }else {
 
                 pstm.setNull(6, java.sql.Types.DATE);
-                pstm.setNull(7, java.sql.Types.INTEGER);
-                pstm.setNull(8, java.sql.Types.INTEGER);
 
-                pstm.setNull(9, java.sql.Types.DATE);
-                pstm.setNull(10, java.sql.Types.INTEGER);
-                pstm.setNull(11, java.sql.Types.INTEGER);
+                pstm.setNull(7, java.sql.Types.DATE);
 
             }
 
@@ -93,18 +84,15 @@ public class AgendaDAOMYsql {
 //            pstm.setInt(11, agendaAWS.getMinuto_tarefa_fim());
 
             if (agendaAWS.getData_tarefa_insertString() != null) {
-                pstm.setDate(12, java.sql.Date.valueOf(agendaAWS.getData_tarefa_insertString()));
+                pstm.setDate(8, java.sql.Date.valueOf(agendaAWS.getData_tarefa_insertString()));
             } else {
-                pstm.setNull(9, java.sql.Types.DATE);
+                pstm.setNull(8, java.sql.Types.DATE);
             }
 
-
-            pstm.setInt(13, agendaAWS.getHora_tarefa_insert());
-            pstm.setInt(14, agendaAWS.getMinuto_tarefa_insert());
-            pstm.setInt(15, agendaAWS.getAtraso_tarefa());
-            pstm.setBoolean(16, agendaAWS.getFinalizado_tarefa());
-            pstm.setBoolean(17, agendaAWS.getNotificou_tarefa());
-            pstm.setInt(18, agendaAWS.getUsuario_id());
+            pstm.setInt(9, agendaAWS.getAtraso_tarefa());
+            pstm.setBoolean(10, agendaAWS.getFinalizado_tarefa());
+            pstm.setBoolean(11, agendaAWS.getNotificou_tarefa());
+            pstm.setInt(12, agendaAWS.getUsuario_id());
 
             int affectedRows = pstm.executeUpdate();
 

@@ -1,7 +1,6 @@
 package com.example.tasksave.test.objetos;
 
-import java.time.LocalDate;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class AgendaAWS {
 
@@ -11,15 +10,9 @@ public class AgendaAWS {
     private boolean lembrete_tarefa;
     private boolean repetir_tarefa;
     private int repetir_modo_tarefa;
-    private LocalDate data_tarefa;
-    private int hora_tarefa;
-    private int minuto_tarefa;
-    private LocalDate data_tarefa_fim;
-    private int hora_tarefa_fim;
-    private int minuto_tarefa_fim;
-    private LocalDate data_tarefa_insert;
-    private int hora_tarefa_insert;
-    private int minuto_tarefa_insert;
+    private LocalDateTime data_hora_tarefa;
+    private LocalDateTime data_hora_tarefa_fim;
+    private LocalDateTime data_hora_tarefa_insert;
     private int atraso_tarefa;
     private boolean finalizado_tarefa;
     private boolean notificou_tarefa;
@@ -74,87 +67,32 @@ public class AgendaAWS {
     }
 
     public String getData_tarefaString() {
-        if (data_tarefa != null) {
-            return data_tarefa.toString();
-        } else {
-            return null;
-        }
+            return data_hora_tarefa.toString();
+
     }
 
-    public void setData_tarefa(LocalDate data_tarefa) {
-        this.data_tarefa = data_tarefa;
-    }
-
-    public int getHora_tarefa() {
-        return hora_tarefa;
-    }
-
-    public void setHora_tarefa(int hora_tarefa) {
-        this.hora_tarefa = hora_tarefa;
-    }
-
-    public int getMinuto_tarefa() {
-        return minuto_tarefa;
-    }
-
-    public void setMinuto_tarefa(int minuto_tarefa) {
-        this.minuto_tarefa = minuto_tarefa;
+    public void setData_tarefa(LocalDateTime data_hora_tarefa) {
+        this.data_hora_tarefa = data_hora_tarefa;
     }
 
     public String getData_tarefa_fimString() {
-        if (data_tarefa_fim != null) {
-            return data_tarefa_fim.toString();
-        } else {
-            return null;
-        }
+
+            return data_hora_tarefa_fim.toString();
+
     }
 
-    public void setData_tarefa_fim(LocalDate data_tarefa_fim) {
-        this.data_tarefa_fim = data_tarefa_fim;
-    }
-
-    public int getHora_tarefa_fim() {
-        return hora_tarefa_fim;
-    }
-
-    public void setHora_tarefa_fim(int hora_tarefa_fim) {
-        this.hora_tarefa_fim = hora_tarefa_fim;
-    }
-
-    public int getMinuto_tarefa_fim() {
-        return minuto_tarefa_fim;
-    }
-
-    public void setMinuto_tarefa_fim(int minuto_tarefa_fim) {
-        this.minuto_tarefa_fim = minuto_tarefa_fim;
+    public void setData_tarefa_fim(LocalDateTime data_hora_tarefa_fim) {
+        this.data_hora_tarefa_fim = data_hora_tarefa_fim;
     }
 
     public String getData_tarefa_insertString() {
-        if (data_tarefa_insert != null) {
-            return data_tarefa_insert.toString();
-        } else {
-            return null;
-        }
+
+            return data_hora_tarefa_insert.toString();
+
     }
 
-    public void setData_tarefa_insert(LocalDate data_tarefa_insert) {
-        this.data_tarefa_insert = data_tarefa_insert;
-    }
-
-    public int getHora_tarefa_insert() {
-        return hora_tarefa_insert;
-    }
-
-    public void setHora_tarefa_insert(int hora_tarefa_insert) {
-        this.hora_tarefa_insert = hora_tarefa_insert;
-    }
-
-    public int getMinuto_tarefa_insert() {
-        return minuto_tarefa_insert;
-    }
-
-    public void setMinuto_tarefa_insert(int minuto_tarefa_insert) {
-        this.minuto_tarefa_insert = minuto_tarefa_insert;
+    public void setData_tarefa_insert(LocalDateTime data_hora_tarefa_insert) {
+        this.data_hora_tarefa_insert = data_hora_tarefa_insert;
     }
 
     public int getAtraso_tarefa() {

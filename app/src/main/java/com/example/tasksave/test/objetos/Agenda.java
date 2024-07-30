@@ -3,6 +3,7 @@ package com.example.tasksave.test.objetos;
 import android.annotation.SuppressLint;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -10,19 +11,11 @@ public class Agenda {
     private int id;
     private String nomeAgenda;
     private String descriçãoAgenda;
-    private LocalDate dataAgenda;
-    private int horaAgenda;
-
-    private int minutoAgenda;
+    private LocalDateTime dataHoraAgenda;
     private boolean lembrete;
     private boolean finalizado;
-    private LocalDate dataAgendaFim;
-    private int horaAgendaFim;
-
-    private int minutoAgendaFim;
-    private LocalDate dataAgendaInsert;
-    private int horaAgendaInsert;
-    private int minutoAgendaInsert;
+    private LocalDateTime dataHoraAgendaFim;
+    private LocalDateTime dataHoraAgendaInsert;
     private int agendaAtraso;
 
     private boolean repetirLembrete;
@@ -31,26 +24,18 @@ public class Agenda {
     private boolean notificouTarefa;
 
 
-    public Agenda(int id, String nomeAgenda, String descriçãoAgenda, LocalDate dataAgenda,
-                  int horaAgenda, int minutoAgenda, boolean lembrete, boolean finalizado,
-                  LocalDate dataAgendaFim, int horaAgendaFim, int minutoAgendaFim,
-                  LocalDate dataAgendaInsert, int horaAgendaInsert, int minutoAgendaInsert, int agendaAtraso, boolean repetirLembrete,
+    public Agenda(int id, String nomeAgenda, String descriçãoAgenda, LocalDateTime dataHoraAgenda, boolean lembrete, boolean finalizado,
+                  LocalDateTime dataHoraAgendaFim, LocalDateTime dataHoraAgendaInsert, int agendaAtraso, boolean repetirLembrete,
                   int repetirModo, boolean notificouTarefa) {
 
         this.id = id;
         this.nomeAgenda = nomeAgenda;
         this.descriçãoAgenda = descriçãoAgenda;
-        this.dataAgenda = dataAgenda;
-        this.horaAgenda = horaAgenda;
-        this.minutoAgenda = minutoAgenda;
+        this.dataHoraAgenda = dataHoraAgenda;
         this.lembrete = lembrete;
         this.finalizado = finalizado;
-        this.horaAgendaFim = horaAgendaFim;
-        this.minutoAgendaFim = minutoAgendaFim;
-        this.dataAgendaFim = dataAgendaFim;
-        this.dataAgendaInsert = dataAgendaInsert;
-        this.horaAgendaInsert = horaAgendaInsert;
-        this.minutoAgendaInsert = minutoAgendaInsert;
+        this.dataHoraAgendaFim = dataHoraAgendaFim;
+        this.dataHoraAgendaInsert = dataHoraAgendaInsert;
         this.agendaAtraso = agendaAtraso;
         this.repetirLembrete = repetirLembrete;
         this.repetirModo = repetirModo;
@@ -67,20 +52,11 @@ public class Agenda {
     }
 
     public String getDataAgendaString() {
-        if (dataAgenda != null) {
-            return dataAgenda.toString();
-        } else {
-            @SuppressLint({"NewApi", "LocalSuppress"})
-            LocalDate dataAgendaSQL = LocalDate.now();
-            return dataAgendaSQL.toString();
-        }
-    }
-    public LocalDate getDate() {
-        return dataAgenda;
-    }
 
-    public int getHoraAgenda() {
-        return horaAgenda;
+        return dataHoraAgenda.toString();
+    }
+    public LocalDateTime getDate() {
+        return dataHoraAgenda;
     }
 
     public void setNomeAgenda(String nomeAgenda) {
@@ -94,22 +70,10 @@ public class Agenda {
     @SuppressLint("NewApi")
     public void setDataAgendaString(String dataAgendaString) {
         if (dataAgendaString != null) {
-            this.dataAgenda = LocalDate.parse(dataAgendaString);
+            this.dataHoraAgenda = LocalDateTime.parse(dataAgendaString);
         } else {
-            this.dataAgenda = null;
+            this.dataHoraAgenda = null;
         }
-    }
-
-    public void setHoraAgenda(int horaAgenda) {
-        this.horaAgenda = horaAgenda;
-    }
-
-    public int getMinutoAgenda() {
-        return minutoAgenda;
-    }
-
-    public void setMinutoAgenda(int minutoAgenda) {
-        this.minutoAgenda = minutoAgenda;
     }
 
     public boolean getLembrete() {
@@ -131,64 +95,33 @@ public class Agenda {
         this.finalizado = finalizado;
     }
     public String getDataAgendaFimString() {
-        if (dataAgendaFim != null) {
-            return dataAgendaFim.toString();
-        } else {
-            @SuppressLint({"NewApi", "LocalSuppress"})
-            LocalDate dataAgendaFimSQL = LocalDate.now();
-            return dataAgendaFimSQL.toString();
-        }
+
+            return dataHoraAgendaFim.toString();
+
     }
     @SuppressLint("NewApi")
     public void setDataAgendaFimString(String dataAgendaFimString) {
         if (dataAgendaFimString != null) {
-            this.dataAgendaFim = LocalDate.parse(dataAgendaFimString);
+            this.dataHoraAgendaFim = LocalDateTime.parse(dataAgendaFimString);
         } else {
-            this.dataAgendaFim = null;
+            this.dataHoraAgendaFim = null;
         }
     }
 
-    public int getHoraAgendaFim() {
-        return horaAgendaFim;
-    }
-    public void setHoraAgendaFim(int horaAgendaFim) {
-        this.horaAgendaFim = horaAgendaFim;
-    }
-    public int getMinutoAgendaFim() {
-        return minutoAgendaFim;
-    }
-
-    public void setMinutoAgendaFim(int minutoAgendaFim) {
-        this.minutoAgendaFim = minutoAgendaFim;
-    }
     public String getDataAgendaInsertString() {
-        if (dataAgendaInsert != null) {
-            return dataAgendaInsert.toString();
-        } else {
-            return null;
-        }
+
+            return dataHoraAgendaInsert.toString();
+
     }
     @SuppressLint("NewApi")
     public void setDataAgendaInsertString(String dataAgendaInsertString) {
         if (dataAgendaInsertString != null) {
-            this.dataAgendaInsert = LocalDate.parse(dataAgendaInsertString);
+            this.dataHoraAgendaInsert = LocalDateTime.parse(dataAgendaInsertString);
         } else {
-            this.dataAgendaInsert = null;
+            this.dataHoraAgendaInsert = null;
         }
     }
-    public int getHoraAgendaInsert() {
-        return horaAgendaInsert;
-    }
-    public void setHoraAgendaInsert(int horaAgendaInsert) {
-        this.horaAgendaInsert = horaAgendaInsert;
-    }
-    public int getMinutoAgendaInsert() {
-        return minutoAgendaInsert;
-    }
 
-    public void setMinutoAgendaInsert(int minutoAgendaInsert) {
-        this.minutoAgendaInsert = minutoAgendaInsert;
-    }
     public int getAgendaAtraso() {
         return agendaAtraso;
     }

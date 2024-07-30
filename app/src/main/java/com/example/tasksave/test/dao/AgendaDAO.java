@@ -48,22 +48,15 @@ public class AgendaDAO {
         if(agenda.getLembrete()) {
 
             contentValues.put("dataAgenda", agenda.getDataAgendaString());
-            contentValues.put("horaAgenda", agenda.getHoraAgenda());
-            contentValues.put("minutoAgenda", agenda.getMinutoAgenda());
 
             contentValues.putNull("dataAgendaFim");
-            contentValues.putNull("horaAgendaFim");
-            contentValues.putNull("minutoAgendaFim");
 
         }else {
 
             contentValues.putNull("dataAgenda");
-            contentValues.putNull("horaAgenda");
-            contentValues.putNull("minutoAgenda");
 
             contentValues.putNull("dataAgendaFim");
-            contentValues.putNull("horaAgendaFim");
-            contentValues.putNull("minutoAgendaFim");
+
 
         }
 
@@ -78,8 +71,6 @@ public class AgendaDAO {
 //        contentValues.put("horaAgendaFim", agenda.getHoraAgendaFim());
 //        contentValues.put("minutoAgendaFim", agenda.getMinutoAgendaFim());
         contentValues.put("dataAgendaInsert", agenda.getDataAgendaInsertString());
-        contentValues.put("horaAgendaInsert", agenda.getHoraAgendaInsert());
-        contentValues.put("minutoAgendaInsert", agenda.getMinutoAgendaInsert());
         contentValues.put("agendaAtraso", agenda.getAgendaAtraso());
         contentValues.put("repetirLembrete", agenda.getRepetirLembrete());
         contentValues.put("repetirModo", agenda.getRepetirModo());
