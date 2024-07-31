@@ -242,7 +242,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                 shimmerFrameLayout.stopShimmer();
                 listView.setVisibility(View.VISIBLE);
                 VerificaLista(0);
-                ListarAgenda(0);
+//                ListarAgenda(0);
 
             }
 
@@ -255,7 +255,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
 
 
             VerificaLista(1);
-            ListarAgenda(1);
+//            ListarAgenda(1);
 
         } else if (clickAtradasados) {
 
@@ -264,7 +264,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
             cardViewPendents.setCardBackgroundColor(getResources().getColor(R.color.brancoGelo));
 
             VerificaLista(2);
-            ListarAgenda(2);
+//            ListarAgenda(2);
 
         }
 
@@ -432,6 +432,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
 //                        selectedDate2 = sdf2.format(selectedCalendar2.getTime());
 
                         localDateData.withYear(year).withMonth(month).withDayOfMonth(dayOfMonth);
+                        Log.d("TESTE", "TESTE"+localDateData.toString());
 
 //                        SharedPreferences prefs = getSharedPreferences("arquivoSalvarData", MODE_PRIVATE);
 //                        SharedPreferences.Editor editor = prefs.edit();
@@ -550,6 +551,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
 //                        LocalTime localTimeEscolhido = LocalTime.of(horaEscolhida, minutoEscolhido);
 
                         LocalDateTime localDateTime = LocalDateTime.of(localDateData, localTimeData);
+//                        localDateTime = localDateTime.withSecond(0).withNano(0);
 
 
 //                        Calendar calendar = Calendar.getInstance();
@@ -628,6 +630,10 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                     } else {
 
                         LocalDateTime dateTimeAtual = LocalDateTime.now();
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                        String formattedDateTime = dateTimeAtual.format(formatter);
+
+                        LocalDateTime localDateTime2 = LocalDateTime.parse(formattedDateTime, formatter);
 
                         SharedPreferences save = getApplicationContext().getSharedPreferences("arquivoSalvar2", Context.MODE_PRIVATE);
                         SharedPreferences.Editor saveEdit = save.edit();
@@ -636,7 +642,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
 
                         inserirTarefaBD(editNome.getText().toString(), editDescricao.getText().toString(),
                                 false, false, 0, null,
-                                null, dateTimeAtual, 0, false, false, dialog);
+                                null, localDateTime2, 0, false, false, dialog);
 
 
 
@@ -1110,13 +1116,13 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                 agendaAWS.setLembrete_tarefa(lembreteTarefa);
                 agendaAWS.setRepetir_tarefa(repetirLembrete);
                 agendaAWS.setRepetir_modo_tarefa(repetirModoLembrete);
-                agendaAWS.setData_tarefa(dataTarefa);
+                agendaAWS.setData_tarefa(dataHoraTarefa);
 //                agendaAWS.setHora_tarefa(horaTarefa);
 //                agendaAWS.setMinuto_tarefa(minutoTarefa);
-                agendaAWS.setData_tarefa_fim(dataTarefaFim);
+                agendaAWS.setData_tarefa_fim(dataHoraTarefaFim);
 //                agendaAWS.setHora_tarefa_fim(horaTarefaFim);
 //                agendaAWS.setMinuto_tarefa_fim(minutoTarefaFim);
-                agendaAWS.setData_tarefa_insert(dataTarefaInsert);
+                agendaAWS.setData_tarefa_insert(dataHoraTarefaInsert);
 //                agendaAWS.setHora_tarefa_insert(horaTarefaInsert);
 //                agendaAWS.setMinuto_tarefa_insert(minutoTarefaInsert);
                 agendaAWS.setAtraso_tarefa(atrasoTarefa);
@@ -1131,10 +1137,9 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                     if (tarefaID != -1) {
                         Toast.makeText(getApplicationContext(), "Sucesso ao inserir Tarefa: "+tarefaID, Toast.LENGTH_SHORT).show();
 
-                        salvaTarefaSQLite(tarefaID, nomeTarefa, descTarefa, dataTarefa,
-                                horaTarefa, minutoTarefa, lembreteTarefa, finalizadoTarefa, dataTarefaFim,
-                                horaTarefaFim, minutoTarefaFim, dataTarefaInsert, horaTarefaInsert,
-                                minutoTarefaInsert, atrasoTarefa, repetirLembrete, repetirModoLembrete, notificouTarefa);
+                        salvaTarefaSQLite(tarefaID, nomeTarefa, descTarefa, dataHoraTarefa,
+                                lembreteTarefa, finalizadoTarefa, dataHoraTarefaFim
+                                ,dataHoraTarefaInsert, atrasoTarefa, repetirLembrete, repetirModoLembrete, notificouTarefa);
 
                         dialog.dismiss();
                         refreshData();
@@ -1153,28 +1158,26 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
         });
 
     }
-    public void salvaTarefaSQLite(int tarefaID, String nomeTarefa, String descTarefa, LocalDate dataTarefa,
-                                  int horaTarefa, int minutoTarefa, boolean lembreteTarefa, boolean finalizadoTarefa,
-                                  LocalDate dataTarefaFim, int horaTarefaFim, int minutoTarefaFim, LocalDate dataTarefaInsert,
-                                  int horaTarefaInsert, int minutoTarefaInsert, int atrasoTarefa, boolean repetirLembrete,
+    public void salvaTarefaSQLite(int tarefaID, String nomeTarefa, String descTarefa, LocalDateTime dataHoraTarefa,
+                                  boolean lembreteTarefa, boolean finalizadoTarefa,
+                                  LocalDateTime dataHoraTarefaFim, LocalDateTime dataHoraTarefaInsert, int atrasoTarefa, boolean repetirLembrete,
                                   int repetirModoLembrete, boolean notificouTarefa) {
 
         AgendaDAO agendaDAO = new AgendaDAO(ActivityAgenda.this);
 
-        Agenda agenda = new Agenda(tarefaID, nomeTarefa, descTarefa, dataTarefa, horaTarefa, minutoTarefa, lembreteTarefa, finalizadoTarefa,
-                dataTarefaFim, horaTarefaFim, minutoTarefaFim, dataTarefaInsert, horaTarefaInsert, minutoTarefaInsert, atrasoTarefa, repetirLembrete,
-                repetirModoLembrete, notificouTarefa);
+        Agenda agenda = new Agenda(tarefaID, nomeTarefa, descTarefa, dataHoraTarefa,lembreteTarefa, finalizadoTarefa,
+                dataHoraTarefaFim, dataHoraTarefaInsert, atrasoTarefa, repetirLembrete, repetirModoLembrete, notificouTarefa);
 
         agendaDAO.inserir(agenda);
 
-        if(lembreteTarefa) {
-
-            Calendar calendar2 = convertToCalendar(dataTarefa, horaTarefa, minutoTarefa);
-
-            AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2.getTimeInMillis(), nomeTarefa, descTarefa,
-                    repetirModoLembrete, tarefaID, dataTarefa);
-
-        }
+//        if(lembreteTarefa) {
+//
+//            Calendar calendar2 = agenda.getCalendarTime();
+//
+//            AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2.getTimeInMillis(), nomeTarefa, descTarefa,
+//                    repetirModoLembrete, tarefaID, dataHoraTarefa);
+//
+//        }
 
     }
     public void dialogDeletaTarefa(ArrayList<Long> ids, CustomAdapter customAdapter) {
@@ -1253,7 +1256,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                         shimmerFrameLayout.hideShimmer();
                         shimmerFrameLayout.stopShimmer();
                         VerificaLista(0);
-                        ListarAgenda(0);
+//                        ListarAgenda(0);
                         cardViewPendents.setEnabled(true);
                         cardViewAtrasados.setEnabled(true);
                             });
@@ -1272,7 +1275,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                         shimmerFrameLayout.hideShimmer();
                         shimmerFrameLayout.stopShimmer();
                         VerificaLista(0);
-                        ListarAgenda(0);
+//                        ListarAgenda(0);
                         cardViewPendents.setEnabled(true);
                         cardViewAtrasados.setEnabled(true);
 

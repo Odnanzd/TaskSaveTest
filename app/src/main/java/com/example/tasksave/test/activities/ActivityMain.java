@@ -41,9 +41,15 @@ import com.example.tasksave.test.servicos.ServicosATT;
 import com.example.tasksave.test.sharedPreferences.SharedPreferencesConfg;
 import com.example.tasksave.test.sharedPreferences.SharedPreferencesUsuario;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -95,7 +101,21 @@ public class ActivityMain extends AppCompatActivity {
         attContadorPendente();
         ChecarBiometria();
 
-        executaTeste();
+//        executaTeste();
+        LocalDateTime dateTimeAtual = LocalDateTime.now();
+
+        LocalDate localdate = LocalDate.now();
+        LocalTime localTime = LocalTime.now();
+
+        Instant instant = dateTimeAtual.atZone(ZoneId.systemDefault()).toInstant();
+        Timestamp ts = Timestamp.valueOf("");
+
+        Log.d("TESTE LOCAL DATE", "LocalDateTime: "+dateTimeAtual);
+        Log.d("TESTE LOCAL DATE", "LocalDate: "+localdate);
+        Log.d("TESTE LOCAL DATE", "LocalTime: "+localTime);
+//        Log.d("TESTE LOCAL DATE", "LocalDateTime: "+localDateTime);
+
+
 
         SharedPreferences sharedPrefs2 = getApplicationContext().getSharedPreferences("ArquivoATT", Context.MODE_PRIVATE);
         boolean arquivoATT = sharedPrefs2.getBoolean("NaoATT", false);
@@ -333,81 +353,81 @@ public class ActivityMain extends AppCompatActivity {
             }
         }
     }
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public void executaTeste() {
-
-
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(() -> {
-
-            AgendaDAO agendaDAO = new AgendaDAO(ActivityMain.this);
-            AgendaDAOMYsql agendaDAOMYsql = new AgendaDAOMYsql();
-
-            List<Agenda> agendaMYSQL = agendaDAOMYsql.tarefasUsuario(14);
-
-            for(Agenda agenda : agendaMYSQL) {
-                Log.d("Teste List", "MYSQL: " +agenda.getNomeAgenda());
-                Log.d("Teste List", "MYSQL: " +agenda.getDescriçãoAgenda());
-                Log.d("Teste List", "MYSQL: " +agenda.getDate());
-                Log.d("Teste List", "MYSQL: " +agenda.getHoraAgenda());
-                Log.d("Teste List", "MYSQL: " +agenda.getMinutoAgenda());
-                Log.d("Teste List", "MYSQL: " +agenda.getLembrete());
-                Log.d("Teste List", "MYSQL: " +agenda.getFinalizado());
-                Log.d("Teste List", "MYSQL: " +agenda.getDataAgendaFimString());
-                Log.d("Teste List", "MYSQL: " +agenda.getHoraAgendaFim());
-                Log.d("Teste List", "MYSQL: " +agenda.getMinutoAgendaFim());
-                Log.d("Teste List", "MYSQL: " +agenda.getDataAgendaInsertString());
-                Log.d("Teste List", "MYSQL: " +agenda.getHoraAgendaInsert());
-                Log.d("Teste List", "MYSQL: " +agenda.getMinutoAgendaInsert());
-                Log.d("Teste List", "MYSQL: " +agenda.getAgendaAtraso());
-                Log.d("Teste List", "MYSQL: " +agenda.getRepetirLembrete());
-                Log.d("Teste List", "MYSQL: " +agenda.getRepetirModo());
-                Log.d("Teste List", "MYSQL: " +agenda.isNotificado());
-            }
-
-            List<Agenda> agendaSQLite = agendaDAO.tarefasAgenda();
-
-            for(Agenda agenda : agendaSQLite) {
-                Log.d("Teste List", "SQLITE: " +agenda.getNomeAgenda());
-                Log.d("Teste List", "SQLITE: " +agenda.getDescriçãoAgenda());
-                Log.d("Teste List", "SQLITE: " +agenda.getDate());
-                Log.d("Teste List", "SQLITE: " +agenda.getHoraAgenda());
-                Log.d("Teste List", "SQLITE: " +agenda.getMinutoAgenda());
-                Log.d("Teste List", "SQLITE: " +agenda.getLembrete());
-                Log.d("Teste List", "SQLITE: " +agenda.getFinalizado());
-                Log.d("Teste List", "SQLITE: " +agenda.getDataAgendaFimString());
-                Log.d("Teste List", "SQLITE: " +agenda.getHoraAgendaFim());
-                Log.d("Teste List", "SQLITE: " +agenda.getMinutoAgendaFim());
-                Log.d("Teste List", "SQLITE: " +agenda.getDataAgendaInsertString());
-                Log.d("Teste List", "SQLITE: " +agenda.getHoraAgendaInsert());
-                Log.d("Teste List", "SQLITE: " +agenda.getMinutoAgendaInsert());
-                Log.d("Teste List", "SQLITE: " +agenda.getAgendaAtraso());
-                Log.d("Teste List", "SQLITE: " +agenda.getRepetirLembrete());
-                Log.d("Teste List", "SQLITE: " +agenda.getRepetirModo());
-                Log.d("Teste List", "SQLITE: " +agenda.isNotificado());
-            }
-
-
-            boolean areEqual = compareLists(agendaSQLite, agendaMYSQL);
-
-                Log.d("SAO IGUAIS: ", "IGUAIS: "+areEqual);
-
-                });
-
-    }
-    public static <Agenda> boolean compareLists(List<Agenda> list1, List<Agenda> list2) {
-        if (list1.size() != list2.size()) {
-            Log.d("Teste List", "Tetse: " + list1.size() + "/" + list2.size());
-            return false;
-        }
-
-        for (int i = 0; i < list1.size(); i++) {
-            if (!list1.get(i).equals(list2.get(i))) {
-                Log.d("Teste List", "Item diferente: " + list1.get(i) + " != " + list2.get(i));
-                return false;
-            }
-        }
-
-        return true;
-    }
+//    @RequiresApi(api = Build.VERSION_CODES.O)
+//    public void executaTeste() {
+//
+//
+//        ExecutorService executorService = Executors.newSingleThreadExecutor();
+//        executorService.execute(() -> {
+//
+//            AgendaDAO agendaDAO = new AgendaDAO(ActivityMain.this);
+//            AgendaDAOMYsql agendaDAOMYsql = new AgendaDAOMYsql();
+//
+//            List<Agenda> agendaMYSQL = agendaDAOMYsql.tarefasUsuario(14);
+//
+//            for(Agenda agenda : agendaMYSQL) {
+//                Log.d("Teste List", "MYSQL: " +agenda.getNomeAgenda());
+//                Log.d("Teste List", "MYSQL: " +agenda.getDescriçãoAgenda());
+//                Log.d("Teste List", "MYSQL: " +agenda.getDate());
+//                Log.d("Teste List", "MYSQL: " +agenda.getHoraAgenda());
+//                Log.d("Teste List", "MYSQL: " +agenda.getMinutoAgenda());
+//                Log.d("Teste List", "MYSQL: " +agenda.getLembrete());
+//                Log.d("Teste List", "MYSQL: " +agenda.getFinalizado());
+//                Log.d("Teste List", "MYSQL: " +agenda.getDataAgendaFimString());
+//                Log.d("Teste List", "MYSQL: " +agenda.getHoraAgendaFim());
+//                Log.d("Teste List", "MYSQL: " +agenda.getMinutoAgendaFim());
+//                Log.d("Teste List", "MYSQL: " +agenda.getDataAgendaInsertString());
+//                Log.d("Teste List", "MYSQL: " +agenda.getHoraAgendaInsert());
+//                Log.d("Teste List", "MYSQL: " +agenda.getMinutoAgendaInsert());
+//                Log.d("Teste List", "MYSQL: " +agenda.getAgendaAtraso());
+//                Log.d("Teste List", "MYSQL: " +agenda.getRepetirLembrete());
+//                Log.d("Teste List", "MYSQL: " +agenda.getRepetirModo());
+//                Log.d("Teste List", "MYSQL: " +agenda.isNotificado());
+//            }
+//
+//            List<Agenda> agendaSQLite = agendaDAO.tarefasAgenda();
+//
+//            for(Agenda agenda : agendaSQLite) {
+//                Log.d("Teste List", "SQLITE: " +agenda.getNomeAgenda());
+//                Log.d("Teste List", "SQLITE: " +agenda.getDescriçãoAgenda());
+//                Log.d("Teste List", "SQLITE: " +agenda.getDate());
+//                Log.d("Teste List", "SQLITE: " +agenda.getHoraAgenda());
+//                Log.d("Teste List", "SQLITE: " +agenda.getMinutoAgenda());
+//                Log.d("Teste List", "SQLITE: " +agenda.getLembrete());
+//                Log.d("Teste List", "SQLITE: " +agenda.getFinalizado());
+//                Log.d("Teste List", "SQLITE: " +agenda.getDataAgendaFimString());
+//                Log.d("Teste List", "SQLITE: " +agenda.getHoraAgendaFim());
+//                Log.d("Teste List", "SQLITE: " +agenda.getMinutoAgendaFim());
+//                Log.d("Teste List", "SQLITE: " +agenda.getDataAgendaInsertString());
+//                Log.d("Teste List", "SQLITE: " +agenda.getHoraAgendaInsert());
+//                Log.d("Teste List", "SQLITE: " +agenda.getMinutoAgendaInsert());
+//                Log.d("Teste List", "SQLITE: " +agenda.getAgendaAtraso());
+//                Log.d("Teste List", "SQLITE: " +agenda.getRepetirLembrete());
+//                Log.d("Teste List", "SQLITE: " +agenda.getRepetirModo());
+//                Log.d("Teste List", "SQLITE: " +agenda.isNotificado());
+//            }
+//
+//
+//            boolean areEqual = compareLists(agendaSQLite, agendaMYSQL);
+//
+//                Log.d("SAO IGUAIS: ", "IGUAIS: "+areEqual);
+//
+//                });
+//
+//    }
+//    public static <Agenda> boolean compareLists(List<Agenda> list1, List<Agenda> list2) {
+//        if (list1.size() != list2.size()) {
+//            Log.d("Teste List", "Tetse: " + list1.size() + "/" + list2.size());
+//            return false;
+//        }
+//
+//        for (int i = 0; i < list1.size(); i++) {
+//            if (!list1.get(i).equals(list2.get(i))) {
+//                Log.d("Teste List", "Item diferente: " + list1.get(i) + " != " + list2.get(i));
+//                return false;
+//            }
+//        }
+//
+//        return true;
+//    }
 }

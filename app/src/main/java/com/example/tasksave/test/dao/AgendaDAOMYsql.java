@@ -16,7 +16,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,8 +29,8 @@ public class AgendaDAOMYsql {
 
     Connection conn;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public int salvaTarefaAWS(AgendaAWS agendaAWS) {
-
         ConnectionClass connectionClass = new ConnectionClass();
         conn = connectionClass.CONN();
 
@@ -40,24 +42,7 @@ public class AgendaDAOMYsql {
                     " atraso_tarefa, finalizado_tarefa, notificou_tarefa, usuario_id) VALUES" +
                     " (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-
             PreparedStatement pstm = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
-            if(agendaAWS.getLembrete_tarefa()) {
-
-                pstm.setDate(6, java.sql.Date.valueOf(agendaAWS.getData_tarefaString()));
-
-                pstm.setNull(7, java.sql.Types.DATE);
-
-            }else {
-
-                pstm.setNull(6, java.sql.Types.DATE);
-
-                pstm.setNull(7, java.sql.Types.DATE);
-
-            }
-
-
 
             pstm.setString(1, agendaAWS.getNome_tarefa());
             pstm.setString(2, agendaAWS.getDescricao_tarefa());
@@ -65,28 +50,18 @@ public class AgendaDAOMYsql {
             pstm.setBoolean(4, agendaAWS.getRepetir_tarefa());
             pstm.setInt(5, agendaAWS.getRepetir_modo_tarefa());
 
-//            if (agendaAWS.getData_tarefaString() != null) {
-//                pstm.setDate(6, java.sql.Date.valueOf(agendaAWS.getData_tarefaString()));
-//            } else {
-//                pstm.setNull(6, java.sql.Types.DATE);
-//            }
-//            pstm.setInt(7, agendaAWS.getHora_tarefa());
-//            pstm.setInt(8, agendaAWS.getMinuto_tarefa());
-
-//            if (agendaAWS.getData_tarefa_fimString() != null) {
-//                pstm.setDate(9, java.sql.Date.valueOf(agendaAWS.getData_tarefa_fimString()));
-//            } else {
-//                pstm.setNull(9, java.sql.Types.DATE);
-//            }
-
-
-//            pstm.setInt(10, agendaAWS.getHora_tarefa_fim());
-//            pstm.setInt(11, agendaAWS.getMinuto_tarefa_fim());
-
-            if (agendaAWS.getData_tarefa_insertString() != null) {
-                pstm.setDate(8, java.sql.Date.valueOf(agendaAWS.getData_tarefa_insertString()));
+            if (agendaAWS.getLembrete_tarefa()) {
+                pstm.setTimestamp(6, agendaAWS.getData_tarefaTimestamp());
+                pstm.setNull(7, Types.TIMESTAMP);
             } else {
-                pstm.setNull(8, java.sql.Types.DATE);
+                pstm.setNull(6, java.sql.Types.TIMESTAMP);
+                pstm.setNull(7, java.sql.Types.TIMESTAMP);
+            }
+
+            if (agendaAWS.getData_tarefa_insertTimestamp() != null) {
+                pstm.setTimestamp(8, agendaAWS.getData_tarefa_insertTimestamp());
+            } else {
+                pstm.setNull(8, java.sql.Types.TIMESTAMP);
             }
 
             pstm.setInt(9, agendaAWS.getAtraso_tarefa());
@@ -95,7 +70,6 @@ public class AgendaDAOMYsql {
             pstm.setInt(12, agendaAWS.getUsuario_id());
 
             int affectedRows = pstm.executeUpdate();
-
 
             if (affectedRows == 0) {
                 throw new SQLException("Creating task failed, no rows affected.");
@@ -156,23 +130,23 @@ public class AgendaDAOMYsql {
                 try(ResultSet rs = stmt.executeQuery()) {
                     while (rs.next()) {
 
-                        LocalDate localDateTarefanow = null;
-                        LocalDate localDateFimNow = null;
-                        LocalDate localDateInsertNow = null;
+                        LocalDateTime localDateTimeTarefanow = null;
+                        LocalDateTime localDateTimeFimNow = null;
+                        LocalDateTime localDateTimeInsertNow = null;
 
 
                         Date dataTarefaDT = rs.getDate("data_tarefa");
                         if (dataTarefaDT !=null ) {
 
                             String dataTarefaString = dataTarefaDT.toString();
-                            localDateTarefanow = LocalDate.parse(dataTarefaString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                            localDateTimeTarefanow = LocalDateTime.parse(dataTarefaString);
                         }
 
                         Date dataTarefaFim = rs.getDate("data_farefa_fim");
                         if (dataTarefaFim !=null) {
 
                             String dataTarefaFimString = dataTarefaFim.toString();
-                            localDateFimNow = LocalDate.parse(dataTarefaFimString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                            localDateTimeFimNow = LocalDateTime.parse(dataTarefaFimString);
                         }
 
                         Date dataTarefaInsert = rs.getDate("data_tarefa_insert");
@@ -180,17 +154,15 @@ public class AgendaDAOMYsql {
                         if(dataTarefaInsert!=null) {
 
                             String dataTarefaInsertString = dataTarefaInsert.toString();
-                            localDateInsertNow = LocalDate.parse(dataTarefaInsertString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                            localDateTimeInsertNow = LocalDateTime.parse(dataTarefaInsertString);
                         }
 
                         tarefasUsuario.add(new Agenda(rs.getInt("id_tarefa"),
                         rs.getString("nome_tarefa"),rs.getString("descricao_tarefa"),
-                        localDateTarefanow, rs.getInt("hora_tarefa"), rs.getInt("minuto_tarefa"),
+                        localDateTimeTarefanow,
                         rs.getBoolean("lembrete_tarefa"),
-                        rs.getBoolean("finalizado_tarefa"), localDateFimNow,
-                        rs.getInt("hora_tarefa_fim"), rs.getInt("minuto_tarefa_fim"),
-                        localDateInsertNow,
-                        rs.getInt("hora_tarefa_insert"), rs.getInt("minuto_tarefa_insert"),
+                        rs.getBoolean("finalizado_tarefa"), localDateTimeFimNow,
+                        localDateTimeInsertNow,
                         rs.getInt("atraso_tarefa"), rs.getBoolean("repetir_tarefa"),
                         rs.getInt("repetir_modo_tarefa"), rs.getBoolean("notificou_tarefa")));
 

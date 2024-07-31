@@ -16,8 +16,7 @@ public class Conexao extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
         sqLiteDatabase.execSQL("CREATE TABLE agenda (id integer, nomeTarefa varchar(50), descricaoTarefa varchar(50)," +
-                " dataAgenda TEXT, horaAgenda integer, minutoAgenda integer, lembretedefinido integer, finalizado integer, dataAgendaFim TEXT," +
-                "horaAgendaFim integer, minutoAgendaFim integer, dataAgendaInsert TEXT, horaAgendaInsert integer, minutoAgendaInsert integer, " +
+                " dataHoraAgenda TEXT, lembretedefinido integer, finalizado integer, dataHoraAgendaFim TEXT, dataHoraAgendaInsert TEXT," +
                 "agendaAtraso integer, repetirLembrete integer, repetirModo integer, notificouTarefa integer)");
         }
 

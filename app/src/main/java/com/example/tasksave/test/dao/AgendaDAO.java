@@ -142,60 +142,60 @@ public class AgendaDAO {
         return rowsUpdated > 0;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public List<Agenda> obterTarefasComLembreteAtivado() {
-
-        LocalDate dataAtual = LocalDate.now();
-        List<Agenda> tarefasComLembrete = new ArrayList<>();
-
-        String[] colunas = {
-                "id", "nomeTarefa", "descricaoTarefa", "dataAgenda", "horaAgenda", "minutoAgenda",
-                "lembretedefinido", "finalizado", "repetirLembrete", "repetirModo", "notificouTarefa"};
-
-        String whereClause = "lembretedefinido = ?";
-        String[] whereArgs = {"1"}; // Lembrete ativado
-
-        Cursor cursor = db.query("agenda", colunas, whereClause, whereArgs, null, null, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                @SuppressLint("Range")
-                int id = cursor.getInt(cursor.getColumnIndex("id"));
-                @SuppressLint("Range")
-                String titulo = cursor.getString(cursor.getColumnIndex("nomeTarefa"));
-                @SuppressLint("Range")
-                String descricao = cursor.getString(cursor.getColumnIndex("descricaoTarefa"));
-                @SuppressLint("Range")
-                String dataAgenda = cursor.getString(cursor.getColumnIndex("dataAgenda"));
-                @SuppressLint("Range")
-                int horaAgenda = cursor.getInt(cursor.getColumnIndex("horaAgenda"));
-                @SuppressLint("Range")
-                int minutoAgenda = cursor.getInt(cursor.getColumnIndex("minutoAgenda"));
-                @SuppressLint("Range")
-                int finalizado = cursor.getInt(cursor.getColumnIndex("finalizado"));
-                boolean finalizadobl = (finalizado != 0);
-                @SuppressLint("Range")
-                int repetirLembrete = cursor.getInt(cursor.getColumnIndex("repetirLembrete"));
-                boolean repetirLembretebl = (repetirLembrete != 0);
-                @SuppressLint("Range")
-                int repetirModo = cursor.getInt(cursor.getColumnIndex("repetirModo"));
-                @SuppressLint("Range")
-                int notificouTarefaDB = cursor.getInt(cursor.getColumnIndex("notificouTarefa"));
-                boolean notificouTarefa = (notificouTarefaDB != 0);
-
-
-                LocalDate localDataAgenda = LocalDate.parse(dataAgenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
-                tarefasComLembrete.add(new Agenda(id, titulo, descricao, localDataAgenda, horaAgenda,
-                        minutoAgenda, true, finalizadobl, dataAtual, -1, -1, dataAtual,
-                        -1, -1, 0, repetirLembretebl, repetirModo, notificouTarefa));
-            } while (cursor.moveToNext());
-        }
-
-        cursor.close();
-
-        return tarefasComLembrete;
-    }
+//    @RequiresApi(api = Build.VERSION_CODES.O)
+//    public List<Agenda> obterTarefasComLembreteAtivado() {
+//
+//        LocalDate dataAtual = LocalDate.now();
+//        List<Agenda> tarefasComLembrete = new ArrayList<>();
+//
+//        String[] colunas = {
+//                "id", "nomeTarefa", "descricaoTarefa", "dataAgenda", "horaAgenda", "minutoAgenda",
+//                "lembretedefinido", "finalizado", "repetirLembrete", "repetirModo", "notificouTarefa"};
+//
+//        String whereClause = "lembretedefinido = ?";
+//        String[] whereArgs = {"1"}; // Lembrete ativado
+//
+//        Cursor cursor = db.query("agenda", colunas, whereClause, whereArgs, null, null, null);
+//
+//        if (cursor.moveToFirst()) {
+//            do {
+//                @SuppressLint("Range")
+//                int id = cursor.getInt(cursor.getColumnIndex("id"));
+//                @SuppressLint("Range")
+//                String titulo = cursor.getString(cursor.getColumnIndex("nomeTarefa"));
+//                @SuppressLint("Range")
+//                String descricao = cursor.getString(cursor.getColumnIndex("descricaoTarefa"));
+//                @SuppressLint("Range")
+//                String dataAgenda = cursor.getString(cursor.getColumnIndex("dataAgenda"));
+//                @SuppressLint("Range")
+//                int horaAgenda = cursor.getInt(cursor.getColumnIndex("horaAgenda"));
+//                @SuppressLint("Range")
+//                int minutoAgenda = cursor.getInt(cursor.getColumnIndex("minutoAgenda"));
+//                @SuppressLint("Range")
+//                int finalizado = cursor.getInt(cursor.getColumnIndex("finalizado"));
+//                boolean finalizadobl = (finalizado != 0);
+//                @SuppressLint("Range")
+//                int repetirLembrete = cursor.getInt(cursor.getColumnIndex("repetirLembrete"));
+//                boolean repetirLembretebl = (repetirLembrete != 0);
+//                @SuppressLint("Range")
+//                int repetirModo = cursor.getInt(cursor.getColumnIndex("repetirModo"));
+//                @SuppressLint("Range")
+//                int notificouTarefaDB = cursor.getInt(cursor.getColumnIndex("notificouTarefa"));
+//                boolean notificouTarefa = (notificouTarefaDB != 0);
+//
+//
+//                LocalDate localDataAgenda = LocalDate.parse(dataAgenda, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+//
+//                tarefasComLembrete.add(new Agenda(id, titulo, descricao, localDataAgenda, horaAgenda,
+//                        minutoAgenda, true, finalizadobl, dataAtual, -1, -1, dataAtual,
+//                        -1, -1, 0, repetirLembretebl, repetirModo, notificouTarefa));
+//            } while (cursor.moveToNext());
+//        }
+//
+//        cursor.close();
+//
+//        return tarefasComLembrete;
+//    }
 
     public ArrayList<Long> idTarefasLembrete() {
 
@@ -387,9 +387,9 @@ public class AgendaDAO {
 //                    LocalDate localdataagendaFim = LocalDate.parse(dataagendaFim, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                     LocalDate localdataagendaInsert = LocalDate.parse(dataAgendaInsert, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-                    tarefasComLembrete.add(new Agenda(ID, titulo, descricao, localdataagenda, horaagenda, minutoagenda,
-                            lembrete, finalizado, localdataagendaFim, horaAgendaFim, minutoAgendaFim, localdataagendaInsert,
-                            horaAgendaInsert, minutoAgendaInsert, agendaAtrasoDB, repetirLembrete, repetirLembreteModo, notificouTarefa));
+//                    tarefasComLembrete.add(new Agenda(ID, titulo, descricao, localdataagenda, horaagenda, minutoagenda,
+//                            lembrete, finalizado, localdataagendaFim, horaAgendaFim, minutoAgendaFim, localdataagendaInsert,
+//                            horaAgendaInsert, minutoAgendaInsert, agendaAtrasoDB, repetirLembrete, repetirLembreteModo, notificouTarefa));
             } while (cursor.moveToNext());
         }
 

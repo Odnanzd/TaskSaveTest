@@ -1,10 +1,17 @@
 package com.example.tasksave.test.objetos;
 
 import android.annotation.SuppressLint;
+import android.os.Build;
 
+import androidx.annotation.RequiresApi;
+
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 public class Agenda {
@@ -153,42 +160,60 @@ public class Agenda {
     @SuppressLint("NewApi")
     public long getDateTimeInMillis() {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, dataAgenda.getYear());
-        calendar.set(Calendar.MONTH, dataAgenda.getMonthValue() - 1);
-        calendar.set(Calendar.DAY_OF_MONTH, dataAgenda.getDayOfMonth());
-        calendar.set(Calendar.HOUR_OF_DAY, horaAgenda);
-        calendar.set(Calendar.MINUTE, minutoAgenda);
+
+        // Configura o Calendar com os valores do LocalDateTime
+        calendar.set(Calendar.YEAR, dataHoraAgenda.getYear());
+        calendar.set(Calendar.MONTH, dataHoraAgenda.getMonthValue() - 1); // Mês no Calendar é 0-based
+        calendar.set(Calendar.DAY_OF_MONTH, dataHoraAgenda.getDayOfMonth());
+        calendar.set(Calendar.HOUR_OF_DAY, dataHoraAgenda.getHour());
+        calendar.set(Calendar.MINUTE, dataHoraAgenda.getMinute());
         calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0); // Configura os milissegundos para 0
+
         return calendar.getTimeInMillis();
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public Calendar getCalendarTime() {
+
+        ZonedDateTime zonedDateTime = dataHoraAgenda.atZone(ZoneId.systemDefault());
+
+        Instant instant = zonedDateTime.toInstant();
+
+        Date date = Date.from(instant);
+
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.setTime(date);
+
+        return calendar;
+
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Agenda agenda = (Agenda) o;
-        return horaAgenda == agenda.horaAgenda &&
-                minutoAgenda == agenda.minutoAgenda &&
+        return
                 lembrete == agenda.lembrete &&
                 finalizado == agenda.finalizado &&
-                horaAgendaFim == agenda.horaAgendaFim &&
-                minutoAgendaFim == agenda.minutoAgendaFim &&
-                horaAgendaInsert == agenda.horaAgendaInsert &&
-                minutoAgendaInsert == agenda.minutoAgendaInsert &&
                 agendaAtraso == agenda.agendaAtraso &&
                 repetirLembrete == agenda.repetirLembrete &&
                 repetirModo == agenda.repetirModo &&
                 notificouTarefa == agenda.isNotificado() &&
                 Objects.equals(nomeAgenda, agenda.nomeAgenda) &&
                 Objects.equals(descriçãoAgenda, agenda.descriçãoAgenda) &&
-                Objects.equals(dataAgenda, agenda.dataAgenda) &&
-                Objects.equals(dataAgendaFim, agenda.dataAgendaFim) &&
-                Objects.equals(dataAgendaInsert, agenda.dataAgendaInsert);
+                Objects.equals(dataHoraAgenda, agenda.dataHoraAgenda) &&
+                Objects.equals(dataHoraAgendaFim, agenda.dataHoraAgendaFim) &&
+                Objects.equals(dataHoraAgendaInsert, agenda.dataHoraAgendaInsert);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nomeAgenda, descriçãoAgenda, dataAgenda, horaAgenda, minutoAgenda, lembrete, finalizado, dataAgendaFim, horaAgendaFim, minutoAgendaFim, dataAgendaInsert, horaAgendaInsert, minutoAgendaInsert, agendaAtraso, repetirLembrete, repetirModo, notificouTarefa);
+        return Objects.hash(nomeAgenda, descriçãoAgenda, dataHoraAgenda, lembrete, finalizado, dataHoraAgendaFim,
+                dataHoraAgendaInsert,
+                agendaAtraso, repetirLembrete, repetirModo, notificouTarefa);
     }
 }
 

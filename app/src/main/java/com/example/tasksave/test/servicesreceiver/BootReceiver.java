@@ -18,22 +18,22 @@ public class BootReceiver extends BroadcastReceiver {
 
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
             AgendaDAO agendaDAO = new AgendaDAO(context);
-            @SuppressLint({"NewApi", "LocalSuppress"})
-            List<Agenda> agendasComLembrete = agendaDAO.obterTarefasComLembreteAtivado();
+//            @SuppressLint({"NewApi", "LocalSuppress"})
+//            List<Agenda> agendasComLembrete = agendaDAO.obterTarefasComLembreteAtivado();
 
-            for (Agenda tarefa : agendasComLembrete) {
-                if (!tarefa.getFinalizado() && tarefa.getRepetirModo()!=0) {
-                    AlarmScheduler.scheduleAlarm(
-                            context,
-                            tarefa.getDateTimeInMillis(),
-                            tarefa.getNomeAgenda(),
-                            tarefa.getDescriçãoAgenda(),
-                            tarefa.getRepetirModo(),
-                            tarefa.getId(),
-                            tarefa.getDate()
-                    );
-                }
-            }
+//            for (Agenda tarefa : agendasComLembrete) {
+//                if (!tarefa.getFinalizado() && tarefa.getRepetirModo()!=0) {
+//                    AlarmScheduler.scheduleAlarm(
+//                            context,
+//                            tarefa.getDateTimeInMillis(),
+//                            tarefa.getNomeAgenda(),
+//                            tarefa.getDescriçãoAgenda(),
+//                            tarefa.getRepetirModo(),
+//                            tarefa.getId(),
+//                            tarefa.getDate()
+//                    );
+//                }
+//            }
             Log.d("BootReceiver", "Alarmes reagendados após reinicialização.");
         }
         }

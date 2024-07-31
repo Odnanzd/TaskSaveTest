@@ -1,6 +1,14 @@
 package com.example.tasksave.test.objetos;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.sql.Timestamp;
+import java.time.ZoneId;
 
 public class AgendaAWS {
 
@@ -66,33 +74,62 @@ public class AgendaAWS {
         this.repetir_modo_tarefa = repetir_modo_tarefa;
     }
 
-    public String getData_tarefaString() {
-            return data_hora_tarefa.toString();
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public Timestamp getData_tarefaTimestamp() {
+        if (data_hora_tarefa != null) {
+            return Timestamp.valueOf(data_hora_tarefa.toString());
 
+        } else {
+            return null;
+        }
     }
 
     public void setData_tarefa(LocalDateTime data_hora_tarefa) {
-        this.data_hora_tarefa = data_hora_tarefa;
+
+        if (data_hora_tarefa!=null) {
+            this.data_hora_tarefa = data_hora_tarefa;
+        }else {
+            this.data_hora_tarefa = null;
+        }
+
     }
 
-    public String getData_tarefa_fimString() {
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public Timestamp getData_tarefa_fimTimestamp() {
+        if (data_hora_tarefa_fim != null) {
 
-            return data_hora_tarefa_fim.toString();
-
+            return Timestamp.valueOf(data_hora_tarefa_fim.toString());
+        } else {
+            return null;
+        }
     }
 
     public void setData_tarefa_fim(LocalDateTime data_hora_tarefa_fim) {
-        this.data_hora_tarefa_fim = data_hora_tarefa_fim;
+
+        if (data_hora_tarefa_fim!=null) {
+            this.data_hora_tarefa_fim = data_hora_tarefa_fim;
+        }else {
+            this.data_hora_tarefa_fim = null;
+        }
     }
 
-    public String getData_tarefa_insertString() {
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public Timestamp getData_tarefa_insertTimestamp() {
+        if (data_hora_tarefa_insert != null) {
+            // Converter LocalDateTime para Timestamp
 
-            return data_hora_tarefa_insert.toString();
-
+            return Timestamp.
+        } else {
+            return null;
+        }
     }
 
     public void setData_tarefa_insert(LocalDateTime data_hora_tarefa_insert) {
-        this.data_hora_tarefa_insert = data_hora_tarefa_insert;
+        if (data_hora_tarefa_insert!=null) {
+            this.data_hora_tarefa_insert = data_hora_tarefa_insert;
+        }else {
+            this.data_hora_tarefa_insert = null;
+        }
     }
 
     public int getAtraso_tarefa() {

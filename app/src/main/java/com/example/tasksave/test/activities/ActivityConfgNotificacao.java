@@ -74,7 +74,7 @@ public class ActivityConfgNotificacao extends AppCompatActivity {
 
                     SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(ActivityConfgNotificacao.this);
                     sharedPreferencesConfg.armazenaNotifica(false);
-                    reagendaLembreteTarefa(ActivityConfgNotificacao.this);
+//                    reagendaLembreteTarefa(ActivityConfgNotificacao.this);
 
                     Toast.makeText(getBaseContext(), "Notificações ativadas", Toast.LENGTH_LONG).show();
                 }
@@ -97,32 +97,32 @@ public class ActivityConfgNotificacao extends AppCompatActivity {
     public void removerLembreteTarefa() {
 
         AgendaDAO agendaDAO = new AgendaDAO(ActivityConfgNotificacao.this);
-        @SuppressLint({"NewApi", "LocalSuppress"})
-        List<Agenda> agendasComLembrete = agendaDAO.obterTarefasComLembreteAtivado();
-
-        for (Agenda tarefa : agendasComLembrete) {
-
-         AlarmScheduler.cancelAlarm(ActivityConfgNotificacao.this, tarefa.getId());
-
-        }
+//        @SuppressLint({"NewApi", "LocalSuppress"})
+//        List<Agenda> agendasComLembrete = agendaDAO.obterTarefasComLembreteAtivado();
+//
+//        for (Agenda tarefa : agendasComLembrete) {
+//
+//         AlarmScheduler.cancelAlarm(ActivityConfgNotificacao.this, tarefa.getId());
+//
+//        }
     }
-    public void reagendaLembreteTarefa(Context context) {
-        AgendaDAO agendaDAO = new AgendaDAO(ActivityConfgNotificacao.this);
-        @SuppressLint({"NewApi", "LocalSuppress"})
-        List<Agenda> agendasComLembrete = agendaDAO.obterTarefasComLembreteAtivado();
-
-        for (Agenda tarefa : agendasComLembrete) {
-            if (!tarefa.getFinalizado()) {
-                AlarmScheduler.scheduleAlarm(
-                        context,
-                        tarefa.getDateTimeInMillis(),
-                        tarefa.getNomeAgenda(),
-                        tarefa.getDescriçãoAgenda(),
-                        tarefa.getRepetirModo(),
-                        tarefa.getId(),
-                        tarefa.getDate()
-                );
-            }
-        }
-    }
+//    public void reagendaLembreteTarefa(Context context) {
+//        AgendaDAO agendaDAO = new AgendaDAO(ActivityConfgNotificacao.this);
+//        @SuppressLint({"NewApi", "LocalSuppress"})
+//        List<Agenda> agendasComLembrete = agendaDAO.obterTarefasComLembreteAtivado();
+//
+//        for (Agenda tarefa : agendasComLembrete) {
+//            if (!tarefa.getFinalizado()) {
+//                AlarmScheduler.scheduleAlarm(
+//                        context,
+//                        tarefa.getDateTimeInMillis(),
+//                        tarefa.getNomeAgenda(),
+//                        tarefa.getDescriçãoAgenda(),
+//                        tarefa.getRepetirModo(),
+//                        tarefa.getId(),
+//                        tarefa.getDate()
+//                );
+//            }
+//        }
+//    }
 }
