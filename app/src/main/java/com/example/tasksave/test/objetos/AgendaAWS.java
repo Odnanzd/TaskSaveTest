@@ -9,6 +9,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.sql.Timestamp;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 public class AgendaAWS {
 
@@ -77,7 +78,13 @@ public class AgendaAWS {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public Timestamp getData_tarefaTimestamp() {
         if (data_hora_tarefa != null) {
-            return Timestamp.valueOf(data_hora_tarefa.toString());
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSSSS");
+
+            String formattedDateTime = data_hora_tarefa.format(formatter);
+
+
+            return Timestamp.valueOf(formattedDateTime);
 
         } else {
             return null;
@@ -98,7 +105,12 @@ public class AgendaAWS {
     public Timestamp getData_tarefa_fimTimestamp() {
         if (data_hora_tarefa_fim != null) {
 
-            return Timestamp.valueOf(data_hora_tarefa_fim.toString());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSSSS");
+
+            String formattedDateTime = data_hora_tarefa_fim.format(formatter);
+
+            return Timestamp.valueOf(formattedDateTime);
+
         } else {
             return null;
         }
@@ -118,7 +130,12 @@ public class AgendaAWS {
         if (data_hora_tarefa_insert != null) {
             // Converter LocalDateTime para Timestamp
 
-            return Timestamp.
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSSSS");
+
+            String formattedDateTime = data_hora_tarefa_insert.format(formatter);
+
+            return Timestamp.valueOf(formattedDateTime);
+
         } else {
             return null;
         }

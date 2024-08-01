@@ -35,6 +35,7 @@ public class AgendaDAO {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public long inserir(Agenda agenda) {
 
         String[] columns = {"id"};
@@ -47,15 +48,15 @@ public class AgendaDAO {
 
         if(agenda.getLembrete()) {
 
-            contentValues.put("dataAgenda", agenda.getDataAgendaString());
+            contentValues.put("dataHoraAgenda", agenda.getDataAgendaString());
 
-            contentValues.putNull("dataAgendaFim");
+            contentValues.putNull("dataHoraAgendaFim");
 
         }else {
 
-            contentValues.putNull("dataAgenda");
+            contentValues.putNull("dataHoraAgenda");
 
-            contentValues.putNull("dataAgendaFim");
+            contentValues.putNull("dataHoraAgendaFim");
 
 
         }
@@ -70,7 +71,7 @@ public class AgendaDAO {
 //        contentValues.put("dataAgendaFim", agenda.getDataAgendaFimString());
 //        contentValues.put("horaAgendaFim", agenda.getHoraAgendaFim());
 //        contentValues.put("minutoAgendaFim", agenda.getMinutoAgendaFim());
-        contentValues.put("dataAgendaInsert", agenda.getDataAgendaInsertString());
+        contentValues.put("dataHoraAgendaInsert", agenda.getDataAgendaInsertString());
         contentValues.put("agendaAtraso", agenda.getAgendaAtraso());
         contentValues.put("repetirLembrete", agenda.getRepetirLembrete());
         contentValues.put("repetirModo", agenda.getRepetirModo());

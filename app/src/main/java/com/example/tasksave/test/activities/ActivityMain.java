@@ -107,12 +107,27 @@ public class ActivityMain extends AppCompatActivity {
         LocalDate localdate = LocalDate.now();
         LocalTime localTime = LocalTime.now();
 
-        Instant instant = dateTimeAtual.atZone(ZoneId.systemDefault()).toInstant();
-        Timestamp ts = Timestamp.valueOf("");
+//        Instant instant = dateTimeAtual.atZone(ZoneId.systemDefault()).toInstant();
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSSSS");
+        String formattedDateTime = now.format(formatter);
 
-        Log.d("TESTE LOCAL DATE", "LocalDateTime: "+dateTimeAtual);
-        Log.d("TESTE LOCAL DATE", "LocalDate: "+localdate);
-        Log.d("TESTE LOCAL DATE", "LocalTime: "+localTime);
+        Timestamp ts = Timestamp.valueOf(formattedDateTime);
+
+        Log.d("TESTE LOCAL DATE", "LocalDateTime: "+now);
+
+        LocalDateTime dateTime1 = LocalDateTime.of(2024, 8, 1, 13, 0, 1);
+        LocalDateTime dateTime2 = LocalDateTime.of(2024, 8, 1, 13, 0, 0);
+
+        // Verifica se dateTime1 vem antes de dateTime2
+        boolean isBefore = dateTime1.isBefore(dateTime2);
+
+        if (isBefore) {
+            Log.d("TESTE LOCAL DATE", "IF1: ");
+        } else {
+            Log.d("TESTE LOCAL DATE", "IF2: "+now);
+        }
+
 //        Log.d("TESTE LOCAL DATE", "LocalDateTime: "+localDateTime);
 
 

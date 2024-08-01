@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
@@ -58,9 +59,14 @@ public class Agenda {
         return descriçãoAgenda;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public String getDataAgendaString() {
 
-        return dataHoraAgenda.toString();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSSSS");
+        String formattedDateTime = dataHoraAgenda.format(formatter);
+
+        return formattedDateTime;
+
     }
     public LocalDateTime getDate() {
         return dataHoraAgenda;
@@ -101,9 +107,14 @@ public class Agenda {
     public void setFinalizado(boolean finalizado) {
         this.finalizado = finalizado;
     }
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public String getDataAgendaFimString() {
 
-            return dataHoraAgendaFim.toString();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSSSS");
+        String formattedDateTime = dataHoraAgendaInsert.format(formatter);
+
+            return formattedDateTime;
 
     }
     @SuppressLint("NewApi")
@@ -115,9 +126,13 @@ public class Agenda {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public String getDataAgendaInsertString() {
 
-            return dataHoraAgendaInsert.toString();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSSSS");
+        String formattedDateTime = dataHoraAgendaInsert.format(formatter);
+
+            return formattedDateTime;
 
     }
     @SuppressLint("NewApi")
@@ -214,6 +229,18 @@ public class Agenda {
         return Objects.hash(nomeAgenda, descriçãoAgenda, dataHoraAgenda, lembrete, finalizado, dataHoraAgendaFim,
                 dataHoraAgendaInsert,
                 agendaAtraso, repetirLembrete, repetirModo, notificouTarefa);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public int getHoraAgenda() {
+
+        return dataHoraAgenda.getHour();
+
+
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public int getMinutoAgenda() {
+        return dataHoraAgenda.getMinute();
     }
 }
 

@@ -16,6 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.sql.Types;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -121,6 +122,7 @@ public class AgendaDAOMYsql {
         conn = connectionClass.CONN();
 
         List<Agenda> tarefasUsuario = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
 
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -135,26 +137,26 @@ public class AgendaDAOMYsql {
                         LocalDateTime localDateTimeInsertNow = null;
 
 
-                        Date dataTarefaDT = rs.getDate("data_tarefa");
+                        Timestamp dataTarefaDT = rs.getTimestamp("data_hora_tarefa");
                         if (dataTarefaDT !=null ) {
 
                             String dataTarefaString = dataTarefaDT.toString();
-                            localDateTimeTarefanow = LocalDateTime.parse(dataTarefaString);
+                            localDateTimeTarefanow = LocalDateTime.parse(dataTarefaString, formatter);
                         }
 
-                        Date dataTarefaFim = rs.getDate("data_farefa_fim");
+                        Timestamp dataTarefaFim = rs.getTimestamp("data_hora_tarefa_fim");
                         if (dataTarefaFim !=null) {
 
                             String dataTarefaFimString = dataTarefaFim.toString();
-                            localDateTimeFimNow = LocalDateTime.parse(dataTarefaFimString);
+                            localDateTimeFimNow = LocalDateTime.parse(dataTarefaFimString, formatter);
                         }
 
-                        Date dataTarefaInsert = rs.getDate("data_tarefa_insert");
+                        Timestamp dataTarefaInsert = rs.getTimestamp("data_hora_tarefa_insert");
 
                         if(dataTarefaInsert!=null) {
 
                             String dataTarefaInsertString = dataTarefaInsert.toString();
-                            localDateTimeInsertNow = LocalDateTime.parse(dataTarefaInsertString);
+                            localDateTimeInsertNow = LocalDateTime.parse(dataTarefaInsertString, formatter);
                         }
 
                         tarefasUsuario.add(new Agenda(rs.getInt("id_tarefa"),
