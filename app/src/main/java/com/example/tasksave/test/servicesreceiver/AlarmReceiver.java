@@ -15,6 +15,7 @@ import com.example.tasksave.test.activities.ActivityMain;
 import com.example.tasksave.test.dao.AgendaDAO;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Calendar;
@@ -78,8 +79,11 @@ public class AlarmReceiver extends BroadcastReceiver {
             showNotification(context, title, content, pendingIntentConcluir, idInt, pendingIntentOk);
 
             String dataEscolhida = intent.getStringExtra("dataIntent");
-            LocalDate localDateDataEscolhida = stringToLocalDate(dataEscolhida);
-            LocalDate localDateDataEscolhida2 = LocalDate.now();
+            Log.d("TESTE DATA: ", "DATA: "+dataEscolhida);
+            LocalDateTime localDateDataEscolhida = LocalDateTime.parse(dataEscolhida, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS"));
+            Log.d("TESTE DATA: ", "DATA: "+localDateDataEscolhida);
+            LocalDateTime localDateDataEscolhida2 = LocalDateTime.now();
+
 
             // Reagendar o próximo alarme
             Calendar nextAlarm = Calendar.getInstance();
@@ -101,6 +105,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                     localDateDataEscolhida2 = localDateDataEscolhida.plusYears(1);
                     break;
             }
+            Log.d("TESTE :", "TESTE: "+localDateDataEscolhida2);
 
             // Reagendar o alarme se repeatMode não for 0
             if (repeatMode != 0) {
@@ -168,19 +173,19 @@ public class AlarmReceiver extends BroadcastReceiver {
         }
     }
 
-    @SuppressLint("NewApi")
-    public static LocalDate stringToLocalDate(String dateString) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate localDate = null;
-        try {
-            localDate = LocalDate.parse(dateString, formatter);
-        } catch (DateTimeParseException e) {
-            e.printStackTrace();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-            Log.e("stringToLocalDate", "A string de data fornecida é nula.");
-        }
-        return localDate;
-    }
+//    @SuppressLint("NewApi")
+//    public static LocalDateTime stringToLocalDate(String dateString) {
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+//        LocalDateTime localDateTime = null;
+//        try {
+//            localDateTime = LocalDateTime.parse(dateString, formatter);
+//        } catch (DateTimeParseException e) {
+//            e.printStackTrace();
+//        } catch (NullPointerException e) {
+//            e.printStackTrace();
+//            Log.e("stringToLocalDate", "A string de data fornecida é nula.");
+//        }
+//        return localDateTime;
+//    }
 }
 

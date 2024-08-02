@@ -9,10 +9,11 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class AlarmScheduler {
     @SuppressLint({"ScheduleExactAlarm", "NewApi"})
-    public static void scheduleAlarm(Context context, long triggerAtMillis, String title, String content, int repeatMode, long id, LocalDate localDate) {
+    public static void scheduleAlarm(Context context, long triggerAtMillis, String title, String content, int repeatMode, long id, LocalDateTime localDateTime) {
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
@@ -21,8 +22,8 @@ public class AlarmScheduler {
         intent.putExtra("repeatMode", repeatMode);
         intent.putExtra("idLong", id);
 
-        intent.putExtra("dataIntent", localDate.toString());
-        Log.d("TESTE STRING DATA", "DATA: "+localDate);
+        intent.putExtra("dataIntent", localDateTime.toString());
+//        Log.d("TESTE STRING DATA", "DATA: "+localDate);
 
         int idInt = (int) id;
 

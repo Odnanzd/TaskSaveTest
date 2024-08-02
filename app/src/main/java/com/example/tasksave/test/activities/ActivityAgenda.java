@@ -762,7 +762,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                     @SuppressLint("Range")
                     String dataHoraAgenda = cursor.getString(cursor.getColumnIndex("dataHoraAgenda"));
                     if (dataHoraAgenda!=null) {
-                        localdataTimeagenda = LocalDateTime.parse(dataHoraAgenda, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSSSS"));
+                        localdataTimeagenda = LocalDateTime.parse(dataHoraAgenda, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                     } else {
                         localdataTimeagenda = LocalDateTime.now();
                     }
@@ -775,7 +775,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                     @SuppressLint("Range")
                     String dataHoraAgendaFim = cursor.getString(cursor.getColumnIndex("dataHoraAgendaFim"));
                     if (dataHoraAgendaFim!=null) {
-                        localdataTimeagendaFim = LocalDateTime.parse(dataHoraAgendaFim, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSSSS"));
+                        localdataTimeagendaFim = LocalDateTime.parse(dataHoraAgendaFim, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                     }else {
                         localdataTimeagendaFim = LocalDateTime.now();
                     }
@@ -793,7 +793,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                     boolean notificouTarefa = (notificouTarefaDB != 0);
 
 
-                    LocalDateTime localdataTimeAgendaInsert = LocalDateTime.parse(dataHoraAgendaInsert, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSSSS"));
+                    LocalDateTime localdataTimeAgendaInsert = LocalDateTime.parse(dataHoraAgendaInsert, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
                     listaagenda.add(new Agenda(ID, titulo, descricao, localdataTimeagenda,
                             lembrete, finalizado, localdataTimeagendaFim, localdataTimeAgendaInsert,
@@ -1121,14 +1121,14 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
 
         agendaDAO.inserir(agenda);
 
-//        if(lembreteTarefa) {
-//
-//            Calendar calendar2 = agenda.getCalendarTime();
-//
-//            AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2.getTimeInMillis(), nomeTarefa, descTarefa,
-//                    repetirModoLembrete, tarefaID, dataHoraTarefa);
-//
-//        }
+        if(lembreteTarefa) {
+
+            Calendar calendar2 = agenda.getCalendarTime();
+
+            AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2.getTimeInMillis(), nomeTarefa, descTarefa,
+                    repetirModoLembrete, tarefaID, dataHoraTarefa);
+
+        }
 
     }
     public void dialogDeletaTarefa(ArrayList<Long> ids, CustomAdapter customAdapter) {

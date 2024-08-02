@@ -17,6 +17,7 @@ import com.example.tasksave.test.objetos.Agenda;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -272,10 +273,14 @@ public class AgendaDAO {
 
         return rowsUpdated > 0;
     }
-    public boolean AtualizarDataTarefa(long id, LocalDate dataTarefa) {
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public boolean AtualizarDataTarefa(long id, LocalDateTime dataHoraTarefa) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDateTime = dataHoraTarefa.format(formatter);
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put("dataAgenda", String.valueOf(dataTarefa));
+        contentValues.put("dataHoraAgenda", String.valueOf(formattedDateTime));
 
         String whereClause = "id = ?";
         String[] whereArgs = {String.valueOf(id)};

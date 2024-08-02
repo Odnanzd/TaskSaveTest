@@ -62,7 +62,7 @@ public class Agenda {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public String getDataAgendaString() {
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSSSS");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDateTime = dataHoraAgenda.format(formatter);
 
         return formattedDateTime;
@@ -111,7 +111,7 @@ public class Agenda {
     public String getDataAgendaFimString() {
 
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSSSS");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDateTime = dataHoraAgendaInsert.format(formatter);
 
             return formattedDateTime;
@@ -129,7 +129,7 @@ public class Agenda {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public String getDataAgendaInsertString() {
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSSSS");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDateTime = dataHoraAgendaInsert.format(formatter);
 
             return formattedDateTime;
@@ -241,6 +241,12 @@ public class Agenda {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public int getMinutoAgenda() {
         return dataHoraAgenda.getMinute();
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public LocalDate getLocalDateAgenda () {
+
+        LocalDate localDateAgenda = dataHoraAgenda.toLocalDate();
+        return localDateAgenda;
     }
 }
 

@@ -615,8 +615,8 @@ public void attDados(View view) {
                         1, 0, 0, 0);
                 AlarmScheduler.cancelAlarm(getApplicationContext(), idTarefa);
 
-                AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2.getTimeInMillis(), textViewTitAtt,
-                        textViewDescAtt, 0, idTarefa, localdataEscolhida);
+//                AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2.getTimeInMillis(), textViewTitAtt,
+//                        textViewDescAtt, 0, idTarefa, localdataEscolhida);
 
                 Intent intent = new Intent(ActivityItemSelectedAgenda.this, ActivityAgenda.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -654,8 +654,8 @@ public void attDados(View view) {
 
                     AlarmScheduler.cancelAlarm(getApplicationContext(), idTarefa);
 
-                    AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2.getTimeInMillis(), textViewTitAtt,
-                            textViewDescAtt, repetirModoLembrete, idTarefa, localdataEscolhida);
+//                    AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2.getTimeInMillis(), textViewTitAtt,
+//                            textViewDescAtt, repetirModoLembrete, idTarefa, localdataEscolhida);
 
                     Intent intent = new Intent(ActivityItemSelectedAgenda.this, ActivityAgenda.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -669,8 +669,8 @@ public void attDados(View view) {
 
                     AlarmScheduler.cancelAlarm(getApplicationContext(), idTarefa);
 
-                    AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2.getTimeInMillis(), textViewTitAtt,
-                            textViewDescAtt, repetirModoLembrete, idTarefa, localdataEscolhida);
+//                    AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2.getTimeInMillis(), textViewTitAtt,
+//                            textViewDescAtt, repetirModoLembrete, idTarefa, localdataEscolhida);
 
                     Intent intent = new Intent(ActivityItemSelectedAgenda.this, ActivityAgenda.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -684,8 +684,8 @@ public void attDados(View view) {
 
                     AlarmScheduler.cancelAlarm(getApplicationContext(), idTarefa);
 
-                    AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2.getTimeInMillis(), textViewTitAtt,
-                            textViewDescAtt, repetirModoLembrete, idTarefa, localdataEscolhida);
+//                    AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2.getTimeInMillis(), textViewTitAtt,
+//                            textViewDescAtt, repetirModoLembrete, idTarefa, localdataEscolhida);
 
                     Intent intent = new Intent(ActivityItemSelectedAgenda.this, ActivityAgenda.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -79,7 +79,7 @@ public class AgendaAWS {
     public Timestamp getData_tarefaTimestamp() {
         if (data_hora_tarefa != null) {
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSSSS");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
             String formattedDateTime = data_hora_tarefa.format(formatter);
 
@@ -105,7 +105,7 @@ public class AgendaAWS {
     public Timestamp getData_tarefa_fimTimestamp() {
         if (data_hora_tarefa_fim != null) {
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSSSS");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
             String formattedDateTime = data_hora_tarefa_fim.format(formatter);
 
@@ -130,7 +130,7 @@ public class AgendaAWS {
         if (data_hora_tarefa_insert != null) {
             // Converter LocalDateTime para Timestamp
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSSSS");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
             String formattedDateTime = data_hora_tarefa_insert.format(formatter);
 
