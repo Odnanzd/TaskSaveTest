@@ -463,7 +463,7 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                         // Lidar com a hora selecionada pelo usuário
                         textView1.setText(hora_formatada + ":" + minuto_Formatado);
 
-                        localTimeData = localTimeData.withHour(hourOfDay).withMinute(minute);
+                        localTimeData = localTimeData.withHour(hourOfDay).withMinute(minute).withSecond(0).withNano(0);
                         Log.d("TESTE", "TESTE"+localTimeData.toString());
 
                         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);

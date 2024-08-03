@@ -178,5 +178,29 @@ public class AgendaDAOMYsql {
 
         return tarefasUsuario;
     }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public boolean atualizaDataHoraAWS(AgendaAWS agendaAWS) {
+
+        ConnectionClass connectionClass = new ConnectionClass();
+        conn = connectionClass.CONN();
+
+        try {
+            String sql = "UPDATE tarefa_usuario SET data_hora_tarefa = ? WHERE id_tarefa = ?";
+
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setTimestamp(1, agendaAWS.getData_tarefaTimestamp());
+            pstm.setInt(2, agendaAWS.getId_tarefa());
+
+            pstm.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Log.d("Agenda cadastro", "ERRO AO ATUALIZAR DATATAREFA" + e);
+            return false;
+        }
+
+
+    }
 
 }

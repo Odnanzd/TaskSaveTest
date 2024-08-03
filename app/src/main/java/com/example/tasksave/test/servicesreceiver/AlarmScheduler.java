@@ -13,14 +13,14 @@ import java.time.LocalDateTime;
 
 public class AlarmScheduler {
     @SuppressLint({"ScheduleExactAlarm", "NewApi"})
-    public static void scheduleAlarm(Context context, long triggerAtMillis, String title, String content, int repeatMode, long id, LocalDateTime localDateTime) {
+    public static void scheduleAlarm(Context context, long triggerAtMillis, String title, String content, int repeatMode, int id, LocalDateTime localDateTime) {
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
         intent.putExtra("title", title);
         intent.putExtra("content", content);
         intent.putExtra("repeatMode", repeatMode);
-        intent.putExtra("idLong", id);
+        intent.putExtra("idInt", id);
 
         intent.putExtra("dataIntent", localDateTime.toString());
 //        Log.d("TESTE STRING DATA", "DATA: "+localDate);

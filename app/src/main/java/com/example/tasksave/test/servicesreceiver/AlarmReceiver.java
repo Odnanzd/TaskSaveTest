@@ -13,12 +13,16 @@ import androidx.core.app.NotificationManagerCompat;
 import com.example.tasksave.R;
 import com.example.tasksave.test.activities.ActivityMain;
 import com.example.tasksave.test.dao.AgendaDAO;
+import com.example.tasksave.test.dao.AgendaDAOMYsql;
+import com.example.tasksave.test.objetos.AgendaAWS;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Calendar;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
@@ -44,7 +48,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         String title = intent.getStringExtra("title");
         String content = intent.getStringExtra("content");
         int repeatMode = intent.getIntExtra("repeatMode", 0);
-        long id = intent.getLongExtra("idLong", 0);
+        int id = intent.getIntExtra("idInt", 0);
 
         if (title == null || title.isEmpty() || content == null || content.isEmpty()) {
 
@@ -52,36 +56,35 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         }else {
 
-            int idInt = (int) id;
 
             Intent intentConcluir = new Intent(context, AlarmReceiver.class);
             intentConcluir.setAction("ACTION_CONCLUIR");
-            intentConcluir.putExtra("idLong", id);
+            intentConcluir.putExtra("idInt", id);
 
             PendingIntent pendingIntentConcluir = PendingIntent.getBroadcast(
                     context,
-                    idInt,
+                    id,
                     intentConcluir,
                     PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE
             );
 
             Intent intentOk = new Intent(context, AlarmReceiver.class);
             intentOk.setAction("ACTION_OK");
-            intentOk.putExtra("idLong", id);
+            intentOk.putExtra("idInt", id);
 
             PendingIntent pendingIntentOk = PendingIntent.getBroadcast(
                     context,
-                    idInt,
+                    id,
                     intentOk,
                     PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE
             );
 
-            showNotification(context, title, content, pendingIntentConcluir, idInt, pendingIntentOk);
+            showNotification(context, title, content, pendingIntentConcluir, id, pendingIntentOk);
 
             String dataEscolhida = intent.getStringExtra("dataIntent");
-            Log.d("TESTE DATA: ", "DATA: "+dataEscolhida);
-            LocalDateTime localDateDataEscolhida = LocalDateTime.parse(dataEscolhida, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS"));
-            Log.d("TESTE DATA: ", "DATA: "+localDateDataEscolhida);
+
+            LocalDateTime localDateDataEscolhida = LocalDateTime.parse(dataEscolhida);
+
             LocalDateTime localDateDataEscolhida2 = LocalDateTime.now();
 
 
@@ -105,13 +108,41 @@ public class AlarmReceiver extends BroadcastReceiver {
                     localDateDataEscolhida2 = localDateDataEscolhida.plusYears(1);
                     break;
             }
-            Log.d("TESTE :", "TESTE: "+localDateDataEscolhida2);
 
             // Reagendar o alarme se repeatMode não for 0
             if (repeatMode != 0) {
+
                 AgendaDAO agendaDAO = new AgendaDAO(context);
                 AlarmScheduler.scheduleAlarm(context, nextAlarm.getTimeInMillis(), title, content, repeatMode, id, localDateDataEscolhida2);
-                agendaDAO.AtualizarDataTarefa(id, localDateDataEscolhida2);
+                boolean atualiza = agendaDAO.atualizarDataTarefa(id, localDateDataEscolhida2);
+
+                if (atualiza) {
+
+                    LocalDateTime finalLocalDateDataEscolhida2 = localDateDataEscolhida2;
+                    int finalId = id;
+
+                    ExecutorService executorService = Executors.newSingleThreadExecutor();
+                    executorService.execute(() -> {
+
+                        try{
+
+                            AgendaAWS agendaAWS = new AgendaAWS();
+                            AgendaDAOMYsql agendaDAOMYsql = new AgendaDAOMYsql();
+                            agendaAWS.setData_tarefa(finalLocalDateDataEscolhida2);
+                            agendaAWS.setId_tarefa(finalId);
+                            agendaDAOMYsql.atualizaDataHoraAWS(agendaAWS);
+
+                        }catch (Exception e) {
+
+                            Log.d("ERRO SQL CADASTRO", "Erro ao atualizar: " + e);
+
+                        }
+
+                    });
+                }else {
+                    Log.d("ERRO SQL CADASTRO", "Erro ao atualizar data, reprogramar tentativa: ");
+                }
+
             }
             AgendaDAO agendaDAO = new AgendaDAO(context);
             agendaDAO.AtualizarStatusNotificacao(id, 1);
@@ -147,7 +178,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         @SuppressLint({"NewApi", "LocalSuppress"})
         LocalDate dataAtual = LocalDate.now();
 
-        long idTarefa = intent.getLongExtra("idLong", 0);
+        long idTarefa = intent.getLongExtra("idInt", 0);
 
         if (idTarefa != 0) {
             // Atualizar o status da tarefa no banco de dados
@@ -162,7 +193,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     }
 
     private void processarAcaoOk(Context context, Intent intent) {
-        long idTarefa = intent.getLongExtra("idLong", 0);
+        int idTarefa = intent.getIntExtra("idInt", 0);
         if (idTarefa != 0) {
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             notificationManager.cancel((int) idTarefa);
@@ -173,19 +204,5 @@ public class AlarmReceiver extends BroadcastReceiver {
         }
     }
 
-//    @SuppressLint("NewApi")
-//    public static LocalDateTime stringToLocalDate(String dateString) {
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
-//        LocalDateTime localDateTime = null;
-//        try {
-//            localDateTime = LocalDateTime.parse(dateString, formatter);
-//        } catch (DateTimeParseException e) {
-//            e.printStackTrace();
-//        } catch (NullPointerException e) {
-//            e.printStackTrace();
-//            Log.e("stringToLocalDate", "A string de data fornecida é nula.");
-//        }
-//        return localDateTime;
-//    }
 }
 

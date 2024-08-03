@@ -14,6 +14,7 @@ import androidx.annotation.RequiresApi;
 import com.example.tasksave.test.baseadapter.CustomAdapter;
 import com.example.tasksave.test.conexaoSQLite.Conexao;
 import com.example.tasksave.test.objetos.Agenda;
+import com.example.tasksave.test.objetos.AgendaAWS;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -22,6 +23,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 public class AgendaDAO {
@@ -274,7 +277,7 @@ public class AgendaDAO {
         return rowsUpdated > 0;
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public boolean AtualizarDataTarefa(long id, LocalDateTime dataHoraTarefa) {
+    public boolean atualizarDataTarefa(long id, LocalDateTime dataHoraTarefa) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDateTime = dataHoraTarefa.format(formatter);
@@ -292,7 +295,9 @@ public class AgendaDAO {
             return true;
         }
         return false;
+
     }
+
     public String verificaTarefaPendente() {
 
         Cursor cursor = db.rawQuery("SELECT agendaAtraso FROM agenda WHERE agendaAtraso = 1;", null);
