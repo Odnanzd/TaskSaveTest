@@ -67,7 +67,6 @@ public class ActivityItemSelectedAgenda extends AppCompatActivity {
     String tituloTarefa;
     String descTarefa;
     String dataTarefa;
-//    String horaTarefa;
     String modoSelecionado;
     String modoSelecionadoOriginal;
     boolean lembreteTarefa;
@@ -75,8 +74,6 @@ public class ActivityItemSelectedAgenda extends AppCompatActivity {
     int idTarefa;
     int repetirModoLembrete;
     Date date;
-    int hourTarefa;
-    int minuteTarefa;
     LocalDate localdataEscolhida;
     boolean repetirLembrete;
     String dataFormatada;
@@ -190,6 +187,9 @@ public class ActivityItemSelectedAgenda extends AppCompatActivity {
                         modoSelecionadoOriginal="Todo ano";
                         break;
                 }
+            }else {
+                modoSelecionado="Não repetir";
+                modoSelecionadoOriginal="Não repetir";
             }
 
         }else {
@@ -199,6 +199,8 @@ public class ActivityItemSelectedAgenda extends AppCompatActivity {
 
             modoSelecionado="Não repetir";
             modoSelecionadoOriginal="Não repetir";
+
+            localTimeHora = LocalTime.now();
 
         }
 
@@ -302,7 +304,6 @@ public class ActivityItemSelectedAgenda extends AppCompatActivity {
             }
         });
 
-
     }
 
 
@@ -336,11 +337,10 @@ public class ActivityItemSelectedAgenda extends AppCompatActivity {
         boolean hourChanged = !horaIgual(selectedHour, selectedHourCalendar);
         boolean repeaterChanged = !repeaterIgual(modoSelecionadoOriginal);
 
-
         if(aswitch.isChecked()) {
 
             if ((text1Changed || text2Changed || switchChanged || dateChanged || hourChanged || repeaterChanged)
-                    && localdataEscolhida != null && hourTarefa != 0 &&
+                    && localdataEscolhida != null && localTimeHora != null &&
                     !editTextTitulo.getText().toString().equals("") && !editTextDesc.getText().toString().equals("")) {
 
 
@@ -464,12 +464,7 @@ public class ActivityItemSelectedAgenda extends AppCompatActivity {
                 // Lidar com a hora selecionada pelo usuário
                 textViewHora.setText(hora_formatada + ":" + minuto_Formatado);
 
-                hourTarefa = hourOfDay;
-                minuteTarefa = minute;
-
                 localTimeHora = localTimeHora.withHour(hourOfDay).withMinute(minute).withSecond(0).withNano(0);
-
-//                Log.d("TESTE HORA", "MINUTO: "+minuteTarefa);
 
                 isHourPickerShown = false;
 
@@ -659,6 +654,8 @@ public void attDados(View view) {
                     }
                 }
 
+                agenda.setDataAgendaString(localDateTimeCompleto);
+
                 Calendar calendar2 = agenda.getCalendarTime();
                 agendaDAO.atualizarAll(agenda);
                 AlarmScheduler.cancelAlarm(getApplicationContext(), idTarefa);
@@ -684,16 +681,7 @@ public void attDados(View view) {
         // Converter Date para LocalDate
         return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
-    @SuppressLint("NewApi")
-    private Calendar convertToCalendar(LocalDate date, int hour, int minute) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(java.util.Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        calendar.set(Calendar.HOUR_OF_DAY, hour);
-        calendar.set(Calendar.MINUTE, minute);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        return calendar;
-    }
+
     public void cancelarAtt() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(ActivityItemSelectedAgenda.this);

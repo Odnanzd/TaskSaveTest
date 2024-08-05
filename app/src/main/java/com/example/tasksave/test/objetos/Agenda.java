@@ -81,9 +81,9 @@ public class Agenda {
     }
 
     @SuppressLint("NewApi")
-    public void setDataAgendaString(String dataAgendaString) {
+    public void setDataAgendaString(LocalDateTime dataAgendaString) {
         if (dataAgendaString != null) {
-            this.dataHoraAgenda = LocalDateTime.parse(dataAgendaString);
+            this.dataHoraAgenda = dataAgendaString;
         } else {
             this.dataHoraAgenda = null;
         }

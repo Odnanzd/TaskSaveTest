@@ -959,8 +959,9 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
         SQLiteDatabase db = con.getWritableDatabase();
         // Exclua os itens com os IDs fornecidos
         for (long id : ids) {
+            int idInt = (int) id;
             db.delete("agenda", "id = ?", new String[]{String.valueOf(id)});
-            AlarmScheduler.cancelAlarm(ActivityAgenda.this, id);
+            AlarmScheduler.cancelAlarm(ActivityAgenda.this, idInt);
         }
         // Feche a conexão com o banco de dados
         db.close();

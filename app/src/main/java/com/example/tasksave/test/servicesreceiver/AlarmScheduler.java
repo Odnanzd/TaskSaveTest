@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class AlarmScheduler {
@@ -25,11 +24,11 @@ public class AlarmScheduler {
         intent.putExtra("dataIntent", localDateTime.toString());
 //        Log.d("TESTE STRING DATA", "DATA: "+localDate);
 
-        int idInt = (int) id;
+//        int idInt = (int) id;
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 context,
-                idInt,
+                id,
                 intent,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
         );
@@ -45,13 +44,13 @@ public class AlarmScheduler {
         }
     }
     @SuppressLint("NewApi")
-    public static void cancelAlarm(Context context, long id) {
+    public static void cancelAlarm(Context context, int id) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
-        int idInt = (int) id;
+//        int idInt = (int) id;
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 context,
-                idInt,
+                id,
                 intent,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
         );

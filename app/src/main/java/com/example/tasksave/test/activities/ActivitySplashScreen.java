@@ -198,7 +198,8 @@ public class ActivitySplashScreen extends AppCompatActivity {
                             ArrayList<Long> ids = agendaDAO.idTarefasLembrete();
 
                             for(long id : ids) {
-                                AlarmScheduler.cancelAlarm(ActivitySplashScreen.this, id);
+                                int idInt = (int) id;
+                                AlarmScheduler.cancelAlarm(ActivitySplashScreen.this, idInt);
                             }
                             agendaDAO.excluiTabelaAgenda();
                             sharedPreferencesConfg.clearShareds();
@@ -280,7 +281,8 @@ public class ActivitySplashScreen extends AppCompatActivity {
                     ArrayList<Long> ids = agendaDAO.idTarefasLembrete();
 
                     for(long id : ids) {
-                        AlarmScheduler.cancelAlarm(ActivitySplashScreen.this, id);
+                        int idInt = (int) id;
+                        AlarmScheduler.cancelAlarm(ActivitySplashScreen.this, idInt);
                     }
                     agendaDAO.excluiTabelaAgenda();
 

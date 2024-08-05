@@ -113,7 +113,8 @@ public class ActivityConfgPerfil extends AppCompatActivity {
             ArrayList<Long> ids = agendaDAO.idTarefasLembrete();
 
             for(long id : ids) {
-                AlarmScheduler.cancelAlarm(ActivityConfgPerfil.this, id);
+                int idInt = (int) id;
+                AlarmScheduler.cancelAlarm(ActivityConfgPerfil.this, idInt);
             }
             agendaDAO.excluiTabelaAgenda();
 
