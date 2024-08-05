@@ -278,7 +278,7 @@ public class CustomAdapter extends BaseAdapter {
                     } else {
                         // Execute a lógica do item
 
-                        long idTarefa = AgendaID.get(position);
+                        int idTarefa = AgendaID.get(position);
                         String titulo = getItemTitulo(position).toString();
                         String descricao = getItemDescricao(position).toString();
                         String data = getItemData(position).toString();

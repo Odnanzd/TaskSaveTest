@@ -97,40 +97,44 @@ public class AgendaDAO {
         return result;
     }
 
-    public boolean atualizarTitDesc(long id, String novoTitulo, String novaDescricao) {
+    public boolean atualizarTitDesc(Agenda agenda) {
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put("nomeTarefa", novoTitulo);
-        contentValues.put("descricaoTarefa", novaDescricao);
+        contentValues.put("nomeTarefa", agenda.getNomeAgenda());
+        contentValues.put("descricaoTarefa", agenda.getDescriçãoAgenda());
         contentValues.put("agendaAtraso", 0);
         contentValues.put("lembretedefinido", false);
         contentValues.put("repetirLembrete", false);
         contentValues.put("repetirModo", 0);
+        contentValues.put("notificouTarefa", 0);
 
         String whereClause = "id = ?";
-        String[] whereArgs = {String.valueOf(id)};
+        String[] whereArgs = {String.valueOf(agenda.getId())};
 
         int rowsUpdated = db.update("agenda", contentValues, whereClause, whereArgs);
 
         return rowsUpdated > 0;
     }
-    public boolean atualizarAll(long id, String tituloTarefa, String descTarefa, LocalDate localDateData,
-                                int horaAgenda, int minutoAgenda, int lembrete, int repetir, int repetirModo, int agendaAtraso ) {
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public boolean atualizarAll(Agenda agenda) {
 
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put("nomeTarefa", tituloTarefa);
-        contentValues.put("descricaoTarefa", descTarefa);
-        contentValues.put("dataAgenda", String.valueOf(localDateData));
-        contentValues.put("horaAgenda", horaAgenda);
-        contentValues.put("minutoAgenda", minutoAgenda);
-        contentValues.put("agendaAtraso", agendaAtraso);
-        contentValues.put("lembretedefinido", lembrete);
-        contentValues.put("repetirLembrete", repetir);
-        contentValues.put("repetirModo", repetirModo);
+        if(agenda.getLembrete()) {
+            contentValues.put("dataHoraAgenda", String.valueOf(agenda.getDataAgendaString()));
+        }else {
+            contentValues.putNull("dataHoraAgenda");
+        }
+
+        contentValues.put("nomeTarefa", agenda.getNomeAgenda());
+        contentValues.put("descricaoTarefa", agenda.getDescriçãoAgenda());
+        contentValues.put("agendaAtraso", agenda.getAgendaAtraso());
+        contentValues.put("lembretedefinido", agenda.getLembrete());
+        contentValues.put("repetirLembrete", agenda.getRepetirLembrete());
+        contentValues.put("repetirModo", agenda.getRepetirModo());
 
         String whereClause = "id = ?";
-        String[] whereArgs = {String.valueOf(id)};
+        String[] whereArgs = {String.valueOf(agenda.getId())};
 
         int rowsUpdated = db.update("agenda", contentValues, whereClause, whereArgs);
 
@@ -306,6 +310,29 @@ public class AgendaDAO {
 
         return contador;
 
+    }
+    @SuppressLint("Range")
+    public String dataTarefaInsert(int id) {
+
+        String[] colunas = {"id", "dataHoraAgendaInsert"};
+
+        String whereClause = "id = ?";
+        String[] whereArgs = {String.valueOf(id)};
+
+        Cursor cursor = db.query("agenda", colunas, whereClause, whereArgs, null, null, null);
+
+        String data = null;
+        if (cursor != null) {
+            try {
+                if (cursor.moveToFirst()) { // Move the cursor to the first row
+                    data = cursor.getString(cursor.getColumnIndex("dataHoraAgendaInsert"));
+                }
+            } finally {
+                cursor.close(); // Ensure the cursor is closed to avoid memory leaks
+            }
+        }
+
+        return data;
     }
 
 

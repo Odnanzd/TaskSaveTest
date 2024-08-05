@@ -155,14 +155,14 @@ public class Agenda {
         return repetirLembrete;
     }
 
-    public void setRepetirLembrete() {
+    public void setRepetirLembrete(boolean repetirLembrete) {
         this.repetirLembrete = repetirLembrete;
     }
 
     public int getRepetirModo() {
         return repetirModo;
     }
-    public void setRepetirModo() {
+    public void setRepetirModo(int repetirModo) {
         this.repetirModo = repetirModo;
     }
     public boolean isNotificado() {
