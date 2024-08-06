@@ -47,6 +47,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import com.example.tasksave.test.conexaoSQLite.Conexao;
 import com.example.tasksave.test.baseadapter.CustomAdapter;
@@ -58,6 +61,7 @@ import com.example.tasksave.test.objetos.Agenda;
 import com.example.tasksave.test.objetos.AgendaAWS;
 import com.example.tasksave.test.servicesreceiver.AlarmScheduler;
 import com.example.tasksave.test.sharedPreferences.SharedPreferencesUsuario;
+import com.example.tasksave.test.workers.SaveTaskWorker;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -1055,59 +1059,81 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
                                 LocalDateTime dataHoraTarefaFim, LocalDateTime dataHoraTarefaInsert,
                                 int atrasoTarefa, boolean finalizadoTarefa, boolean notificouTarefa, Dialog dialog) {
 
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(() -> {
+//        ExecutorService executorService = Executors.newSingleThreadExecutor();
+//        executorService.execute(() -> {
+//
+//            AgendaDAOMYsql agendaDAOMYsql = new AgendaDAOMYsql();
+//
+//            try {
+//
+//                SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(ActivityAgenda.this);
+//                String emailShared = sharedPreferencesUsuario.getEmailLogin();
+//
+//                UsuarioDAOMYsql usuarioDAOMYsql = new UsuarioDAOMYsql();
+//                int id_usuario = usuarioDAOMYsql.idUsarioAWS(emailShared);
+//
+//                AgendaAWS agendaAWS = new AgendaAWS();
+//                agendaAWS.setNome_tarefa(nomeTarefa);
+//                agendaAWS.setDescricao_tarefa(descTarefa);
+//                agendaAWS.setLembrete_tarefa(lembreteTarefa);
+//                agendaAWS.setRepetir_tarefa(repetirLembrete);
+//                agendaAWS.setRepetir_modo_tarefa(repetirModoLembrete);
+//                agendaAWS.setData_tarefa(dataHoraTarefa);
+//                agendaAWS.setData_tarefa_fim(dataHoraTarefaFim);
+//                agendaAWS.setData_tarefa_insert(dataHoraTarefaInsert);
+//                agendaAWS.setAtraso_tarefa(atrasoTarefa);
+//                agendaAWS.setFinalizado_tarefa(finalizadoTarefa);
+//                agendaAWS.setNotificou_tarefa(notificouTarefa);
+//                agendaAWS.setUsuario_id(id_usuario);
+//
+//                int tarefaID = agendaDAOMYsql.salvaTarefaAWS(agendaAWS);
+//
+//                runOnUiThread(() -> {
+//
+//                    if (tarefaID != -1) {
+//                        Toast.makeText(getApplicationContext(), "Sucesso ao inserir Tarefa: "+tarefaID, Toast.LENGTH_SHORT).show();
+//
+//                        salvaTarefaSQLite(tarefaID, nomeTarefa, descTarefa, dataHoraTarefa,
+//                                lembreteTarefa, finalizadoTarefa, dataHoraTarefaFim
+//                                ,dataHoraTarefaInsert, atrasoTarefa, repetirLembrete, repetirModoLembrete, notificouTarefa);
+//
+//                        dialog.dismiss();
+//                        refreshData();
+//
+//                    } else {
+//                        Toast.makeText(getApplicationContext(), "Erro.", Toast.LENGTH_SHORT).show();
+//                        dialog.dismiss();
+//                    }
+//
+//                });
+//
+//            } catch (Exception e) {
+//                Log.d("ERRO SQL CADASTRO", "Erro ao cadastrar usuário: " + e);
+//            }
+//
+//        });
 
-            AgendaDAOMYsql agendaDAOMYsql = new AgendaDAOMYsql();
+        Data inputData = new Data.Builder()
+                .putString("nomeTarefa", nomeTarefa)
+                .putString("descTarefa", descTarefa)
+                .putBoolean("lembreteTarefa", lembreteTarefa)
+                .putBoolean("repetirLembrete", repetirLembrete)
+                .putInt("repetirModoLembrete", repetirModoLembrete)
+                .putString("dataHoraTarefa", dataHoraTarefa != null ? dataHoraTarefa.toString() : null)
+                .putString("dataHoraTarefaFim", dataHoraTarefaFim != null ? dataHoraTarefaFim.toString() : null)
+                .putString("dataHoraTarefaInsert", dataHoraTarefaInsert.toString())
+                .putInt("atrasoTarefa", atrasoTarefa)
+                .putBoolean("finalizadoTarefa", finalizadoTarefa)
+                .putBoolean("notificouTarefa", notificouTarefa)
+                .build();
 
-            try {
+// Criar um OneTimeWorkRequest para executar o Worker
+        OneTimeWorkRequest saveTaskWorkRequest = new OneTimeWorkRequest.Builder(SaveTaskWorker.class)
+                .setInputData(inputData)
+                .build();
 
-                SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(ActivityAgenda.this);
-                String emailShared = sharedPreferencesUsuario.getEmailLogin();
-
-                UsuarioDAOMYsql usuarioDAOMYsql = new UsuarioDAOMYsql();
-                int id_usuario = usuarioDAOMYsql.idUsarioAWS(emailShared);
-
-                AgendaAWS agendaAWS = new AgendaAWS();
-                agendaAWS.setNome_tarefa(nomeTarefa);
-                agendaAWS.setDescricao_tarefa(descTarefa);
-                agendaAWS.setLembrete_tarefa(lembreteTarefa);
-                agendaAWS.setRepetir_tarefa(repetirLembrete);
-                agendaAWS.setRepetir_modo_tarefa(repetirModoLembrete);
-                agendaAWS.setData_tarefa(dataHoraTarefa);
-                agendaAWS.setData_tarefa_fim(dataHoraTarefaFim);
-                agendaAWS.setData_tarefa_insert(dataHoraTarefaInsert);
-                agendaAWS.setAtraso_tarefa(atrasoTarefa);
-                agendaAWS.setFinalizado_tarefa(finalizadoTarefa);
-                agendaAWS.setNotificou_tarefa(notificouTarefa);
-                agendaAWS.setUsuario_id(id_usuario);
-
-                int tarefaID = agendaDAOMYsql.salvaTarefaAWS(agendaAWS);
-
-                runOnUiThread(() -> {
-
-                    if (tarefaID != -1) {
-                        Toast.makeText(getApplicationContext(), "Sucesso ao inserir Tarefa: "+tarefaID, Toast.LENGTH_SHORT).show();
-
-                        salvaTarefaSQLite(tarefaID, nomeTarefa, descTarefa, dataHoraTarefa,
-                                lembreteTarefa, finalizadoTarefa, dataHoraTarefaFim
-                                ,dataHoraTarefaInsert, atrasoTarefa, repetirLembrete, repetirModoLembrete, notificouTarefa);
-
-                        dialog.dismiss();
-                        refreshData();
-
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Erro.", Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
-                    }
-
-                });
-
-            } catch (Exception e) {
-                Log.d("ERRO SQL CADASTRO", "Erro ao cadastrar usuário: " + e);
-            }
-
-        });
+// Enviar o WorkRequest para o WorkManager
+        WorkManager.getInstance(this).enqueue(saveTaskWorkRequest);
 
     }
     public void salvaTarefaSQLite(int tarefaID, String nomeTarefa, String descTarefa, LocalDateTime dataHoraTarefa,

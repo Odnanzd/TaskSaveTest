@@ -125,7 +125,6 @@ public class ActivityItemSelectedAgenda extends AppCompatActivity {
         tituloTarefa = intent.getStringExtra("tituloIntent");
         descTarefa = intent.getStringExtra("descIntent");
         dataTarefa = intent.getStringExtra("dataIntent");
-//        horaTarefa = intent.getStringExtra("horaIntent");
         lembreteTarefa = intent.getBooleanExtra("lembreteIntent", false);
         repetirLembrete = intent.getBooleanExtra("repetirLembreteIntent", false);
         repetirModoLembrete = intent.getIntExtra("repetirModoIntent", -1);

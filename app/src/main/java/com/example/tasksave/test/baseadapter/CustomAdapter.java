@@ -314,7 +314,14 @@ public class CustomAdapter extends BaseAdapter {
 
         }
 
-            if (isReminderSet[position]) {
+            if (!isReminderSet[position]) {
+
+                text_view_dat_agenda.setVisibility(View.GONE);
+                text_view_hr_agenda.setVisibility(View.GONE);
+
+
+            } else if(!RepetirLembrete[position]) {
+
                 try {
 
                     SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -348,7 +355,7 @@ public class CustomAdapter extends BaseAdapter {
                     calendar.add(Calendar.MINUTE, horarioDate.getMinutes());
                     Date dataHoraCombinada = calendar.getTime();
 
-                    boolean repetirLembreteBL = getRepetirLembrete(position);
+//                    boolean repetirLembreteBL = getRepetirLembrete(position);
 
                     // Verifique se a data da agenda é amanhã em relação à data atual
                     Calendar currentCalendar = Calendar.getInstance();
@@ -356,7 +363,8 @@ public class CustomAdapter extends BaseAdapter {
                             calendar.get(Calendar.DAY_OF_YEAR) == currentCalendar.get(Calendar.DAY_OF_YEAR) + 1) {
                         text_view_dat_agenda.setText("Amanhã");
 
-                    } else if (dataHoraCombinada.before(dataAtual) && LocaldatedataAtual.isEqual(LocaldatedataCombinada) && !repetirLembreteBL) {
+
+                    } else if (dataHoraCombinada.before(dataAtual) && LocaldatedataAtual.isEqual(LocaldatedataCombinada)) {
 
                         AgendaDAO agendaDAO = new AgendaDAO(context);
                         long idTarefa = AgendaID.get(position);
@@ -367,9 +375,10 @@ public class CustomAdapter extends BaseAdapter {
                         text_view_hr_agenda.setCompoundDrawablesWithIntrinsicBounds(DrawableClock, null, null, null);
                         imageViewBarra.setImageResource(R.drawable.removeorange);
 
+
                         boolean statusAgenda = agendaDAO.atualizarTarefaPendente(idTarefa, 1);
 
-                    } else if (LocaldatedataAtual.isAfter(LocaldatedataCombinada) && !repetirLembreteBL) {
+                    } else if (LocaldatedataAtual.isAfter(LocaldatedataCombinada)) {
 
                         AgendaDAO agendaDAO = new AgendaDAO(context);
                         long idTarefa = AgendaID.get(position);
@@ -382,7 +391,9 @@ public class CustomAdapter extends BaseAdapter {
                         text_view_hr_agenda.setCompoundDrawablesWithIntrinsicBounds(seuDrawable1, null, null, null);
                         imageViewBarra.setImageResource(R.drawable.removered);
 
+
                         boolean statusAgenda = agendaDAO.atualizarTarefaPendente(idTarefa, 2);
+
 
                     } else if (LocaldatedataAtual.isEqual(LocaldatedataCombinada) || LocaldatedataAtual.isBefore(LocaldatedataCombinada)) {
 
@@ -395,9 +406,21 @@ public class CustomAdapter extends BaseAdapter {
                     e.printStackTrace();
                 }
                 text_view_hr_agenda.setText(AgendaHora[position]);
-            } else {
-                text_view_dat_agenda.setVisibility(View.GONE);
-                text_view_hr_agenda.setVisibility(View.GONE);
+
+            } else if(RepetirLembrete[position]) {
+
+                try {
+
+                    SimpleDateFormat targetFormat = new SimpleDateFormat("dd/MM/yy", Locale.getDefault());
+                    SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                    Date date = originalFormat.parse(AgendaData[position]);
+                    String formattedDate = targetFormat.format(date);
+                    text_view_dat_agenda.setText(formattedDate);
+                    text_view_hr_agenda.setText(AgendaHora[position]);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             return convertView;
