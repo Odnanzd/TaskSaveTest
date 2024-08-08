@@ -31,7 +31,7 @@ public class AgendaDAOMYsql {
     Connection conn;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public int salvaTarefaAWS(AgendaAWS agendaAWS) {
+    public int salvaTarefaAWS(AgendaAWS agendaAWS, int tarefaSQLite) {
         ConnectionClass connectionClass = new ConnectionClass();
         conn = connectionClass.CONN();
 
@@ -78,7 +78,16 @@ public class AgendaDAOMYsql {
 
             try (ResultSet generatedKeys = pstm.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    generatedId = generatedKeys.getInt(1);
+
+                    if (!generatedKeys.equals(tarefaSQLite)) {
+
+                        generatedId = generatedKeys.getInt(1);
+
+                    }else {
+
+                        generatedId=-2;
+                        Log.d("Tarefa sincronizada", "Sincronizado com banco de dados: "+generatedKeys + " e " +tarefaSQLite);
+                    }
                 } else {
                     throw new SQLException("Creating task failed, no ID obtained.");
                 }

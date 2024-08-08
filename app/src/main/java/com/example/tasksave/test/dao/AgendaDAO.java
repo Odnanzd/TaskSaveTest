@@ -347,11 +347,13 @@ public class AgendaDAO {
         }
 
     }
-    public void excluiTabelaAgenda() {
+    public void excluiTabelas() {
 
         try {
             String sql = "DELETE FROM agenda";
+            String sql2 = "DELETE FROM alarme";
             db.execSQL(sql);
+            db.execSQL(sql2);
             Log.d("DatabaseHelper", "Tabela " + "agenda" + " excluída com sucesso.");
         } finally {
             db.close();
@@ -435,6 +437,40 @@ public class AgendaDAO {
 
         return tarefasComLembrete;
     }
+
+    @SuppressLint("Range")
+    public int ultimaTarefa() {
+
+        String query = "SELECT * FROM agenda ORDER BY id DESC LIMIT 1";
+        int idTarefa = 0;
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            idTarefa = cursor.getInt(cursor.getColumnIndex("id"));
+        }
+
+        return idTarefa;
+
+    }
+    public boolean atualizaID(int idAntigo, int novoId) {
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("id", novoId);
+
+        String whereClause = "id = ?";
+        String[] whereArgs = {String.valueOf(idAntigo)};
+
+        int rowsUpdated = db.update("agenda", contentValues, whereClause, whereArgs);
+
+
+        if (rowsUpdated>0) {
+            return true;
+        }
+        return false;
+
+    }
+
 
 
     }

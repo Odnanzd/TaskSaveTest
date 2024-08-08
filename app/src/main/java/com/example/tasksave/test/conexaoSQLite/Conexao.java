@@ -18,6 +18,8 @@ public class Conexao extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("CREATE TABLE agenda (id integer, nomeTarefa varchar(50), descricaoTarefa varchar(50)," +
                 " dataHoraAgenda TEXT, lembretedefinido integer, finalizado integer, dataHoraAgendaFim TEXT, dataHoraAgendaInsert TEXT," +
                 "agendaAtraso integer, repetirLembrete integer, repetirModo integer, notificouTarefa integer)");
+
+        sqLiteDatabase.execSQL("CREATE TABLE alarme (id integer primary key autoincrement, idTarefa integer)");
         }
 
         @Override

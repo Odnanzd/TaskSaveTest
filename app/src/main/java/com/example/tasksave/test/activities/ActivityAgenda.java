@@ -43,25 +43,21 @@ import android.widget.Toast;
 
 
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.work.Data;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 
 import com.example.tasksave.test.conexaoSQLite.Conexao;
 import com.example.tasksave.test.baseadapter.CustomAdapter;
 import com.example.tasksave.R;
 import com.example.tasksave.test.dao.AgendaDAO;
 import com.example.tasksave.test.dao.AgendaDAOMYsql;
+import com.example.tasksave.test.dao.AlarmeDAO;
 import com.example.tasksave.test.dao.UsuarioDAOMYsql;
 import com.example.tasksave.test.objetos.Agenda;
-import com.example.tasksave.test.objetos.AgendaAWS;
 import com.example.tasksave.test.servicesreceiver.AlarmScheduler;
+import com.example.tasksave.test.servicesreceiver.BackgroundService;
 import com.example.tasksave.test.sharedPreferences.SharedPreferencesUsuario;
-import com.example.tasksave.test.workers.SaveTaskWorker;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -967,6 +963,17 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
             db.delete("agenda", "id = ?", new String[]{String.valueOf(id)});
             AlarmScheduler.cancelAlarm(ActivityAgenda.this, idInt);
         }
+
+        AlarmeDAO alarmeDAO = new AlarmeDAO(ActivityAgenda.this);
+        ArrayList<Long> alarmesID = alarmeDAO.idsAlarmes(ids);
+
+        for(long id : alarmesID) {
+
+            int idInt = (int) id;
+            AlarmScheduler.cancelAlarm(ActivityAgenda.this, idInt);
+
+        }
+
         // Feche a conexão com o banco de dados
         db.close();
     }
@@ -1043,121 +1050,61 @@ public class ActivityAgenda extends AppCompatActivity implements CustomAdapter.O
 //        VerificaLista();
     }
 
-    @SuppressLint("NewApi")
-    private Calendar convertToCalendar(LocalDate date, int hour, int minute) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        calendar.set(Calendar.HOUR_OF_DAY, hour);
-        calendar.set(Calendar.MINUTE, minute);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        return calendar;
-    }
 
     public void inserirTarefaBD(String nomeTarefa, String descTarefa, boolean lembreteTarefa,
                                boolean repetirLembrete, int repetirModoLembrete, LocalDateTime dataHoraTarefa,
                                 LocalDateTime dataHoraTarefaFim, LocalDateTime dataHoraTarefaInsert,
                                 int atrasoTarefa, boolean finalizadoTarefa, boolean notificouTarefa, Dialog dialog) {
 
-//        ExecutorService executorService = Executors.newSingleThreadExecutor();
-//        executorService.execute(() -> {
-//
-//            AgendaDAOMYsql agendaDAOMYsql = new AgendaDAOMYsql();
-//
-//            try {
-//
-//                SharedPreferencesUsuario sharedPreferencesUsuario = new SharedPreferencesUsuario(ActivityAgenda.this);
-//                String emailShared = sharedPreferencesUsuario.getEmailLogin();
-//
-//                UsuarioDAOMYsql usuarioDAOMYsql = new UsuarioDAOMYsql();
-//                int id_usuario = usuarioDAOMYsql.idUsarioAWS(emailShared);
-//
-//                AgendaAWS agendaAWS = new AgendaAWS();
-//                agendaAWS.setNome_tarefa(nomeTarefa);
-//                agendaAWS.setDescricao_tarefa(descTarefa);
-//                agendaAWS.setLembrete_tarefa(lembreteTarefa);
-//                agendaAWS.setRepetir_tarefa(repetirLembrete);
-//                agendaAWS.setRepetir_modo_tarefa(repetirModoLembrete);
-//                agendaAWS.setData_tarefa(dataHoraTarefa);
-//                agendaAWS.setData_tarefa_fim(dataHoraTarefaFim);
-//                agendaAWS.setData_tarefa_insert(dataHoraTarefaInsert);
-//                agendaAWS.setAtraso_tarefa(atrasoTarefa);
-//                agendaAWS.setFinalizado_tarefa(finalizadoTarefa);
-//                agendaAWS.setNotificou_tarefa(notificouTarefa);
-//                agendaAWS.setUsuario_id(id_usuario);
-//
-//                int tarefaID = agendaDAOMYsql.salvaTarefaAWS(agendaAWS);
-//
-//                runOnUiThread(() -> {
-//
-//                    if (tarefaID != -1) {
-//                        Toast.makeText(getApplicationContext(), "Sucesso ao inserir Tarefa: "+tarefaID, Toast.LENGTH_SHORT).show();
-//
-//                        salvaTarefaSQLite(tarefaID, nomeTarefa, descTarefa, dataHoraTarefa,
-//                                lembreteTarefa, finalizadoTarefa, dataHoraTarefaFim
-//                                ,dataHoraTarefaInsert, atrasoTarefa, repetirLembrete, repetirModoLembrete, notificouTarefa);
-//
-//                        dialog.dismiss();
-//                        refreshData();
-//
-//                    } else {
-//                        Toast.makeText(getApplicationContext(), "Erro.", Toast.LENGTH_SHORT).show();
-//                        dialog.dismiss();
-//                    }
-//
-//                });
-//
-//            } catch (Exception e) {
-//                Log.d("ERRO SQL CADASTRO", "Erro ao cadastrar usuário: " + e);
-//            }
-//
-//        });
-
-        Data inputData = new Data.Builder()
-                .putString("nomeTarefa", nomeTarefa)
-                .putString("descTarefa", descTarefa)
-                .putBoolean("lembreteTarefa", lembreteTarefa)
-                .putBoolean("repetirLembrete", repetirLembrete)
-                .putInt("repetirModoLembrete", repetirModoLembrete)
-                .putString("dataHoraTarefa", dataHoraTarefa != null ? dataHoraTarefa.toString() : null)
-                .putString("dataHoraTarefaFim", dataHoraTarefaFim != null ? dataHoraTarefaFim.toString() : null)
-                .putString("dataHoraTarefaInsert", dataHoraTarefaInsert.toString())
-                .putInt("atrasoTarefa", atrasoTarefa)
-                .putBoolean("finalizadoTarefa", finalizadoTarefa)
-                .putBoolean("notificouTarefa", notificouTarefa)
-                .build();
-
-// Criar um OneTimeWorkRequest para executar o Worker
-        OneTimeWorkRequest saveTaskWorkRequest = new OneTimeWorkRequest.Builder(SaveTaskWorker.class)
-                .setInputData(inputData)
-                .build();
-
-// Enviar o WorkRequest para o WorkManager
-        WorkManager.getInstance(this).enqueue(saveTaskWorkRequest);
-
-    }
-    public void salvaTarefaSQLite(int tarefaID, String nomeTarefa, String descTarefa, LocalDateTime dataHoraTarefa,
-                                  boolean lembreteTarefa, boolean finalizadoTarefa,
-                                  LocalDateTime dataHoraTarefaFim, LocalDateTime dataHoraTarefaInsert, int atrasoTarefa, boolean repetirLembrete,
-                                  int repetirModoLembrete, boolean notificouTarefa) {
 
         AgendaDAO agendaDAO = new AgendaDAO(ActivityAgenda.this);
 
-        Agenda agenda = new Agenda(tarefaID, nomeTarefa, descTarefa, dataHoraTarefa,lembreteTarefa, finalizadoTarefa,
+        int idTarefaProv = agendaDAO.ultimaTarefa()+1;
+
+        Agenda agenda = new Agenda(idTarefaProv, nomeTarefa, descTarefa, dataHoraTarefa,lembreteTarefa, finalizadoTarefa,
                 dataHoraTarefaFim, dataHoraTarefaInsert, atrasoTarefa, repetirLembrete, repetirModoLembrete, notificouTarefa);
 
         agendaDAO.inserir(agenda);
 
         if(lembreteTarefa) {
 
+
+            AlarmeDAO alarmeDAO = new AlarmeDAO(ActivityAgenda.this);
+            long test = alarmeDAO.inserirAlarmeID(idTarefaProv);
+            int testint = (int) test;
+
             Calendar calendar2 = agenda.getCalendarTime();
 
             AlarmScheduler.scheduleAlarm(getApplicationContext(), calendar2.getTimeInMillis(), nomeTarefa, descTarefa,
-                    repetirModoLembrete, tarefaID, dataHoraTarefa);
+                    repetirModoLembrete, testint, dataHoraTarefa);
 
+            Log.d("TESTE", "TESTE"+testint);
         }
 
+        dialog.dismiss();
+        refreshData();
+
+
+
+        Intent intent = new Intent(this, BackgroundService.class);
+        intent.setAction(BackgroundService.ACTION_INSERT);
+        intent.putExtra("idTarefaSQLITE", agenda.getId());
+        intent.putExtra("nomeTarefa", nomeTarefa);
+        intent.putExtra("descTarefa", descTarefa);
+        intent.putExtra("lembreteTarefa", lembreteTarefa);
+        intent.putExtra("repetirLembrete", repetirLembrete);
+        intent.putExtra("repetirModoLembrete", repetirModoLembrete);
+        intent.putExtra("dataHoraTarefa", dataHoraTarefa != null ? dataHoraTarefa.toString() : null);
+        intent.putExtra("dataHoraTarefaFim", dataHoraTarefaFim != null ? dataHoraTarefaFim.toString() : null);
+        intent.putExtra("dataHoraTarefaInsert", dataHoraTarefaInsert.toString());
+        intent.putExtra("atrasoTarefa", atrasoTarefa);
+        intent.putExtra("finalizadoTarefa", finalizadoTarefa);
+        intent.putExtra("notificouTarefa", notificouTarefa);
+
+        BackgroundService.enqueueWork(this, intent);
+
     }
+
     public void dialogDeletaTarefa(ArrayList<Long> ids, CustomAdapter customAdapter) {
 
         ImageView imageViewLixeira = findViewById(R.id.lixeira);

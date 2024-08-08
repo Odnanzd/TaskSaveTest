@@ -34,6 +34,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.tasksave.test.conexaoMYSQL.ConnectionClass;
 import com.example.tasksave.test.dao.AgendaDAO;
+import com.example.tasksave.test.dao.AlarmeDAO;
 import com.example.tasksave.test.dao.UsuarioDAOMYsql;
 import com.example.tasksave.test.objetos.User;
 import com.example.tasksave.R;
@@ -195,13 +196,17 @@ public class ActivitySplashScreen extends AppCompatActivity {
 
 
                             AgendaDAO agendaDAO = new AgendaDAO(ActivitySplashScreen.this);
-                            ArrayList<Long> ids = agendaDAO.idTarefasLembrete();
+                            AlarmeDAO alarmeDAO = new AlarmeDAO(ActivitySplashScreen.this);
 
-                            for(long id : ids) {
-                                int idInt = (int) id;
-                                AlarmScheduler.cancelAlarm(ActivitySplashScreen.this, idInt);
+                            ArrayList<Integer> ids =  alarmeDAO.alarmesID();
+
+                            for(int id : ids) {
+
+                                Log.d("IDS", "IDS: "+id);
+                                AlarmScheduler.cancelAlarm(ActivitySplashScreen.this, id);
                             }
-                            agendaDAO.excluiTabelaAgenda();
+
+                            agendaDAO.excluiTabelas();
                             sharedPreferencesConfg.clearShareds();
 
                             runOnUiThread(new Runnable() {
@@ -278,13 +283,17 @@ public class ActivitySplashScreen extends AppCompatActivity {
                     SharedPreferencesConfg sharedPreferencesConfg = new SharedPreferencesConfg(ActivitySplashScreen.this);
 
                     AgendaDAO agendaDAO = new AgendaDAO(ActivitySplashScreen.this);
-                    ArrayList<Long> ids = agendaDAO.idTarefasLembrete();
+                    AlarmeDAO alarmeDAO = new AlarmeDAO(ActivitySplashScreen.this);
 
-                    for(long id : ids) {
-                        int idInt = (int) id;
-                        AlarmScheduler.cancelAlarm(ActivitySplashScreen.this, idInt);
+                    ArrayList<Integer> ids =  alarmeDAO.alarmesID();
+
+                    for(int id : ids) {
+
+                        Log.d("IDS", "IDS: "+id);
+                        AlarmScheduler.cancelAlarm(ActivitySplashScreen.this, id);
                     }
-                    agendaDAO.excluiTabelaAgenda();
+
+                    agendaDAO.excluiTabelas();
 
                     sharedPreferencesConfg.clearShareds();
 

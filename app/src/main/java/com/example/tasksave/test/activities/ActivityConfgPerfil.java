@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.tasksave.R;
 import com.example.tasksave.test.dao.AgendaDAO;
+import com.example.tasksave.test.dao.AlarmeDAO;
 import com.example.tasksave.test.servicesreceiver.AlarmScheduler;
 import com.example.tasksave.test.sharedPreferences.SharedPreferencesConfg;
 import com.example.tasksave.test.sharedPreferences.SharedPreferencesUsuario;
@@ -110,13 +112,16 @@ public class ActivityConfgPerfil extends AppCompatActivity {
             sharedPreferencesConfg.clearShareds();
 
             AgendaDAO agendaDAO = new AgendaDAO(ActivityConfgPerfil.this);
-            ArrayList<Long> ids = agendaDAO.idTarefasLembrete();
+            AlarmeDAO alarmeDAO = new AlarmeDAO(ActivityConfgPerfil.this);
 
-            for(long id : ids) {
-                int idInt = (int) id;
-                AlarmScheduler.cancelAlarm(ActivityConfgPerfil.this, idInt);
+            ArrayList<Integer> ids =  alarmeDAO.alarmesID();
+
+            for(int id : ids) {
+
+                Log.d("IDS", "IDS: "+id);
+                AlarmScheduler.cancelAlarm(ActivityConfgPerfil.this, id);
             }
-            agendaDAO.excluiTabelaAgenda();
+            agendaDAO.excluiTabelas();
 
             Intent intent = new Intent(ActivityConfgPerfil.this, ActivityLogin.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
